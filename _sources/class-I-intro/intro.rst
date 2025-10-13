@@ -199,14 +199,9 @@ what parts of the class may be accessed from outside the class.
 
    - From C++ Core Guidelines
 
-     - `C.1: Organize related data into structures (structs or classes)
-       <http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-org>`__
-     - `C.2: Use class if the class has an invariant; use struct if the data members can vary independently
-       <http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-struct>`__
-     - `C.3: Represent the distinction between an interface and an implementation using a class
-       <http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-interface>`__
-     - `C.8: Use class rather than struct if any member is non-public
-       <http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rc-class>`__
-
+     - :guidelines:`C.1: Organize related data into structures <Rc-org>`
+     - :guidelines:`C.2: Use class if the class has an invariant <Rc-struct>`
+     - :guidelines:`C.3: Represent the distinction between an interface and an implementation using a class <Rc-interface>`
+     - :guidelines:`C.8: Use class rather than struct if any member is non-public <Rc-class>`
 
 

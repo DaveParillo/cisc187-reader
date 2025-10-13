@@ -868,7 +868,7 @@ using :io:`oct <manip/hex>`,
    - `What every computer scientist should know about floating-point arithmetic 
      <http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html>`__
    - :wiki:`Dyadic rationals<Dyadic_rational>` on Wikipedia
-   - CPP Core Guidelines: :core:`Arithmetic <arithmetic>`
+   - CPP Core Guidelines: :guidelines:`ES.100 Don't mix signed and unsigned arithmetic <arithmetic>`
    - An interesting alternative to explore, Google Protocol Buffers use
      variable length `zig-zag encoding <https://developers.google.com/protocol-buffers/docs/encoding?csw=1>`__
    - `Secure Coding in C++: Integers <https://resources.sei.cmu.edu/asset_files/Presentation/2011_017_001_51345.pdf>`__

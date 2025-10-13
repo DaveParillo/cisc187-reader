@@ -308,11 +308,14 @@ We made several changes:
 
    - From C++ Core Guidelines
 
-     - :core:`Constructors <S-ctor>`
-     - :core:`Prefer in-class iniitalizers <c48-prefer-in-class-initializers-to-member-initializers-in-constructors-for-constant-initializers>`
-     - Default operations: :core:`rule of zero <Rc-zero>`
-       and :core:`rule of five <Rc-five>`
-     - :core:`Concrete types <SS-concrete>`
+     - :guidelines:`Constructors <S-ctor>`
+     - :guidelines:`Prefer in-class iniitalizers <Rc-in-class-initializer>`
+     - Default operations: :guidelines:`rule of zero <Rc-zero>`
+       and :guidelines:`rule of five <Rc-five>`
+     - :guidelines:`Concrete types <SS-concrete>`
 
    - `CplusPlus.com classes tutorial <http://www.cplusplus.com/doc/tutorial/classes/>`__.
+
+     - And if you read the tutorial, then also review
+       :guidelines:`Avoid protected data <Rh-protected>`
 

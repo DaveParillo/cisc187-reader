@@ -89,5 +89,8 @@ If you take this approach, your designs will stay cleaner.
 
    - Effective C++ Item #40: Model HAS-A using composition
      Note that Meyers uses the term *layering* as a synonym for composition.
-   - 
+   - McLaughlin, Pollice, and West, 
+     *Head First Object-Oriented Analysis and Design*.
+     Chapters 2–3, covers “has-a” relationships and class collaboration.
+   - :lang:`Aggregation and Composition <classes>`
 

@@ -133,5 +133,5 @@ Having a simple convention to distinguish them is important.
 
    - From C++ Core Guidelines
 
-     - :core:`Interfaces <S-interfaces>`
+     - :guidelines:`Interfaces <S-interfaces>`
 

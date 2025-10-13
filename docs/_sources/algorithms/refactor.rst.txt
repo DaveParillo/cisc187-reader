@@ -187,6 +187,5 @@ The STL has a large collection of
 
    - From CPP Core Guidelines
 
-     - :core:`T.2 <t2-use-templates-to-express-algorithms-that-apply-to-many-argument-types>`:
-       Use templates to express algorithms that apply to many argument types
+     - :guidelines:`T.2 Use templates to express algorithms that apply to many argument types <Rt-algo>`
 

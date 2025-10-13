@@ -257,5 +257,5 @@ I will let you know why.
 
    .. [1] Mark Twain, "Introduction to The New Guide of the Conversation in Portuguese and English" (1883) p. 239.
    .. [2] Bjarne Stroustrup and Herb Sutter, 
-          `C++ Core Guidelines <http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines>`_
+          `C++ Core Guidelines <http://isocpp.github.io/CppCoreGuidelines>`__
 

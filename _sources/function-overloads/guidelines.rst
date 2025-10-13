@@ -505,7 +505,7 @@ While we were at it, we fixed some bugs and made it a bit more reusable and main
 
 .. admonition:: More to Explore
 
-   - :core:`C++ Core Guidelines for functions <S-functions>`
+   - C++ Core Guidelines for :guidelines:`functions <S-functions>`
    - :cpp:`Unit testing library list <links/libs#Testing>`
    - A very brief description of 
      "`extract method <http://refactoring.com/catalog/extractMethod.html>`_" from Martin Fowler's Refactoring site.

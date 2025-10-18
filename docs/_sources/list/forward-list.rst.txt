@@ -35,7 +35,7 @@ This means that a forward list can only be traversed in the direction of the tai
    c:ref:c -> tail:w [arrowhead=vee, arrowtail=dot, dir=both, tailclip=false];
 
 
-The defining operations of a :cref:`std::forward_list` are:
+The defining operations of a :container:`forward_list` are:
 
 push_front
    Add a new element to the beginning of the list.
@@ -46,7 +46,7 @@ pop_front
 front
    Get the value of the element at the beginning of the list.
 
-Compared to :cref:`std::list` this container provides more space efficient storage 
+Compared to :container:`list` this container provides more space efficient storage 
 when bidirectional iteration is not needed.
 A very light-weight container, 
 it does not have any overhead compared to its implementation in C. 

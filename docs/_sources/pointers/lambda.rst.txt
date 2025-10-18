@@ -33,7 +33,7 @@ any place a function pointer can be used, a lambda expression can be used instea
 
 Suppose we want to count the number of short strings in a vector.
 There is a 'count if' function in the STL we can use to get the job done.
-The :cref:`std::count_if` function expects 3 parameters:
+The :algorithm:`std::count_if <count>` function expects 3 parameters:
 
 - A pointer to the first element to examine in the ``vector``
 - A pointer to one past the last element to examine in the ``vector``
@@ -79,7 +79,7 @@ One obvious solution is to add a parameter to our ``less_than_5`` function:
      return str.size() < size;
    }
 
-Unfortunately, we can't use this function in :cref:`std::count_if`.
+Unfortunately, we can't use this function in :algorithm:`count_if <count>`.
 The new version of the function is arguably more generic,
 but we can't use our 'improved' ``less_than`` in ``count_if``.
 A predicate must be a :term:`unary function`.

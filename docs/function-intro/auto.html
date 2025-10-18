@@ -214,17 +214,17 @@
   
   <section id="keyword-auto">
 <span id="index-0"></span><h1><span class="section-number">3.7. </span>Keyword: <code class="docutils literal notranslate"><span class="pre">auto</span></code><a class="headerlink" href="#keyword-auto" title="Permalink to this heading">¶</a></h1>
-<p>In C++11, the <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=auto specifier">auto specifier</a> meaning has changed significantly from
+<p>In C++11, the <a class="reference external" href="https://en.cppreference.com/w/cpp/language/auto">auto</a> specifier meaning has changed significantly from
 it’s definition prior to C++11.
 Prior to C++11, <code class="docutils literal notranslate"><span class="pre">auto</span></code> designated variables assigned to the
-<a class="reference external" href="http://en.cppreference.com/w/c/language/storage_duration">automatic storage class duration</a>.
+<a class="reference external" href="https://en.cppreference.com/w/cpp/language/storage_duration">automatic storage class duration</a>.
 Every variable is assigned a storage duration which limits its lifetime.
 The automatic duration applied to local variables in a block scope.
 Because it was the default storage duration for variables in a block,
 it was rarely, if ever, used.
 It is still the default storage duration for block variables,
 but no C++11 keyword is reserved for this behavior.</p>
-<p>Since C++11, <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=auto specifier">auto specifier</a> instructs the compiler to automatically deduce the type
+<p>Since C++11, <a class="reference external" href="https://en.cppreference.com/w/cpp/language/auto">auto</a> specifier instructs the compiler to automatically deduce the type
 of a variable based on the initializer used.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">new_variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">initial_value</span><span class="p">;</span>
 </pre></div>

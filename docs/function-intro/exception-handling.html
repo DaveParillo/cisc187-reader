@@ -276,34 +276,36 @@ If you use this, then you should be prepared to really handle <em>anything</em>.
 <span id="index-1"></span><h2><span class="section-number">3.9.1. </span>Standard exceptions<a class="headerlink" href="#standard-exceptions" title="Permalink to this heading">¶</a></h2>
 <p>The standard exceptions in C++ are organized in a class hierarchy.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::exception">std::exception</a> is the base class for all exceptions</p></li>
-<li><p>Classes derived from <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::exception">std::exception</a></p>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/error/exception">std::exception</a> is the base class for all exceptions</p></li>
+<li><p>Classes derived from <code class="docutils literal notranslate"><span class="pre">std::exception</span></code></p>
 <ul>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::bad_alloc">std::bad_alloc</a>: thrown by <code class="docutils literal notranslate"><span class="pre">new</span></code> and other memory allocation errors</p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::bad_cast">std::bad_cast</a>: thrown by <code class="docutils literal notranslate"><span class="pre">dynamic_cast</span></code> and similar</p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::bad_typeid">std::bad_typeid</a>: thrown by <code class="docutils literal notranslate"><span class="pre">typeid</span></code></p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::bad_exception">std::bad_exception</a>: runtime unexpected or pointer exceptions</p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::logic_error">std::logic_error</a>: exceptions that <em>should</em> be detected by reading the code</p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::runtime_error">std::runtime_error</a>: exceptions that theoretically can’t be detected by reading the code</p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::logic_error">std::logic_error</a>, and <code class="docutils literal notranslate"><span class="pre">std::runtime_error</span></code> are also exception bases</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/memory/new/bad_alloc">bad_alloc</a>: thrown by <code class="docutils literal notranslate"><span class="pre">new</span></code> and
+other memory allocation errors</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/types/bad_cast">bad_cast</a>: thrown by <code class="docutils literal notranslate"><span class="pre">dynamic_cast</span></code> and similar</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/types/bad_typeid">bad_typeid</a>: thrown by <code class="docutils literal notranslate"><span class="pre">typeid</span></code></p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/error/bad_exception">bad_exception</a>: runtime unexpected or pointer exceptions</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/error/logic_error">logic_error</a>: exceptions that <em>should</em> be detected by reading the code</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/error/runtime_error">runtime_error</a>: exceptions that theoretically can’t be detected by reading the code</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logic_error</span></code>, and <code class="docutils literal notranslate"><span class="pre">runtime_error</span></code> are also exception bases</p></li>
 </ul>
 </li>
-<li><p>Classes derived from <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::logic_error">std::logic_error</a></p>
+<li><p>Classes derived from <a class="reference external" href="https://en.cppreference.com/w/cpp/error/std::logic_error">std::logic_error</a></p>
 <ul>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::domain_error">std::domain_error</a>: invalid mathematical domain</p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::invalid_argument">std::invalid_argument</a>: bad parameters or arguments used</p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::length_error">std::length_error</a>: Thrown when a std::string is too large</p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::out_of_range">std::out_of_range</a>: Used for range checked access, vector.at(x)</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/error/domain_error">domain_error</a>: invalid mathematical domain</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/error/invalid_argument">invalid_argument</a>: bad parameters or arguments used</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/error/length_error">length_error</a>: Thrown when a std::string is too large</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/error/out_of_range">out_of_range</a>: Used for range checked access, vector.at(x)</p></li>
 </ul>
 </li>
-<li><p>Classes derived from <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::runtime_error">std::runtime_error</a></p>
+<li><p>Classes derived from <a class="reference external" href="https://en.cppreference.com/w/cpp/error/std::runtime_error">std::runtime_error</a></p>
 <ul>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::overflow_error">std::overflow_error</a>: mathematical overflow</p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::range_error">std::range_error</a>: Thrown when storing an out of range value</p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::underflow_error">std::underflow_error</a>: mathematical underflow</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/error/overflow_error">overflow_error</a>: mathematical overflow</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/error/range_error">range_error</a>: Thrown when storing an out of range value</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/error/underflow_error">underflow_error</a>: mathematical underflow</p></li>
 </ul>
 </li>
 </ul>
+<p>This list is just a partial set of the exceptions in the standard library.</p>
 </section>
 <section id="using-exceptions">
 <h2><span class="section-number">3.9.2. </span>Using exceptions<a class="headerlink" href="#using-exceptions" title="Permalink to this heading">¶</a></h2>

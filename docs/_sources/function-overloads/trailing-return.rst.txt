@@ -55,7 +55,7 @@ Keyword: decltype
 
 Added in C++11,
 the ``decltype`` type specifier yields the **type** of a specified expression, object, or literal value. 
-We use :cref:`decltype` when we want to define a variable based on the result of an expression,
+We use :lang:`decltype` when we want to define a variable based on the result of an expression,
 but we don't want to use the expression to initialize the variables value.
 For example:
 
@@ -64,7 +64,7 @@ For example:
    int i = 42;
    decltype(i) j = i * 2.0;
 
-Similarly, there is a symmetry between the :cref:`auto specifier` and :cref:`decltype`:
+Similarly, there is a symmetry between the :lang:`auto` specifier and :lang:`decltype`:
 
 .. code-block:: cpp
 
@@ -75,7 +75,7 @@ Similarly, there is a symmetry between the :cref:`auto specifier` and :cref:`dec
 Trailing return type syntax
 ---------------------------
 
-Since the :cref:`auto specifier` and :cref:`decltype` are complimentary operators,
+Since the :lang:`auto` specifier and :lang:`decltype` are complimentary operators,
 they work well together to help write generic functions that avoid
 committing to a specific type.
 
@@ -128,7 +128,7 @@ the return type should be ``int``.
 
 Do trailing return types seem like a lot of trouble?
 Prior to C++11, when trailing return type syntax was introduced,
-you could use :cref:`decltype` and :cref:`declval` instead:
+you could use :lang:`decltype` and :lang:`declval` instead:
 
 .. code-block:: cpp
 

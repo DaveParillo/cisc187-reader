@@ -212,7 +212,7 @@ Obviously, no one would want to use such a list.
 Every trivial detail needs to be managed, and any program using it
 would be more likely to leak memory or fail suddenly due to some programming error.
 
-The :cref:`std::list` class hides all the implementation details and
+The :container:`std::list <list>` class hides all the implementation details and
 provides a list with many convenient features:
 
 .. code-block:: cpp
@@ -251,7 +251,7 @@ provides a list with many convenient features:
      cout << "\n\n";
    }
 
-The defining operations of a :cref:`std::list` are:
+The defining operations of a :container:`list` are:
 
 push_back
    Add a new element to the end of the list.

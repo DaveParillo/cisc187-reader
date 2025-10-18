@@ -12,7 +12,7 @@
 Keyword: ``const``
 ==================
 
-Use :cref:`const` to instruct the compiler to hold something constant.
+Use :lang:`const <cv>` to instruct the compiler to hold something constant.
 The ``const`` keyword can modify the behavior of anything, depending on where it is used:
 
 - fundamental types
@@ -85,8 +85,8 @@ Many programmers use ``#define`` instead.
 Prefer ``const`` to ``#define`` 
 -------------------------------
 
-We also prefer :cref:`inline specifier` and :cref:`enum declaration` over 
-:cref:`define`.
+We also prefer :lang:`inline` specifier and :lang:`enum` declaration over 
+:cpp:`define <preprocessor/replace>`.
 
 There are good reasons to avoid ``#define`` where alternatives exist.
 

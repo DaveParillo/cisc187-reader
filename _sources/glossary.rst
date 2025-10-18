@@ -1242,8 +1242,8 @@ Glossary
       can be visited using an :term:`iterator`.
 
    iterator
-      In a :term:`container` such as a :cref:`std::vector`
-      or :cref:`std::set`, a separate class that
+      In a :term:`container` such as a :container:`vector`
+      or :container:`set`, a separate class that
       indicates position within the container, with support for
       :term:`traversing <traversal>` through all
       :term:`elements <element>` in the container.

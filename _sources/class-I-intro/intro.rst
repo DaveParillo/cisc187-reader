@@ -21,7 +21,7 @@ placing unfinished functions on the call stack, if needed,
 working towards a desired end state.
 Functions usually exist independently from each other.
 C++ does provide some tools to make working with free functions easier.
-Functions can be grouped in a :cref:`namespace declaration`,
+Functions can be grouped in a :lang:`namespace declaration <namespace>`,
 or in a single compilation unit.
 Function overloads allow functions that perform the same task,
 but on different types to be given the same name.
@@ -167,8 +167,8 @@ Here we have a very similar program, but with one important change.
       .. include:: talk-class.txt
 
 We can fix our broken ``class Talk`` by adding ``public:`` to the class.
-The :cref:`access specifiers` *public* and *private* are used in a class or a struct to control
-what parts of the class may be accessed from outside the class.
+The :lang:`access specifiers <access>` *public* and *private* are used in a class or
+a struct to control what parts of the class may be accessed from outside the class.
 
 .. code-block:: cpp
 
@@ -195,7 +195,7 @@ what parts of the class may be accessed from outside the class.
    - `Motivation for OO <https://atomicobject.com/resources/oo-programming/introduction-motivation-for-oo>`__
    - From cppreference.com
 
-     - :cref:`Access specifiers`.
+     - :lang:`Access specifiers <access>`.
 
    - From C++ Core Guidelines
 

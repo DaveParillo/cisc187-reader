@@ -77,7 +77,7 @@ for ``operator==``:
   in-line copies of the function body.
   The compiler is not obligated to do so, but usually does.
 
-  To get the same behavior from non-member functions, the :cref:`inline`
+  To get the same behavior from non-member functions, the :lang:`inline`
   keyword is used.
 
 - The ``friend`` keyword is often used to provide private member access to
@@ -93,6 +93,6 @@ for ``operator==``:
 
 .. admonition:: More to Explore
 
-   - :cref:`friend specifier`
+   - :lang:`friend` specifier
    - Item 44 from `C++ Coding Standards, Sutter and Alexandrescu, 2004. <https://www.google.com/search?client=safari&rls=en&q=isbn+978-0321113580>`__
 

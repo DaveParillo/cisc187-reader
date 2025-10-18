@@ -42,7 +42,7 @@ Relational operators
 Standard algorithms such as std::sort and containers such as 
 :container:`set` expect ``operator <`` to be defined, by default, 
 for the user-provided types, and expect it to implement strict 
-:cref:`std::weak_ordering`.
+:compare:`weak_ordering <weak ordering>`.
 Strict weak ordering defines members of a set as *comparable* to each other.
 The general signature for these non-member functions is:
 

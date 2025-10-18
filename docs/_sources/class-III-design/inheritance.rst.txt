@@ -160,7 +160,7 @@ Through a pointer:
      draw_all(shapes);
    }
 
-The :cref:`std::vector`` of unique pointers could have been
+The :container:`vector`` of unique pointers could have been
 implemented with a vector of raw pointers:
 
 .. code-block:: cpp
@@ -243,10 +243,10 @@ If a derived class wants to reuse all of the code from a base class,
 but *not* conform to the interface,
 then private inheritance is how to achieve that.
 
-Consider :cref:`std::stack`.
+Consider :container:`std::stack <stack>`.
 It is a container that *adapts* the capabilities of an underlying container.
-Although the default container for a :cref:`std::stack` 
-is a :cref:`std::deque`, 
+Although the default container for a :container:`stack` 
+is a :container:`std::deque <deque>`, 
 we don't want to expose all of the functions of a ``deque`` in a ``stack``.
 
 

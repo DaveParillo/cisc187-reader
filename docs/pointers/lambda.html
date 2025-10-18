@@ -231,7 +231,7 @@ This fact makes lambdas particularly useful since
 any place a function pointer can be used, a lambda expression can be used instead.</p>
 <p>Suppose we want to count the number of short strings in a vector.
 There is a ‘count if’ function in the STL we can use to get the job done.
-The <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::count_if">std::count_if</a> function expects 3 parameters:</p>
+The <a class="reference external" href="https://en.cppreference.com/w/cpp/algorithm/count">std::count_if</a> function expects 3 parameters:</p>
 <ul class="simple">
 <li><p>A pointer to the first element to examine in the <code class="docutils literal notranslate"><span class="pre">vector</span></code></p></li>
 <li><p>A pointer to one past the last element to examine in the <code class="docutils literal notranslate"><span class="pre">vector</span></code></p></li>
@@ -270,7 +270,7 @@ One obvious solution is to add a parameter to our <code class="docutils literal 
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Unfortunately, we can’t use this function in <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::count_if">std::count_if</a>.
+<p>Unfortunately, we can’t use this function in <a class="reference external" href="https://en.cppreference.com/w/cpp/algorithm/count">count_if</a>.
 The new version of the function is arguably more generic,
 but we can’t use our ‘improved’ <code class="docutils literal notranslate"><span class="pre">less_than</span></code> in <code class="docutils literal notranslate"><span class="pre">count_if</span></code>.
 A predicate must be a <a class="reference internal" href="../glossary.html#term-unary-function"><span class="xref std std-term">unary function</span></a>.

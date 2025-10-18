@@ -63,7 +63,7 @@ For example:
 - C defines 7 different functions just for absolute value 
 
   - ``abs``, ``llabs``, ``fabs``, ``fabsf``, etc.
-    see :cref:`abs`
+    see :cmath:`abs`
 
 - and 13 different functions for different types of division operations
 

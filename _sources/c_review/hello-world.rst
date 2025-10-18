@@ -465,7 +465,8 @@ If not, refer to the section :doc:`../build-tools/debugging`.
 
 .. admonition:: More to Explore
 
-   - :lang:`range-based for <range-for>` loop and :cref:`loops`
+   - :lang:`range-based for <range-for>` loop, :lang:`for` loops,
+     and :lang:`while` loops
    - :lang:`if`
    - :doc:`../build-tools/debugging`
    - Jeff Atwood's blog: `Code smells <https://blog.codinghorror.com/code-smells/>`_

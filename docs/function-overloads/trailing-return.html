@@ -244,14 +244,14 @@ to delay the evaluation of a function return value until after the function para
 <span id="index-1"></span><h2><span class="section-number">4.5.1. </span>Keyword: decltype<a class="headerlink" href="#keyword-decltype" title="Permalink to this heading">¶</a></h2>
 <p>Added in C++11,
 the <code class="docutils literal notranslate"><span class="pre">decltype</span></code> type specifier yields the <strong>type</strong> of a specified expression, object, or literal value.
-We use <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=decltype">decltype</a> when we want to define a variable based on the result of an expression,
+We use <a class="reference external" href="https://en.cppreference.com/w/cpp/language/decltype">decltype</a> when we want to define a variable based on the result of an expression,
 but we don’t want to use the expression to initialize the variables value.
 For example:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span>
 <span class="k">decltype</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>Similarly, there is a symmetry between the <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=auto specifier">auto specifier</a> and <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=decltype">decltype</a>:</p>
+<p>Similarly, there is a symmetry between the <a class="reference external" href="https://en.cppreference.com/w/cpp/language/auto">auto</a> specifier and <a class="reference external" href="https://en.cppreference.com/w/cpp/language/decltype">decltype</a>:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3u</span><span class="p">;</span><span class="w">       </span><span class="c1">// a is unsigned;</span>
 <span class="k">decltype</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"> </span><span class="c1">// same as auto b = a;  b is also unsigned</span>
 </pre></div>
@@ -259,7 +259,7 @@ For example:</p>
 </section>
 <section id="trailing-return-type-syntax">
 <h2><span class="section-number">4.5.2. </span>Trailing return type syntax<a class="headerlink" href="#trailing-return-type-syntax" title="Permalink to this heading">¶</a></h2>
-<p>Since the <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=auto specifier">auto specifier</a> and <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=decltype">decltype</a> are complimentary operators,
+<p>Since the <a class="reference external" href="https://en.cppreference.com/w/cpp/language/auto">auto</a> specifier and <a class="reference external" href="https://en.cppreference.com/w/cpp/language/decltype">decltype</a> are complimentary operators,
 they work well together to help write generic functions that avoid
 committing to a specific type.</p>
 <p>To declare a trailing return type for a function,
@@ -301,7 +301,7 @@ Instead, the compiler used <code class="docutils literal notranslate"><span clas
 the return type should be <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
 <p>Do trailing return types seem like a lot of trouble?
 Prior to C++11, when trailing return type syntax was introduced,
-you could use <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=decltype">decltype</a> and <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=declval">declval</a> instead:</p>
+you could use <a class="reference external" href="https://en.cppreference.com/w/cpp/language/decltype">decltype</a> and <a class="reference external" href="https://en.cppreference.com/w/cpp/language/declval">declval</a> instead:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
 <span class="w">  </span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">())</span>
 <span class="w">  </span><span class="n">add</span><span class="p">(</span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>

@@ -69,7 +69,7 @@ one unimplemented function:
        virtual void   erase() = 0;
    };
 
-The functions ``draw`` and ``erase`` are marked :cref:`virtual`.
+The functions ``draw`` and ``erase`` are marked :lang:`virtual`.
 Note the ``= 0;`` at the end of the declaration.
 Referred to as the *pure specifier*,
 this marks these functions as *pure virtual*.
@@ -333,7 +333,7 @@ this keyword specifies that a virtual function cannot be overridden
 in a derived class or that a class cannot be inherited from.
 
 When used in a virtual function declaration or definition, 
-:cref:`final` ensures that the function is virtual and specifies
+:lang:`final` ensures that the function is virtual and specifies
 that it may not be overridden by derived classes.
 Attempting to override a final function is a compile error.
 

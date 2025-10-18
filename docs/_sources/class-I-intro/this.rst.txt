@@ -13,7 +13,7 @@
 
 'this' pointer
 ================
-The :cref:`this pointer` is a value that stores the address of the current object.
+The :lang:`this` pointer is a value that stores the address of the current object.
 Every non-static class member function is passed the ``this`` pointer.
 Whenever a member function or variable is used in a function,
 ``this->`` is automatically added before the name, 
@@ -73,5 +73,5 @@ the this pointer refers to.
 
 .. admonition:: More to Explore
 
-   - :cref:`this pointer`
+   - :lang:`this pointer <this>`
 

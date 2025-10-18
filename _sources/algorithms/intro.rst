@@ -101,22 +101,45 @@ it does demonstrate the dynamic nature of the STL and its growth.
 
 The algorithms are organized into broad categories:
 
-=================================== ==========================================================================
-Algorithm operations                Example algorithms
-=================================== ==========================================================================
-Non-modifying sequence operations   :cref:`for_each`, :cref:`count_if`, :cref:`find_if`, :cref:`search`
-Modifying sequence operations       :cref:`copy_if`, :cref:`move`, :cref:`swap`, :cref:`transform`
-Partitioning operations             :cref:`is_partitioned`, :cref:`partition_copy`, :cref:`stable_partition`
-Sorting operations                  :cref:`is_sorted`, :cref:`sort`, :cref:`stable_partition`
-Binary search operations            :cref:`lower_bound`, :cref:`binary_search`, :cref:`equal_range`
-Set operations                      :cref:`merge`, :cref:`includes`, :cref:`set_difference`, :cref:`set_union`
-Heap operations                     :cref:`is_heap`, :cref:`make_heap`, :cref:`sort_heap`
-Min/max operations                  :cref:`max`, :cref:`min`, :cref:`max_element`, :cref:`clamp`
-Comparison operations               :cref:`equal`, :cref:`lexicographical_compare`
-Permutation operations              :cref:`is_permutation`, :cref:`next_permutation`
-Numeric operations                  :cref:`iota`, :cref:`accumulate`, :cref:`inner_product`, :cref:`reduce`
-Uninitialized memory operations     :cref:`uninitialized_copy`, :cref:`uninitialized_fill`, :cref:`destroy`
-=================================== ==========================================================================
+.. list-table::
+   :header-rows: 1
+
+   * - Algorithm operations
+     - Example algorithms
+   * - Non-modifying sequence operations
+     - :algorithm:`for_each`, :algorithm:`count_if <count>`,
+       :algorithm:`find_if <find>`, :algorithm:`search`
+   * - Modifying sequence operations
+     - :algorithm:`copy_if <copy>`, :algorithm:`move`,
+       :algorithm:`swap`, :algorithm:`transform`
+   * - Partitioning operations
+     - :algorithm:`is_partitioned`, :algorithm:`partition_copy`,
+       :algorithm:`stable_partition`
+   * - Sorting operations
+     - :algorithm:`is_sorted`, :algorithm:`sort`, :algorithm:`stable_partition`
+   * - Binary search operations
+     - :algorithm:`lower_bound`, :algorithm:`binary_search`,
+       :algorithm:`equal_range`
+   * - Set operations
+     - :algorithm:`merge`, :algorithm:`includes`,
+       :algorithm:`set_difference`, :algorithm:`set_union`
+   * - Heap operations
+     - :algorithm:`is_heap`, :algorithm:`make_heap`,
+       :algorithm:`sort_heap`
+   * - Min/max operations
+     - :algorithm:`max`, :algorithm:`min`,
+       :algorithm:`max_element`, :algorithm:`clamp`
+   * - Comparison operations
+     - :algorithm:`equal`, :algorithm:`lexicographical_compare`
+   * - Permutation operations
+     - :algorithm:`is_permutation`, :algorithm:`next_permutation`
+   * - Numeric operations
+     - :algorithm:`iota`, :algorithm:`accumulate`,
+       :algorithm:`inner_product`, :algorithm:`reduce`
+   * - Uninitialized memory operations
+     - :memory:`uninitialized_copy`, :memory:`uninitialized_fill`,
+       :memory:`destroy`
+
 
 Notice that only a single category of algorithms is considered 'numeric'.
 In C++11, only 5 algorithms specifically do numeric computations.
@@ -138,7 +161,7 @@ One way to think about STL algorithms is to consider them *named loops*.
 That is, a loop that is important and general enough
 to justify getting named and encapsulated in its own function.
 
-:cref:`iota` is a STL algorithm that fills a range ``[first, last)`` 
+:algorithm:`iota` is a STL algorithm that fills a range ``[first, last)`` 
 with sequentially increasing values.
 This is the sort of algorithm that occurs often enough that it was decided
 to include it in the standard library 

@@ -135,6 +135,7 @@ even if no instances of a counter class have ever been created.
 
 .. admonition:: More to Explore
 
-   - :cref:`static members` from cppreference.com.
-      Compare to :cref:`static storage duration`, which is different.
+   - :lang:`static` members from cppreference.com.
+      Compare to :lang:`static storage duration <storage_duration>`,
+      which is different.
 

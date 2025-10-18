@@ -342,7 +342,7 @@ Through a pointer:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::vector`">std::vector`</a> of unique pointers could have been
+<p>The <a class="reference external" href="https://en.cppreference.com/w/cpp/container/vector`">vector`</a> of unique pointers could have been
 implemented with a vector of raw pointers:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">shape</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">shapes</span><span class="p">;</span>
 <span class="n">shapes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">circle</span><span class="p">());</span>
@@ -409,10 +409,10 @@ are treated as <strong>private members</strong> of the derived class.</p>
 <p>If a derived class wants to reuse all of the code from a base class,
 but <em>not</em> conform to the interface,
 then private inheritance is how to achieve that.</p>
-<p>Consider <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::stack">std::stack</a>.
+<p>Consider <a class="reference external" href="https://en.cppreference.com/w/cpp/container/stack">std::stack</a>.
 It is a container that <em>adapts</em> the capabilities of an underlying container.
-Although the default container for a <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::stack">std::stack</a>
-is a <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::deque">std::deque</a>,
+Although the default container for a <a class="reference external" href="https://en.cppreference.com/w/cpp/container/stack">stack</a>
+is a <a class="reference external" href="https://en.cppreference.com/w/cpp/container/deque">std::deque</a>,
 we don’t want to expose all of the functions of a <code class="docutils literal notranslate"><span class="pre">deque</span></code> in a <code class="docutils literal notranslate"><span class="pre">stack</span></code>.</p>
 </section>
 <section id="non-virtual-base-class-functions">

@@ -219,7 +219,8 @@ Another way to say this is our variables have <em>automatic storage duration</em
 Variables exist only as long as the scope in which they were created.
 Sometimes, we need to create objects with dynamic storage duration,
 that is, objects whose lifetime is not limited by the scope in which they were created.</p>
-<p>One way to do this is to use the <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=operator new">operator new</a> to create objects on the <a class="reference internal" href="../glossary.html#term-free-store"><span class="xref std std-term">free store</span></a>.
+<p>One way to do this is to use the <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/new/operator_new">operator new</a> to
+create objects on the <a class="reference internal" href="../glossary.html#term-free-store"><span class="xref std std-term">free store</span></a>.
 The free store is a system-provided memory pool for variables whose lifetime is
 directly managed by the programmer.
 Compare this to our experiences so far where variables were <em>automatically</em>
@@ -251,10 +252,10 @@ the initialization could use <code class="docutils literal notranslate"><span cl
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">pt1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Point</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>The <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=operator new">operator new</a> allocates memory.
+<p>The <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/new/operator_new">operator new</a> allocates memory.
 When finished with the free-store memory,
 we return it to the pool of available memory using
-the <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=operator delete">operator delete</a>:</p>
+the <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/new/operator_delete">operator delete</a>:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Point</span><span class="w"> </span><span class="p">{</span>
 <span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// member values is a C++11 feature</span>
 <span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
@@ -305,8 +306,8 @@ Depending on what your program does,
 even a short program can run out of memory before accomplishing all of its goals.</p>
 <section id="stl-memory-management">
 <span id="index-1"></span><h2><span class="section-number">5.7.1. </span>STL memory management<a class="headerlink" href="#stl-memory-management" title="Permalink to this heading">¶</a></h2>
-<p>When memory is allocated using <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=operator new">operator new</a>,
-eventually it must be recovered using <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=operator delete">operator delete</a>.
+<p>When memory is allocated using <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/new/operator_new">operator new</a>,
+eventually it must be recovered using <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/new/operator_delete">operator delete</a>.
 When only a few lines of code are requesting memory,
 this is not a major problem.
 However, real world programs often request hundreds or thousands
@@ -339,8 +340,9 @@ The <code class="docutils literal notranslate"><span class="pre">auto_ptr</span>
 Generally, where old texts refer to <code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code>, use <code class="docutils literal notranslate"><span class="pre">unique_ptr</span></code> instead.</p>
 <section id="class-std-unique-ptr">
 <h3><span class="section-number">5.7.1.1. </span>Class <code class="docutils literal notranslate"><span class="pre">std::unique_ptr</span></code><a class="headerlink" href="#class-std-unique-ptr" title="Permalink to this heading">¶</a></h3>
-<p>A <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=std::unique_ptr">std::unique_ptr</a> is a so-called ‘smart pointer’ that owns and manages another object through a pointer
-and disposes of that object when the <code class="docutils literal notranslate"><span class="pre">unique_ptr</span></code> goes out of scope.
+<p>A <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/unique_ptr">unique_ptr</a> is a so-called ‘smart pointer’ that owns and
+manages another object through a pointer and disposes of that object
+when the <code class="docutils literal notranslate"><span class="pre">unique_ptr</span></code> goes out of scope.
 A <code class="docutils literal notranslate"><span class="pre">unique_ptr</span></code> is a very lightweight wrapper around a pointer.
 The basic syntax is:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// older C++11 syntax</span>
@@ -403,9 +405,8 @@ are not allowed on <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 <p>Although copying unique pointers is not allowed,
-you can <a class="reference external" href="http://en.cppreference.com/mwiki/index.php?search=unique_ptr::release()">unique_ptr::release()</a> the pointer and assign it to a
-raw pointer,
-or transfer ownership to a different <code class="docutils literal notranslate"><span class="pre">unique_ptr</span></code>.</p>
+you can <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/unique_ptr/release">release</a> the pointer and assign it to a
+raw pointer, or transfer ownership to a different <code class="docutils literal notranslate"><span class="pre">unique_ptr</span></code>.</p>
 <hr class="docutils" />
 <div class="admonition-more-to-explore admonition">
 <p class="admonition-title">More to Explore</p>
@@ -415,10 +416,8 @@ or transfer ownership to a different <code class="docutils literal notranslate">
 <li><p><a class="reference external" href="https://isocpp.org/wiki/faq/freestore-mgmt">Free-store managment FAQ</a></p></li>
 <li><p>From: cppreference.com:</p>
 <ul>
-<li><p><a class="reference external" href="http://en.cppreference.com/w/cpp/language/new">Operator new</a> and
-<a class="reference external" href="http://en.cppreference.com/w/cpp/language/delete">delete</a>.</p></li>
-<li><p><a class="reference external" href="http://en.cppreference.com/w/cpp/memory/unique_ptr">unique_ptr</a> and
-<a class="reference external" href="http://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique">make_unique</a>.</p></li>
+<li><p>Operator <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/new">new</a> and <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/delete">delete</a>.</p></li>
+<li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/memory/unique_ptr">unique_ptr</a> and <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique">make_unique</a>.</p></li>
 </ul>
 </li>
 </ul>

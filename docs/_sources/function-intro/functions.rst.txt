@@ -114,7 +114,8 @@ Option (b) is generally preferred,
 and is the only option when the function is used in a different file.
 
 To make sure that all declarations of a function are consistent, 
-the usual practice is to put them in an :cref:`include` file. 
+the usual practice is to put them in an
+:cpp:`include <preprocessor/include>` file. 
 For example, if the ``area`` function is used in a lot of places, 
 we might put it in its own file ``area.cpp``:
 

@@ -18,7 +18,8 @@ Variables exist only as long as the scope in which they were created.
 Sometimes, we need to create objects with dynamic storage duration, 
 that is, objects whose lifetime is not limited by the scope in which they were created.
 
-One way to do this is to use the :cref:`operator new` to create objects on the :term:`free store`.
+One way to do this is to use the :memory:`operator new <new/operator_new>` to
+create objects on the :term:`free store`.
 The free store is a system-provided memory pool for variables whose lifetime is 
 directly managed by the programmer.
 Compare this to our experiences so far where variables were *automatically*
@@ -56,10 +57,10 @@ the initialization could use ``auto``.
 
    auto pt1 = new Point;
 
-The :cref:`operator new` allocates memory.
+The :memory:`operator new <new/operator_new>` allocates memory.
 When finished with the free-store memory,
 we return it to the pool of available memory using 
-the :cref:`operator delete`:
+the :memory:`operator delete <new/operator_delete>`:
 
 .. code-block:: cpp
 
@@ -119,8 +120,8 @@ even a short program can run out of memory before accomplishing all of its goals
 
 STL memory management
 ---------------------
-When memory is allocated using :cref:`operator new`,
-eventually it must be recovered using :cref:`operator delete`.
+When memory is allocated using :memory:`operator new <new/operator_new>`,
+eventually it must be recovered using :memory:`operator delete <new/operator_delete>`.
 When only a few lines of code are requesting memory,
 this is not a major problem.
 However, real world programs often request hundreds or thousands
@@ -161,8 +162,9 @@ Generally, where old texts refer to ``auto_ptr``, use ``unique_ptr`` instead.
 
 Class ``std::unique_ptr``
 .........................
-A :cref:`std::unique_ptr` is a so-called 'smart pointer' that owns and manages another object through a pointer 
-and disposes of that object when the ``unique_ptr`` goes out of scope.
+A :memory:`unique_ptr` is a so-called 'smart pointer' that owns and
+manages another object through a pointer and disposes of that object
+when the ``unique_ptr`` goes out of scope.
 A ``unique_ptr`` is a very lightweight wrapper around a pointer.
 The basic syntax is:
 
@@ -236,9 +238,8 @@ are not allowed on ``unique_ptr``:
      }
 
 Although copying unique pointers is not allowed, 
-you can :cref:`unique_ptr::release()` the pointer and assign it to a 
-raw pointer,
-or transfer ownership to a different ``unique_ptr``.
+you can :memory:`release <unique_ptr/release>` the pointer and assign it to a 
+raw pointer, or transfer ownership to a different ``unique_ptr``.
 
 -----
 
@@ -249,10 +250,8 @@ or transfer ownership to a different ``unique_ptr``.
    - `Free-store managment FAQ <https://isocpp.org/wiki/faq/freestore-mgmt>`_
    - From: cppreference.com: 
 
-     - `Operator new <http://en.cppreference.com/w/cpp/language/new>`_ and 
-       `delete <http://en.cppreference.com/w/cpp/language/delete>`_. 
-     - `unique_ptr <http://en.cppreference.com/w/cpp/memory/unique_ptr>`_ and 
-       `make_unique <http://en.cppreference.com/w/cpp/memory/unique_ptr/make_unique>`_.
+     - Operator :memory:`new` and :memory:`delete`.
+     - :memory:`unique_ptr` and :memory:`make_unique <unique_ptr/make_unique>`.
 
 
 

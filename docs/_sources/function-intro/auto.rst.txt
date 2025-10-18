@@ -11,10 +11,10 @@
 Keyword: ``auto``
 =================
 
-In C++11, the :cref:`auto specifier` meaning has changed significantly from
+In C++11, the :lang:`auto` specifier meaning has changed significantly from
 it's definition prior to C++11.
 Prior to C++11, ``auto`` designated variables assigned to the 
-`automatic storage class duration <http://en.cppreference.com/w/c/language/storage_duration>`_.
+:lang:`automatic storage class duration <storage_duration>`.
 Every variable is assigned a storage duration which limits its lifetime.
 The automatic duration applied to local variables in a block scope.
 Because it was the default storage duration for variables in a block,
@@ -22,7 +22,7 @@ it was rarely, if ever, used.
 It is still the default storage duration for block variables,
 but no C++11 keyword is reserved for this behavior.
 
-Since C++11, :cref:`auto specifier` instructs the compiler to automatically deduce the type
+Since C++11, :lang:`auto` specifier instructs the compiler to automatically deduce the type
 of a variable based on the initializer used.
 
 .. code-block:: cpp

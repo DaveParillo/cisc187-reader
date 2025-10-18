@@ -86,9 +86,10 @@ mermaid_init_js = "mermaid.initialize({startOnLoad:true});"
 #            role       url                                              prefix
 extlinks = {
         'c': ('https://en.cppreference.com/w/c/%s', '%s'),
+        'compare': ('https://en.cppreference.com/w/cpp/utility/compare/%s', '%s'),
         'cpp': ('https://en.cppreference.com/w/cpp/%s', '%s'),
         'cmath': ('https://en.cppreference.com/w/cpp/numeric/math/%s', '%s'),
-        'core': ('https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines%s', '%s'),
+        'guidelines': ('https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html#%s', '%s'),
         'cstdio': ('https://en.cppreference.com/w/cpp/io/c/%s', '%s'),
         'algorithm': ('https://en.cppreference.com/w/cpp/algorithm/%s', '%s'),
         'chrono': ('https://en.cppreference.com/w/cpp/chrono/%s', '%s'),

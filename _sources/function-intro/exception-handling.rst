@@ -209,11 +209,9 @@ an ``error_code`` member to the exception object it didn't used to have.
 
    - :guidelines:`CPP Core Guidelines: Error Handling <S-errors>`
    - `ISO C++ FAQ Exceptions <https://isocpp.org/wiki/faq/exceptions>`_
-   - `Top 15 exception handling mistakes to avoid <http://www.acodersjourney.com/2016/08/top-15-c-exception-handling-mistakes-avoid/>`_
-   - Overview of the `error handling <http://en.cppreference.com/w/cpp/error>`_ library and 
-     `exceptions <http://en.cppreference.com/w/cpp/language/exceptions>`_
-   - `try-catch <http://en.cppreference.com/w/cpp/language/try_catch>`_ and 
-     `throw <http://en.cppreference.com/w/cpp/language/throw>`_
+   - Overview of the :cpp:`error handling <error>` library and 
+     :lang:`exceptions`
+   - :lang:`try`, :lang:`catch`, and :lang:`throw`
    - Post from Eric Lippert on 
      `vexing exceptions <https://blogs.msdn.microsoft.com/ericlippert/2008/09/10/vexing-exceptions/>`_
 

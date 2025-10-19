@@ -21,19 +21,15 @@ Exceptions provide a way to transfer control from one part of a program
 C++ exception handling is built upon three keywords: ``try``, ``catch``, and ``throw``.
 
 throw 
-    A program :lang:`throws<throw>` an exception when a problem shows up.
+    A program :lang:`throws <throw>` an exception when a problem shows up.
 
 try
-    A :lang:`throws<try_catch>` block identifies a block of code for which particular exceptions will be activated. 
+    A :lang:`try` block identifies a block of code for which particular exceptions will be activated. 
     It's followed by one or more ``catch`` blocks.
 
 catch
-    A program :lang:`catches<try_catch>` an exception with an exception handler at the place 
-    in a program where you want to handle the problem.
-
-finally
-    The **finally** block allows the code to clean up after resources regardless
-    of what exception may have been caught.
+    A program *handles* an exception with one or more
+    :lang:`catch` blocks.
 
 Basic anatomy of an exception
 

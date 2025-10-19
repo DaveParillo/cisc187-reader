@@ -166,8 +166,8 @@ This is fixed by either:
 
    In general, take care deleting the default constructor.
    Delete it only when you are sure objects of the class will **never** 
-   need to be default constructed.
-
+   need to be default constructed or that there is simply no sensible
+   set of defaults for the class.
 
 
 Initialization syntax

@@ -164,6 +164,21 @@ no action on self-assignment, and to return the ``lhs`` by reference:
     return *this;
   }
 
+.. note::
+
+   If a class requires a user-defined copy assignment operator, it
+   almost certainly requires a user-defined copy constructor as well, and vice
+   versa. This principle is often referred to as part of the
+   :guidelines:`rule of zero <Rc-zero>` and :guidelines:`rule of five <Rc-five>`
+
+   The fundamental reason for this is that both the copy constructor and the
+   copy assignment operator deal with the process of creating a copy of an
+   object's state. If a class manages resources (like dynamically allocated
+   memory, file handles, network connections, etc.) that require special
+   handling during copying, the default-generated versions of these functions
+   need the same special handling.
+   Handling that the default generated functions will not provide.
+
 
 In those situations where copy assignment cannot benefit from resource reuse 
 (it does not manage a heap-allocated array and does not have a 

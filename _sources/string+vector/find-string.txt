@@ -1,6 +1,6 @@
 .. activecode:: ac-string-std-find
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++1y']
+   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
    :nocodelens:
 
    #include <iostream>

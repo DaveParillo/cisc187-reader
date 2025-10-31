@@ -308,7 +308,7 @@ passwd
       #include <string>
 
       int main() {
-        std::string heading = "\ndec\toct\thex\tchar\n============================\n";
+        std::string heading = "\ndec\toct\thex\tchar\n----------------------------\n";
         for (int i = 0; i < 128; ++i) {
           if (i%20 == 0) std::cout << heading;
           char c = i;

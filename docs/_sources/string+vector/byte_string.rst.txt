@@ -169,7 +169,7 @@ In general, you want to try to avoid these kinds of unnecessary type conversions
    {
      char a[] = {'h', 'e', 'l', 'l', 'o', '\0'};  // the char array must be null terminated
      char b[] = {'h', 'e', 'l', 'l', 'o', 0};     // null == 0
-     char* c = "hello";                           // a string is just a special case of a char array
+     const char* c = "hello";                     // a string is just a special case of a char array
 
      for (int i = 0; a[i]; ++i) {                 // explain why this loop terminates
        printf ("%c %c %c\n", a[i], b[i], c[i]);

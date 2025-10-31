@@ -363,7 +363,7 @@ in the same position in the vector.
 
    .. activecode:: vector_operation_string_compare_try_this_ac
       :language: cpp
-      :compileargs: ['-Wall', '-Wextra', 'pedantic', '-std=c++20']
+      :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
       :nocodelens:
 
       #include <iostream>

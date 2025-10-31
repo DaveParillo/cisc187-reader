@@ -156,9 +156,12 @@ Errors using namespace directives are seldom this obviously wrong.
          using namespace std;
 
          struct point {
-           float x;
-           float y;
+           double x;
+           double y;
          };
+         std::ostream& operator<<(std::ostream& os, const point& p) {
+             return os << '{' << p.x << ',' << p.y << '}';
+         }
 
          // calculate the distance between two points
          float distance(const point& p1, const point& p2) {
@@ -167,22 +170,20 @@ Errors using namespace directives are seldom this obviously wrong.
          }
 
          int main() {
-           vector <point> po;
-           point p1; p1.x = 0; p1.y = 0;
-           point p2; p2.x = 100; p2.y = 100;
-           po.push_back(p1);
-           po.push_back(p2);
+           vector <point> pair {{0,0}, {100,100}};
 
-           for (auto ii = po.begin(); ii != po.end(); ii++) {
-             for (auto jj = po.begin(); jj != po.end(); jj++) {
-               cout << distance(ii,jj) << " ";
+           cout << "Distances between points:\n";
+           for (auto ii = pair.begin(); ii != pair.end(); ii++) {
+             for (auto jj = pair.begin(); jj != pair.end(); jj++) {
+               cout << * ii << ',' << * jj << ": " << distance(ii,jj) << '\n';
              }
            }
            return 0;
          }
-             
-            
-      This code compiles and runs and says the answer is: ``0 1 -1 0``.
+
+      This code compiles and runs.
+      It also seems to say the distance from ``(0,0)`` to ``(100,100)`` is
+      both 1 or -1!
       I think we can all agree that is not the correct answer for two points ``(0,0)`` and ``(100,100)``.
 
 .. admonition:: Try This!

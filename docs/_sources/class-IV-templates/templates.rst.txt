@@ -112,34 +112,35 @@ The following example uses some common conventions for user defined types:
 
    // Relational operators
    template <typename T> 
-     inline bool operator==(const item<T>& rhs, const item<T>& lhs) {
-       return rhs.value == lhs.value;
+     inline bool operator==(const item<T>& lhs, const item<T>& rhs) {
+       return lhs.value == rhs.value;
      }
    template <typename T> 
-     inline bool operator!=(const item<T>& rhs, const item<T>& lhs) {
-       return !(rhs == lhs);
+     inline bool operator!=(const item<T>& lhs, const item<T>& rhs) {
+       return !(lhs == rhs);
      }
    template <typename T> 
-     inline bool operator<(const item<T>& rhs, const item<T>& lhs) { 
-       return rhs.value < lhs.value;
+     inline bool operator<(const item<T>& lhs, const item<T>& rhs) { 
+       return lhs.value < rhs.value;
+     }
+   // Note we call <, but swap the operands!
+   template <typename T> 
+     inline bool operator>(const item<T>& lhs, const item<T>& rhs) {
+       return rhs < lhs;
      }
    template <typename T> 
-     inline bool operator>(const item<T>& rhs, const item<T>& lhs) {
-       return lhs < rhs;
-     }
-   template <typename T> 
-     inline bool operator<=(const item<T>& rhs, const item<T>& lhs) {
+     inline bool operator<=(const item<T>& lhs, const item<T>& rhs) {
        return !(lhs > rhs);
      }
    template <typename T> 
-     inline bool operator>=(const item<T>& rhs, const item<T>& lhs) {
-       return !(rhs < lhs);
+     inline bool operator>=(const item<T>& lhs, const item<T>& rhs) {
+       return !(lhs < rhs);
      } 
 
    // stream extraction
      template <typename T> 
-  inline std::ostream& operator<<(std::ostream& os, const item<T>& lhs) {
-    return os << lhs.value;
+  inline std::ostream& operator<<(std::ostream& os, const item<T>& rhs) {
+    return os << rhs.value;
   }
 
 
@@ -155,6 +156,9 @@ Some are commonly implemented as non-member functions,
 because their left operand cannot be modified by you. 
 The most prominent of these are the stream insertion and extraction operators.
 The left operands are stream classes from the standard library which you cannot change.
+
+You can choose to implement them as you like, however, the following
+guidelines are highly recommended.
 
 For operators where you have to choose to either implement them as a
 member function or a non-member function, 
@@ -196,8 +200,8 @@ for ``operator==``:
 .. code-block:: cpp
 
    template <typename U> 
-   friend bool operator==(const item<U>& x, const item<U>& y) {
-     return x.value == y.value;
+   friend bool operator==(const item<U>& lhs, const item<U>& rhs) {
+     return lhs.value == rhs.value;
    }
 
 - A non-friend function does not automatically know that a function is

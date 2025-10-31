@@ -126,7 +126,7 @@ during a pass.
       .. activecode:: lst_insertion_cpp
          :caption: The Insertion Sort
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -185,7 +185,7 @@ The bubble sort:
       .. activecode:: stl_exchange_sorts
          :caption: STL Sorts
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
 

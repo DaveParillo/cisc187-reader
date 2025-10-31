@@ -55,7 +55,7 @@ the task it defines can be executed as often as needed.
 
       .. activecode:: functions_simple_intro_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

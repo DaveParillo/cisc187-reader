@@ -100,8 +100,8 @@ Starting in C++11, extra memory can be returned to the system with a call to
 
    .. tab:: Run It
 
-      .. activecode:: ac_copy_vectot_sz_capacity
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+      .. activecode:: ac_copy_vector_sz_capacity
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
          :language: cpp
 

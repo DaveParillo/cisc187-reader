@@ -287,7 +287,7 @@ unique items.
 
       .. activecode:: hash_table_open_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <array>

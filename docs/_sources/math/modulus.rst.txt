@@ -50,7 +50,7 @@ For example, :math:`5 \bmod 3 = 2`; :math:`25 \bmod 3 = 1`,
       .. activecode:: ac_math_modulus
          :language: cpp
          :caption: Modulus Operations
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          This program shows the difference between the division operator

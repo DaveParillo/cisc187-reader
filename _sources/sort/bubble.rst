@@ -72,7 +72,7 @@ moved along until the pass is complete.
       .. activecode:: lst_bubble_cpp
          :caption: The Bubble Sort
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -166,7 +166,7 @@ time.
       .. activecode:: lst_shortbubbles_cpp
          :caption: The 'Short' Bubble Sort
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

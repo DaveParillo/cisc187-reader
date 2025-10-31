@@ -26,7 +26,7 @@ For example:
 
 .. activecode:: ac-overload-1
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
    :nocodelens:
 
    #include <iostream>
@@ -81,7 +81,7 @@ Another example: a family of functions to compute volume.
 
 .. activecode:: ac-volume
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
    :nocodelens:
 
    #include <iostream>

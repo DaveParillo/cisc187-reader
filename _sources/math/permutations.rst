@@ -61,7 +61,7 @@ choices for the second member, and so on.
 
       .. activecode:: math_permute_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -116,7 +116,7 @@ choices for the second member, and so on.
 
       .. activecode:: math_permute_shuffle_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <algorithm>

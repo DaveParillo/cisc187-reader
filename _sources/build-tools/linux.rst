@@ -301,7 +301,7 @@ passwd
    
    .. activecode:: linux_ascii_table_tryit_ac
       :language: cpp
-      :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+      :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
       :nocodelens:
 
       #include <iostream>

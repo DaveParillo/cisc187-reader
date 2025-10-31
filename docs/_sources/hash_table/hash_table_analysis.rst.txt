@@ -51,7 +51,7 @@ in an unordered map vs a vector.
 
 .. activecode:: hash_analysis_find_vs_vector_ac
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+   :compileargs: ['-Wall', '-Wextra', '-std=c++20']
    :nocodelens:
 
    #include <algorithm>
@@ -152,7 +152,7 @@ The C++ standard guarantees logarithmic complexity in the size of the container.
 
 .. activecode:: hash_analysis_find_vs_set_ac
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+   :compileargs: ['-Wall', '-Wextra', '-std=c++20']
    :nocodelens:
 
 

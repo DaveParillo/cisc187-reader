@@ -43,7 +43,7 @@ And we can time how long it takes to push 10,000 values into a vector.
 
 .. activecode:: vactor_analysis_push_back_ac
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+   :compileargs: ['-Wall', '-Wextra', '-std=c++20']
    :nocodelens:
 
 
@@ -83,7 +83,7 @@ adequately sized space in memory as the vector grows.
 
 .. activecode:: vector_analysis_compare_cppac_3
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+   :compileargs: ['-Wall', '-Wextra', '-std=c++20']
    :nocodelens:
 
    #include <chrono>
@@ -230,7 +230,7 @@ between the ``pop_back()`` and ``erase()``.
 
 .. activecode:: vector_analysis_popbackvserase_ac
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+   :compileargs: ['-Wall', '-Wextra', '-std=c++20']
    :nocodelens:
 
    #include <chrono>

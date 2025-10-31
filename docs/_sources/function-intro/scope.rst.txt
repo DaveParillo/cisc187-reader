@@ -62,7 +62,7 @@ all of the assertions about ``n`` are ``true``:
 
 .. activecode:: function_scope_ac
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
    :nocodelens:
 
    #include <cassert>
@@ -174,7 +174,7 @@ For example, what is the output of the following?
 
       .. activecode:: function_scope_try_this_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

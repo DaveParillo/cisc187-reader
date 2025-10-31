@@ -79,7 +79,7 @@ the simple vectors, now sorted, as they are merged back together.
       .. activecode:: lst_merge_cpp
          :caption: The Merge Sort
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

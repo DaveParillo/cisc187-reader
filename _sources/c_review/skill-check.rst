@@ -57,7 +57,7 @@ you should be able to answer these questions.
 
 .. activecode:: begin_ac1
    :language: cpp
-   :compileargs: ['-Wall', '-std=c++11']
+   :compileargs: ['-Wall', '-std=c++20']
    :nocodelens:
  
    Fix this program so that it compiles.
@@ -101,7 +101,7 @@ you should be able to answer these questions.
 
 .. activecode:: begin_ac2
    :language: cpp
-   :compileargs: ['-Wall', '-std=c++11']
+   :compileargs: ['-Wall', '-std=c++20']
    :nocodelens:
 
    Write a program that accumulates the sum of the 
@@ -156,7 +156,7 @@ you should be able to answer these questions.
 
 .. activecode:: begin_type_check
    :language: cpp
-   :compileargs: ['-Wall', '-std=c++11']
+   :compileargs: ['-Wall', '-std=c++20']
    :caption: Write a program that prints your name
    :nocodelens:
 

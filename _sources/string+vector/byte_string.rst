@@ -70,7 +70,7 @@ The null character is a  ``char`` equal to 0.
 
 .. activecode:: byte_string_null_ac
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-std=c++1z']
+   :compileargs: ['-Wall', '-Wextra', '-std=c++20']
    :nocodelens:
 
    #include <iostream>
@@ -155,7 +155,7 @@ In general, you want to try to avoid these kinds of unnecessary type conversions
 
 .. activecode:: c_string_array_example_ac
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+   :compileargs: ['-Wall', '-Wextra', '-std=c++20']
    :nocodelens:
 
    #include <cstdio>   // printf
@@ -231,7 +231,7 @@ such as the :cpp:`toupper<locale/toupper>` function.
 
       .. activecode:: string_toupper_locale_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -285,7 +285,7 @@ such as the :cpp:`toupper<locale/toupper>` function.
 
       .. activecode:: string_toupper_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <cctype>
@@ -338,7 +338,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
       .. activecode:: byte_string_strcpy_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
          
          #include <cstring>
@@ -368,7 +368,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
       .. activecode:: byte_string_strncpy_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
          
          #include <cstring>
@@ -401,7 +401,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
       .. activecode:: byte_string_strcmp_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <cstdlib>
@@ -451,7 +451,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
       .. activecode:: byte_string_strncmp_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <cstring>
@@ -514,7 +514,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
       .. activecode:: byte_string_sc_ac1
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          Fix the errors in the ``printf`` line below:

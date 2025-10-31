@@ -50,7 +50,7 @@ The rest of this section describes simple error reporting strategies that are co
 
       .. activecode:: error_handling_assert_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          Try changing the assertions to generate errors.
@@ -97,7 +97,7 @@ The rest of this section describes simple error reporting strategies that are co
 
       .. activecode:: error_handling_assert_message1_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <cassert>
@@ -118,7 +118,7 @@ The rest of this section describes simple error reporting strategies that are co
 
       .. activecode:: error_handling_assert_message2_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <cassert>
@@ -171,7 +171,7 @@ the letter **E**, followed by uppercase letters or digits.
 
       .. activecode:: error_handling_errno_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          Print an error if we use the log function incorrectly.
@@ -279,7 +279,7 @@ to keep track of errors.
 
       .. activecode:: error_handling_bitmask_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          Set and print some bits.
@@ -338,7 +338,7 @@ but C++ provides a type that provides the ability to perform the same operations
 
       .. activecode:: error_handling_bitset_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          Set and print some bits in a bitset.

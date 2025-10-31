@@ -189,7 +189,7 @@ maintenance of the chain.
 
       .. activecode:: ac_class_design_pattern_chain_of_responsibility_classic
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -428,7 +428,7 @@ an essential part of the pattern.
 
       .. activecode:: ac_class_design_pattern_chain_of_responsibility_refactor
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -624,7 +624,7 @@ but it is still a chain of responsibility.
 
       .. activecode:: ac_class_design_pattern_chain_of_responsibility_ticpp
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

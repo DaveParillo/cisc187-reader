@@ -79,7 +79,7 @@ a constant factor.
       .. activecode:: ac_math_log2
          :language: cpp
          :caption: Log Operations
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

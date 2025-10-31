@@ -79,7 +79,7 @@ is stored in the containers.
 
 .. activecode:: list_analysis_insert_ints_ac
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+   :compileargs: ['-Wall', '-Wextra', '-std=c++20']
    :nocodelens:
 
    In this example, we take increasingly large containers
@@ -249,7 +249,7 @@ timing example.
 
 .. activecode:: list_analysis_compare_largeac
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+   :compileargs: ['-Wall', '-Wextra', '-std=c++20']
    :nocodelens:
    
    #include <array>

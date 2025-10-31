@@ -89,7 +89,7 @@ For this case, we need only four more shifts to complete the process.
       .. activecode:: lst_shell_cpp
          :caption: The Shell Sort
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

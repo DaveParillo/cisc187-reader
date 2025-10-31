@@ -128,7 +128,7 @@ Visit all nodes **before** visiting children:
 
       .. activecode:: ac-trees-preorder
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -218,7 +218,7 @@ Visit all nodes **after** visiting children:
 
       .. activecode:: ac-trees-postorder
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -308,7 +308,7 @@ visit the right child (and the right child subtree),
 
       .. activecode:: ac-trees-inorder
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -404,7 +404,7 @@ then visit the children one level deeper.
 
       .. activecode:: ac-trees-levelorder
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

@@ -231,7 +231,7 @@ one data element and a status field indicating whether that slot is
 
       .. activecode:: hash_table_closed_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
 

@@ -50,7 +50,7 @@ final item must be in place after the :math:`(n-1)` step.
       .. activecode:: lst_selectionsortcode_cpp
          :caption: The Selection Sort
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

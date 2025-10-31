@@ -106,7 +106,7 @@ pointing to a function that returns a ``double`` and takes two parameters:
 
       .. activecode:: ac_fp_intro1
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          double add     (int x, int y) { return x+y;}

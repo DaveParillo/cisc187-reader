@@ -102,7 +102,7 @@ T top()
 
       .. activecode:: stack_using_stack_simple_ac1
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -218,7 +218,7 @@ can be adapted by a stack.
 
       .. activecode:: stack_list_initializer_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

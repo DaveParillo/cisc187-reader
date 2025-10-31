@@ -51,7 +51,7 @@ General function writing guidelines
 
          .. activecode:: functions_guidelines_side_effects_ac
             :language: cpp
-            :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+            :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
             :nocodelens: 
 
             #include <iostream>
@@ -354,7 +354,7 @@ A more realistic example might help.
 
       .. activecode:: function_random_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens: 
 
          #include <iostream>

@@ -110,7 +110,7 @@ the behavior is the same: each class member is copied, in initialization order.
 
       .. activecode:: ac_class_copy_and_default_constructor
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -216,7 +216,7 @@ This class encapsulates an array of characters, providing 5 functions:
 
       .. activecode:: ac_shallow_copy_string_class
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <cstddef>
@@ -444,7 +444,7 @@ it is in the process of being constructed.
 
       .. activecode:: ac_class_copy_and_copy_assignment
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

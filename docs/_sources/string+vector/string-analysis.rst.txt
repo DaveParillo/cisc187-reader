@@ -84,7 +84,7 @@ To get the total runtime, subtract the begin time from the end time.
 
 .. activecode:: string_analysis_explore_find_ac1
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+   :compileargs: ['-Wall', '-Wextra', '-std=c++20']
    :nocodelens:
 
    This example creates a series of increasingly long strings.

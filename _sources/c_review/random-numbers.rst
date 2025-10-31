@@ -32,7 +32,7 @@ To see a sample, run this loop:
 
 .. activecode:: random_numbers_AC_1
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
    :nocodelens:
 
    Take a look at the active code below, which generates 4 random numbers.

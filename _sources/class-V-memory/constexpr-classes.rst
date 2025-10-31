@@ -215,7 +215,7 @@ Each simply constructs a new distance based on the units implied by the literal 
 
       .. activecode:: ac_memory_constexpr_classes
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++1z']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <cstdlib>

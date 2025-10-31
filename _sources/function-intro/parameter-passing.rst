@@ -89,7 +89,7 @@ That is, the caller can trust their data has not been modified.
 
 .. activecode:: function_pass_by_value_ac
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
    :nocodelens:
 
    #include <iostream>
@@ -159,7 +159,7 @@ Only the object reference is passed to the function.
 
       .. activecode:: function_intro_reference_vs_pointer_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -216,7 +216,7 @@ often from now on.
 
    .. activecode:: function_pass_by_ref_ac
       :language: cpp
-      :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+      :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
       :nocodelens:
 
 

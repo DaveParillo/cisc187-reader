@@ -49,7 +49,7 @@ that stores no characters.
 
       .. activecode:: string_simple_operator_ac1
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -86,7 +86,7 @@ that stores no characters.
 
       .. activecode:: string_front_back_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -107,7 +107,7 @@ that stores no characters.
 
       .. activecode:: string_append_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -141,7 +141,7 @@ that stores no characters.
 
       .. activecode:: string_insert_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -232,7 +232,7 @@ deduced to be a ``std::string``.
 
       .. activecode:: string_auto_deduction_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++1z']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <string>
@@ -413,7 +413,7 @@ Use :string:`stoi <stol>` and :string:`stod <stof>` instead.
 
       .. activecode:: byte_string_stoi_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
          
          #include <string>
@@ -436,7 +436,7 @@ Use :string:`stoi <stol>` and :string:`stod <stof>` instead.
 
       .. activecode:: byte_string_stod_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
          
          #include <string>

@@ -355,7 +355,7 @@ Overflow occurs when doing arithmetic operations.
 
       .. activecode:: ac_types_2
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-Wno-overflow', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-Wno-overflow', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -799,7 +799,7 @@ using :io:`oct <manip/hex>`,
 
       .. activecode:: types_ac1
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          Fix all the errors in the code below:

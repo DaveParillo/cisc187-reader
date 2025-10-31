@@ -84,7 +84,7 @@ use ``#include <vector>``.
 
       .. activecode:: vector_declare_simple_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -219,7 +219,7 @@ and will throw a :error:`std::out_of_range exception <out_of_range>` if an out o
 
       .. activecode:: vector_access_operator_ac1
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
 
@@ -252,7 +252,7 @@ and will throw a :error:`std::out_of_range exception <out_of_range>` if an out o
 
       .. activecode:: vector_fill_and_print_example_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -328,7 +328,7 @@ in the same position in the vector.
 
       .. activecode:: vector_operator_equal_assign_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
 
@@ -363,7 +363,7 @@ in the same position in the vector.
 
    .. activecode:: vector_operation_string_compare_try_this_ac
       :language: cpp
-      :compileargs: ['-Wall', '-Wextra', 'pedantic', '-std=c++17']
+      :compileargs: ['-Wall', '-Wextra', 'pedantic', '-std=c++20']
       :nocodelens:
 
       #include <iostream>
@@ -470,7 +470,7 @@ Appends the value 40 to the end of the vector.
 
       .. activecode:: vector_push_back_example_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <vector>
@@ -563,7 +563,7 @@ vector data is one of the things that make vectors efficient.
 
       .. activecode:: vector_phrase_o_matic_example_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -621,7 +621,7 @@ vector data is one of the things that make vectors efficient.
 
       .. activecode:: vector_test_cases_example_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-Werror' '-std=c++17']
+         :compileargs: ['-Wall', '-Wextra', '-Werror' '-std=c++20']
          :nocodelens:
 
          A short test program to demonstrate the parts of the vector interface.

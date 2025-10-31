@@ -151,7 +151,7 @@ behind initializer lists.
 
       .. activecode:: ac_template_container_initializer_list
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <algorithm>

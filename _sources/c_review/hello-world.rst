@@ -47,7 +47,7 @@ for example:
 
       .. activecode:: hello_world_rangefor_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          // compiled with: -std=c++11
@@ -165,7 +165,7 @@ For example:
 
       .. activecode:: hello_world_narrowing_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>
@@ -252,7 +252,7 @@ you will be expected to employ basic I/O in labs and projects.
 
       .. activecode:: hello_world_scanf_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
          :stdin: Alice
 
@@ -278,7 +278,7 @@ you will be expected to employ basic I/O in labs and projects.
 
       .. activecode:: hello_world_cin_ac
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
          :stdin: Alice
 
@@ -300,7 +300,7 @@ you will be expected to employ basic I/O in labs and projects.
 
       .. activecode:: df_ac_poem_c_file_io
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :datafile: poem
          :nocodelens:
 
@@ -327,7 +327,7 @@ you will be expected to employ basic I/O in labs and projects.
 
       .. activecode:: df_ac_poem_stream_io
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :datafile: poem
          :nocodelens:
 
@@ -422,7 +422,7 @@ print all the odd numbers between 1 and 100, inclusive.
 
 .. activecode:: ac_print_odds_hello_world
    :language: cpp
-   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
    :nocodelens:
 
    #include <iostream>

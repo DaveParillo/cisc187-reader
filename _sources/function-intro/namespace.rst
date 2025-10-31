@@ -148,7 +148,7 @@ Errors using namespace directives are seldom this obviously wrong.
 
       .. activecode:: ac_using_namespace_std_so_2
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-std=c++20']
 
          #include <iostream>
          #include <vector>

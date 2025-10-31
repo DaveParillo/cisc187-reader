@@ -96,7 +96,7 @@ can be invoked recursively on the two halves.
       .. activecode:: lst_quick_cpp
          :caption: The Quick Sort
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
 
          #include <iostream>

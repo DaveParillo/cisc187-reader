@@ -130,7 +130,7 @@ no matrix class users would be affected.
 
       .. activecode:: ac_matrix_function_call_operator
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
    
          #include <algorithm>
@@ -260,7 +260,7 @@ although other solutions are possible.
 
       .. activecode:: ac_matrix_index_operator
          :language: cpp
-         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+         :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
          :nocodelens:
    
          #include <cstdlib>

@@ -270,10 +270,10 @@ standard input
    - :wiki:`Caesar cipher <Caesar_cipher>` from Wikipedia.
    - From: cppreference.com: 
 
-     - `pointers <http://en.cppreference.com/w/cpp/language/pointer>`_
-     - `isalpha <http://en.cppreference.com/w/cpp/string/byte/isalpha>`_ and 
-       `islower <http://en.cppreference.com/w/cpp/string/byte/islower>`_. 
-     - `strcmp <http://en.cppreference.com/w/cpp/string/byte/strcmp>`_
-     - `getline <http://en.cppreference.com/w/cpp/string/basic_string/getline>`_
+     - :lang:`pointers <pointer>`
+     - :cstring:`isalpha` and 
+       :cstring:`islower`. 
+     - :cstring:`strcmp`
+     - :string:`getline`_
 
 

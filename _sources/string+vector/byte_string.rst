@@ -331,7 +331,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
    .. tab:: strcpy()
       
-      The :string:`strcpy </byte/strcpy>` function
+      The :cstring:`strcpy` function
       takes two byte strings as parameters and
       copies the source character array including the null terminator,
       to the destination character array.
@@ -361,7 +361,7 @@ The copy and compare functions are defined in the ``cstring`` header.
                    
    .. tab:: strncpy()
       
-      The :string:`strncpy </byte/strncpy>` function
+      The :cstring:`strncpy` function
       copies byte strings, but will copy at most a provided ``count``
       number of characters.
 
@@ -392,7 +392,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
    .. tab:: strcmp()
       
-      The :string:`strcmp </byte/strcmp>` function
+      The :cstring:`strcmp` function
       takes two byte strings as parameters and
       returns a ``0`` if every element in both arrays is equal.
 
@@ -436,12 +436,12 @@ The copy and compare functions are defined in the ``cstring`` header.
          These functions are not locale-aware.
 
          If you need to make locale aware comparisons,
-         then use :string:`strcoll </byte/strcoll>`.
+         then use :cstring:`strcoll`.
 
                
    .. tab:: strncmp()
       
-      The :string:`strncmp </byte/strncmp>` function
+      The :cstring:`strncmp` function
       takes two byte strings as parameters and
       returns a ``0`` if every element in both arrays is equal.
 
@@ -484,7 +484,7 @@ The copy and compare functions are defined in the ``cstring`` header.
          These functions are not locale-aware.
 
          If you need to make locale aware comparisons,
-         then use :string:`strcoll </byte/strcoll>`.
+         then use :cstring:`strcoll`.
 
 
 **Self Check**
@@ -559,7 +559,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
 .. admonition:: More to Explore
 
-   - cppreference.com :string:`byte strings </byte>`
+   - cppreference.com :cpp:`byte strings <string/byte>`
    - Bjarne Stroustrup's C++11 FAQ: `Raw String literals <http://www.stroustrup.com/C++11FAQ.html#raw-strings>`_
    - Locales:
 

@@ -91,6 +91,7 @@ extlinks = {
         'cmath': ('https://en.cppreference.com/w/cpp/numeric/math/%s', '%s'),
         'guidelines': ('https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html#%s', '%s'),
         'cstdio': ('https://en.cppreference.com/w/cpp/io/c/%s', '%s'),
+        'cstring': ('https://en.cppreference.com/w/cpp/string/byte/%s', '%s'),
         'algorithm': ('https://en.cppreference.com/w/cpp/algorithm/%s', '%s'),
         'chrono': ('https://en.cppreference.com/w/cpp/chrono/%s', '%s'),
         'container': ('https://en.cppreference.com/w/cpp/container/%s', '%s'),

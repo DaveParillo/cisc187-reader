@@ -26,7 +26,7 @@ the abstract idea of a string is implemented with an array of characters.
    char* c = "hello";
 
 Arrays of ``char`` that are null terminated are commonly called 
-:string:`byte strings </byte>` or
+:cpp:`byte strings <string/byte>` or
 :string:`C strings <c_str>`.
 Given the byte string:
 
@@ -140,7 +140,7 @@ The C programming language has a set of functions implementing operations
 on strings (character strings and byte strings) in the standard library.
 Various operations, such as copying, concatenation, tokenization, and searching are supported.
 
-The complete list of :string:`byte string functions </byte>` is available from
+The complete list of :cpp:`byte string functions <string/byte>` is available from
 cppreference.com.
 
 It's important to know how to work with byte strings in C++

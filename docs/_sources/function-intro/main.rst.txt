@@ -333,8 +333,8 @@ including :index:`GNU/Linux` and :index:`Mac OS`.
    - From cppreference.com:
 
      - :io:`cin`, :io:`cout`, and :io:`cerr`
-     - :string:`strcmp <byte/strcmp>`, and :string:`strncmp <byte/strncmp>`
-     - :string:`stoi <byte/stoi>`, and :string:`strtol <byte/strtol>`
+     - :cstring:`strcmp`, and :cstring:`strncmp`
+     - :string:`stoi <stol>`, and :cstring:`strtol`
 
 
 

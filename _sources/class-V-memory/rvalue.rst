@@ -107,7 +107,7 @@ and rvalues prefer the new rvalue references:
 .. admonition:: More to Explore
 
    - :lang:`Reference declarations <reference>`
-   - `C++ Rvalue references explained <http://thbecker.net/articles/rvalue_references/section_01.html>`__
+   - `C++ Rvalue references explained <https://web.archive.org/web/20240325000934/http://thbecker.net/articles/rvalue_references/section_01.html>`__
      The content in this section was adapted from *Rvalue References Explained*, by Thomas Becker.
 
 

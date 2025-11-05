@@ -172,8 +172,8 @@ Each simply constructs a new distance based on the units implied by the literal 
 
       Here we add a free function tthat takes a list of distances and
       accumulates an average.
-      We could have used :numeric:`std::accumulate <accumulate>`,
-      or in C++17 and later, we could use :numeric:`std::reduce <reduce>`
+      We could have used :algorithm:`std::accumulate <accumulate>`,
+      or in C++17 and later, we could use :algorithm:`std::reduce <reduce>`
       to achive the same outcome.
       
       Once we have that, we can define some distances,

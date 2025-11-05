@@ -342,7 +342,7 @@ Adding even one element to a completely full array involves several steps:</p>
 For this reason, vectors normally never reduce the capacity of
 and array unless explicitly instructed to do so.</p>
 <p>It also explains why tools like <code class="docutils literal notranslate"><span class="pre">clang-tidy</span></code> will
-<a class="reference external" href="https://clang.llvm.org/extra/clang-tidy/checks/performance-inefficient-vector-operation.html">complain</a>
+<a class="reference external" href="https://clang.llvm.org/extra/clang-tidy/checks/performance/inefficient-vector-operation.html">complain</a>
 if it finds calls to <a class="reference external" href="https://en.cppreference.com/w/cpp/container/vector/push_back">vector::push_back</a>
 in a loop after a default constructed vector is declared.</p>
 <section id="passing-vectors-to-c-functions">
@@ -400,7 +400,7 @@ passing string and vector objects to legacy C functions<a class="footnote-refere
 <p class="admonition-title">More to Explore</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://en.cppreference.com/w/cpp/container">STL containers library</a></p></li>
-<li><p><a class="reference external" href="https://clang.llvm.org/extra/clang-tidy/checks/performance-inefficient-vector-operation.html">Clang-tidy vector performance checks</a></p></li>
+<li><p><a class="reference external" href="https://clang.llvm.org/extra/clang-tidy/checks/performance/inefficient-vector-operation.html">Clang-tidy vector performance checks</a></p></li>
 </ul>
 </div>
 <aside class="topic">

@@ -237,10 +237,12 @@ For example:</p>
 using std::cout;
 
 // add two ints
+constexpr
 int add (int a, int b) {
   return a+b;
 }
 // add two doubles
+constexpr
 double add (double a, double b) {
   return a+b;
 }
@@ -296,20 +298,26 @@ the absolute value: <code class="docutils literal notranslate"><span class="pre"
     data-audio=''      
     data-compileargs="[&#x27;-Wall&#x27;, &#x27;-Wextra&#x27;, &#x27;-pedantic&#x27;, &#x27;-std=c++20&#x27;]"       data-wasm=/_static
      style="visibility: hidden;">
+#include <cmath>
 #include <iostream>
-#include <cmath>  // not all compilers define M_PI
+#include <numbers>
 
 // volume of a cube
+constexpr
 double volume (const double a) {
   return a * a * a;
 }
 
 // volume of a cylinder
+constexpr
 double volume (const double r, const double h) {
-  return M_PI * r * r * h;
+  // starting with C++20, numeric constants are preferred over
+  // macros like `M_PI`
+  return std::numbers::pi * r * r * h;
 }
 
 // volume of a cuboid
+constexpr
 double volume (const double a, const double b, const double c) {
   return a * b * c;
 }

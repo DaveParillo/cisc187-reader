@@ -375,7 +375,7 @@ It's the pointer member that needs special treatment:
 
 - Initialize a new memory block large enough to hold the copy
 - Copy each element of the source array into the destination.
-  This is what :string:`std::strncpy<byte/strncpy>` does.
+  This is what :cstring:`std::strncpy<strncpy>` does.
 
 In contrast to a *shallow* copy,
 this copy is a **deep copy**.
@@ -498,4 +498,5 @@ it is in the process of being constructed.
    - From cppreference.com:
 
      - :lang:`Copy constructors <copy_constructor>`
+     - :cpp:`Null-terminated byte strings <string/byte>`
 

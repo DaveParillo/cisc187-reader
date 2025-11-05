@@ -47,10 +47,12 @@ even if it's only to call another function.
 
          #include <iostream>
 
+         constexpr
          int sum (int a, int b) {
            return a+b;
          }
 
+         constexpr
          double sum (double a, double b) {
            return a+b;
          }
@@ -123,6 +125,7 @@ For example:
          #include <iostream>
 
          template <class T> 
+         constexpr
          T sum (T a, T b) {  
            return a+b;
          }
@@ -309,6 +312,7 @@ body will not modify them.
 
          // it is possible to forward declare a template
          template <class T, const int N> 
+         constexpr
          T multiply (const T& val);
 
          int main() {

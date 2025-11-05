@@ -33,10 +33,12 @@ For example:
    using std::cout;
 
    // add two ints
+   constexpr
    int add (int a, int b) {
      return a+b;
    }
    // add two doubles
+   constexpr
    double add (double a, double b) {
      return a+b;
    }
@@ -84,20 +86,26 @@ Another example: a family of functions to compute volume.
    :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
    :nocodelens:
 
+   #include <cmath>
    #include <iostream>
-   #include <cmath>  // not all compilers define M_PI
+   #include <numbers>
 
    // volume of a cube
+   constexpr
    double volume (const double a) {
      return a * a * a;
    }
 
    // volume of a cylinder
+   constexpr
    double volume (const double r, const double h) {
-     return M_PI * r * r * h;
+     // starting with C++20, numeric constants are preferred over
+     // macros like `M_PI`
+     return std::numbers::pi * r * r * h;
    }
 
    // volume of a cuboid
+   constexpr
    double volume (const double a, const double b, const double c) {
      return a * b * c;
    }

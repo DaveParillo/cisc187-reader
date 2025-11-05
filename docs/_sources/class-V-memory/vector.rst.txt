@@ -174,7 +174,7 @@ For this reason, vectors normally never reduce the capacity of
 and array unless explicitly instructed to do so.
 
 It also explains why tools like ``clang-tidy`` will 
-`complain <https://clang.llvm.org/extra/clang-tidy/checks/performance-inefficient-vector-operation.html>`__
+`complain <https://clang.llvm.org/extra/clang-tidy/checks/performance/inefficient-vector-operation.html>`__
 if it finds calls to :container:`vector::push_back <vector/push_back>`
 in a loop after a default constructed vector is declared.
 
@@ -245,7 +245,7 @@ We can pass a ``vector`` to this same legacy function:
 .. admonition:: More to Explore
 
    - `STL containers library <http://en.cppreference.com/w/cpp/container>`_
-   - `Clang-tidy vector performance checks <https://clang.llvm.org/extra/clang-tidy/checks/performance-inefficient-vector-operation.html>`__
+   - `Clang-tidy vector performance checks <https://clang.llvm.org/extra/clang-tidy/checks/performance/inefficient-vector-operation.html>`__
 
 .. topic:: Footnotes
 

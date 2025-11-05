@@ -274,6 +274,6 @@ standard input
      - :cstring:`isalpha` and 
        :cstring:`islower`. 
      - :cstring:`strcmp`
-     - :string:`getline`_
+     - :string:`getline`
 
 

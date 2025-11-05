@@ -243,10 +243,12 @@ even if it’s only to call another function.</p>
      style="visibility: hidden;">
 #include <iostream>
 
+constexpr
 int sum (int a, int b) {
   return a+b;
 }
 
+constexpr
 double sum (double a, double b) {
   return a+b;
 }
@@ -318,6 +320,7 @@ template parameters:</p>
 #include <iostream>
 
 template <class T>
+constexpr
 T sum (T a, T b) {
   return a+b;
 }
@@ -479,6 +482,7 @@ template parameters</p>
 
 // it is possible to forward declare a template
 template <class T, const int N>
+constexpr
 T multiply (const T& val);
 
 int main() {

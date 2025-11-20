@@ -137,4 +137,22 @@ Good advice.
 - http://www.open-std.org is a bare bones site with a huge amount of detailed information
   related to open standards: C, C++, Python, Vulnerability information, and more.
 
+- `Working Well with Legacy Code <https://www.cloudbees.com/blog/working-well-with-legacy-code>`__
+
+  A clear, approachable article providing insights and strategies for dealing
+  with legacy codebases.
+  Thanks to Tracy Cavanaugh and the young ladies of
+  `Mrs. C’s High School Club <https://www.mrscshighschoolclub.org>`__
+  for this recommendation.
+
+  Their suggestion is timely because legacy code has been on my mind lately.
+
+  Working with legacy code matters because it represents the accumulated
+  knowledge, decisions, and solutions of the past. Mastering it allows
+  programmers to preserve functionality, reduce technical debt, and
+  build a foundation for future innovation. By understanding and improving
+  existing systems, developers gain insight into software design, architecture,
+  and maintainability which are valuable skills on the journey from apprentice
+  to mastery.
+
 

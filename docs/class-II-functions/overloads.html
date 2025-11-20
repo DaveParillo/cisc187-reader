@@ -241,22 +241,26 @@ the builtin types.</p>
 this looks familiar.
 But without operator overloads, a rational number class
 would be a pain to read and use.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Complex</span><span class="w">  </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Complex</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-<span class="n">Rational</span><span class="w"> </span><span class="n">a</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">Rational</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
-<span class="n">Rational</span><span class="w"> </span><span class="n">b</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">Rational</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-<span class="n">Rational</span><span class="w"> </span><span class="n">c</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">Rational</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
-<span class="n">Complex</span><span class="w"> </span><span class="n">tmp</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
-<span class="w">                      </span><span class="p">.</span><span class="n">minus</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">multiply</span><span class="p">(</span><span class="mi">4</span><span class="p">))));</span>
-<span class="n">root</span><span class="p">.</span><span class="n">setComplex</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">invSign</span><span class="p">().</span><span class="n">plus</span><span class="p">(</span><span class="n">tmp</span><span class="p">.</span><span class="n">divide</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">multiply</span><span class="p">(</span><span class="mi">2</span><span class="p">))));</span>
+<p>The following example might be a way to use a Rational Java class.</p>
+<div class="highlight-java notranslate"><div class="highlight"><pre><span></span><span class="c1">// Static constructors are a common feature of Java value classes.</span>
+<span class="n">Rational</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rational</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+<span class="n">Rational</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rational</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+<span class="n">Rational</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rational</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
+
+<span class="n">Rational</span><span class="w"> </span><span class="n">fourA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">multiply</span><span class="p">(</span><span class="n">Rational</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="mi">4</span><span class="p">));</span>
+<span class="n">Rational</span><span class="w"> </span><span class="n">discriminant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="na">multiply</span><span class="p">(</span><span class="n">b</span><span class="p">).</span><span class="na">minus</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="na">multiply</span><span class="p">(</span><span class="n">fourA</span><span class="p">));</span>
+<span class="n">Complex</span><span class="w"> </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Complex</span><span class="p">.</span><span class="na">sqrt</span><span class="p">(</span><span class="n">discriminant</span><span class="p">);</span>
+<span class="n">Rational</span><span class="w"> </span><span class="n">twoA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">multiply</span><span class="p">(</span><span class="n">Rational</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+<span class="n">Complex</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="na">invSign</span><span class="p">().</span><span class="na">plus</span><span class="p">(</span><span class="n">tmp</span><span class="p">).</span><span class="na">divide</span><span class="p">(</span><span class="n">twoA</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>When <em>everything</em> has to be a named function,
 and the standard operators can only be used on builtin types,
 the result is not as clean as we would like.</p>
 <p>What we want here is the ability to use familiar semantics
-on user defined types.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Rational</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">},</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="n">c</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
-<span class="n">Complex</span><span class="w"> </span><span class="n">root1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c</span><span class="p">)))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">);</span>
+on user defined types:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">rational</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">},</span><span class="w"> </span><span class="n">b</span><span class="p">{</span><span class="mi">6</span><span class="p">,</span><span class="mi">1</span><span class="p">},</span><span class="w"> </span><span class="n">c</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+<span class="n">complex</span><span class="w"> </span><span class="n">root1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">b</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">c</span><span class="p">)))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>Overloading the standard operator functions
@@ -482,14 +486,14 @@ to take any number of additional arguments, including zero.
 A single class can contain more than 1 function call operator overload,
 subject to the other rules of function overloading.</p>
 </section>
-<section id="relational-operators">
-<h2><span class="section-number">8.3.5. </span>Relational operators<a class="headerlink" href="#relational-operators" title="Permalink to this heading">¶</a></h2>
+<section id="comparison-operators">
+<h2><span class="section-number">8.3.5. </span>Comparison operators<a class="headerlink" href="#comparison-operators" title="Permalink to this heading">¶</a></h2>
 <p>Standard algorithms such as std::sort and containers such as
 <a class="reference external" href="https://en.cppreference.com/w/cpp/container/set">set</a> expect <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">&lt;</span></code> to be defined, by default,
 for the user-provided types, and expect it to implement strict
 <a class="reference external" href="https://en.cppreference.com/w/cpp/utility/compare/weak_ordering">weak ordering</a>.
 Strict weak ordering defines members of a set as <em>comparable</em> to each other.
-The general signature for these non-member functions is:</p>
+The general signatures for these non-member functions is:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">T</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="w">   </span><span class="c1">// compare the data in left-hand side and right-hand side objects</span>
@@ -505,14 +509,14 @@ The general signature for these non-member functions is:</p>
 </div>
 <p>An idiomatic way to implement strict weak ordering for a structure is to use
 lexicographical comparison provided by <a class="reference external" href="https://en.cppreference.com/w/cpp/utility/tuple/tie">std::tie</a>:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Record</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">package</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">floor</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Record</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Record</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span>
+<span class="kr">inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">package</span><span class="o">&amp;</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">package</span><span class="o">&amp;</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span>
 <span class="p">{</span>
 <span class="w">   </span><span class="c1">// parameters passed to each tie must be in the same order</span>
 <span class="w">   </span><span class="c1">// or this will always return false</span>
@@ -554,17 +558,42 @@ in terms of <code class="docutils literal notranslate"><span class="pre">&lt;</s
 three-way comparison operator <code class="docutils literal notranslate"><span class="pre">operator&lt;=&gt;</span></code> is defined,
 and <em>that</em> operator, in turn, is generated by the compiler if it is
 defined as defaulted:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Record</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">package</span>
 <span class="p">{</span>
 <span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">floor</span><span class="p">;</span>
 <span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span>
-<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Record</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="k">operator</span><span class="o">&lt;=&gt;</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">package</span><span class="o">&amp;</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">default</span><span class="p">;</span>
 <span class="p">};</span>
-<span class="c1">// records can now be compared with ==, !=, &lt;, &lt;=, &gt;, and &gt;=</span>
+<span class="c1">// packages can now be compared with ==, !=, &lt;, &lt;=, &gt;, and &gt;=</span>
 </pre></div>
 </div>
+<p>The three-way comparison operator is also called the ‘spaceship operator’
+because of the way it looks in an expression: <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;=&gt;</span> <span class="pre">b</span></code>.</p>
 </div>
+<p>Unlike the ‘two-way’ comparison operators, <code class="docutils literal notranslate"><span class="pre">operator&lt;=&gt;</span></code> does not return
+<code class="docutils literal notranslate"><span class="pre">bool</span></code>.
+With a single operation, it determines the entire ordering relationship between
+two values, returning one of three possible outcomes:
+less than, equal to/equivalent, or greater than:</p>
+<ul class="simple">
+<li><p>A negative result (or a value representing less)
+means the left operand is less than the right operand (<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&lt;</span> <span class="pre">b</span></code>).</p></li>
+<li><p>A result of zero (or a value representing equal/equivalent) means
+the operands are equal (<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">==</span> <span class="pre">b</span></code>) or that they are equivalent
+(<code class="docutils literal notranslate"><span class="pre">!(a</span> <span class="pre">&lt;</span> <span class="pre">b)</span> <span class="pre">&amp;&amp;</span> <span class="pre">!(b</span> <span class="pre">&lt;</span> <span class="pre">a)</span></code>.</p></li>
+<li><p>A positive result (or a value representing greater) means the left operand
+is greater than the right operand (<code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">&gt;</span> <span class="pre">b</span></code>).</p></li>
+</ul>
+<p>If the three-way comparison is <strong>not</strong> defaulted, then you must overload
+<code class="docutils literal notranslate"><span class="pre">operator==</span></code> in addition to <code class="docutils literal notranslate"><span class="pre">operator&lt;=&gt;</span></code>.
+Neither of these overloads need to be member functions.
+As with the earlier guidance for comparison overloads,
+non-friend non-member functions are preferred.</p>
+<p>Once these two overloads have been implemented, all the other comparison
+operations can be generated automatically.</p>
+<p>One thing you may have noticed is the number of classes that removed the
+<code class="docutils literal notranslate"><span class="pre">!=</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> operators starting with C++20.</p>
 </section>
 <section id="binary-arithmetic-operators">
 <h2><span class="section-number">8.3.6. </span>Binary arithmetic operators<a class="headerlink" href="#binary-arithmetic-operators" title="Permalink to this heading">¶</a></h2>
@@ -666,8 +695,8 @@ member function template with</p>
 </div>
 </li>
 </ul>
-<p>Suppose we want to concatenate a Rational to a string?</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Rational</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
+<p>Suppose we want to concatenate a <code class="docutils literal notranslate"><span class="pre">rational</span></code> to a string?</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">rational</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">};</span>
 <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;A = &quot;</span><span class="p">};</span>
 <span class="n">s</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">                   </span><span class="c1">// will not compile</span>
 </pre></div>
@@ -675,14 +704,14 @@ member function template with</p>
 <p>Your compiler may present something like:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>error: no viable overloaded &#39;+=&#39;
 candidate function not viable:
-no known conversion from &#39;Rational&#39; to
+no known conversion from &#39;rational&#39; to
 &#39;const std::__1::basic_string&lt;char&gt;&#39; for 1st argument
 _LIBCPP_INLINE_VISIBILITY basic_string&amp; operator+=(const basic_string...
 </pre></div>
 </div>
 <p>Defining a conversion operator for <code class="docutils literal notranslate"><span class="pre">std::string</span></code> allows this conversion
 to happen:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Rational</span><span class="o">::</span><span class="k">operator</span><span class="w"> </span><span class="nf">std::string</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">rational</span><span class="o">::</span><span class="k">operator</span><span class="w"> </span><span class="nf">std::string</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
 <span class="w">   </span><span class="n">std</span><span class="o">::</span><span class="n">stringstream</span><span class="w"> </span><span class="n">ss</span><span class="p">;</span>
 <span class="w">   </span><span class="n">ss</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">numerator</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;/&#39;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">denominator</span><span class="p">;</span>
 <span class="w">   </span><span class="k">return</span><span class="w"> </span><span class="n">ss</span><span class="p">.</span><span class="n">str</span><span class="p">();</span>
@@ -691,46 +720,47 @@ to happen:</p>
 </div>
 <p>A class constructor taking a single argument can also be seen as
 converting its argument into the type:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Rational</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">rational</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">   </span><span class="n">numerator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
 <span class="w">   </span><span class="n">denominator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>And an expression like this works:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Rational</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">rational</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>The conversion both of these previous cases,
 for the <code class="docutils literal notranslate"><span class="pre">string</span></code> and the <code class="docutils literal notranslate"><span class="pre">int</span></code> happened implicitly.
 Often, we don’t want types to <strong>always</strong> implicitly
 convert to a user-defined type:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="w"> </span><span class="p">(</span><span class="n">Rational</span><span class="w"> </span><span class="n">r</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">func</span><span class="w"> </span><span class="p">(</span><span class="n">rational</span><span class="w"> </span><span class="n">r</span><span class="p">);</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">   </span><span class="n">func</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w">   </span><span class="c1">// this works</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The call to <code class="docutils literal notranslate"><span class="pre">func()</span></code> works because Rational has a conversion
-constructor that converts int values to Rational ones.
+<p>The call to <code class="docutils literal notranslate"><span class="pre">func()</span></code> works because rational has a conversion
+constructor that converts int values to rational ones.
 C++ provides a keyword <code class="docutils literal notranslate"><span class="pre">explicit</span></code> that requires
 a cast - it inhibits the implicit conversion of a user defined type.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">explicit</span><span class="w"> </span><span class="n">Rational</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">explicit</span><span class="w"> </span><span class="n">rational</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span>
 
 <span class="k">explicit</span><span class="w"> </span><span class="k">operator</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="p">.</span>
 </pre></div>
 </div>
 <p>And the previous expressions need casts
 or an explicit constructor call:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Rational</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w">       </span><span class="c1">// constructor</span>
-<span class="n">func</span><span class="p">(</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span><span class="w">              </span><span class="c1">// constructor</span>
-<span class="n">func</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Rational</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span><span class="w"> </span><span class="c1">// cast</span>
-<span class="n">func</span><span class="p">((</span><span class="n">Rational</span><span class="p">)</span><span class="mi">3</span><span class="p">);</span><span class="w">              </span><span class="c1">// c-style cast</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">rational</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rational</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w">       </span><span class="c1">// constructor</span>
+<span class="n">rational</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rational</span><span class="p">{</span><span class="mi">3</span><span class="p">};</span><span class="w">       </span><span class="c1">// constructor - no implicit conversion</span>
+<span class="n">func</span><span class="p">(</span><span class="n">rational</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span><span class="w">              </span><span class="c1">// constructor</span>
+<span class="n">func</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">rational</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span><span class="w"> </span><span class="c1">// cast</span>
+<span class="n">func</span><span class="p">((</span><span class="n">rational</span><span class="p">)</span><span class="mi">3</span><span class="p">);</span><span class="w">              </span><span class="c1">// c-style cast</span>
 
-<span class="c1">// explicitly convert a Rational to string</span>
+<span class="c1">// explicitly convert a rational to string</span>
 <span class="c1">// using functional conversion syntax</span>
-<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">string</span><span class="p">(</span><span class="n">Rational</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">string</span><span class="p">(</span><span class="n">rational</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span>
 </pre></div>
 </div>
 <hr class="docutils" />

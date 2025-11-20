@@ -48,27 +48,33 @@ this looks familiar.
 But without operator overloads, a rational number class
 would be a pain to read and use.
 
-.. code-block:: cpp
+The following example might be a way to use a Rational Java class.
 
-   Complex  root = Complex(0,0);
-   Rational a    = Rational(2,3);
-   Rational b    = Rational(6,1);
-   Rational c    = Rational(5,3);
-   Complex tmp   = sqrt(b.multiply(b)
-                         .minus(c.multiply(a.multiply(4))));
-   root.setComplex(b.invSign().plus(tmp.divide(a.multiply(2))));
+.. code-block:: java
+
+   // Static constructors are a common feature of Java value classes.
+   Rational a = Rational.of(2, 3);
+   Rational b = Rational.of(6);
+   Rational c = Rational.of(5, 3);
+
+   Rational fourA = a.multiply(Rational.of(4));
+   Rational discriminant = b.multiply(b).minus(c.multiply(fourA));
+   Complex tmp = Complex.sqrt(discriminant);
+   Rational twoA = a.multiply(Rational.of(2));
+   Complex root = b.invSign().plus(tmp).divide(twoA);
+
 
 When *everything* has to be a named function,
 and the standard operators can only be used on builtin types,
 the result is not as clean as we would like.
 
 What we want here is the ability to use familiar semantics
-on user defined types.
+on user defined types:
 
 .. code-block:: cpp
 
-   Rational a {2,3}, b{6,1}, c{5,3};
-   Complex root1 = (-b + sqrt(b*b - (4 * a * c))) / (2 * a);
+   rational a {2,3}, b{6,1}, c{5,3};
+   complex root1 = (-b + sqrt(b*b - (4 * a * c))) / (2 * a);
 
 Overloading the standard operator functions
 make this possible.
@@ -329,14 +335,14 @@ A single class can contain more than 1 function call operator overload,
 subject to the other rules of function overloading.
 
 
-Relational operators
+Comparison operators
 --------------------
 Standard algorithms such as std::sort and containers such as 
 :container:`set` expect ``operator <`` to be defined, by default, 
 for the user-provided types, and expect it to implement strict 
 :compare:`weak ordering <weak_ordering>`.
 Strict weak ordering defines members of a set as *comparable* to each other.
-The general signature for these non-member functions is:
+The general signatures for these non-member functions is:
 
 .. code-block:: cpp
 
@@ -358,14 +364,14 @@ lexicographical comparison provided by :utility:`std::tie <tuple/tie>`:
 
 .. code-block:: cpp
 
-   struct Record
+   struct package
    {
        std::string name;
        unsigned int floor;
        double weight;
    };
 
-   inline bool operator<(const Record& lhs, const Record& rhs)
+   inline bool operator<(const package& lhs, const package& rhs)
    {
       // parameters passed to each tie must be in the same order
       // or this will always return false
@@ -415,14 +421,43 @@ in terms of ``<`` and ``==``.
 
    .. code-block:: cpp
 
-      struct Record
+      struct package
       {
           std::string name;
           unsigned int floor;
           double weight;
-          auto operator<=>(const Record&) = default;
+          auto operator<=>(const package&) const = default;
       };
-      // records can now be compared with ==, !=, <, <=, >, and >=
+      // packages can now be compared with ==, !=, <, <=, >, and >=
+
+   The three-way comparison operator is also called the 'spaceship operator'
+   because of the way it looks in an expression: ``a <=> b``.
+
+Unlike the 'two-way' comparison operators, ``operator<=>`` does not return
+``bool``.
+With a single operation, it determines the entire ordering relationship between
+two values, returning one of three possible outcomes:
+less than, equal to/equivalent, or greater than:
+
+- A negative result (or a value representing less)
+  means the left operand is less than the right operand (``a < b``).
+- A result of zero (or a value representing equal/equivalent) means
+  the operands are equal (``a == b``) or that they are equivalent
+  (``!(a < b) && !(b < a)``.
+- A positive result (or a value representing greater) means the left operand
+  is greater than the right operand (``a > b``).
+
+If the three-way comparison is **not** defaulted, then you must overload
+``operator==`` in addition to ``operator<=>``.
+Neither of these overloads need to be member functions.
+As with the earlier guidance for comparison overloads,
+non-friend non-member functions are preferred.
+
+Once these two overloads have been implemented, all the other comparison
+operations can be generated automatically.
+
+One thing you may have noticed is the number of classes that removed the
+``!=``, ``<``, ``<=``, ``>``, and ``>=`` operators starting with C++20.
 
 
 Binary arithmetic operators
@@ -535,11 +570,11 @@ member function template with
      // explicit conversion
      explicit operator int() const { /* return int version of type */ }
 
-Suppose we want to concatenate a Rational to a string?
+Suppose we want to concatenate a ``rational`` to a string?
 
 .. code-block:: cpp
  
-   Rational a {2,3};
+   rational a {2,3};
    std::string s = {"A = "};
    s += a;                   // will not compile
 
@@ -549,7 +584,7 @@ Your compiler may present something like:
 
    error: no viable overloaded '+='
    candidate function not viable: 
-   no known conversion from 'Rational' to
+   no known conversion from 'rational' to
    'const std::__1::basic_string<char>' for 1st argument
    _LIBCPP_INLINE_VISIBILITY basic_string& operator+=(const basic_string...
 
@@ -559,7 +594,7 @@ to happen:
 
 .. code-block:: cpp
  
-   Rational::operator std::string() const {
+   rational::operator std::string() const {
       std::stringstream ss;
       ss << numerator << '/' << denominator;
       return ss.str();
@@ -570,7 +605,7 @@ converting its argument into the type:
 
 .. code-block:: cpp
  
-   Rational (int x) {
+   rational (int x) {
       numerator = x;
       denominator = 1;
    }
@@ -579,7 +614,7 @@ And an expression like this works:
 
 .. code-block:: cpp
 
-   Rational r = 3;
+   rational r = 3;
 
 The conversion both of these previous cases,
 for the ``string`` and the ``int`` happened implicitly.
@@ -588,20 +623,20 @@ convert to a user-defined type:
 
 .. code-block:: cpp
 
-   void func (Rational r);
+   void func (rational r);
 
    int main () {
       func(3);   // this works
    }
 
-The call to ``func()`` works because Rational has a conversion
-constructor that converts int values to Rational ones.
+The call to ``func()`` works because rational has a conversion
+constructor that converts int values to rational ones.
 C++ provides a keyword ``explicit`` that requires
 a cast - it inhibits the implicit conversion of a user defined type.
 
 .. code-block:: cpp
  
-   explicit Rational (int x) { . . .
+   explicit rational (int x) { . . .
 
    explicit operator std::string() const { . . . 
 
@@ -610,17 +645,15 @@ or an explicit constructor call:
 
 .. code-block:: cpp
 
-   Rational r = Rational(3);       // constructor
-   func(Rational(3));              // constructor
-   func(static_cast<Rational>(3)); // cast
-   func((Rational)3);              // c-style cast
+   rational r = rational(3);       // constructor
+   rational r = rational{3};       // constructor - no implicit conversion
+   func(rational(3));              // constructor
+   func(static_cast<rational>(3)); // cast
+   func((rational)3);              // c-style cast
 
-   // explicitly convert a Rational to string
+   // explicitly convert a rational to string
    // using functional conversion syntax
-   std::string s = string(Rational(3));
-
-
-
+   std::string s = string(rational(3));
 
 
 -----

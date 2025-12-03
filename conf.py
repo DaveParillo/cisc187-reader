@@ -78,7 +78,7 @@ plot_html_show_source_link = False
 plot_html_show_formats = False
 
 # mermaid properties
-mermaid_version = "10.9.1"
+mermaid_version = "11.12.0"
 mermaid_init_js = "mermaid.initialize({startOnLoad:true});"
 
 # graphviz_dot='/usr/bin/dot'

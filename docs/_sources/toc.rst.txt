@@ -42,6 +42,7 @@ Main Body
    stack/index.rst
    list/index.rst
    trees/index.rst
+   hash_table/index.rst
    sort/index.rst
    algorithms/index.rst
 

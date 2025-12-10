@@ -20,8 +20,8 @@ Every push front would involve shifting all the elements in the vector
 down one position.
 
 
-:ref:`The table below <tbl_listbigo>` shows the Big-O efficiency of some
-basic list operations. 
+:ref:`The table below <tbl_listbigo>` shows the average complexity efficiency
+of some basic list operations. 
 Note that many are constant time.
 Note that many list operations such as ``insert`` and ``erase`` take an iterator
 as a parameter.
@@ -31,10 +31,10 @@ if you have not saved the iterator from a previous operation.
 
 .. _tbl_listbigo:
 
-.. table:: **Big-O Efficiency of C++ List Operators**
+.. table:: **Complexity of C++ List Operators**
 
     ===================== ==================
-                Operation   Big-O Efficiency
+                Operation         Complexity
     ===================== ==================
              assignment =               O(n)
               push_back()               O(1)

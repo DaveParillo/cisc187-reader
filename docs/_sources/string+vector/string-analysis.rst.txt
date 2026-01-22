@@ -32,13 +32,13 @@ the same amount of time no matter how large the string is.
 
 Now that we have seen how performance can be measured concretely you can
 look at the :ref:`string operations table <tbl_strbigocpp>`
-to see the Big-O efficiency of all the basic string operations and you
+to see the average complexity of all the basic string operations and you
 will see a striking resemblance to vectors because
 the implementations are so similar.
 
 .. _tbl_strbigocpp:
 
-.. table:: **Big-O Efficiency of C++ String Operations**
+.. table:: **Big-O of C++ string operations**
 
     ===================== ==================
                 Operation   Big-O Efficiency

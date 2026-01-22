@@ -112,46 +112,50 @@ can be invoked recursively on the two halves.
             std::cout << '\n';
          }
 
-         int partition (vector<int>& data, int first, int last) {
-            int pivotvalue = data[first];
-            int rightmark = last;
-            int leftmark = first + 1;
+         template <typename RandomIt>
+         RandomIt partition(RandomIt first, RandomIt last) {
+            if (first == last) return first;
+
+            auto pivotvalue = *first;
+            RandomIt leftmark  = first + 1;
+            RandomIt rightmark = last - 1;
             bool done = false;
             while (!done) {
                while(leftmark <= rightmark &&
-                     data[leftmark] <= pivotvalue) {
+                     *leftmark <= pivotvalue) {
                  ++leftmark;
                }
                while(rightmark >= leftmark &&
-                     data[rightmark] >= pivotvalue) {
+                     *rightmark >= pivotvalue) {
                  --rightmark;
                }
                if(rightmark<leftmark) {
                   done = true;
                } else {
-                  std::swap(data[rightmark], data[leftmark]);
+                  std::swap(*rightmark, *leftmark);
                }
             }
-            std::swap(data[rightmark], data[first]);
+            std::swap(*rightmark, *first); //*
             return rightmark;
          }
 
-         vector<int> quick_sort(vector<int>& data, int first, int last) {
-            int pivot = 0;
-
-            if (first < last) {
-               pivot = partition(data, first, last);
-               quick_sort(data, first, pivot);
-               quick_sort(data, pivot+1, last);
+         template <typename RandomIt>
+         void quick_sort(RandomIt first, RandomIt last)
+         {
+            if (std::distance(first, last) > 1) {
+                 RandomIt pivot = partition(first, last);
+                 quick_sort(first, pivot);
+                 quick_sort(pivot + 1, last);
             }
-            return data;
          }
 
          int main() {
            vector<int> data = {54, 26, 93, 17, 77, 31, 44, 55, 20};
-           print(quick_sort(data, 0, data.size()-1));
+           quick_sort(data.begin(), data.end());
+           print(data);
            return 0;
          }
+
 
 The following animation shows the quick sort in action.
 Our pivot is represented by the arrow on screen.
@@ -180,6 +184,10 @@ point, each of the *n* items needs to be checked against the pivot value.
 Therefore, the average case complexity is :math:`n\cdot \log n`. 
 In addition, there is no copying of list data as in the merge sort process.
 
+The ideal pivot selection point is the median **value** in the data set,
+however the cost to find the median often exceeds the benefits for many typical
+data sets.
+
 Unfortunately, in the worst case, the split points may not be in the
 middle and can be very skewed to the left or the right, leaving a very
 uneven division. In this case, sorting a list of *n* items divides into
@@ -187,6 +195,7 @@ sorting a list of 0 items and a list of :math:`n-1` items. Then
 sorting a list of :math:`n-1` divides into a list of size 0 and a list
 of size :math:`n-2`, and so on. The result is an :math:`O(n^{2})`
 sort with all of the overhead that recursion requires.
+This worst case example is shown in the above code example.
 
 A recursive :math:`O(n^{2})` algorithm makes quick sort susceptible to
 stack overflow errors on very large data sets.
@@ -211,7 +220,7 @@ Now pick the median value, in our case 54, and use it for the pivot
 value (of course, that was the pivot value we used originally). The idea
 is that in the case where the first item in the list does not belong
 toward the middle of the list, the median of three will choose a better
-“middle” value. This will be particularly useful when the original list
+"middle" value. This will be particularly useful when the original list
 is somewhat sorted to begin with. We leave the implementation of this
 pivot value selection as an exercise.
 

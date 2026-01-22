@@ -116,6 +116,10 @@ extlinks = {
 # prefix override as :issue:`this issue <123>`
 # or :string:`operator[]<operator_at>`
 
+linkcheck_allowed_redirects = {
+    r'https://en\.cppreference\.com/w/cpp/.*' : r'https://stackoverflow\.com/.*'
+}
+
 #,'runestone.video','runestone.reveal','runestone.poll','runestone.tabbedStuff','runestone.disqus','runestone.codelens','runestone.activecode', 'runestone.assess', 'runestone.animation','runestone.meta', 'runestone.parsons', 'runestone.blockly', 'runestone.livecode']
 
 # Add any paths that contain templates here, relative to this directory.
@@ -139,14 +143,14 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'CISC 187 Textbook'
-copyright = '2017-2025 Dave Parillo'
+copyright = '2017-2026 Dave Parillo'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = '3.2.0'
+version = '3.3.0'
 # The full version, including alpha/beta/rc tags.
 release = version
 

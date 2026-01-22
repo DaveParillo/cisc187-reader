@@ -18,24 +18,24 @@ Front Matter
    :caption: Legal and foreword
    :titlesonly:
 
-   front-matter/copyright.rst
-   front-matter/fdl-1.3.rst
-   front-matter/foreword.rst
-   front-matter/preface.rst
+   front-matter/copyright
+   front-matter/fdl-1.3
+   front-matter/foreword
+   front-matter/preface
 
 .. toctree::
    :hidden:
 
-   toc.rst
+   toc
 
 Preliminaries
 =============
 .. toctree::
    :maxdepth: 1
 
-   c_review/index.rst
-   math/index.rst
-   analysis/index.rst
+   c_review/index
+   math/index
+   analysis/index
 
 Chapters
 ========
@@ -44,36 +44,36 @@ Chapters
    :numbered:
    :maxdepth: 1
 
-   build-tools/index.rst
-   string+vector/index.rst
+   build-tools/index
+   string+vector/index
 
-   function-intro/index.rst
-   function-overloads/index.rst
-   pointers/index.rst
-   recursion/index.rst
+   function-intro/index
+   function-overloads/index
+   pointers/index
+   recursion/index
 
-   class-I-intro/index.rst
-   class-II-functions/index.rst
-   class-III-design/index.rst
+   sort/index
+   class-I-intro/index
+   class-II-functions/index
+   class-III-design/index
 
-   class-IV-templates/index.rst
-   class-V-memory/index.rst
+   class-IV-templates/index
+   class-V-memory/index
 
-   stack/index.rst
-   list/index.rst
+   stack/index
+   list/index
 
-   trees/index.rst
-   hash_table/index.rst
-   sort/index.rst
-   algorithms/index.rst
+   trees/index
+   hash_table/index
+   algorithms/index
 
 Back Matter
 ===========
 .. toctree::
    :maxdepth: 1
 
-   back-matter/faq.rst
-   back-matter/ascii.rst
+   back-matter/faq
+   back-matter/ascii
 
 * :ref:`search`
 * :ref:`glossary`

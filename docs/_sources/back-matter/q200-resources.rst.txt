@@ -71,7 +71,7 @@ Good advice.
   A great and short book that does not require any special programming skill -
   targeted at students, but generally useful.
 
-- `Code Complete <http://cc2e.com>`__ A true compendium.
+- `Code Complete <https://stevemcconnell.com>`__ A true compendium.
   Which may be a 'pro' or a 'con' for you.
 
   Originally written in 1993 and redone in 2004,

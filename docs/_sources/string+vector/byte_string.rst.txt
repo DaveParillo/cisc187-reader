@@ -205,7 +205,7 @@ string class.
 
 Not C++.
 
-C++ uses the legacy :string:`null-terminated byte strings library </byte>` 
+C++ uses the legacy :string:`null-terminated byte strings library <byte>` 
 to provide these features.
 
 Changing character case is a common task and unless you choose

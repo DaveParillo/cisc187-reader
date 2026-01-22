@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>13.7. Using iterators &#8212; CISC 187 Course Reader Overview</title>
+    <title>14.7. Using iterators &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="14. Trees and associative data structures" href="../trees/index.html" />
-    <link rel="prev" title="13.6. Basic iterator operations" href="iterator-operations.html" />
+    <link rel="next" title="15. Trees and associative data structures" href="../trees/index.html" />
+    <link rel="prev" title="14.6. Basic iterator operations" href="iterator-operations.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">13.6. </span>Basic iterator operations" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">14.6. </span>Basic iterator operations" data-toggle="tooltip">
     <a href="iterator-operations.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">14. </span>Trees and associative data structures' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">15. </span>Trees and associative data structures' data-toggle="tooltip" >              
     <a href="../trees/index.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="using-iterators">
-<span id="index-0"></span><h1><span class="section-number">13.7. </span>Using iterators<a class="headerlink" href="#using-iterators" title="Permalink to this heading">¶</a></h1>
+<span id="index-0"></span><h1><span class="section-number">14.7. </span>Using iterators<a class="headerlink" href="#using-iterators" title="Permalink to this heading">¶</a></h1>
 <p>Assigning an iterator explicitly to a variable works much like any other type:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">nums</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">};</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
@@ -279,7 +279,7 @@ Unless the container is a container of pointers, no dereferencing is needed.</p>
 </dd>
 </dl>
 <section id="limits-of-range-based-for-loops">
-<h2><span class="section-number">13.7.1. </span>Limits of Range-based for loops<a class="headerlink" href="#limits-of-range-based-for-loops" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">14.7.1. </span>Limits of Range-based for loops<a class="headerlink" href="#limits-of-range-based-for-loops" title="Permalink to this heading">¶</a></h2>
 <p>The <a class="reference external" href="https://en.cppreference.com/w/cpp/language/range-for">range-for</a> loop, while convenient, has limitations.</p>
 <p>Any situation in which you do not need or want to visit every element
 requires a traditional loop:</p>
@@ -300,7 +300,7 @@ then you need an explicit iterator so that you can call the container <code clas
 <p>See the erase example in the following section.</p>
 </section>
 <section id="container-functions-that-require-iterators">
-<h2><span class="section-number">13.7.2. </span>Container functions that require iterators<a class="headerlink" href="#container-functions-that-require-iterators" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">14.7.2. </span>Container functions that require iterators<a class="headerlink" href="#container-functions-that-require-iterators" title="Permalink to this heading">¶</a></h2>
 <p>Most container functions that use position information do not
 accept an integral position or an index like <code class="docutils literal notranslate"><span class="pre">operator[]</span></code>.
 Position information is expressed using iterators.</p>
@@ -331,7 +331,7 @@ Position information is expressed using iterators.</p>
 </div><div data-component="tab" data-tabname="Run it" >
 
 <div class="runestone explainer ac_section ">
-<div data-component="activecode" id=ac_iterator_insert data-question_label="13.7.2.1">
+<div data-component="activecode" id=ac_iterator_insert data-question_label="14.7.2.1">
 <div id=ac_iterator_insert_question class="ac_question">
 
 </div>
@@ -420,7 +420,7 @@ in the container.</p>
 </div><div data-component="tab" data-tabname="Run it" >
 
 <div class="runestone explainer ac_section ">
-<div data-component="activecode" id=ac_iterator_erase data-question_label="13.7.2.2">
+<div data-component="activecode" id=ac_iterator_erase data-question_label="14.7.2.2">
 <div id=ac_iterator_erase_question class="ac_question">
 
 </div>
@@ -494,14 +494,14 @@ int main( ) {
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 13.6. Basic iterator operations' data-toggle="tooltip">
-  <a href="iterator-operations.html" aria-label="Previous - 13.6. Basic iterator operations">
+<li id="relations-prev" class="navLink" title='Previous Section - 14.6. Basic iterator operations' data-toggle="tooltip">
+  <a href="iterator-operations.html" aria-label="Previous - 14.6. Basic iterator operations">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 14. Trees and associative data structures' data-toggle="tooltip" >
-    <a href="../trees/index.html" aria-label="Next - 14. Trees and associative data structures">
+  <li id="relations-next" class="navLink" title='Next Section - 15. Trees and associative data structures' data-toggle="tooltip" >
+    <a href="../trees/index.html" aria-label="Next - 15. Trees and associative data structures">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -523,7 +523,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

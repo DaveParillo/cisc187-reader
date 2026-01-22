@@ -474,7 +474,7 @@ inheritance and composition, this is enough.
      `introduction to object oriented programming in general and UML diagrams 
      <http://www.agiledata.org/essays/objectOrientation101.html>`__
    - More example diagrams and explanations can be viewed at `uml-diagrams.org 
-     <http://www.uml-diagrams.org/class-diagrams-overview.html>`__.
+     <https://www.uml-diagrams.org/class-diagrams-overview.html>`__.
 
 .. topic:: Footnotes
 

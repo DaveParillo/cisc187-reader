@@ -509,7 +509,7 @@ While we were at it, we fixed some bugs and made it a bit more reusable and main
    - :cpp:`Unit testing library list <links/libs#Testing>`
    - A very brief description of 
      "`extract method <http://refactoring.com/catalog/extractMethod.html>`_" from Martin Fowler's Refactoring site.
-   - `ExtractMethod <http://c2.com/cgi/wiki?ExtractMethod>`_ discussion from the 
-     `PortlandPatternRepository <http://c2.com/cgi/wiki?PortlandPatternRepository>`_ - the very first wiki
+   - `ExtractMethod <http://wiki.c2.com/?ExtractMethod>`_ discussion from the 
+     `PortlandPatternRepository <http://wiki.c2.com/?PortlandPatternRepository>`_ - the very first wiki
 
 

@@ -663,7 +663,7 @@ or an explicit constructor call:
    - `Operator overloading in C++ <https://stackoverflow.com/questions/4421706/what-are-the-basic-rules-and-idioms-for-operator-overloading>`__ from stackoverflow.  
      Much of the content in this section was taken from there.
    - :lang:`Converting constructors <converting_constructor>`
-   - C++ Core Guidelines for :guidelines:`overloading <SS-overload>`
+   - C++ Core Guidelines for :guidelines:`overloading <c138-create-an-overload-set-for-a-derived-class-and-its-bases-with-using>`
    - :lang:`Comparison operators <operator_comparison>` from cppreference.com.
    - :cpp:`Named requirements: Compare <named_req/Compare>`.
      This page also includes a list of the parts of the STL that expect types

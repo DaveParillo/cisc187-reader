@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>16.7. Quick sort &#8212; CISC 187 Course Reader Overview</title>
+    <title>7.7. Quick sort &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="16.8. Heap sort" href="heap.html" />
-    <link rel="prev" title="16.6. Merge sort" href="merge.html" />
+    <link rel="next" title="7.8. Heap sort" href="heap.html" />
+    <link rel="prev" title="7.6. Merge sort" href="merge.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">16.6. </span>Merge sort" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">7.6. </span>Merge sort" data-toggle="tooltip">
     <a href="merge.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">16.8. </span>Heap sort' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">7.8. </span>Heap sort' data-toggle="tooltip" >              
     <a href="heap.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="quick-sort">
-<span id="sort-quick"></span><h1><span class="section-number">16.7. </span>Quick sort<a class="headerlink" href="#quick-sort" title="Permalink to this heading">¶</a></h1>
+<span id="sort-quick"></span><h1><span class="section-number">7.7. </span>Quick sort<a class="headerlink" href="#quick-sort" title="Permalink to this heading">¶</a></h1>
 <p>The <strong>quick sort</strong> uses divide and conquer to gain the same advantages
 as the merge sort, while not using additional storage. As a trade-off,
 however, it is possible that the list may not be divided in half. When
@@ -277,7 +277,7 @@ list that was used in the example above.</p>
 </div><div data-component="tab" data-tabname="Run It" >
 
 <div class="runestone explainer ac_section ">
-<div data-component="activecode" id=lst_quick_cpp data-question_label="16.7.1">
+<div data-component="activecode" id=lst_quick_cpp data-question_label="7.7.1">
 <div id=lst_quick_cpp_question class="ac_question">
 
 </div>
@@ -299,44 +299,47 @@ void print(const vector<int>& data) {
    std::cout << '\n';
 }
 
-int partition (vector<int>& data, int first, int last) {
-   int pivotvalue = data[first];
-   int rightmark = last;
-   int leftmark = first + 1;
+template <typename RandomIt>
+RandomIt partition(RandomIt first, RandomIt last) {
+   if (first == last) return first;
+
+   auto pivotvalue = *first;
+   RandomIt leftmark  = first + 1;
+   RandomIt rightmark = last - 1;
    bool done = false;
    while (!done) {
       while(leftmark <= rightmark &&
-            data[leftmark] <= pivotvalue) {
+            *leftmark <= pivotvalue) {
         ++leftmark;
       }
       while(rightmark >= leftmark &&
-            data[rightmark] >= pivotvalue) {
+            *rightmark >= pivotvalue) {
         --rightmark;
       }
       if(rightmark<leftmark) {
          done = true;
       } else {
-         std::swap(data[rightmark], data[leftmark]);
+         std::swap(*rightmark, *leftmark);
       }
    }
-   std::swap(data[rightmark], data[first]);
+   std::swap(*rightmark, *first); //*
    return rightmark;
 }
 
-vector<int> quick_sort(vector<int>& data, int first, int last) {
-   int pivot = 0;
-
-   if (first < last) {
-      pivot = partition(data, first, last);
-      quick_sort(data, first, pivot);
-      quick_sort(data, pivot+1, last);
+template <typename RandomIt>
+void quick_sort(RandomIt first, RandomIt last)
+{
+   if (std::distance(first, last) > 1) {
+        RandomIt pivot = partition(first, last);
+        quick_sort(first, pivot);
+        quick_sort(pivot + 1, last);
    }
-   return data;
 }
 
 int main() {
   vector<int> data = {54, 26, 93, 17, 77, 31, 44, 55, 20};
-  print(quick_sort(data, 0, data.size()-1));
+  quick_sort(data.begin(), data.end());
+  print(data);
   return 0;
 }
 </textarea>
@@ -387,13 +390,17 @@ will again be <span class="math notranslate nohighlight">\(\log n\)</span> divis
 point, each of the <em>n</em> items needs to be checked against the pivot value.
 Therefore, the average case complexity is <span class="math notranslate nohighlight">\(n\cdot \log n\)</span>.
 In addition, there is no copying of list data as in the merge sort process.</p>
+<p>The ideal pivot selection point is the median <strong>value</strong> in the data set,
+however the cost to find the median often exceeds the benefits for many typical
+data sets.</p>
 <p>Unfortunately, in the worst case, the split points may not be in the
 middle and can be very skewed to the left or the right, leaving a very
 uneven division. In this case, sorting a list of <em>n</em> items divides into
 sorting a list of 0 items and a list of <span class="math notranslate nohighlight">\(n-1\)</span> items. Then
 sorting a list of <span class="math notranslate nohighlight">\(n-1\)</span> divides into a list of size 0 and a list
 of size <span class="math notranslate nohighlight">\(n-2\)</span>, and so on. The result is an <span class="math notranslate nohighlight">\(O(n^{2})\)</span>
-sort with all of the overhead that recursion requires.</p>
+sort with all of the overhead that recursion requires.
+This worst case example is shown in the above code example.</p>
 <p>A recursive <span class="math notranslate nohighlight">\(O(n^{2})\)</span> algorithm makes quick sort susceptible to
 stack overflow errors on very large data sets.</p>
 <p>Quick sort therefore poses an interesting dilemma.
@@ -421,7 +428,7 @@ pivot value selection as an exercise.</p>
 <div id='tab_check' data-component="tabbedStuff"  class='alert alert-warning '><div data-component="tab" data-tabname="Q1" >
 
     <div class="runestone ">
-    <ul data-component="multiplechoice" data-question_label="16.7.2" data-multipleanswers="false"  id="question_sort_7"  style="visibility: hidden;">
+    <ul data-component="multiplechoice" data-question_label="7.7.2" data-multipleanswers="false"  id="question_sort_7"  style="visibility: hidden;">
     <p>sc-1-3: Given the following list of numbers
 [14, 17, 13, 15, 19, 10, 3, 16, 9, 12] which answer shows the
 contents of the list after the second partitioning according to the
@@ -441,7 +448,7 @@ quicksort algorithm?</p>
     </div><div data-component="tab" data-tabname="Q2" >
 
     <div class="runestone ">
-    <ul data-component="multiplechoice" data-question_label="16.7.3" data-multipleanswers="false"  id="question_sort_8"  style="visibility: hidden;">
+    <ul data-component="multiplechoice" data-question_label="7.7.3" data-multipleanswers="false"  id="question_sort_8"  style="visibility: hidden;">
     <p>sc-1-4: Given the following list of numbers
 [1, 20, 11, 5, 2, 9, 16, 14, 13, 19]
 what would be the first pivot value using the median of 3 method?</p>
@@ -460,7 +467,7 @@ what would be the first pivot value using the median of 3 method?</p>
     </div><div data-component="tab" data-tabname="Q3" >
 
     <div class="runestone ">
-    <ul data-component="multiplechoice" data-question_label="16.7.4" data-multipleanswers="false"  id="question_sort_9"  style="visibility: hidden;">
+    <ul data-component="multiplechoice" data-question_label="7.7.4" data-multipleanswers="false"  id="question_sort_9"  style="visibility: hidden;">
     <p>sc-1-5: Which of the following sort algorithms are guaranteed to be
 O(n log n) even in the worst case?</p>
 
@@ -478,7 +485,7 @@ O(n log n) even in the worst case?</p>
     </div><div data-component="tab" data-tabname="Q4" >
 
 <div class="runestone  ">
-<ul data-component="dragndrop" data-question_label="16.7.5" id="question_sort_10"  style="visibility: hidden;">
+<ul data-component="dragndrop" data-question_label="7.7.5" id="question_sort_10"  style="visibility: hidden;">
     <span data-subcomponent="question">sc-1-6: Match each sorting method with its appropriate estimated comparisons.</span>
 	<span data-subcomponent=feedback>Refer to previous sections of the chapter</span>
 
@@ -496,7 +503,7 @@ O(n log n) even in the worst case?</p>
 </ul></div></div><div data-component="tab" data-tabname="Q5" >
 
     <div class="runestone ">
-    <ul data-component="multiplechoice" data-question_label="16.7.6" data-multipleanswers="false"  id="sortefficiencyrandom"  style="visibility: hidden;">
+    <ul data-component="multiplechoice" data-question_label="7.7.6" data-multipleanswers="false"  id="sortefficiencyrandom"  style="visibility: hidden;">
     <p>sc-1-7: Which sort should you use for best efficiency
 if you need to sort through 100,000 random items in a list?</p>
 
@@ -538,14 +545,14 @@ released under the
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 16.6. Merge sort' data-toggle="tooltip">
-  <a href="merge.html" aria-label="Previous - 16.6. Merge sort">
+<li id="relations-prev" class="navLink" title='Previous Section - 7.6. Merge sort' data-toggle="tooltip">
+  <a href="merge.html" aria-label="Previous - 7.6. Merge sort">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 16.8. Heap sort' data-toggle="tooltip" >
-    <a href="heap.html" aria-label="Next - 16.8. Heap sort">
+  <li id="relations-next" class="navLink" title='Next Section - 7.8. Heap sort' data-toggle="tooltip" >
+    <a href="heap.html" aria-label="Next - 7.8. Heap sort">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -567,7 +574,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

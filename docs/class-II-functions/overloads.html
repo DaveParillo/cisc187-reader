@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>8.3. Operator overloads &#8212; CISC 187 Course Reader Overview</title>
+    <title>9.3. Operator overloads &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8.4. Friend vs non-friend functions" href="friend.html" />
-    <link rel="prev" title="8.2. Static members" href="static.html" />
+    <link rel="next" title="9.4. Friend vs non-friend functions" href="friend.html" />
+    <link rel="prev" title="9.2. Static members" href="static.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">8.2. </span>Static members" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">9.2. </span>Static members" data-toggle="tooltip">
     <a href="static.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">8.4. </span>Friend vs non-friend functions' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">9.4. </span>Friend vs non-friend functions' data-toggle="tooltip" >              
     <a href="friend.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="operator-overloads">
-<span id="index-0"></span><h1><span class="section-number">8.3. </span>Operator overloads<a class="headerlink" href="#operator-overloads" title="Permalink to this heading">¶</a></h1>
+<span id="index-0"></span><h1><span class="section-number">9.3. </span>Operator overloads<a class="headerlink" href="#operator-overloads" title="Permalink to this heading">¶</a></h1>
 <p>There are many reasons to want to overload the builtin operator
 functions for user defined types.</p>
 <p><strong>Case 1</strong></p>
@@ -277,7 +277,7 @@ since most operators defer their actual work to plain functions.
 The programming community has already thought long and hard on
 techniques to make overloads efficient and easy to maintain.</p>
 <section id="basic-overloading-guidelines">
-<span id="index-1"></span><h2><span class="section-number">8.3.1. </span>Basic overloading guidelines<a class="headerlink" href="#basic-overloading-guidelines" title="Permalink to this heading">¶</a></h2>
+<span id="index-1"></span><h2><span class="section-number">9.3.1. </span>Basic overloading guidelines<a class="headerlink" href="#basic-overloading-guidelines" title="Permalink to this heading">¶</a></h2>
 <p>Most C++ operators can be overloaded.
 You cannot change the meaning of operators for built-in types in C++.
 Operators can only be overloaded when at least 1 operand is a user-defined type.
@@ -329,7 +329,7 @@ then most users expect to also to be able to check <code class="docutils literal
 function signatures for some of the most common operator overloads.</p>
 </section>
 <section id="assignment-operator">
-<h2><span class="section-number">8.3.2. </span>Assignment operator<a class="headerlink" href="#assignment-operator" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.3.2. </span>Assignment operator<a class="headerlink" href="#assignment-operator" title="Permalink to this heading">¶</a></h2>
 <p>The copy assignment operator is called when an object appears
 on the left side of an assignment expression.</p>
 <p>The canonical copy-assignment operator is expected to perform
@@ -391,7 +391,7 @@ is required for this technique to work:</p>
 </div>
 </section>
 <section id="insertion-and-extraction-operators">
-<h2><span class="section-number">8.3.3. </span>Insertion and extraction operators<a class="headerlink" href="#insertion-and-extraction-operators" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.3.3. </span>Insertion and extraction operators<a class="headerlink" href="#insertion-and-extraction-operators" title="Permalink to this heading">¶</a></h2>
 <p>The bitshift operators <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&gt;&gt;</span></code>,
 although still used in hardware interfacing for the bit-manipulation functions
 they inherit from C,
@@ -456,7 +456,7 @@ non-member non-friend functions. The canonical forms are:</p>
 </div>
 </section>
 <section id="function-call-operator">
-<h2><span class="section-number">8.3.4. </span>Function call operator<a class="headerlink" href="#function-call-operator" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.3.4. </span>Function call operator<a class="headerlink" href="#function-call-operator" title="Permalink to this heading">¶</a></h2>
 <p>When a user-defined class overloads the function call operator,
 <code class="docutils literal notranslate"><span class="pre">operator()</span></code>, it becomes a FunctionObject type.
 A function object is a class that can be called as if it was a function.
@@ -487,7 +487,7 @@ A single class can contain more than 1 function call operator overload,
 subject to the other rules of function overloading.</p>
 </section>
 <section id="comparison-operators">
-<h2><span class="section-number">8.3.5. </span>Comparison operators<a class="headerlink" href="#comparison-operators" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.3.5. </span>Comparison operators<a class="headerlink" href="#comparison-operators" title="Permalink to this heading">¶</a></h2>
 <p>Standard algorithms such as std::sort and containers such as
 <a class="reference external" href="https://en.cppreference.com/w/cpp/container/set">set</a> expect <code class="docutils literal notranslate"><span class="pre">operator</span> <span class="pre">&lt;</span></code> to be defined, by default,
 for the user-provided types, and expect it to implement strict
@@ -596,7 +596,7 @@ operations can be generated automatically.</p>
 <code class="docutils literal notranslate"><span class="pre">!=</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code>, <code class="docutils literal notranslate"><span class="pre">&gt;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&gt;=</span></code> operators starting with C++20.</p>
 </section>
 <section id="binary-arithmetic-operators">
-<h2><span class="section-number">8.3.6. </span>Binary arithmetic operators<a class="headerlink" href="#binary-arithmetic-operators" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.3.6. </span>Binary arithmetic operators<a class="headerlink" href="#binary-arithmetic-operators" title="Permalink to this heading">¶</a></h2>
 <p>Binary operators are typically implemented as non-members to maintain symmetry.
 For example, when adding a complex number and an integer,
 if <code class="docutils literal notranslate"><span class="pre">operator+</span></code> is a member function of the complex type,
@@ -635,7 +635,7 @@ compound assignments:</p>
 <p>The remaining binary arithmetic operators are implemented using the same pattern.</p>
 </section>
 <section id="increment-and-decrement-operators">
-<h2><span class="section-number">8.3.7. </span>Increment and decrement operators<a class="headerlink" href="#increment-and-decrement-operators" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.3.7. </span>Increment and decrement operators<a class="headerlink" href="#increment-and-decrement-operators" title="Permalink to this heading">¶</a></h2>
 <p>Unlike many of the operator overloads in this section,
 the increment and decrement operators are <em>unary</em> operators – only one
 operand, the current object, is involved.</p>
@@ -678,7 +678,7 @@ is called with an integer argument 0.</p>
 </ul>
 </section>
 <section id="conversion-operators">
-<h2><span class="section-number">8.3.8. </span>Conversion operators<a class="headerlink" href="#conversion-operators" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">9.3.8. </span>Conversion operators<a class="headerlink" href="#conversion-operators" title="Permalink to this heading">¶</a></h2>
 <p>C++ allows you to create operators to convert between your type and other ADT’s.
 A conversion function is declared like a non-static member function or
 member function template with</p>
@@ -770,7 +770,7 @@ or an explicit constructor call:</p>
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/4421706/what-are-the-basic-rules-and-idioms-for-operator-overloading">Operator overloading in C++</a> from stackoverflow.
 Much of the content in this section was taken from there.</p></li>
 <li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/language/converting_constructor">Converting constructors</a></p></li>
-<li><p>C++ Core Guidelines for <a class="reference external" href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html#SS-overload">overloading</a></p></li>
+<li><p>C++ Core Guidelines for <a class="reference external" href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html#c138-create-an-overload-set-for-a-derived-class-and-its-bases-with-using">overloading</a></p></li>
 <li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/language/operator_comparison">Comparison operators</a> from cppreference.com.</p></li>
 <li><p><a class="reference external" href="https://en.cppreference.com/w/cpp/named_req/Compare">Named requirements: Compare</a>.
 This page also includes a list of the parts of the STL that expect types
@@ -792,14 +792,14 @@ third edition and section 10 of the second.</p>
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 8.2. Static members' data-toggle="tooltip">
-  <a href="static.html" aria-label="Previous - 8.2. Static members">
+<li id="relations-prev" class="navLink" title='Previous Section - 9.2. Static members' data-toggle="tooltip">
+  <a href="static.html" aria-label="Previous - 9.2. Static members">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 8.4. Friend vs non-friend functions' data-toggle="tooltip" >
-    <a href="friend.html" aria-label="Next - 8.4. Friend vs non-friend functions">
+  <li id="relations-next" class="navLink" title='Next Section - 9.4. Friend vs non-friend functions' data-toggle="tooltip" >
+    <a href="friend.html" aria-label="Next - 9.4. Friend vs non-friend functions">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -821,7 +821,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

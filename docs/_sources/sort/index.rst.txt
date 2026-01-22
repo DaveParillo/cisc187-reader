@@ -61,4 +61,20 @@ exchange is a costly operation and the total number of exchanges will
 also be important for evaluating the overall efficiency of the
 algorithm.
 
+Although there are many kinds of sorts, many are
+:term:`comparison sorts <comparison sort>`.
+As the name implies, comparison sorts compare values and reorders them
+until the data is sorted.
+The details on how comparisons are made and how elements are reordered
+vary.
+Most fall into one of two categories:
+
+- Exchange sorts: find elements out of order and swap them.
+- Partition sorts: split a large set into smaller sets and then reassemble them
+  in order.
+
+Now that we have explored both iterative and recursive functions we have
+the tools we need to analyze and understand sort algorithms.
+
+First up: the exchange sorts.
 

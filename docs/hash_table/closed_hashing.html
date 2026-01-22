@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>15.6. Closed hashing &#8212; CISC 187 Course Reader Overview</title>
+    <title>16.6. Closed hashing &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="15.7. Analysis of hash tables" href="hash_table_analysis.html" />
-    <link rel="prev" title="15.5. Analysis of separate chaining" href="separate_chaining_analysis.html" />
+    <link rel="next" title="16.7. Analysis of hash tables" href="hash_table_analysis.html" />
+    <link rel="prev" title="16.5. Analysis of separate chaining" href="separate_chaining_analysis.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">15.5. </span>Analysis of separate chaining" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">16.5. </span>Analysis of separate chaining" data-toggle="tooltip">
     <a href="separate_chaining_analysis.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">15.7. </span>Analysis of hash tables' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">16.7. </span>Analysis of hash tables' data-toggle="tooltip" >              
     <a href="hash_table_analysis.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="closed-hashing">
-<span id="index-0"></span><h1><span class="section-number">15.6. </span>Closed hashing<a class="headerlink" href="#closed-hashing" title="Permalink to this heading">¶</a></h1>
+<span id="index-0"></span><h1><span class="section-number">16.6. </span>Closed hashing<a class="headerlink" href="#closed-hashing" title="Permalink to this heading">¶</a></h1>
 <p>In closed hashing, the hash array contains individual elements
 rather than a collection of elements.
 When a key we want to insert collides with a key already in the table,
@@ -401,7 +401,7 @@ how the next slot is found.</p>
 with the different probing strategies.</p>
 
 <div class="runestone explainer ac_section ">
-<div data-component="activecode" id=hash_table_closed_ac data-question_label="15.6.1">
+<div data-component="activecode" id=hash_table_closed_ac data-question_label="16.6.1">
 <div id=hash_table_closed_ac_question class="ac_question">
 
 </div>
@@ -605,7 +605,7 @@ int main() {
     </div>
 
 <section id="choosing-the-next-slot">
-<span id="index-1"></span><h2><span class="section-number">15.6.1. </span>Choosing the next slot<a class="headerlink" href="#choosing-the-next-slot" title="Permalink to this heading">¶</a></h2>
+<span id="index-1"></span><h2><span class="section-number">16.6.1. </span>Choosing the next slot<a class="headerlink" href="#choosing-the-next-slot" title="Permalink to this heading">¶</a></h2>
 <p>The function <code class="docutils literal notranslate"><span class="pre">next_slot(n)</span></code> in the <code class="docutils literal notranslate"><span class="pre">find</span></code> and <code class="docutils literal notranslate"><span class="pre">insert</span></code> functions
 controls the sequence of positions that will be checked.
 It is the implementation of the function <span class="math notranslate nohighlight">\(f(n)\)</span> mentioned earlier.
@@ -683,7 +683,7 @@ a place to insert a new key.</p>
 </dl>
 </section>
 <section id="analysis-of-closed-hashing">
-<h2><span class="section-number">15.6.2. </span>Analysis of closed hashing<a class="headerlink" href="#analysis-of-closed-hashing" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">16.6.2. </span>Analysis of closed hashing<a class="headerlink" href="#analysis-of-closed-hashing" title="Permalink to this heading">¶</a></h2>
 <p>We define <span class="math notranslate nohighlight">\(\lambda\)</span>, the <a class="reference internal" href="../glossary.html#term-load-factor"><span class="xref std std-term">load factor</span></a> of a hash table,
 as the number of items contained in the table divided by the table size.
 In other words, the load factor measures what fraction of the table is full.
@@ -727,7 +727,8 @@ than this idealized analysis indicates.</p>
 <p class="admonition-title">More to Explore</p>
 <ul class="simple">
 <li><p>The content on this page was adapted from
-<a class="reference external" href="https://www.cs.odu.edu/~zeil/cs361/f16/Public/collisions/index.html">Resolving Collisions</a>,
+Resolving Collisions
+&lt;<a class="reference external" href="https://www.cs.odu.edu/~zeil/cs361/f16/Public/collisions/index.html">https://www.cs.odu.edu/~zeil/cs361/f16/Public/collisions/index.html</a>&gt;,
 by Steven J. Zeil for his data structures course CS361.</p></li>
 </ul>
 </div>
@@ -742,14 +743,14 @@ by Steven J. Zeil for his data structures course CS361.</p></li>
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 15.5. Analysis of separate chaining' data-toggle="tooltip">
-  <a href="separate_chaining_analysis.html" aria-label="Previous - 15.5. Analysis of separate chaining">
+<li id="relations-prev" class="navLink" title='Previous Section - 16.5. Analysis of separate chaining' data-toggle="tooltip">
+  <a href="separate_chaining_analysis.html" aria-label="Previous - 16.5. Analysis of separate chaining">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 15.7. Analysis of hash tables' data-toggle="tooltip" >
-    <a href="hash_table_analysis.html" aria-label="Next - 15.7. Analysis of hash tables">
+  <li id="relations-next" class="navLink" title='Next Section - 16.7. Analysis of hash tables' data-toggle="tooltip" >
+    <a href="hash_table_analysis.html" aria-label="Next - 16.7. Analysis of hash tables">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -771,7 +772,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

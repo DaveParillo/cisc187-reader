@@ -317,10 +317,10 @@ change it later once we realize it did not control any of its invariants.
 
    - :lang:`C++ enumerations <enum>`
    - :lang:`Default constructors <default_constructor>`
-   - :wiki:`Abstraction in OOP <Abstraction_(computer_science)#Abstraction_in_object_oriented_programming>`
+   - :wiki:`Abstraction in OOP <Abstraction_(computer_science)#Abstraction_in_object-oriented_programming>`
 
 .. topic:: Footnotes
 
-   .. [#f1] From https://www.caranddriver.com/features/how-to-drive-a-ford-model-t
+   .. [#f1] From https://www.caranddriver.com/features/a15142307/how-to-drive-a-ford-model-t
 
 

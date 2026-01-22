@@ -345,8 +345,6 @@ but the checkout did add tiny.cpp and stage it for commit:
 
 .. admonition:: More to Explore
 
-   - `Git: An Introduction for Beginners <https://blog.replit.com/git-introduction-beginners-career-karma>`__
-   - `CISC187 git repository <https://github.com/DaveParillo/cisc187>`_
    - `Git Home <http://git-scm.com>`_
 
      All Git commands take a ``--help`` argument that brings up their manual page. 

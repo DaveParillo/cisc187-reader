@@ -232,7 +232,8 @@ File input and output
 
 I expect you to know how to use some form of file input and output,
 whether it is the C-style :cstdio:`printf` and :cstdio:`scanf`, or the
-C++-style input and output file streams: :io:`ofstream` and :io:`ifstream <basic_ifstream>`.
+C++-style input and output file streams: :io:`ofstream <basic_ofstream>` and
+:io:`ifstream <basic_ifstream>`.
 Both are serviceable, have their own advantages and disadvantages.
 This course emphasizes *contemporary* C++ and encourages the use of
 C++ generally, but sometimes ``printf`` is a perfectly acceptable
@@ -457,7 +458,8 @@ If not, refer to the section :doc:`../build-tools/debugging`.
 
    If **any** of the material in the preceding sections sounds unfamiliar, then
 
-   * Consider working through the `week 1 example source code <https://github.com/DaveParillo/cisc187/tree/master/examples/week01>`_
+   * Consider working through the week 1 example source code in your home directory
+     on buffy. Look in the ``examples`` directory.
 
    * Review the material from your first semester text
 

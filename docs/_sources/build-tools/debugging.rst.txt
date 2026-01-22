@@ -809,7 +809,7 @@ display
     `assert <http://en.cppreference.com/w/cpp/error/assert>`_ and
     `static_assert <http://en.cppreference.com/w/cpp/language/static_assert>`_. 
   - `GDB tips <http://heather.cs.ucdavis.edu/~matloff/UnixAndC/CLanguage/Debug.html>`_
-  - `GDB tutorial <https://www.cprogramming.com/gdb.html>`_
+  - `GDB tutorial <https://developers.redhat.com/articles/the-gdb-developers-gnu-debugger-tutorial-part-1-getting-started-with-the-debugger>`_
   - `DDD <http://www.gnu.org/software/ddd/>`_
 
 

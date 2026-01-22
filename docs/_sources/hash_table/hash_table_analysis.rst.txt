@@ -11,17 +11,17 @@
 
 Analysis of hash tables
 =======================
-:ref:`The table below <tbl_hashbigo>` shows the average case Big-O efficiency of some
+:ref:`The table below <tbl_hashbigo>` shows the **average case** complexity of some
 basic unordered_map operations. 
-For each operation that has average case constant time efficiency,
+For each operation that has constant time average case efficiency,
 the *worst case* complexity is :math:`O(n)`.
 
 .. _tbl_hashbigo:
 
-.. table:: **Big-O Efficiency of C++ unordered map Operators**
+.. table:: **Average complexity of C++ unordered map operations**
 
     ===================== ==================
-                Operation   Big-O Efficiency
+                Operation         Complexity
     ===================== ==================
              assignment =               O(1)
                  insert()               O(1)

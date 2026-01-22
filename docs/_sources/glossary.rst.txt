@@ -491,6 +491,21 @@ Glossary
       For others, such as :term:`linked list` the cost often increases
       as the number of elements increases.
 
+   comparison sort
+      A class of algorithms that sort data by comparing pairs of elements to
+      determine their relative order, using operations like "less than" or
+      "greater than" to decide which element comes first, with examples
+      including :ref:`sort_merge`, :ref:`sort_quick`, and :ref:`sort_insertion`,
+      all fundamentally limited to :math:`\Omega(n \log n)` time complexity
+      in the worst case because they rely on these pairwise comparisons. 
+
+      The act of comparing two :term:`keys <key>` or
+      :term:`records <record>`.
+      For many :term:`data types <data type>`, a comparison has
+      constant time cost.
+      For others, such as :term:`linked list` the cost often increases
+      as the number of elements increases.
+
    compile
       To translate a program written in a high-level language into a
       low-level language all at once, in preparation for later execution.

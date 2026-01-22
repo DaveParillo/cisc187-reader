@@ -312,7 +312,7 @@ We made several changes:
      - :guidelines:`Prefer in-class iniitalizers <Rc-in-class-initializer>`
      - Default operations: :guidelines:`rule of zero <Rc-zero>`
        and :guidelines:`rule of five <Rc-five>`
-     - :guidelines:`Concrete types <SS-concrete>`
+     - :guidelines:`Concrete types <cconcrete-concrete-types>`
 
    - `CplusPlus.com classes tutorial <http://www.cplusplus.com/doc/tutorial/classes/>`__.
 

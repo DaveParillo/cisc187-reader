@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>11.5. Allocators &#8212; CISC 187 Course Reader Overview</title>
+    <title>12.5. Allocators &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="11.6. constexpr classes" href="constexpr-classes.html" />
-    <link rel="prev" title="11.4. Moving memory" href="move.html" />
+    <link rel="next" title="12.6. constexpr classes" href="constexpr-classes.html" />
+    <link rel="prev" title="12.4. Moving memory" href="move.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">11.4. </span>Moving memory" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">12.4. </span>Moving memory" data-toggle="tooltip">
     <a href="move.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">11.6. </span><code class="docutils literal notranslate"><span class="pre">constexpr</span></code> classes' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">12.6. </span><code class="docutils literal notranslate"><span class="pre">constexpr</span></code> classes' data-toggle="tooltip" >              
     <a href="constexpr-classes.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="allocators">
-<span id="index-0"></span><h1><span class="section-number">11.5. </span>Allocators<a class="headerlink" href="#allocators" title="Permalink to this heading">¶</a></h1>
+<span id="index-0"></span><h1><span class="section-number">12.5. </span>Allocators<a class="headerlink" href="#allocators" title="Permalink to this heading">¶</a></h1>
 <p>Those of you who have been paying attention may have noticed most
 containers in the standard library have declarations like:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span>
@@ -307,7 +307,7 @@ to the uninitialized state.</p></li>
 <li><p>Deallocate uninitialized memory of size suitable for an object of type <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p></li>
 </ul>
 <section id="using-std-allocator-traits">
-<span id="index-1"></span><h2><span class="section-number">11.5.1. </span>Using std::allocator_traits<a class="headerlink" href="#using-std-allocator-traits" title="Permalink to this heading">¶</a></h2>
+<span id="index-1"></span><h2><span class="section-number">12.5.1. </span>Using std::allocator_traits<a class="headerlink" href="#using-std-allocator-traits" title="Permalink to this heading">¶</a></h2>
 <p>An allocator is exactly what a container to separate
 memory allocation from object construction and
 memory deallocation from object destruction.</p>
@@ -434,14 +434,14 @@ involves several steps.</p>
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 11.4. Moving memory' data-toggle="tooltip">
-  <a href="move.html" aria-label="Previous - 11.4. Moving memory">
+<li id="relations-prev" class="navLink" title='Previous Section - 12.4. Moving memory' data-toggle="tooltip">
+  <a href="move.html" aria-label="Previous - 12.4. Moving memory">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 11.6.  constexpr  classes' data-toggle="tooltip" >
-    <a href="constexpr-classes.html" aria-label="Next - 11.6.  constexpr  classes">
+  <li id="relations-next" class="navLink" title='Next Section - 12.6.  constexpr  classes' data-toggle="tooltip" >
+    <a href="constexpr-classes.html" aria-label="Next - 12.6.  constexpr  classes">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -463,7 +463,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

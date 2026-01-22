@@ -172,7 +172,7 @@ A graph of the loops in the preceding code should look something like this:
 
 
 Now that we have seen how performance can be measured concretely you can
-look at :ref:`the table below <tbl_vectbigocpp>` to see the Big-O efficiency of some
+look at :ref:`the table below <tbl_vectbigocpp>` to see the complexity of some
 basic vector operations. When ``pop_back()`` is called, the vector size
 is reduced by 1 and it takes constant time: :math:`O(1)`.
 However, when ``erase()`` is called the time is :math:`O(n)`.
@@ -185,10 +185,10 @@ This is a trade-off that the C++ implementers thought was a good one.
 
 .. _tbl_vectbigocpp:
 
-.. table:: **Big-O Efficiency of C++ Vector Operators**
+.. table:: **Complexity of C++ vector operations**
 
     ===================== ==================
-                Operation   Big-O Efficiency
+                Operation         Complexity
     ===================== ==================
                  index []               O(1)
        index assignment =               O(1)
@@ -326,12 +326,12 @@ can be as the size of a vector grows can still be surprising.
 
 
       .. dragndrop:: matching_VectorBO
-         :feedback: Review operations and thier Big(O)
+         :feedback: Review operations and their complexity
          :match_1: begin(), end(), size(), index [], index assignment = ,push_back(), pop_back()||| O(1) 
          :match_2: reserve(), erase(i), insert(i, item),find(srt, stp, item)|||O(n)
          :match_3: find(srt, stp, item)|||O(log n)
          
-         Drag the operation(s) on the left to their corresponding Big(O)
+         Drag the operation(s) on the left to their corresponding complexity
 
 
 -----

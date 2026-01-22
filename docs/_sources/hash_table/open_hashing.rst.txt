@@ -433,6 +433,7 @@ unique items.
 .. admonition:: More to Explore
 
    - The content on this page was adapted from
-     `Resolving Collisions <https://www.cs.odu.edu/~zeil/cs361/f16/Public/collisions/index.html>`__,
+     Resolving Collisions
+     <https://www.cs.odu.edu/~zeil/cs361/f16/Public/collisions/index.html>,
      by Steven J. Zeil for his data structures course CS361. 
 

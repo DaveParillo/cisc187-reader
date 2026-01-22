@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>15.2. Hash functions &#8212; CISC 187 Course Reader Overview</title>
+    <title>16.2. Hash functions &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="15.3. Resolving collisions" href="hash_table_collisions.html" />
-    <link rel="prev" title="15.1. Hashing concepts" href="hash_table.html" />
+    <link rel="next" title="16.3. Resolving collisions" href="hash_table_collisions.html" />
+    <link rel="prev" title="16.1. Hashing concepts" href="hash_table.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">15.1. </span>Hashing concepts" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">16.1. </span>Hashing concepts" data-toggle="tooltip">
     <a href="hash_table.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">15.3. </span>Resolving collisions' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">16.3. </span>Resolving collisions' data-toggle="tooltip" >              
     <a href="hash_table_collisions.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="hash-functions">
-<span id="index-0"></span><h1><span class="section-number">15.2. </span>Hash functions<a class="headerlink" href="#hash-functions" title="Permalink to this heading">¶</a></h1>
+<span id="index-0"></span><h1><span class="section-number">16.2. </span>Hash functions<a class="headerlink" href="#hash-functions" title="Permalink to this heading">¶</a></h1>
 <p>Unless we have special knowledge about the keys,
 the best we can say about “minimizing the number of collisions”
 is that we hope that our hashing function will distribute the keys uniformly,
@@ -234,7 +234,7 @@ They are simply functions chosen to satisfy our requirements
 (fast and uniform over the range <span class="math notranslate nohighlight">\(0 \to (table\_size-1)\)</span>.</p>
 </div>
 <section id="integer-hashes">
-<h2><span class="section-number">15.2.1. </span>Integer hashes<a class="headerlink" href="#integer-hashes" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">16.2.1. </span>Integer hashes<a class="headerlink" href="#integer-hashes" title="Permalink to this heading">¶</a></h2>
 <p>If your integers are already in the range <span class="math notranslate nohighlight">\(0 \to (table\_size-1)\)</span>
 then there is nothing to do:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="k">return</span><span class="w"> </span><span class="n">i</span><span class="p">;}</span>
@@ -292,7 +292,7 @@ Choosing prime numbers for hash table sizes tends to
 increase the uniformity of key distributions.</p>
 </section>
 <section id="string-hashes">
-<h2><span class="section-number">15.2.2. </span>String hashes<a class="headerlink" href="#string-hashes" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">16.2.2. </span>String hashes<a class="headerlink" href="#string-hashes" title="Permalink to this heading">¶</a></h2>
 <p>Hash functions for strings generally work by adding up some expression applied
 to each character in the string
 (remember that a char is just another integer type in C++).</p>
@@ -338,7 +338,7 @@ The STL provides the template <a class="reference external" href="https://en.cpp
 and a set of standard overrides for types in the standard library.</p>
 </section>
 <section id="hashing-user-defined-types">
-<h2><span class="section-number">15.2.3. </span>Hashing user defined types<a class="headerlink" href="#hashing-user-defined-types" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">16.2.3. </span>Hashing user defined types<a class="headerlink" href="#hashing-user-defined-types" title="Permalink to this heading">¶</a></h2>
 <p>If you define your own <code class="docutils literal notranslate"><span class="pre">struct</span></code> or <code class="docutils literal notranslate"><span class="pre">class</span></code>, you need to write your own
 hash function.
 Normally this will be a <code class="docutils literal notranslate"><span class="pre">std::hash&lt;&gt;</span></code> override.
@@ -390,14 +390,14 @@ or are simple multiples of one another.</p>
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 15.1. Hashing concepts' data-toggle="tooltip">
-  <a href="hash_table.html" aria-label="Previous - 15.1. Hashing concepts">
+<li id="relations-prev" class="navLink" title='Previous Section - 16.1. Hashing concepts' data-toggle="tooltip">
+  <a href="hash_table.html" aria-label="Previous - 16.1. Hashing concepts">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 15.3. Resolving collisions' data-toggle="tooltip" >
-    <a href="hash_table_collisions.html" aria-label="Next - 15.3. Resolving collisions">
+  <li id="relations-next" class="navLink" title='Next Section - 16.3. Resolving collisions' data-toggle="tooltip" >
+    <a href="hash_table_collisions.html" aria-label="Next - 16.3. Resolving collisions">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -419,7 +419,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

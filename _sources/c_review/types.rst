@@ -862,7 +862,6 @@ using :io:`oct <manip/hex>`,
      - :lang:`types` and :cpp:`std::size_t <types/size_t>`
      - :lang:`typedef` and :lang:`type aliases <type_alias>`
 
-   - `MyCodeSchool <http://www.mycodeschool.com>`__ video: `Data types, constants, and variables <https://www.youtube.com/watch?v=OSyjOvFbAGI&list=PL2_aWCzGMAwLSqGsERZGXGkA5AfMhcknE&index=6>`__ 
    - `Two's complement <http://www.cs.cornell.edu/~tomf/notes/cps104/twoscomp.html>`__
    - ISO CPP Super FAQ: `Floating point questions <https://isocpp.org/wiki/faq/newbie#floating-pt-errs>`__
    - `What every computer scientist should know about floating-point arithmetic 
@@ -876,6 +875,6 @@ using :io:`oct <manip/hex>`,
 
 .. topic:: Footnotes
 
-   .. [Aspnes2014] Adapted from `The IEEE-754 floating-point standard (PineWiki) <http://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)FloatingPoint.html>`_ and `Class 223 notes <http://www.cs.yale.edu/homes/aspnes/classes/223/notes.pdf>`__ page 101. Retrieved 2017-06-09.
+   .. [Aspnes2014] Adapted from `The IEEE-754 floating-point standard (PineWiki) <http://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)FloatingPoint.html>`_ and Class 223 notes <http://www.cs.yale.edu/homes/aspnes/classes/223/notes.pdf> page 101. Retrieved 2017-06-09.
 
 

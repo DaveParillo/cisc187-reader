@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>14.2. Binary Search Trees &#8212; CISC 187 Course Reader Overview</title>
+    <title>15.2. Binary Search Trees &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="14.3. Binary Search Tree iterators" href="bst-iterator.html" />
-    <link rel="prev" title="14.1. Tree ADT concepts" href="trees.html" />
+    <link rel="next" title="15.3. Binary Search Tree iterators" href="bst-iterator.html" />
+    <link rel="prev" title="15.1. Tree ADT concepts" href="trees.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">14.1. </span>Tree ADT concepts" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">15.1. </span>Tree ADT concepts" data-toggle="tooltip">
     <a href="trees.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">14.3. </span>Binary Search Tree iterators' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">15.3. </span>Binary Search Tree iterators' data-toggle="tooltip" >              
     <a href="bst-iterator.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="binary-search-trees">
-<span id="index-0"></span><h1><span class="section-number">14.2. </span>Binary Search Trees<a class="headerlink" href="#binary-search-trees" title="Permalink to this heading">¶</a></h1>
+<span id="index-0"></span><h1><span class="section-number">15.2. </span>Binary Search Trees<a class="headerlink" href="#binary-search-trees" title="Permalink to this heading">¶</a></h1>
 <p>A binary tree T is a binary search tree if, for each node <code class="docutils literal notranslate"><span class="pre">n</span></code>
 with sub-trees <code class="docutils literal notranslate"><span class="pre">left</span></code> and <code class="docutils literal notranslate"><span class="pre">right</span></code>,</p>
 <ul class="simple">
@@ -232,7 +232,7 @@ and is less than or equal than all of its right descendants.</p>
 
     </div>
     <section id="the-binary-search-tree-adt">
-<h2><span class="section-number">14.2.1. </span>The Binary Search Tree ADT<a class="headerlink" href="#the-binary-search-tree-adt" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">15.2.1. </span>The Binary Search Tree ADT<a class="headerlink" href="#the-binary-search-tree-adt" title="Permalink to this heading">¶</a></h2>
 <p>Structurally, a BST contains pointers to it’s left and right children.
 As discussed in <a class="reference internal" href="../recursion/index.html"><span class="doc">Recursion</span></a>,
 a binary tree can be implemented simply as a recursive data structure.
@@ -347,7 +347,7 @@ that define the key operations associated with a BST:</p>
 </ul>
 </section>
 <section id="searching-binary-trees">
-<h2><span class="section-number">14.2.2. </span>Searching binary trees<a class="headerlink" href="#searching-binary-trees" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">15.2.2. </span>Searching binary trees<a class="headerlink" href="#searching-binary-trees" title="Permalink to this heading">¶</a></h2>
 <p>Efficient search of a binary tree uses the same algorithm
 you would use when playing the ‘number guessing’ game.
 If asked to guess a random number between <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">100</span></code> in the
@@ -389,7 +389,7 @@ If the target value is larger, then we search the right subtree.</p>
 
 </section>
 <section id="inserting-into-binary-trees">
-<h2><span class="section-number">14.2.3. </span>Inserting into binary trees<a class="headerlink" href="#inserting-into-binary-trees" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">15.2.3. </span>Inserting into binary trees<a class="headerlink" href="#inserting-into-binary-trees" title="Permalink to this heading">¶</a></h2>
 <p>Inserting into a binary tree means adding a new node in the tree
 such that the binary tree property remains intact.</p>
 <div id='insert_tab' data-component="tabbedStuff"  class='alert alert-warning '><div data-component="tab" data-tabname="insert" >
@@ -439,7 +439,7 @@ ascending or descending order, as opposed to inserting unordered data.</p>
 </div>
 </section>
 <section id="erasing-binary-tree-nodes">
-<h2><span class="section-number">14.2.4. </span>Erasing binary tree nodes<a class="headerlink" href="#erasing-binary-tree-nodes" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">15.2.4. </span>Erasing binary tree nodes<a class="headerlink" href="#erasing-binary-tree-nodes" title="Permalink to this heading">¶</a></h2>
 <p>The erase process also begins with a search for the place to erase.
 This process is identical to the search used for contains and insert.</p>
 <p>The tricky part of removing a value from a binary search tree
@@ -463,7 +463,7 @@ However, deleting any other node would break the links between tree nodes.</p>
 <li><p>Removing a node that has two children</p></li>
 </ul>
 <section id="removing-a-leaf-node">
-<h3><span class="section-number">14.2.4.1. </span>Removing a leaf node<a class="headerlink" href="#removing-a-leaf-node" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">15.2.4.1. </span>Removing a leaf node<a class="headerlink" href="#removing-a-leaf-node" title="Permalink to this heading">¶</a></h3>
 <p>It’s easy to see that we can always remove any leaf in a
 binary search tree without affecting anything else.
 That is, if we remove any leaf from a binary search tree,
@@ -477,7 +477,7 @@ replacing whichever of its two children pointers was used to get to <code class=
 <p>In other words, leaf nodes are replaced with the null pointer.</p>
 </section>
 <section id="removing-a-non-leaf-node-with-a-null-child">
-<h3><span class="section-number">14.2.4.2. </span>Removing a non-leaf node with a null child<a class="headerlink" href="#removing-a-non-leaf-node-with-a-null-child" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">15.2.4.2. </span>Removing a non-leaf node with a null child<a class="headerlink" href="#removing-a-non-leaf-node-with-a-null-child" title="Permalink to this heading">¶</a></h3>
 <p>Removing nodes from the interior of the tree is a bit more work
 as we need to maintain links between nodes.</p>
 <p>Given the same tree we have been working with so far:</p>
@@ -522,7 +522,7 @@ then reassign the left child to the current node,
 otherwise assign the right child.</p>
 </section>
 <section id="removing-a-non-leaf-node-with-a-two-children">
-<h3><span class="section-number">14.2.4.3. </span>Removing a non-leaf node with a two children<a class="headerlink" href="#removing-a-non-leaf-node-with-a-two-children" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">15.2.4.3. </span>Removing a non-leaf node with a two children<a class="headerlink" href="#removing-a-non-leaf-node-with-a-two-children" title="Permalink to this heading">¶</a></h3>
 <p>Suppose we wanted to remove the <code class="docutils literal notranslate"><span class="pre">50</span></code> or the <code class="docutils literal notranslate"><span class="pre">30</span></code> from this tree.
 What must we do so that the remaining nodes would still be a valid BST?</p>
 <p>This is a hard case.
@@ -653,14 +653,14 @@ by Steven J. Zeil for his data structures course CS361.</p></li>
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 14.1. Tree ADT concepts' data-toggle="tooltip">
-  <a href="trees.html" aria-label="Previous - 14.1. Tree ADT concepts">
+<li id="relations-prev" class="navLink" title='Previous Section - 15.1. Tree ADT concepts' data-toggle="tooltip">
+  <a href="trees.html" aria-label="Previous - 15.1. Tree ADT concepts">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 14.3. Binary Search Tree iterators' data-toggle="tooltip" >
-    <a href="bst-iterator.html" aria-label="Next - 14.3. Binary Search Tree iterators">
+  <li id="relations-next" class="navLink" title='Next Section - 15.3. Binary Search Tree iterators' data-toggle="tooltip" >
+    <a href="bst-iterator.html" aria-label="Next - 15.3. Binary Search Tree iterators">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -682,7 +682,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

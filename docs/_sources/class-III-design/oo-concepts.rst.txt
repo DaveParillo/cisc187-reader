@@ -375,6 +375,6 @@ development of very large programs.
 
 .. topic:: Footnotes
 
-   .. [#] :wiki:`Wikipedia OO fundamental concepts <Object-oriented_programming#Fundamental_features_and_concepts>`
+   .. [#] :wiki:`Wikipedia OO fundamental concepts <Object-oriented_programming#Features>`
    .. [#] :wiki:`SOLID <SOLID_%28object-oriented_design%29>` Object oriented design principles
 

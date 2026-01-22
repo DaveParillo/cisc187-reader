@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>9.4. Inheritance &#8212; CISC 187 Course Reader Overview</title>
+    <title>10.4. Inheritance &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -38,8 +38,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="9.5. Abstract base classes" href="interfaces.html" />
-    <link rel="prev" title="9.3. Composition" href="composition.html" />
+    <link rel="next" title="10.5. Abstract base classes" href="interfaces.html" />
+    <link rel="prev" title="10.3. Composition" href="composition.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -172,13 +172,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">9.3. </span>Composition" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">10.3. </span>Composition" data-toggle="tooltip">
     <a href="composition.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">9.5. </span>Abstract base classes' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">10.5. </span>Abstract base classes' data-toggle="tooltip" >              
     <a href="interfaces.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -215,7 +215,7 @@
 
   
   <section id="inheritance">
-<span id="index-0"></span><h1><span class="section-number">9.4. </span>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this heading">¶</a></h1>
+<span id="index-0"></span><h1><span class="section-number">10.4. </span>Inheritance<a class="headerlink" href="#inheritance" title="Permalink to this heading">¶</a></h1>
 <p>Inheritance enables new classes to receive — or inherit —
 the properties and methods of existing classes.
 In C++, we can extend a class,
@@ -281,7 +281,7 @@ more information about your intent and can flag functions
 with incorrect signatures.</p>
 <p>Note that a class may inherit from more than one base class.</p>
 <section id="base-class-references-and-pointers">
-<h2><span class="section-number">9.4.1. </span>Base class references and pointers<a class="headerlink" href="#base-class-references-and-pointers" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">10.4.1. </span>Base class references and pointers<a class="headerlink" href="#base-class-references-and-pointers" title="Permalink to this heading">¶</a></h2>
 <p>One of the primary benefits of inheritance become apparent when passed
 as parameters or when used in container classes.
 Object references and pointers will call the correct derived class member
@@ -342,7 +342,7 @@ Through a pointer:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The <a class="reference external" href="https://en.cppreference.com/w/cpp/container/vector`">vector`</a> of unique pointers could have been
+<p>The <a class="reference external" href="https://en.cppreference.com/w/cpp/container/vector">vector</a> of unique pointers could have been
 implemented with a vector of raw pointers:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">shape</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">shapes</span><span class="p">;</span>
 <span class="n">shapes</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">circle</span><span class="p">());</span>
@@ -352,7 +352,7 @@ implemented with a vector of raw pointers:</p>
 but requires a bit more code to manage our own memory.</p>
 </section>
 <section id="when-to-use-inheritance">
-<h2><span class="section-number">9.4.2. </span>When to use inheritance<a class="headerlink" href="#when-to-use-inheritance" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">10.4.2. </span>When to use inheritance<a class="headerlink" href="#when-to-use-inheritance" title="Permalink to this heading">¶</a></h2>
 <p>Adapted from <em>Composition vs. Inheritance: How to Choose?</em>.</p>
 <p>The most common — and beneficial — use of inheritance is to
 incrementally extend types.
@@ -386,7 +386,7 @@ But if you must have some guidelines, consider these.</p>
 </ul>
 </section>
 <section id="private-inheritance">
-<span id="index-1"></span><h2><span class="section-number">9.4.3. </span>Private inheritance<a class="headerlink" href="#private-inheritance" title="Permalink to this heading">¶</a></h2>
+<span id="index-1"></span><h2><span class="section-number">10.4.3. </span>Private inheritance<a class="headerlink" href="#private-inheritance" title="Permalink to this heading">¶</a></h2>
 <p>In the classes derived from <code class="docutils literal notranslate"><span class="pre">shape</span></code>,
 we declare <code class="docutils literal notranslate"><span class="pre">public</span></code> members of the shape class
 to also have <code class="docutils literal notranslate"><span class="pre">public</span></code> access the derived classes.
@@ -416,7 +416,7 @@ is a <a class="reference external" href="https://en.cppreference.com/w/cpp/conta
 we don’t want to expose all of the functions of a <code class="docutils literal notranslate"><span class="pre">deque</span></code> in a <code class="docutils literal notranslate"><span class="pre">stack</span></code>.</p>
 </section>
 <section id="non-virtual-base-class-functions">
-<span id="index-2"></span><h2><span class="section-number">9.4.4. </span>Non-virtual base class functions<a class="headerlink" href="#non-virtual-base-class-functions" title="Permalink to this heading">¶</a></h2>
+<span id="index-2"></span><h2><span class="section-number">10.4.4. </span>Non-virtual base class functions<a class="headerlink" href="#non-virtual-base-class-functions" title="Permalink to this heading">¶</a></h2>
 <p>Every non-virtual base class function defines a
 <strong>mandatory interface</strong> for all derived classes.
 The language allows a derived class to implement its own version.
@@ -452,7 +452,7 @@ interface defined by a base class,
 then it probably shouldn’t be a derived class.</p>
 </section>
 <section id="multiple-inheritance">
-<span id="index-3"></span><h2><span class="section-number">9.4.5. </span>Multiple inheritance<a class="headerlink" href="#multiple-inheritance" title="Permalink to this heading">¶</a></h2>
+<span id="index-3"></span><h2><span class="section-number">10.4.5. </span>Multiple inheritance<a class="headerlink" href="#multiple-inheritance" title="Permalink to this heading">¶</a></h2>
 <p>C++ allows for a single class to inherit capabilities from more than 1 class.
 The constructors of inherited classes are called in the same order
 in which they are inherited.
@@ -460,7 +460,7 @@ For example, in the following program,
 B’s constructor is called before A’s constructor.</p>
 
 <div class="runestone explainer ac_section ">
-<div data-component="activecode" id=ac_mult_inherit_ex1 data-question_label="9.4.5.1">
+<div data-component="activecode" id=ac_mult_inherit_ex1 data-question_label="10.4.5.1">
 <div id=ac_mult_inherit_ex1_question class="ac_question">
 
 </div>
@@ -513,7 +513,7 @@ even if the class appears many times in the inheritance hierarchy
 For example:</p>
 
 <div class="runestone explainer ac_section ">
-<div data-component="activecode" id=ac_mult_inherit_ex2 data-question_label="9.4.5.2">
+<div data-component="activecode" id=ac_mult_inherit_ex2 data-question_label="10.4.5.2">
 <div id=ac_mult_inherit_ex2_question class="ac_question">
 
 </div>
@@ -629,7 +629,7 @@ for maintainability, and often for performance.</p>
 </div></blockquote>
 </section>
 <section id="design-problems">
-<span id="index-4"></span><h2><span class="section-number">9.4.6. </span>Design problems<a class="headerlink" href="#design-problems" title="Permalink to this heading">¶</a></h2>
+<span id="index-4"></span><h2><span class="section-number">10.4.6. </span>Design problems<a class="headerlink" href="#design-problems" title="Permalink to this heading">¶</a></h2>
 <p>New programmers are generally eager to “do things the OO way”
 and tend to overuse inheritance relationships.
 This is especially true if starting with UML diagrams:
@@ -702,14 +702,14 @@ from the C++ FAQ</p></li>
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 9.3. Composition' data-toggle="tooltip">
-  <a href="composition.html" aria-label="Previous - 9.3. Composition">
+<li id="relations-prev" class="navLink" title='Previous Section - 10.3. Composition' data-toggle="tooltip">
+  <a href="composition.html" aria-label="Previous - 10.3. Composition">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 9.5. Abstract base classes' data-toggle="tooltip" >
-    <a href="interfaces.html" aria-label="Next - 9.5. Abstract base classes">
+  <li id="relations-next" class="navLink" title='Next Section - 10.5. Abstract base classes' data-toggle="tooltip" >
+    <a href="interfaces.html" aria-label="Next - 10.5. Abstract base classes">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -731,7 +731,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

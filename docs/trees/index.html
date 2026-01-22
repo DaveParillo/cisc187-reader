@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>14. Trees and associative data structures &#8212; CISC 187 Course Reader Overview</title>
+    <title>15. Trees and associative data structures &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="14.1. Tree ADT concepts" href="trees.html" />
-    <link rel="prev" title="13.7. Using iterators" href="../list/using.html" />
+    <link rel="next" title="15.1. Tree ADT concepts" href="trees.html" />
+    <link rel="prev" title="14.7. Using iterators" href="../list/using.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">13.7. </span>Using iterators" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">14.7. </span>Using iterators" data-toggle="tooltip">
     <a href="../list/using.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">14.1. </span>Tree ADT concepts' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">15.1. </span>Tree ADT concepts' data-toggle="tooltip" >              
     <a href="trees.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,43 +213,43 @@
 
   
   <section id="trees-and-associative-data-structures">
-<h1><span class="section-number">14. </span>Trees and associative data structures<a class="headerlink" href="#trees-and-associative-data-structures" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">15. </span>Trees and associative data structures<a class="headerlink" href="#trees-and-associative-data-structures" title="Permalink to this heading">¶</a></h1>
 <p>This section introduces what the standard library refers to as
 “associative data structures” - non-sequential data structures.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="trees.html">14.1. Tree ADT concepts</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="trees.html#the-tree-adt">14.1.1. The tree ADT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trees.html">15.1. Tree ADT concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="trees.html#the-tree-adt">15.1.1. The tree ADT</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="bst.html">14.2. Binary Search Trees</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bst.html#the-binary-search-tree-adt">14.2.1. The Binary Search Tree ADT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bst.html#searching-binary-trees">14.2.2. Searching binary trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bst.html#inserting-into-binary-trees">14.2.3. Inserting into binary trees</a></li>
-<li class="toctree-l2"><a class="reference internal" href="bst.html#erasing-binary-tree-nodes">14.2.4. Erasing binary tree nodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bst.html">15.2. Binary Search Trees</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bst.html#the-binary-search-tree-adt">15.2.1. The Binary Search Tree ADT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bst.html#searching-binary-trees">15.2.2. Searching binary trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bst.html#inserting-into-binary-trees">15.2.3. Inserting into binary trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bst.html#erasing-binary-tree-nodes">15.2.4. Erasing binary tree nodes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="bst-iterator.html">14.3. Binary Search Tree iterators</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="bst-iterator.html#bst-iterator-begin-and-end">14.3.1. BST iterator <code class="docutils literal notranslate"><span class="pre">begin()</span></code> and <code class="docutils literal notranslate"><span class="pre">end()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="bst-iterator.html#bst-iterator-operator">14.3.2. BST iterator <code class="docutils literal notranslate"><span class="pre">operator++()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="bst-iterator.html#implementing-bst-iterators">14.3.3. Implementing BST iterators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bst-iterator.html">15.3. Binary Search Tree iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bst-iterator.html#bst-iterator-begin-and-end">15.3.1. BST iterator <code class="docutils literal notranslate"><span class="pre">begin()</span></code> and <code class="docutils literal notranslate"><span class="pre">end()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="bst-iterator.html#bst-iterator-operator">15.3.2. BST iterator <code class="docutils literal notranslate"><span class="pre">operator++()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="bst-iterator.html#implementing-bst-iterators">15.3.3. Implementing BST iterators</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="bst-iterator.html#using-parent-pointers">14.4. Using parent pointers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="heap.html">14.5. Priority queues</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="heap.html#heaps">14.5.1. Heaps</a></li>
-<li class="toctree-l2"><a class="reference internal" href="heap.html#percolate-up">14.5.2. Percolate up</a></li>
-<li class="toctree-l2"><a class="reference internal" href="heap.html#percolate-down">14.5.3. Percolate down</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bst-iterator.html#using-parent-pointers">15.4. Using parent pointers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heap.html">15.5. Priority queues</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="heap.html#heaps">15.5.1. Heaps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="heap.html#percolate-up">15.5.2. Percolate up</a></li>
+<li class="toctree-l2"><a class="reference internal" href="heap.html#percolate-down">15.5.3. Percolate down</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="set.html">14.6. The set class</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="set.html#variations-on-std-set">14.6.1. Variations on std::set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="set.html">15.6. The set class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="set.html#variations-on-std-set">15.6.1. Variations on std::set</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="map.html">14.7. The map class</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="map.html#selected-map-functions">14.7.1. Selected map functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="map.html#map-structure">14.7.2. Map structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="map.html#variations-on-std-map">14.7.3. Variations on std::map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="map.html">15.7. The map class</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="map.html#selected-map-functions">15.7.1. Selected map functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="map.html#map-structure">15.7.2. Map structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="map.html#variations-on-std-map">15.7.3. Variations on std::map</a></li>
 </ul>
 </li>
 </ul>
@@ -264,14 +264,14 @@
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 13.7. Using iterators' data-toggle="tooltip">
-  <a href="../list/using.html" aria-label="Previous - 13.7. Using iterators">
+<li id="relations-prev" class="navLink" title='Previous Section - 14.7. Using iterators' data-toggle="tooltip">
+  <a href="../list/using.html" aria-label="Previous - 14.7. Using iterators">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 14.1. Tree ADT concepts' data-toggle="tooltip" >
-    <a href="trees.html" aria-label="Next - 14.1. Tree ADT concepts">
+  <li id="relations-next" class="navLink" title='Next Section - 15.1. Tree ADT concepts' data-toggle="tooltip" >
+    <a href="trees.html" aria-label="Next - 15.1. Tree ADT concepts">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -293,7 +293,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

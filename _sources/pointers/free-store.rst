@@ -250,7 +250,7 @@ raw pointer, or transfer ownership to a different ``unique_ptr``.
    - `Free-store managment FAQ <https://isocpp.org/wiki/faq/freestore-mgmt>`_
    - From: cppreference.com: 
 
-     - Operator :memory:`new` and :memory:`delete`.
+     - Operator :memory:`new <new/operator_new>` and :memory:`delete <new/operator_delete>`:
      - :memory:`unique_ptr` and :memory:`make_unique <unique_ptr/make_unique>`.
 
 

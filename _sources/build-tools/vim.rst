@@ -343,15 +343,14 @@ The ``make`` utility is described in more detail in the :doc:`make` section.
    - `vim.org <http://www.vim.org/>`_
    - `vi reference cards <http://tnerual.eriogerg.free.fr/vim.html>`_ - available in several languages 
    - `vi lovers home page <http://www.thomer.com/vi/vi.html>`_
-   - Swarthmore Dept. of Compter Science `vim tips and tricks page <https://www.cs.swarthmore.edu/help/vim/home.html>`_
-   - `UNIX Text Processing <http://home.windstream.net/kollar/utp/>`__ - hasa chapter dedicated to vi.
+   - Swarthmore Dept. of Compter Science `vim tips and tricks page <https://www.cs.swarthmore.edu/newhelp/vim.html>`_
+   - `UNIX Text Processing <http://home.windstream.net/kollar/utp/>`__ - has a chapter dedicated to vi.
 
 
    **Text editor downloads**
 
    - `Notepad++ <https://notepad-plus-plus.org/>`_ (Windows only) - also available on campus
-   - `Atom <https://atom.io/>`_ (Win, OSX, or Linux)
-   - `Vim <https://vim.sourceforge.io/>`_ 
+   - `Vim <https://sourceforge.net/projects/vim/>`_ 
    - `Emacs <http://www.gnu.org/software/emacs/>`_
 
    Both vim and emacs are included on the Mesa server.

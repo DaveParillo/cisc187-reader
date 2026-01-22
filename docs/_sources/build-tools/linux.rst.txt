@@ -326,8 +326,9 @@ passwd
 .. admonition:: More to Explore
 
    - `LinuxCommand.org <http://linuxcommand.org>`__
-   - `UNIX Text Processing <http://home.windstream.net/kollar/utp/>`__ - one of the best general
-     references for people new to Unix or GNU/Linux.
+   - `UNIX Text Processing <https://github.com/larrykollar/Unix-Text-Processing/tree/main>`__ - one of the best
+     general references for people new to Unix or GNU/Linux.
+     And you can build it yourself on any Unix or GNU/Linux system.
    - `GNU / Linux tutorial <https://www.debian.org/doc/manuals/debian-reference/>`_ - from debian.org
    - :wiki:`UNIX Philosophy <Unix_philosophy>` - from Wikipedia
    - Learn Enough\ |trade| `Command-Line to be Dangerous tutorial <http://www.learnenough.com/command-line-tutorial>`_ by Michael Hartl.

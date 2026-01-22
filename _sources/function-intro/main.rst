@@ -328,7 +328,7 @@ including :index:`GNU/Linux` and :index:`Mac OS`.
 
 .. admonition:: More to Explore
 
-   - `Using the getopt function <https://www.gnu.org/software/libc/manual/html_node/Using-Getopt.html>`_ - from gnu.org
+   - `Using the getopt function <https://sourceware.org/glibc/manual/latest/html_node/Getopt.html>`__
    - Textbook: :doc:`../pointers/pointers`
    - From cppreference.com:
 

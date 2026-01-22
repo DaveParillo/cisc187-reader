@@ -301,7 +301,7 @@ Instead, the compiler used <code class="docutils literal notranslate"><span clas
 the return type should be <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
 <p>Do trailing return types seem like a lot of trouble?
 Prior to C++11, when trailing return type syntax was introduced,
-you could use <a class="reference external" href="https://en.cppreference.com/w/cpp/language/decltype">decltype</a> and <a class="reference external" href="https://en.cppreference.com/w/cpp/language/declval">declval</a> instead:</p>
+you could use <a class="reference external" href="https://en.cppreference.com/w/cpp/language/decltype">decltype</a> and <a class="reference external" href="https://en.cppreference.com/w/cpp/utility/declval">declval</a> instead:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span><span class="w"> </span><span class="k">typename</span><span class="w"> </span><span class="nc">U</span><span class="o">&gt;</span>
 <span class="w">  </span><span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">())</span>
 <span class="w">  </span><span class="n">add</span><span class="p">(</span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="n">lhs</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="o">&amp;</span><span class="w"> </span><span class="n">U</span><span class="w"> </span><span class="n">rhs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -361,7 +361,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

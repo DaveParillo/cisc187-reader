@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>16. Sorting &#8212; CISC 187 Course Reader Overview</title>
+    <title>7. Sorting &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="16.1. Bubble sort" href="bubble.html" />
-    <link rel="prev" title="15.7. Analysis of hash tables" href="../hash_table/hash_table_analysis.html" />
+    <link rel="next" title="7.1. Bubble sort" href="bubble.html" />
+    <link rel="prev" title="6.4. The Binary Tree ADT" href="../recursion/trees.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">15.7. </span>Analysis of hash tables" data-toggle="tooltip">
-    <a href="../hash_table/hash_table_analysis.html" >
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">6.4. </span>The Binary Tree ADT" data-toggle="tooltip">
+    <a href="../recursion/trees.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">16.1. </span>Bubble sort' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">7.1. </span>Bubble sort' data-toggle="tooltip" >              
     <a href="bubble.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="sorting">
-<span id="sort-index"></span><h1><span class="section-number">16. </span>Sorting<a class="headerlink" href="#sorting" title="Permalink to this heading">¶</a></h1>
+<span id="sort-index"></span><h1><span class="section-number">7. </span>Sorting<a class="headerlink" href="#sorting" title="Permalink to this heading">¶</a></h1>
 <p><strong>Sorting</strong> is the process of placing elements from a collection in some
 kind of order. For example, a list of words could be sorted
 alphabetically or by length. A list of cities could be sorted by
@@ -225,20 +225,20 @@ This chapter refers to relative algorithm performance,
 so reviewing the chapter on <a class="reference internal" href="../analysis/index.html#analysis-index"><span class="std std-ref">algorithm analysis</span></a> may help.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="bubble.html">16.1. Bubble sort</a></li>
-<li class="toctree-l1"><a class="reference internal" href="selection.html">16.2. Selection sort</a></li>
-<li class="toctree-l1"><a class="reference internal" href="insertion.html">16.3. Insertion sort</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exchange_cost_summary.html">16.4. Costs of Exchange Sorting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shell.html">16.5. Shell sort</a></li>
-<li class="toctree-l1"><a class="reference internal" href="merge.html">16.6. Merge sort</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quick.html">16.7. Quick sort</a></li>
-<li class="toctree-l1"><a class="reference internal" href="heap.html">16.8. Heap sort</a></li>
-<li class="toctree-l1"><a class="reference internal" href="radix.html">16.9. Radix sort</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="radix.html#array-based-radix-sort">16.9.1. Array-based Radix Sort</a></li>
-<li class="toctree-l2"><a class="reference internal" href="radix.html#radix-sort-analysis">16.9.2. Radix Sort Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bubble.html">7.1. Bubble sort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selection.html">7.2. Selection sort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="insertion.html">7.3. Insertion sort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exchange_cost_summary.html">7.4. Costs of Exchange Sorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shell.html">7.5. Shell sort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="merge.html">7.6. Merge sort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick.html">7.7. Quick sort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="heap.html">7.8. Heap sort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radix.html">7.9. Radix sort</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radix.html#array-based-radix-sort">7.9.1. Array-based Radix Sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radix.html#radix-sort-analysis">7.9.2. Radix Sort Analysis</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="summary.html">16.10. Summary of sorting algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="summary.html">7.10. Summary of sorting algorithms</a></li>
 </ul>
 </div>
 <p>There are many, many sorting algorithms that have been developed and
@@ -262,6 +262,21 @@ respect to one another, it may be necessary to exchange them. This
 exchange is a costly operation and the total number of exchanges will
 also be important for evaluating the overall efficiency of the
 algorithm.</p>
+<p>Although there are many kinds of sorts, many are
+<a class="reference internal" href="../glossary.html#term-comparison-sort"><span class="xref std std-term">comparison sorts</span></a>.
+As the name implies, comparison sorts compare values and reorders them
+until the data is sorted.
+The details on how comparisons are made and how elements are reordered
+vary.
+Most fall into one of two categories:</p>
+<ul class="simple">
+<li><p>Exchange sorts: find elements out of order and swap them.</p></li>
+<li><p>Partition sorts: split a large set into smaller sets and then reassemble them
+in order.</p></li>
+</ul>
+<p>Now that we have explored both iterative and recursive functions we have
+the tools we need to analyze and understand sort algorithms.</p>
+<p>First up: the exchange sorts.</p>
 </section>
 
 
@@ -272,14 +287,14 @@ algorithm.</p>
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 15.7. Analysis of hash tables' data-toggle="tooltip">
-  <a href="../hash_table/hash_table_analysis.html" aria-label="Previous - 15.7. Analysis of hash tables">
+<li id="relations-prev" class="navLink" title='Previous Section - 6.4. The Binary Tree ADT' data-toggle="tooltip">
+  <a href="../recursion/trees.html" aria-label="Previous - 6.4. The Binary Tree ADT">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 16.1. Bubble sort' data-toggle="tooltip" >
-    <a href="bubble.html" aria-label="Next - 16.1. Bubble sort">
+  <li id="relations-next" class="navLink" title='Next Section - 7.1. Bubble sort' data-toggle="tooltip" >
+    <a href="bubble.html" aria-label="Next - 7.1. Bubble sort">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -301,7 +316,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

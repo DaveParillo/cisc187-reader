@@ -103,9 +103,9 @@ because sorting of any kind is by definition an ordering.
 
 .. admonition:: More to Explore
 
-   - C++ Concepts: 
+   - C++ :iterator:`Container Named Requirements <concepts>`: 
      
-     - `Containers <http://en.cppreference.com/w/cpp/concept/Container>`_
-     - `Sequence Containers <http://en.cppreference.com/w/cpp/concept/SequenceContainer>`_
-     - `Associative Containers <http://en.cppreference.com/w/cpp/concept/AssociativeContainer>`_
+     - :req:`Container`
+     - :req:`SequenceContainer`
+     - :req:`AssociativeContainer`
 

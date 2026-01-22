@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>14.5. Priority queues &#8212; CISC 187 Course Reader Overview</title>
+    <title>15.5. Priority queues &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="14.6. The set class" href="set.html" />
-    <link rel="prev" title="14.3. Binary Search Tree iterators" href="bst-iterator.html" />
+    <link rel="next" title="15.6. The set class" href="set.html" />
+    <link rel="prev" title="15.3. Binary Search Tree iterators" href="bst-iterator.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">14.3. </span>Binary Search Tree iterators" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">15.3. </span>Binary Search Tree iterators" data-toggle="tooltip">
     <a href="bst-iterator.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">14.6. </span>The set class' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">15.6. </span>The set class' data-toggle="tooltip" >              
     <a href="set.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="priority-queues">
-<span id="index-0"></span><h1><span class="section-number">14.5. </span>Priority queues<a class="headerlink" href="#priority-queues" title="Permalink to this heading">¶</a></h1>
+<span id="index-0"></span><h1><span class="section-number">15.5. </span>Priority queues<a class="headerlink" href="#priority-queues" title="Permalink to this heading">¶</a></h1>
 <p>If we have a collection of elements that carry a “score”,
 then how can we find and remove the element with the smallest (or largest) score?
 What if new elements may be added at any time?</p>
@@ -262,7 +262,7 @@ However, there is a data type perfectly suited to this task – a heap.
 In fact, heaps are used to implement priority queues so often that the terms
 are often used interchangeably.</p>
 <section id="heaps">
-<span id="index-1"></span><h2><span class="section-number">14.5.1. </span>Heaps<a class="headerlink" href="#heaps" title="Permalink to this heading">¶</a></h2>
+<span id="index-1"></span><h2><span class="section-number">15.5.1. </span>Heaps<a class="headerlink" href="#heaps" title="Permalink to this heading">¶</a></h2>
 <p>A <a class="reference internal" href="../glossary.html#term-heap"><span class="xref std std-term">heap</span></a> is a special tree-like data structure.
 There are many types of heaps, however, in this chapter,
 we will discuss only <em>binary heaps</em>.
@@ -365,7 +365,7 @@ The Compare class allows the same class to function as either a min heap
 Using <a class="reference external" href="https://en.cppreference.com/w/cpp/utility/functional/less">less</a> would transform the heap into a max heap.</p>
 </section>
 <section id="percolate-up">
-<h2><span class="section-number">14.5.2. </span>Percolate up<a class="headerlink" href="#percolate-up" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">15.5.2. </span>Percolate up<a class="headerlink" href="#percolate-up" title="Permalink to this heading">¶</a></h2>
 <p>When a new node is added to the heap, we initially use <code class="docutils literal notranslate"><span class="pre">push_back</span></code>
 to append the new value to the ‘last’ open position in the tree (the hole).
 At this point the tree is still complete, but the new value
@@ -410,7 +410,7 @@ The algorithm outline is:</p>
 </ul>
 </section>
 <section id="percolate-down">
-<h2><span class="section-number">14.5.3. </span>Percolate down<a class="headerlink" href="#percolate-down" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">15.5.3. </span>Percolate down<a class="headerlink" href="#percolate-down" title="Permalink to this heading">¶</a></h2>
 <p>When we return a value from the top of the heap, we return the root node value.
 We now have a hole that needs to be filled.
 One approach is to move the last node in the heap to the root position
@@ -522,14 +522,14 @@ by Steven J. Zeil for his data structures course CS361.</p></li>
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 14.3. Binary Search Tree iterators' data-toggle="tooltip">
-  <a href="bst-iterator.html" aria-label="Previous - 14.3. Binary Search Tree iterators">
+<li id="relations-prev" class="navLink" title='Previous Section - 15.3. Binary Search Tree iterators' data-toggle="tooltip">
+  <a href="bst-iterator.html" aria-label="Previous - 15.3. Binary Search Tree iterators">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 14.6. The set class' data-toggle="tooltip" >
-    <a href="set.html" aria-label="Next - 14.6. The set class">
+  <li id="relations-next" class="navLink" title='Next Section - 15.6. The set class' data-toggle="tooltip" >
+    <a href="set.html" aria-label="Next - 15.6. The set class">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -551,7 +551,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

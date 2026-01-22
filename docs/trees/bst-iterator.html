@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>14.3. Binary Search Tree iterators &#8212; CISC 187 Course Reader Overview</title>
+    <title>15.3. Binary Search Tree iterators &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="14.5. Priority queues" href="heap.html" />
-    <link rel="prev" title="14.2. Binary Search Trees" href="bst.html" />
+    <link rel="next" title="15.5. Priority queues" href="heap.html" />
+    <link rel="prev" title="15.2. Binary Search Trees" href="bst.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">14.2. </span>Binary Search Trees" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">15.2. </span>Binary Search Trees" data-toggle="tooltip">
     <a href="bst.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">14.5. </span>Priority queues' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">15.5. </span>Priority queues' data-toggle="tooltip" >              
     <a href="heap.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="binary-search-tree-iterators">
-<span id="index-0"></span><h1><span class="section-number">14.3. </span>Binary Search Tree iterators<a class="headerlink" href="#binary-search-tree-iterators" title="Permalink to this heading">¶</a></h1>
+<span id="index-0"></span><h1><span class="section-number">15.3. </span>Binary Search Tree iterators<a class="headerlink" href="#binary-search-tree-iterators" title="Permalink to this heading">¶</a></h1>
 <p>The recursive traversal algorithms work well for implementing
 tree-based ADT member functions,
 but if we are trying to hide the trees inside some ADT
@@ -241,7 +241,7 @@ For a BST, in-order traversal means that we will visit the data in ascending ord
 We might suspect that a pointer to a tree node will be part of
 that data structure, because that worked with iterators over linked lists.</p>
 <section id="bst-iterator-begin-and-end">
-<span id="index-1"></span><h2><span class="section-number">14.3.1. </span>BST iterator <code class="docutils literal notranslate"><span class="pre">begin()</span></code> and <code class="docutils literal notranslate"><span class="pre">end()</span></code><a class="headerlink" href="#bst-iterator-begin-and-end" title="Permalink to this heading">¶</a></h2>
+<span id="index-1"></span><h2><span class="section-number">15.3.1. </span>BST iterator <code class="docutils literal notranslate"><span class="pre">begin()</span></code> and <code class="docutils literal notranslate"><span class="pre">end()</span></code><a class="headerlink" href="#bst-iterator-begin-and-end" title="Permalink to this heading">¶</a></h2>
 <p>As in any data structure, <code class="docutils literal notranslate"><span class="pre">begin</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code> refer to the
 first element in the data structure and one past the last element.
 In the last section, we said that
@@ -267,7 +267,7 @@ in the container.</p>
     </div>
     </section>
 <section id="bst-iterator-operator">
-<span id="index-2"></span><h2><span class="section-number">14.3.2. </span>BST iterator <code class="docutils literal notranslate"><span class="pre">operator++()</span></code><a class="headerlink" href="#bst-iterator-operator" title="Permalink to this heading">¶</a></h2>
+<span id="index-2"></span><h2><span class="section-number">15.3.2. </span>BST iterator <code class="docutils literal notranslate"><span class="pre">operator++()</span></code><a class="headerlink" href="#bst-iterator-operator" title="Permalink to this heading">¶</a></h2>
 <p>A quick review of the definition of iterators and the iterator design pattern.
 We have a few facts to deal with:</p>
 <ul class="simple">
@@ -304,7 +304,7 @@ Iterators tend to get assigned (copied) a lot,
 and we’d really like that to be a constant time - an O(1) operation.
 Having to copy an entire stack of pointers just isn’t very attractive.</p>
 <section id="bst-iterator-using-parent-pointers">
-<h3><span class="section-number">14.3.2.1. </span>BST iterator using parent pointers<a class="headerlink" href="#bst-iterator-using-parent-pointers" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">15.3.2.1. </span>BST iterator using parent pointers<a class="headerlink" href="#bst-iterator-using-parent-pointers" title="Permalink to this heading">¶</a></h3>
 <p>We can make the task of creating tree iterators much easier if we
 redesign the tree nodes to add pointers from each node to its parent.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// a binary tree node</span>
@@ -380,7 +380,7 @@ but not change that data.</p>
 </section>
 </section>
 <section id="implementing-bst-iterators">
-<h2><span class="section-number">14.3.3. </span>Implementing BST iterators<a class="headerlink" href="#implementing-bst-iterators" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">15.3.3. </span>Implementing BST iterators<a class="headerlink" href="#implementing-bst-iterators" title="Permalink to this heading">¶</a></h2>
 <p>As discussed earlier, <code class="docutils literal notranslate"><span class="pre">begin()</span></code> is implemented by finding
 the minimum element in the tree.</p>
 <p>A free function that works with the <code class="docutils literal notranslate"><span class="pre">tree_node</span></code> struct is enough:</p>
@@ -409,7 +409,7 @@ the minimum element in the tree.</p>
 </pre></div>
 </div>
 <section id="implementing-operator">
-<h3><span class="section-number">14.3.3.1. </span>Implementing <code class="docutils literal notranslate"><span class="pre">operator++()</span></code><a class="headerlink" href="#implementing-operator" title="Permalink to this heading">¶</a></h3>
+<h3><span class="section-number">15.3.3.1. </span>Implementing <code class="docutils literal notranslate"><span class="pre">operator++()</span></code><a class="headerlink" href="#implementing-operator" title="Permalink to this heading">¶</a></h3>
 <p>Before implementing <code class="docutils literal notranslate"><span class="pre">operator++</span></code>, let’s think about what is should do.
 Given the following tree:</p>
 <div align="center" class="align-center"><div class="graphviz"><img src="../_images/graphviz-898f97d016a97320c87e9d076ff7d9f8aa5520d4.png" alt="a binary tree of letters" class="graphviz" /></div>
@@ -595,7 +595,7 @@ root, leaving the iterator in an inconsistent state.</p></li>
 </section>
 </section>
 <section id="using-parent-pointers">
-<h1><span class="section-number">14.4. </span>Using parent pointers<a class="headerlink" href="#using-parent-pointers" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">15.4. </span>Using parent pointers<a class="headerlink" href="#using-parent-pointers" title="Permalink to this heading">¶</a></h1>
 <p>Using parent pointers does incur additional overhead.
 We must store an additional pointer with every tree node.
 It also means the functions used to manage the tree need to change.</p>
@@ -670,14 +670,14 @@ by Steven J. Zeil for his data structures course CS361.</p></li>
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 14.2. Binary Search Trees' data-toggle="tooltip">
-  <a href="bst.html" aria-label="Previous - 14.2. Binary Search Trees">
+<li id="relations-prev" class="navLink" title='Previous Section - 15.2. Binary Search Trees' data-toggle="tooltip">
+  <a href="bst.html" aria-label="Previous - 15.2. Binary Search Trees">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 14.5. Priority queues' data-toggle="tooltip" >
-    <a href="heap.html" aria-label="Next - 14.5. Priority queues">
+  <li id="relations-next" class="navLink" title='Next Section - 15.5. Priority queues' data-toggle="tooltip" >
+    <a href="heap.html" aria-label="Next - 15.5. Priority queues">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -699,7 +699,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

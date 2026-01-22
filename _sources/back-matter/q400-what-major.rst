@@ -52,13 +52,15 @@ is that they worked their tails off for years, often decades, to get where they 
 
 The point is, worry less about the exact major and more about the effort you put into it.
 
+It turns out that it takes about 10 years to truly master anything.
+A short blog post about it and resisting the urge to
+`how to teach yourself programming in 21 days <http://norvig.com/21-days.html>`__.
+
 
 -----
 
 .. admonition:: More to Explore
 
-   - `ACM Computing careers website <http://computingcareers.acm.org/>`_
-     and the `ACM career FAQ <http://computingcareers.acm.org/?page_id=5>`_
    - Consider the `Goshen College quiz <https://www.goshen.edu/admissions/2018/01/03/major-quiz/>`_
      if you really have **no idea** what you want to do and aren't even sure computers are your thing.
 

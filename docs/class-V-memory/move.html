@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>11.4. Moving memory &#8212; CISC 187 Course Reader Overview</title>
+    <title>12.4. Moving memory &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="11.5. Allocators" href="allocators.html" />
-    <link rel="prev" title="11.3. Lvalues, rvalues, and references" href="rvalue.html" />
+    <link rel="next" title="12.5. Allocators" href="allocators.html" />
+    <link rel="prev" title="12.3. Lvalues, rvalues, and references" href="rvalue.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">11.3. </span>Lvalues, rvalues, and references" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">12.3. </span>Lvalues, rvalues, and references" data-toggle="tooltip">
     <a href="rvalue.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">11.5. </span>Allocators' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">12.5. </span>Allocators' data-toggle="tooltip" >              
     <a href="allocators.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="moving-memory">
-<span id="index-0"></span><h1><span class="section-number">11.4. </span>Moving memory<a class="headerlink" href="#moving-memory" title="Permalink to this heading">¶</a></h1>
+<span id="index-0"></span><h1><span class="section-number">12.4. </span>Moving memory<a class="headerlink" href="#moving-memory" title="Permalink to this heading">¶</a></h1>
 <p>In the section on
 <a class="reference internal" href="../class-II-functions/overloads.html"><span class="doc">Operator overloads</span></a> we briefly covered the
 <a class="reference external" href="https://en.cppreference.com/w/cpp/algorithm/swap">std::swap</a> algorithm.
@@ -267,7 +267,7 @@ We said</p>
 <p>How do we create objects that support moving?</p>
 <p>With a move constructor.</p>
 <section id="move-constructors-and-move-assignment">
-<span id="index-1"></span><h2><span class="section-number">11.4.1. </span>Move constructors and move assignment<a class="headerlink" href="#move-constructors-and-move-assignment" title="Permalink to this heading">¶</a></h2>
+<span id="index-1"></span><h2><span class="section-number">12.4.1. </span>Move constructors and move assignment<a class="headerlink" href="#move-constructors-and-move-assignment" title="Permalink to this heading">¶</a></h2>
 <p>A move constructor is a constructor of the form:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">class_name</span><span class="w"> </span><span class="p">(</span><span class="n">class_name</span><span class="o">&amp;&amp;</span><span class="p">);</span>
 </pre></div>
@@ -356,14 +356,14 @@ assignment.</p></li>
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 11.3. Lvalues, rvalues, and references' data-toggle="tooltip">
-  <a href="rvalue.html" aria-label="Previous - 11.3. Lvalues, rvalues, and references">
+<li id="relations-prev" class="navLink" title='Previous Section - 12.3. Lvalues, rvalues, and references' data-toggle="tooltip">
+  <a href="rvalue.html" aria-label="Previous - 12.3. Lvalues, rvalues, and references">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 11.5. Allocators' data-toggle="tooltip" >
-    <a href="allocators.html" aria-label="Next - 11.5. Allocators">
+  <li id="relations-next" class="navLink" title='Next Section - 12.5. Allocators' data-toggle="tooltip" >
+    <a href="allocators.html" aria-label="Next - 12.5. Allocators">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -385,7 +385,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

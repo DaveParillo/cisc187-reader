@@ -128,7 +128,7 @@ the return type should be ``int``.
 
 Do trailing return types seem like a lot of trouble?
 Prior to C++11, when trailing return type syntax was introduced,
-you could use :lang:`decltype` and :lang:`declval` instead:
+you could use :lang:`decltype` and :utility:`declval` instead:
 
 .. code-block:: cpp
 

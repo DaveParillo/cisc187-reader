@@ -326,7 +326,7 @@ to keep track of errors.
 
 The approach using bitwise operations is simple once you know the tricks,
 but C++ provides a type that provides the ability to perform the same operations:
-:utility:`std::bitset`.
+:utility:`std::bitset <bitset>`.
 
 .. tabbed:: bitset
 

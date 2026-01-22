@@ -11,7 +11,7 @@
    This work is licensed under the Creative Commons 
    Attribution-NonCommercial-ShareAlike 4.0 International License.
    To view a copy of this license, visit 
-   http://creativecommons.org/licenses/by-nc-sa/4.0/.
+   https://creativecommons.org/licenses/by-nc-sa/4.0/.
 
 .. index::
    single: big-O notation
@@ -411,8 +411,8 @@ And the answer should be (sequential search):
 .. topic:: Acknowledgements
 
    This section is adapted from 
-   `Problem Solving with Algorithms and Data Structures using C++ <https://runestone.academy/runestone/books/published/cppds>`__,
+   Problem Solving with Algorithms and Data Structures using C++,
    by Brad Miller and David Ranum, Luther College, and Jan Pearce, Berea College
    released under the 
-   `CC BY-NC-SA 4.0 <http://creativecommons.org/licenses/by-nc-sa/4.0/>`__.
+   `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`__.
 

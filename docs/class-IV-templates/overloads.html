@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>10.2. Overloading operator[] &#8212; CISC 187 Course Reader Overview</title>
+    <title>11.2. Overloading operator[] &#8212; CISC 187 Course Reader Overview</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -36,8 +36,8 @@
 <script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="10.3. Container classes" href="containers.html" />
-    <link rel="prev" title="10.1. Class templates" href="templates.html" />
+    <link rel="next" title="11.3. Container classes" href="containers.html" />
+    <link rel="prev" title="11.1. Class templates" href="templates.html" />
 
 
 <link rel="shortcut icon" href="/cisc187-reader/static/favicon.ico" type="image/ico" />
@@ -170,13 +170,13 @@
         
         <!-- 
           
-  <li id="relations-prev" title="Previous Chapter - <span class="section-number">10.1. </span>Class templates" data-toggle="tooltip">
+  <li id="relations-prev" title="Previous Chapter - <span class="section-number">11.1. </span>Class templates" data-toggle="tooltip">
     <a href="templates.html" >
       <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
     </a>
   </li>
   
-  <li id="relations-next" title='Next Chapter - <span class="section-number">10.3. </span>Container classes' data-toggle="tooltip" >              
+  <li id="relations-next" title='Next Chapter - <span class="section-number">11.3. </span>Container classes' data-toggle="tooltip" >              
     <a href="containers.html" >
         <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
     </a>
@@ -213,7 +213,7 @@
 
   
   <section id="overloading-operator">
-<span id="index-0"></span><h1><span class="section-number">10.2. </span>Overloading <code class="docutils literal notranslate"><span class="pre">operator[]</span></code><a class="headerlink" href="#overloading-operator" title="Permalink to this heading">¶</a></h1>
+<span id="index-0"></span><h1><span class="section-number">11.2. </span>Overloading <code class="docutils literal notranslate"><span class="pre">operator[]</span></code><a class="headerlink" href="#overloading-operator" title="Permalink to this heading">¶</a></h1>
 <p>User-defined types that provide array-like access that allows both reading and writing
 often overload <code class="docutils literal notranslate"><span class="pre">operator[]</span></code>.</p>
 <p>One of the rules of the language is that <code class="docutils literal notranslate"><span class="pre">operator[]</span></code> must be implemented
@@ -238,7 +238,7 @@ If your type has data in multiple dimensions, then
 prefer overloading <code class="docutils literal notranslate"><span class="pre">operator()</span></code> instead.
 For a detailed description of the <em>why</em>, refer to the following subsection.</p>
 <section id="multi-dimension-array-access">
-<h2><span class="section-number">10.2.1. </span>Multi-dimension array access<a class="headerlink" href="#multi-dimension-array-access" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">11.2.1. </span>Multi-dimension array access<a class="headerlink" href="#multi-dimension-array-access" title="Permalink to this heading">¶</a></h2>
 <p>To provide multidimensional array access semantics,
 e.g. to implement a 3D array access <code class="docutils literal notranslate"><span class="pre">a[i][j][k]</span> <span class="pre">=</span> <span class="pre">x;</span></code>,
 the overload for <code class="docutils literal notranslate"><span class="pre">operator[]</span></code> must return a reference to a 2D object,
@@ -303,7 +303,7 @@ a <code class="docutils literal notranslate"><span class="pre">const</span></cod
 </div><div data-component="tab" data-tabname="Run It" >
 
 <div class="runestone explainer ac_section ">
-<div data-component="activecode" id=ac_matrix_function_call_operator data-question_label="10.2.1.1">
+<div data-component="activecode" id=ac_matrix_function_call_operator data-question_label="11.2.1.1">
 <div id=ac_matrix_function_call_operator_question class="ac_question">
 
 </div>
@@ -430,7 +430,7 @@ All the memory management is handled by the vector class.</p>
 </div><div data-component="tab" data-tabname="Run It" >
 
 <div class="runestone explainer ac_section ">
-<div data-component="activecode" id=ac_matrix_index_operator data-question_label="10.2.1.2">
+<div data-component="activecode" id=ac_matrix_index_operator data-question_label="11.2.1.2">
 <div id=ac_matrix_index_operator_question class="ac_question">
 
 </div>
@@ -532,14 +532,14 @@ int main()
   </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
-<li id="relations-prev" class="navLink" title='Previous Section - 10.1. Class templates' data-toggle="tooltip">
-  <a href="templates.html" aria-label="Previous - 10.1. Class templates">
+<li id="relations-prev" class="navLink" title='Previous Section - 11.1. Class templates' data-toggle="tooltip">
+  <a href="templates.html" aria-label="Previous - 11.1. Class templates">
     <i class='prevNav glyphicon glyphicon-chevron-left'  style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black;"></i>
   </a>
 </li>
 
-  <li id="relations-next" class="navLink" title='Next Section - 10.3. Container classes' data-toggle="tooltip" >
-    <a href="containers.html" aria-label="Next - 10.3. Container classes">
+  <li id="relations-next" class="navLink" title='Next Section - 11.3. Container classes' data-toggle="tooltip" >
+    <a href="containers.html" aria-label="Next - 11.3. Container classes">
       <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right' style="top:50%; transform:translateY(-50%)translateX(-50%); left: 50%; color:black; "></i>
     </a>
   </li>
@@ -561,7 +561,7 @@ window.addEventListener('load', (event) => {
       
     </p>
     <p>
-        &copy; Copyright 2017-2025 Dave Parillo.
+        &copy; Copyright 2017-2026 Dave Parillo.
       Created using <a href="http://runestoneinteractive.org/">Runestone</a> 6.6.2.
     </p>
   </div>

@@ -160,7 +160,7 @@ Through a pointer:
      draw_all(shapes);
    }
 
-The :container:`vector`` of unique pointers could have been
+The :container:`vector` of unique pointers could have been
 implemented with a vector of raw pointers:
 
 .. code-block:: cpp

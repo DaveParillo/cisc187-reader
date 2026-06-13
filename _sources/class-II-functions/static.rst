@@ -48,7 +48,7 @@ An example of a static member:
             --instance_count;
          }
 
-         int count() const {
+         int count() const noexcept {
             return instance_count;
          }
    };
@@ -86,7 +86,7 @@ member to determine the count.
    // a class that counts how many live objects
    // currently exist
    class counter {
-      static int instance_count;   // declaration, but no definition
+      static inline int instance_count = 0;   // declaration and definition
       public:
          counter() {
             ++instance_count;
@@ -96,15 +96,11 @@ member to determine the count.
          }
 
          // can only access static member data
-         static int count();
+         static int count() noexcept {
+           return instance_count;
+         }
+
    };
-
-   // both variable and function must be defined before use
-   int counter::instance_count = 0;
-
-   int counter::count() {
-     return instance_count;
-   }
 
    void print() {
       std::cout << "There are " << counter::count()
@@ -129,6 +125,18 @@ member to determine the count.
 
 A static member function allows us to get the count
 even if no instances of a counter class have ever been created.
+
+.. note::
+
+   Starting in C++20, our counter could be initialized :lang:`constinit`:
+
+   .. code-block: cpp
+
+      constinit static inline int instance_count = 0;
+
+
+   `constinit` is useful for variables that must be initialized at compile
+   time but are still mutable.
 
 
 -----

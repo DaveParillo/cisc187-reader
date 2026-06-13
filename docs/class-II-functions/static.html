@@ -242,7 +242,7 @@ inside the class definition, but not with the definition of that static member:<
 <span class="w">         </span><span class="o">--</span><span class="n">instance_count</span><span class="p">;</span>
 <span class="w">      </span><span class="p">}</span>
 
-<span class="w">      </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
 <span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="n">instance_count</span><span class="p">;</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="p">};</span>
@@ -278,7 +278,7 @@ member to determine the count.</p>
 <span class="c1">// a class that counts how many live objects</span>
 <span class="c1">// currently exist</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">counter</span><span class="w"> </span><span class="p">{</span>
-<span class="w">   </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">instance_count</span><span class="p">;</span><span class="w">   </span><span class="c1">// declaration, but no definition</span>
+<span class="w">   </span><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">instance_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">   </span><span class="c1">// declaration and definition</span>
 <span class="w">   </span><span class="k">public</span><span class="o">:</span>
 <span class="w">      </span><span class="n">counter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">         </span><span class="o">++</span><span class="n">instance_count</span><span class="p">;</span>
@@ -288,15 +288,11 @@ member to determine the count.</p>
 <span class="w">      </span><span class="p">}</span>
 
 <span class="w">      </span><span class="c1">// can only access static member data</span>
-<span class="w">      </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">();</span>
+<span class="w">      </span><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">count</span><span class="p">()</span><span class="w"> </span><span class="k">noexcept</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">instance_count</span><span class="p">;</span>
+<span class="w">      </span><span class="p">}</span>
+
 <span class="p">};</span>
-
-<span class="c1">// both variable and function must be defined before use</span>
-<span class="kt">int</span><span class="w"> </span><span class="n">counter</span><span class="o">::</span><span class="n">instance_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-
-<span class="kt">int</span><span class="w"> </span><span class="nf">counter::count</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">instance_count</span><span class="p">;</span>
-<span class="p">}</span>
 
 <span class="kt">void</span><span class="w"> </span><span class="nf">print</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">   </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;There are &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">counter</span><span class="o">::</span><span class="n">count</span><span class="p">()</span>
@@ -322,6 +318,12 @@ member to determine the count.</p>
 </div>
 <p>A static member function allows us to get the count
 even if no instances of a counter class have ever been created.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Starting in C++20, our counter could be initialized <a class="reference external" href="https://en.cppreference.com/w/cpp/language/constinit">constinit</a>:</p>
+<p><cite>constinit</cite> is useful for variables that must be initialized at compile
+time but are still mutable.</p>
+</div>
 <hr class="docutils" />
 <div class="admonition-more-to-explore admonition">
 <p class="admonition-title">More to Explore</p>

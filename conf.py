@@ -33,8 +33,6 @@ my_extensions = ['runestone.common',
                 'runestone.activecode',
                 'runestone.animation',
                 'runestone.assignment',
-                'runestone.blockly',
-                'runestone.cellbotics',
                 'runestone.chapterdb',
                 'runestone.clickableArea',
                 'runestone.codelens',
@@ -43,24 +41,19 @@ my_extensions = ['runestone.common',
                 'runestone.fitb',
                 'runestone.groupsub',
                 'runestone.hparsons',
-                'runestone.matrixeq',
                 'runestone.mchoice',
                 'runestone.meta',
                 'runestone.parsons',
-                'runestone.pretext',
                 'runestone.question',
-                'runestone.quizly',
                 'runestone.reveal',
                 'runestone.selectquestion',
                 'runestone.server',
                 'runestone.shortanswer',
                 'runestone.showeval',
-                'runestone.spreadsheet',
                 'runestone.tabbedStuff',
                 'runestone.timed',
                 'runestone.utility',
-                'runestone.video',
-                'runestone.wavedrom']
+                'runestone.video']
 
 
 extensions = ['sphinx.ext.mathjax', 
@@ -150,7 +143,7 @@ copyright = '2017-2026 Dave Parillo'
 # built documents.
 #
 # The short X.Y version.
-version = '3.3.0'
+version = '3.3.1'
 # The full version, including alpha/beta/rc tags.
 release = version
 

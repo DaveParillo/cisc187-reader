@@ -14,7 +14,6 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=50109A2C" />
-    <link rel="stylesheet" type="text/css" href="../_static/matrixeq.css?v=58BC228F" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
@@ -28,7 +27,6 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/animationbase.js?v=A043C3A7"></script>
-    <script src="../_static/matrixeq.js?v=D64CFA5A"></script>
     <script src="../_static/runtime.66b619f51b746382.bundle.js?v=C3F69EE5"></script>
     <script src="../_static/637.d54be67956c5c660.bundle.js?v=915B1670"></script>
     <script src="../_static/runestone.ecc6dff5cad8b815.bundle.js?v=AE959292"></script>
@@ -677,7 +675,7 @@ enclosing class.</p></li>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="c1">// make some facts without any optional parts</span>
+<span class="w">  </span><span class="c1">// make facts without any optional parts</span>
 <span class="w">  </span><span class="n">NutritionFacts</span><span class="w"> </span><span class="n">cake</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">75</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">};</span>
 
 <span class="w">  </span><span class="c1">// create a builder</span>
@@ -692,14 +690,13 @@ enclosing class.</p></li>
 
 <span class="w">  </span><span class="c1">// create nutrition facts without creating a (named)</span>
 <span class="w">  </span><span class="c1">// temporary builder object</span>
-<span class="w">  </span><span class="c1">//</span>
 <span class="w">  </span><span class="n">NutritionFacts</span><span class="w"> </span><span class="n">soda</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NutritionFacts</span><span class="o">::</span><span class="n">Builder</span><span class="p">()</span>
 <span class="w">                        </span><span class="p">.</span><span class="n">serving_size</span><span class="p">(</span><span class="mi">368</span><span class="p">).</span><span class="n">servings</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="w">                        </span><span class="p">.</span><span class="n">carbohydrates</span><span class="p">(</span><span class="mi">40</span><span class="p">).</span><span class="n">calories</span><span class="p">(</span><span class="mi">150</span><span class="p">).</span><span class="n">sodium</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span>
+<span class="w">                        </span><span class="p">.</span><span class="n">carbohydrates</span><span class="p">(</span><span class="mi">40</span><span class="p">).</span><span class="n">calories</span><span class="p">(</span><span class="mi">150</span><span class="p">).</span><span class="n">sodium</span><span class="p">(</span><span class="mi">15</span><span class="p">).</span><span class="n">build</span><span class="p">();</span>
 
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Cake:</span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">cake</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Chips:</span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">chips</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
-<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Soda:</span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">soda</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Cake:</span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">cake</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Chips:</span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">chips</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Soda:</span><span class="se">\t</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">soda</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>

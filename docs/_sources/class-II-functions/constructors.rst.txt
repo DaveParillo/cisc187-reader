@@ -524,7 +524,7 @@ When complete, the classes can be used like this:
    #include <iostream>
 
    int main() {
-     // make some facts without any optional parts
+     // make facts without any optional parts
      NutritionFacts cake = {75, 8};
 
      // create a builder
@@ -539,14 +539,13 @@ When complete, the classes can be used like this:
 
      // create nutrition facts without creating a (named)
      // temporary builder object
-     // 
      NutritionFacts soda = NutritionFacts::Builder()
                            .serving_size(368).servings(1)
-                           .carbohydrates(40).calories(150).sodium(15);
+                           .carbohydrates(40).calories(150).sodium(15).build();
 
-     std::cout << "Cake:\t" << cake << "\n";
-     std::cout << "Chips:\t" << chips << "\n";
-     std::cout << "Soda:\t" << soda << "\n";
+     std::cout << "Cake:\t" << cake << '\n';
+     std::cout << "Chips:\t" << chips << '\n';
+     std::cout << "Soda:\t" << soda << '\n';
 
      return 0;
    }

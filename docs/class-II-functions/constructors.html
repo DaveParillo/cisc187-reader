@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
     <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=50109A2C" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
 
 
@@ -405,6 +408,8 @@ point.cpp:7:12: note: replace parentheses with an initializer to declare a varia
            ^~
 </pre></div>
 </div>
+<div class="cpp-admonition cpp11 admonition">
+<p class="admonition-title">C++11 Feature</p>
 <p>C++ resolves this ambiguity in C++11 using the <em>uniform initializer syntax</em>.
 You can use curly braces: <code class="docutils literal notranslate"><span class="pre">{}</span></code> instead of parentheses to initialize objects.
 Braces are an extension of the initializer list syntax for containers
@@ -415,6 +420,7 @@ and can be used even for default constructed objects.</p>
 <span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">{</span><span class="s">&quot;hello, world!&quot;</span><span class="p">};</span>
 <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">};</span>
 </pre></div>
+</div>
 </div>
 <p>While the above works every time, omitting the braces entirely when not needed is preferred:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">string</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
@@ -457,17 +463,17 @@ A good class is built around good functions.
 Just as with regular functions,
 avoid confusing parameter lists.
 Consider the following:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">Date</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">date</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span>
 </pre></div>
 </div>
 <p>It’s seems likely that the three parameters represent the
 year, month, and day, but without reading the code,
 there is no way to know what order.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// is this correct?</span>
-<span class="n">Date</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1776</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span>
+<span class="n">date</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">1776</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span>
 
 <span class="c1">// or this?</span>
-<span class="n">Date</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">1776</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">};</span>
+<span class="n">date</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">1776</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">};</span>
 </pre></div>
 </div>
 <p>Even if we read the code and learn the order,
@@ -489,7 +495,7 @@ appropriate types improves clarity and utility:</p>
 <span class="p">};</span>
 
 <span class="c1">// now a new date can be constructed like:</span>
-<span class="n">Date</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">year</span><span class="p">{</span><span class="mi">1776</span><span class="p">},</span><span class="w"> </span><span class="n">month</span><span class="o">::</span><span class="n">jul</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span>
+<span class="n">date</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">year</span><span class="p">{</span><span class="mi">1776</span><span class="p">},</span><span class="w"> </span><span class="n">month</span><span class="o">::</span><span class="n">jul</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">};</span>
 </pre></div>
 </div>
 <p>This version is easier for programmers to remember and any errors are

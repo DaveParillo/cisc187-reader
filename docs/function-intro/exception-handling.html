@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
     <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=50109A2C" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
 
 
@@ -300,7 +303,9 @@ other memory allocation errors</p></li>
 </ul>
 </li>
 </ul>
-<p>This list is just a partial set of the exceptions in the standard library.</p>
+<p>This list is just a partial set of the exceptions in the standard library.
+It includes the exceptions that have been in the language since before C++11.
+Check your compiler manual or the C++ reference for the latest exceptions.</p>
 </section>
 <section id="using-exceptions">
 <h2><span class="section-number">3.9.2. </span>Using exceptions<a class="headerlink" href="#using-exceptions" title="Permalink to this heading">¶</a></h2>
@@ -363,8 +368,10 @@ If no exception bits are set, then the I/O streams in C++ will not throw any exc
 </pre></div>
 </div>
 <p>At this point, only the <code class="docutils literal notranslate"><span class="pre">failbit</span></code> will trigger an exception.</p>
+<div class="cpp-admonition cpp11 admonition">
+<p class="admonition-title">C++11 Feature</p>
 <p>I/O Streams may throw <code class="docutils literal notranslate"><span class="pre">ios_base::failure</span></code>
-But since C++11 this class inheritance changed.</p>
+but since C++11 this class inheritance changed.</p>
 <p><code class="docutils literal notranslate"><span class="pre">ios_base::failure</span></code> inherits from <code class="docutils literal notranslate"><span class="pre">std::system_error</span></code></p>
 <p>The end result is that <code class="docutils literal notranslate"><span class="pre">ios_base::failure</span></code> now has
 an <code class="docutils literal notranslate"><span class="pre">error_code</span></code> member to the exception object it didn’t used to have.</p>
@@ -374,6 +381,7 @@ an <code class="docutils literal notranslate"><span class="pre">error_code</span
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Code: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">code</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
 </div>
 <hr class="docutils" />
 <div class="admonition-more-to-explore admonition">

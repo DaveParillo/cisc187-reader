@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
     <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=50109A2C" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
 
 
@@ -443,16 +446,13 @@ Use the documentation provided with your IDE for that.</p>
 <span id="index-4"></span><h2><span class="section-number">1.4.1. </span>Compiling using the CISC187 Docker image<a class="headerlink" href="#compiling-using-the-cisc187-docker-image" title="Permalink to this heading">¶</a></h2>
 <p>Use git to clone your assignments repository to your computer.</p>
 <p>The CISC187 Docker image provides an environment much like the
-development environment on the Mesa server, but locally.
-The main difference between the docker image and the Mesa server
-is that the compilers on the docker image are much newer and include
-support for up to some C++20 features.</p>
+development environment on the Mesa server, but locally.</p>
 <p>Currently, two compilers are installed on the image:</p>
 <ul class="simple">
 <li><p>GCC 14</p></li>
 <li><p>Clang 17</p></li>
 </ul>
-<p>along with support tools, debuggers, vim plugins, and checking scripts
+<p>The image includes support tools, debuggers, vim plugins, and checking scripts
 that are installed on the Mesa server.</p>
 <div id='tab_docker' data-component="tabbedStuff"  class='alert alert-warning '><div data-component="tab" data-tabname="Install" >
 <p>In order to use the docker image, you first need to

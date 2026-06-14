@@ -299,16 +299,13 @@ Use git to clone your assignments repository to your computer.
 
 The CISC187 Docker image provides an environment much like the
 development environment on the Mesa server, but locally.
-The main difference between the docker image and the Mesa server
-is that the compilers on the docker image are much newer and include
-support for up to some C++20 features.
 
 Currently, two compilers are installed on the image:
 
 - GCC 14
 - Clang 17
 
-along with support tools, debuggers, vim plugins, and checking scripts
+The image includes support tools, debuggers, vim plugins, and checking scripts
 that are installed on the Mesa server.
 
 .. tabbed:: tab_docker

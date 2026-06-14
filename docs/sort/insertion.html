@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
     <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=50109A2C" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
 
 
@@ -459,8 +462,11 @@ void print(const It begin, const It end, const char* msg) {
 <p>This means that while the default behavior is to sort ascending since the
 default comparator is <a class="reference external" href="https://en.cppreference.com/w/cpp/utility/functional/less">std::less</a> any other binary
 predicate operation could be passed in.</p>
+<div class="cpp-admonition cpp20 admonition">
+<p class="admonition-title">C++20 Feature</p>
 <p>If your compiler supports C++20 <a class="reference external" href="https://en.cppreference.com/w/cpp/ranges">ranges</a>, then you could use the ranges versions
 of <code class="docutils literal notranslate"><span class="pre">min_element</span></code> and <code class="docutils literal notranslate"><span class="pre">iter_swap</span></code> and use a range-for loop.</p>
+</div>
 <div class="admonition-try-this admonition">
 <p class="admonition-title">Try This!</p>
 <p>Modify the <code class="docutils literal notranslate"><span class="pre">selection_sort</span></code> template to take an optional comparison function

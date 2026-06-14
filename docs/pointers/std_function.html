@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
     <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=50109A2C" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
 
 
@@ -212,9 +215,11 @@
   
   <section id="the-std-function-template">
 <span id="index-0"></span><h1><span class="section-number">5.11. </span>The std::function template<a class="headerlink" href="#the-std-function-template" title="Permalink to this heading">¶</a></h1>
-<p>The <a class="reference external" href="https://en.cppreference.com/w/cpp/utility/functional/function">std::function</a> wrapper provides a standard way to pass around lambda expressions,
-function pointers, and function objects.
-Introduced in C++11, its facilities are accessed from <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;functional&gt;</span></code>.
+<div class="cpp-admonition cpp11 admonition">
+<p class="admonition-title">C++11 Feature</p>
+<p>The <a class="reference external" href="https://en.cppreference.com/w/cpp/utility/functional/function">std::function</a> wrapper provides a
+standard way to pass around lambda expressions, function pointers, and function objects.</p>
+<p>Its facilities are accessed from <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;functional&gt;</span></code>.
 The primary goal of <code class="docutils literal notranslate"><span class="pre">std::function</span></code> is clarity:
 to simplify and standardize the way function pointers are moved within a program.</p>
 <p>Starting with a simple function:</p>
@@ -222,6 +227,7 @@ to simplify and standardize the way function pointers are moved within a program
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
 </div>
 <p>Before <code class="docutils literal notranslate"><span class="pre">std::function</span></code>, we would declare a function pointer like this:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">print_func</span><span class="p">)(</span><span class="kt">int</span><span class="w"> </span><span class="n">val</span><span class="p">);</span>

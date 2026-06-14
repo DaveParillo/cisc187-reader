@@ -11,6 +11,7 @@
 
 Constructors
 ============
+
 All user defined types include a constructor.
 Even if you do not write one explicitly,
 the compiler will write one for you.
@@ -220,18 +221,20 @@ Some compilers, like *clang*, will try to tell you:
        point p();
               ^~
 
-C++ resolves this ambiguity in C++11 using the *uniform initializer syntax*.
-You can use curly braces: ``{}`` instead of parentheses to initialize objects.
-Braces are an extension of the initializer list syntax for containers 
-and can be used even for default constructed objects.
+.. cpp:: 11
 
-.. code-block:: cpp
+   C++ resolves this ambiguity in C++11 using the *uniform initializer syntax*.
+   You can use curly braces: ``{}`` instead of parentheses to initialize objects.
+   Braces are an extension of the initializer list syntax for containers 
+   and can be used even for default constructed objects.
 
-   string s{};
-   vector<int> v{};
-   point p{};
-   string s{"hello, world!"};
-   vector<int> v{1,2,3,4,5};
+   .. code-block:: cpp
+
+      string s{};
+      vector<int> v{};
+      point p{};
+      string s{"hello, world!"};
+      vector<int> v{1,2,3,4,5};
 
 
 While the above works every time, omitting the braces entirely when not needed is preferred:
@@ -282,7 +285,7 @@ Consider the following:
 
 .. code-block:: cpp
 
-   Date (int, int, int);
+   date (int, int, int);
 
 It's seems likely that the three parameters represent the
 year, month, and day, but without reading the code,
@@ -291,10 +294,10 @@ there is no way to know what order.
 .. code-block:: cpp
 
    // is this correct?
-   Date d = {1776, 7, 4};
+   date d = {1776, 7, 4};
 
    // or this?
-   Date d = {4, 1776, 7};
+   date d = {4, 1776, 7};
 
 Even if we read the code and learn the order,
 it is still probable that we will forget the order and transpose
@@ -319,13 +322,14 @@ appropriate types improves clarity and utility:
    };
 
    // now a new date can be constructed like:
-   Date d = {year{1776}, month::jul, 4};
+   date d = {year{1776}, month::jul, 4};
 
 This version is easier for programmers to remember and any errors are 
 compile errors instead of runtime errors.
 
 Telescoping constructors
 ------------------------
+
 The original ``date`` class suffered from a common design problem:
 too many parameters of the same type.
 A closely related problem is how to provide flexibility when constructing

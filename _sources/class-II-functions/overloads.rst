@@ -412,7 +412,7 @@ in terms of ``<`` and ``==``.
 
    inline bool operator!=(const T& lhs, const T& rhs){ return !(lhs == rhs); }
 
-.. note::
+.. cpp:: 20
 
    Since C++20, all 6 comparison operators are defined if the 
    three-way comparison operator ``operator<=>`` is defined, 
@@ -433,31 +433,31 @@ in terms of ``<`` and ``==``.
    The three-way comparison operator is also called the 'spaceship operator'
    because of the way it looks in an expression: ``a <=> b``.
 
-Unlike the 'two-way' comparison operators, ``operator<=>`` does not return
-``bool``.
-With a single operation, it determines the entire ordering relationship between
-two values, returning one of three possible outcomes:
-less than, equal to/equivalent, or greater than:
+   Unlike the 'two-way' comparison operators, ``operator<=>`` does not return
+   ``bool``.
+   With a single operation, it determines the entire ordering relationship between
+   two values, returning one of three possible outcomes:
+   less than, equal to/equivalent, or greater than:
 
-- A negative result (or a value representing less)
-  means the left operand is less than the right operand (``a < b``).
-- A result of zero (or a value representing equal/equivalent) means
-  the operands are equal (``a == b``) or that they are equivalent
-  (``!(a < b) && !(b < a)``.
-- A positive result (or a value representing greater) means the left operand
-  is greater than the right operand (``a > b``).
+   - A negative result (or a value representing less)
+     means the left operand is less than the right operand (``a < b``).
+   - A result of zero (or a value representing equal/equivalent) means
+     the operands are equal (``a == b``) or that they are equivalent
+     (``!(a < b) && !(b < a)``.
+   - A positive result (or a value representing greater) means the left operand
+     is greater than the right operand (``a > b``).
 
-If the three-way comparison is **not** defaulted, then you must overload
-``operator==`` in addition to ``operator<=>``.
-Neither of these overloads need to be member functions.
-As with the earlier guidance for comparison overloads,
-non-friend non-member functions are preferred.
+   If the three-way comparison is **not** defaulted, then you must overload
+   ``operator==`` in addition to ``operator<=>``.
+   Neither of these overloads need to be member functions.
+   As with the earlier guidance for comparison overloads,
+   non-friend non-member functions are preferred.
 
-Once these two overloads have been implemented, all the other comparison
-operations can be generated automatically.
+   Once these two overloads have been implemented, all the other comparison
+   operations can be generated automatically.
 
-One thing you may have noticed is the number of classes that removed the
-``!=``, ``<``, ``<=``, ``>``, and ``>=`` operators starting with C++20.
+   One thing you may have noticed is the number of classes that removed the
+   ``!=``, ``<``, ``<=``, ``>``, and ``>=`` operators starting with C++20.
 
 
 Binary arithmetic operators

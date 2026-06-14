@@ -10,19 +10,23 @@
 
 The std::function template
 ==========================
-The :utility:`std::function<functional/function>` wrapper provides a standard way to pass around lambda expressions,
-function pointers, and function objects.
-Introduced in C++11, its facilities are accessed from ``#include <functional>``.
-The primary goal of ``std::function`` is clarity:
-to simplify and standardize the way function pointers are moved within a program.
 
-Starting with a simple function:
+.. cpp:: 11
 
-.. code-block:: cpp
+   The :utility:`std::function<functional/function>` wrapper provides a
+   standard way to pass around lambda expressions, function pointers, and function objects.
 
-   void print_num(int i) {
-     std::cout << i << '\n';
-   }
+   Its facilities are accessed from ``#include <functional>``.
+   The primary goal of ``std::function`` is clarity:
+   to simplify and standardize the way function pointers are moved within a program.
+
+   Starting with a simple function:
+
+   .. code-block:: cpp
+
+      void print_num(int i) {
+        std::cout << i << '\n';
+      }
 
 Before ``std::function``, we would declare a function pointer like this:
 

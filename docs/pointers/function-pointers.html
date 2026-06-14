@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
     <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=50109A2C" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
 
 
@@ -296,12 +299,12 @@ double pi      ()             { return 3.14159265;}
 
 int main () {
   // declare func and assign add to it
-  double (*func)(int, int) = add;
+  double (* func)(int, int) = add;
 
-  cout << (*func)(2,3); // prints 4
+  cout << (* func)(2,3); // prints 4
 
   func = multiply;
-  cout << (*func)(2,3); // prints 6
+  cout << (* func)(2,3); // prints 6
 
   func = pi;            // error: pointer to function with
                         // wrong number of arguments
@@ -315,6 +318,8 @@ int main () {
 </div>
     </div>
 
+<div class="cpp-admonition cpp11 admonition">
+<p class="admonition-title">C++11 Feature</p>
 <p>A downside to traditional function pointer initialization is
 that this doesn’t look like the initialization syntax we are used to.
 This is a legacy of the C language C++ was originally based on.</p>
@@ -328,6 +333,7 @@ This is a legacy of the C language C++ was originally based on.</p>
 <p class="admonition-title">Try This!</p>
 <p>Refactor the previous example to replace the traditional C syntax
 with the C++11 <code class="docutils literal notranslate"><span class="pre">using</span></code> type alias.</p>
+</div>
 </div>
 
     <div class="runestone " style="margin-left: auto; margin-right:auto">

@@ -115,12 +115,12 @@ pointing to a function that returns a ``double`` and takes two parameters:
 
          int main () {
            // declare func and assign add to it
-           double (*func)(int, int) = add;
+           double (* func)(int, int) = add;
 
-           cout << (*func)(2,3); // prints 4
+           cout << (* func)(2,3); // prints 4
 
            func = multiply;
-           cout << (*func)(2,3); // prints 6
+           cout << (* func)(2,3); // prints 6
 
            func = pi;            // error: pointer to function with
                                  // wrong number of arguments
@@ -129,23 +129,25 @@ pointing to a function that returns a ``double`` and takes two parameters:
                                  // function return value to function pointer
          }
 
-A downside to traditional function pointer initialization is 
-that this doesn't look like the initialization syntax we are used to.
-This is a legacy of the C language C++ was originally based on.
+.. cpp:: 11
 
-The C++11 :lang:`type alias` allows defining a name that refers to a previously defined type:
+   A downside to traditional function pointer initialization is 
+   that this doesn't look like the initialization syntax we are used to.
+   This is a legacy of the C language C++ was originally based on.
 
-.. code-block:: cpp
+   The C++11 :lang:`type alias` allows defining a name that refers to a previously defined type:
 
-   double (*func)(int, int);          // old syntax
+   .. code-block:: cpp
 
-   using func = double(*)(int, int);  // since C++11
+      double (*func)(int, int);          // old syntax
+
+      using func = double(*)(int, int);  // since C++11
 
 
-.. admonition:: Try This!
+   .. admonition:: Try This!
 
-   Refactor the previous example to replace the traditional C syntax
-   with the C++11 ``using`` type alias.
+      Refactor the previous example to replace the traditional C syntax
+      with the C++11 ``using`` type alias.
 
 .. index::
    pair: video; function pointers

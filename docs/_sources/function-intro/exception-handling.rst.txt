@@ -105,6 +105,9 @@ The standard exceptions in C++ are organized in a class hierarchy.
   - :error:`underflow_error`: mathematical underflow
 
 This list is just a partial set of the exceptions in the standard library.
+It includes the exceptions that have been in the language since before C++11.
+Check your compiler manual or the C++ reference for the latest exceptions.
+
 
 Using exceptions
 ----------------
@@ -186,21 +189,23 @@ For example:
 
 At this point, only the ``failbit`` will trigger an exception.
 
-I/O Streams may throw ``ios_base::failure``
-But since C++11 this class inheritance changed.
+.. cpp:: 11
 
-``ios_base::failure`` inherits from ``std::system_error``
+   I/O Streams may throw ``ios_base::failure``
+   but since C++11 this class inheritance changed.
 
-The end result is that ``ios_base::failure`` now has 
-an ``error_code`` member to the exception object it didn't used to have.
+   ``ios_base::failure`` inherits from ``std::system_error``
 
-.. code-block:: cpp
+   The end result is that ``ios_base::failure`` now has 
+   an ``error_code`` member to the exception object it didn't used to have.
 
-   catch (const ios_base::failure& e) {  
-     std::cout << "I/O exception occurred.\n";
-     std::cout << "Details: " << e.what() << std::endl;
-     std::cout << "Code: " << e.code() << std::endl;
-   }
+   .. code-block:: cpp
+
+      catch (const ios_base::failure& e) {  
+        std::cout << "I/O exception occurred.\n";
+        std::cout << "Details: " << e.what() << std::endl;
+        std::cout << "Code: " << e.code() << std::endl;
+      }
 
 
 -----

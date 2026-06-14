@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
     <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=50109A2C" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
 
 
@@ -225,7 +228,7 @@ Compare this to our experiences so far where variables were <em>automatically</e
 managed by the system, not by the programmer.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">new</span></code> operator takes a type and (optionally) a set of initializers for that type as its arguments.
 It returns a pointer to an (optionally) initialized object of its type:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Point</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">point</span><span class="w"> </span><span class="p">{</span>
 <span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// member values is a C++11 feature</span>
 <span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">};</span>
@@ -237,24 +240,24 @@ It returns a pointer to an (optionally) initialized object of its type:</p>
 <span class="w">  </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">p4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">};</span><span class="w">  </span><span class="c1">// allocate 1 int initialized to 5, C++11 or later</span>
 <span class="w">  </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">p5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">();</span><span class="w">   </span><span class="c1">// allocate 1 int initialized to 0</span>
 
-<span class="w">  </span><span class="n">Point</span><span class="o">*</span><span class="w"> </span><span class="n">pt1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Point</span><span class="p">;</span><span class="w">          </span><span class="c1">// allocate a default constructed Point</span>
-<span class="w">  </span><span class="n">Point</span><span class="o">*</span><span class="w"> </span><span class="n">pt2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Point</span><span class="p">();</span><span class="w">        </span><span class="c1">// allocate a default constructed Point</span>
-<span class="w">  </span><span class="n">Point</span><span class="o">*</span><span class="w"> </span><span class="n">pt3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Point</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="w">       </span><span class="c1">// allocate 3 default constructed Points</span>
+<span class="w">  </span><span class="n">point</span><span class="o">*</span><span class="w"> </span><span class="n">pt1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">point</span><span class="p">;</span><span class="w">          </span><span class="c1">// allocate a default constructed point</span>
+<span class="w">  </span><span class="n">point</span><span class="o">*</span><span class="w"> </span><span class="n">pt2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">point</span><span class="p">();</span><span class="w">        </span><span class="c1">// allocate a default constructed point</span>
+<span class="w">  </span><span class="n">point</span><span class="o">*</span><span class="w"> </span><span class="n">pt3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">point</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="w">       </span><span class="c1">// allocate 3 default constructed points</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Step through <a class="reference external" href="http://pythontutor.com/cpp.html#code=struct%20Point%20%7B%0A%20%20double%20x%20%3D%200%3B%20%20//%20member%20values%20is%20a%20C%2B%2B11%20feature%0A%20%20double%20y%20%3D%200%3B%0A%7D%3B%0A%0Aint%20main%28%29%20%7B%0A%20int*%20p1%20%3D%20new%20int%3B%20%20%20%20%20//%20allocate%201%20uninitialized%20int%0A%20int*%20p2%20%3D%20new%20int%5B3%5D%3B%20%20//%20allocate%203%20uninitialized%20ints%0A%20int*%20p3%20%3D%20new%20int%285%29%3B%20%20//%20allocate%201%20int%20initialized%20to%205%0A%20int*%20p4%20%3D%20new%20int%7B5%7D%3B%20%20//%20allocate%201%20int%20initialized%20to%205,%20C%2B%2B11%20or%20later%0A%20int*%20p5%20%3D%20new%20int%28%29%3B%20%20%20//%20allocate%201%20int%20initialized%20to%200%0A%0A%20Point*%20pt1%20%3D%20new%20Point%3B%20%20%20%20%20%20%20%20%20%20//%20allocate%20a%20default%20constructed%20Point%20%0A%20Point*%20pt2%20%3D%20new%20Point%28%29%3B%20%20%20%20%20%20%20%20//%20allocate%20a%20default%20constructed%20Point%20%0A%20Point*%20pt3%20%3D%20new%20Point%5B3%5D%3B%20%20%20%20%20%20%20//%20allocate%203%20default%20constructed%20Points%0A%7D&amp;mode=display&amp;origin=opt-frontend.js&amp;py=cpp&amp;rawInputLstJSON=%5B%5D">example 1 here</a>.</p>
+<p>Step through <a class="reference external" href="http://pythontutor.com/cpp.html#code=struct%20point%20%7B%0A%20%20double%20x%20%3D%200%3B%20%20//%20member%20values%20is%20a%20C%2B%2B11%20feature%0A%20%20double%20y%20%3D%200%3B%0A%7D%3B%0A%0Aint%20main%28%29%20%7B%0A%20int*%20p1%20%3D%20new%20int%3B%20%20%20%20%20//%20allocate%201%20uninitialized%20int%0A%20int*%20p2%20%3D%20new%20int%5B3%5D%3B%20%20//%20allocate%203%20uninitialized%20ints%0A%20int*%20p3%20%3D%20new%20int%285%29%3B%20%20//%20allocate%201%20int%20initialized%20to%205%0A%20int*%20p4%20%3D%20new%20int%7B5%7D%3B%20%20//%20allocate%201%20int%20initialized%20to%205,%20C%2B%2B11%20or%20later%0A%20int*%20p5%20%3D%20new%20int%28%29%3B%20%20%20//%20allocate%201%20int%20initialized%20to%200%0A%0A%20point*%20pt1%20%3D%20new%20point%3B%20%20%20%20%20%20%20%20%20%20//%20allocate%20a%20default%20constructed%20point%20%0A%20point*%20pt2%20%3D%20new%20point%28%29%3B%20%20%20%20%20%20%20%20//%20allocate%20a%20default%20constructed%20point%20%0A%20point*%20pt3%20%3D%20new%20point%5B3%5D%3B%20%20%20%20%20%20%20//%20allocate%203%20default%20constructed%20points%0A%7D&amp;mode=display&amp;origin=opt-frontend.js&amp;py=cpp&amp;rawInputLstJSON=%5B%5D">example 1 here</a>.</p>
 <p>In all of the above cases,
 since the <code class="docutils literal notranslate"><span class="pre">new</span></code> operator returns a pointer to an object of its type,
 the initialization could use <code class="docutils literal notranslate"><span class="pre">auto</span></code>.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">pt1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Point</span><span class="p">;</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">pt1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">point</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>The <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/new/operator_new">operator new</a> allocates memory.
 When finished with the free-store memory,
 we return it to the pool of available memory using
 the <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/new/operator_delete">operator delete</a>:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">Point</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">point</span><span class="w"> </span><span class="p">{</span>
 <span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// member values is a C++11 feature</span>
 <span class="w">     </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">};</span>
@@ -263,8 +266,8 @@ the <a class="reference external" href="https://en.cppreference.com/w/cpp/memory
 <span class="w">  </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">;</span>
 <span class="w">  </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
 
-<span class="w">  </span><span class="n">Point</span><span class="o">*</span><span class="w"> </span><span class="n">pt_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Point</span><span class="p">;</span>
-<span class="w">  </span><span class="n">Point</span><span class="o">*</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Point</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+<span class="w">  </span><span class="n">point</span><span class="o">*</span><span class="w"> </span><span class="n">pt_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">point</span><span class="p">;</span>
+<span class="w">  </span><span class="n">point</span><span class="o">*</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">point</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
 
 <span class="w">  </span><span class="k">delete</span><span class="w">   </span><span class="n">p1</span><span class="p">;</span><span class="w">  </span><span class="c1">// free memory allocated for a single object</span>
 <span class="w">  </span><span class="k">delete</span><span class="p">[]</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span><span class="w">  </span><span class="c1">// free array memory</span>
@@ -332,10 +335,13 @@ Smart pointers are declared on the <a class="reference internal" href="../glossa
 automatically delete the encapsulated object when the smart pointer goes out of scope.
 The smart pointer is defined in such a way that it can be used
 syntactically almost exactly like a raw pointer.</p>
+<div class="cpp-admonition cpp17 admonition">
+<p class="admonition-title">C++17 Feature</p>
 <p>One of the earliest so-called ‘smart pointers’ was <code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code>.
 Much online documentation and many text books still refer to and recommend <code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code>.
 The <code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code> function was officially deprecated in C++11 and removed in C++17.
 Generally, where old texts refer to <code class="docutils literal notranslate"><span class="pre">auto_ptr</span></code>, use <code class="docutils literal notranslate"><span class="pre">unique_ptr</span></code> instead.</p>
+</div>
 <section id="class-std-unique-ptr">
 <h3><span class="section-number">5.7.1.1. </span>Class <code class="docutils literal notranslate"><span class="pre">std::unique_ptr</span></code><a class="headerlink" href="#class-std-unique-ptr" title="Permalink to this heading">¶</a></h3>
 <p>A <a class="reference external" href="https://en.cppreference.com/w/cpp/memory/unique_ptr">unique_ptr</a> is a so-called ‘smart pointer’ that owns and
@@ -344,16 +350,20 @@ when the <code class="docutils literal notranslate"><span class="pre">unique_ptr
 A <code class="docutils literal notranslate"><span class="pre">unique_ptr</span></code> is a very lightweight wrapper around a pointer.
 The basic syntax is:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// older C++11 syntax</span>
-<span class="c1">// clunky and repetitive</span>
 <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">int</span><span class="p">);</span>
-
-<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span><span class="w">       </span><span class="c1">// C++14 adds make_unique</span>
 </pre></div>
+</div>
+<div class="cpp-admonition cpp14 admonition">
+<p class="admonition-title">C++14 Feature</p>
+<p><a class="reference external" href="https://en.cppreference.com/w/cpp/memory/make_unique">make_unique</a> simplifies initialization:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">();</span>
+</pre></div>
+</div>
 </div>
 <p>In each example, both <code class="docutils literal notranslate"><span class="pre">p1</span></code> and <code class="docutils literal notranslate"><span class="pre">p2</span></code> are unique pointers that ‘own’ an <code class="docutils literal notranslate"><span class="pre">int*</span></code>.
 Our earlier examples can be changed to:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
-<span class="k">struct</span><span class="w"> </span><span class="nc">Point</span><span class="w"> </span><span class="p">{</span>
+<span class="k">struct</span><span class="w"> </span><span class="nc">point</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
 <span class="p">};</span>
@@ -368,14 +378,14 @@ Our earlier examples can be changed to:</p>
 <span class="w">  </span><span class="k">auto</span><span class="w">                   </span><span class="n">p5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
 
 <span class="w">  </span><span class="c1">// user define types are no different</span>
-<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">pt_x</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="p">();</span><span class="w">    </span><span class="c1">// one Point*</span>
-<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Point</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// array of 3 Point*</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">pt_x</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">point</span><span class="o">&gt;</span><span class="p">();</span><span class="w">    </span><span class="c1">// one point*</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">point</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w"> </span><span class="c1">// array of 3 point*</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>Once declared, a unique pointer can be manipulated using the same syntax as a raw pointer.</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="p">();</span>
-<span class="c1">// modify Point coordinates and print</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">point</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="c1">// modify point coordinates and print</span>
 <span class="n">p</span><span class="o">-&gt;</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
 <span class="n">p</span><span class="o">-&gt;</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">13</span><span class="p">;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">p</span><span class="o">-&gt;</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
@@ -393,10 +403,10 @@ even another <code class="docutils literal notranslate"><span class="pre">unique
 This solves the ‘double delete’ problem if both go out of scope.
 The result is that some operations you <strong>can</strong> perform on raw pointers
 are not allowed on <code class="docutils literal notranslate"><span class="pre">unique_ptr</span></code>:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="p">();</span>
-<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">x</span><span class="p">};</span><span class="w">     </span><span class="c1">// error - copy construction not allowed</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">point</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">point</span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">x</span><span class="p">};</span><span class="w">     </span><span class="c1">// error - copy construction not allowed</span>
 
-<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Point</span><span class="o">&gt;</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w">           </span><span class="c1">// new empty (nullptr)</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">point</span><span class="o">&gt;</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w">           </span><span class="c1">// new empty (nullptr)</span>
 <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                            </span><span class="c1">// check if z != nullptr</span>
 <span class="w">  </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">                            </span><span class="c1">// error - copy assignment not allowed</span>
 <span class="p">}</span>

@@ -61,7 +61,8 @@ extensions = ['sphinx.ext.mathjax',
               'sphinx.ext.extlinks', 
               'sphinxcontrib.mermaid', 
               'matplotlib.sphinxext.plot_directive',
-              'cppreference'] + my_extensions
+              'cppreference',
+              'cpp_admonitions'] + my_extensions
 
 # math_number_all = True
 # mathjax_options = {
@@ -143,7 +144,7 @@ copyright = '2017-2026 Dave Parillo'
 # built documents.
 #
 # The short X.Y version.
-version = '3.3.1'
+version = '3.4.0'
 # The full version, including alpha/beta/rc tags.
 release = version
 
@@ -264,6 +265,11 @@ html_short_title ='CISC 187'
 # so a file named "default.css" will overwrite the builtin "default.css".
 
 html_static_path = ['_static']  + runestone_static_dirs()
+
+html_css_files = [
+    'cpp_admonitions.css',
+    'custom.css'
+]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.

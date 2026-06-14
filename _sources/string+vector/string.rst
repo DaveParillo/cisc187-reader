@@ -212,12 +212,17 @@ deduced to be a ``std::string``.
 
    .. tab:: Example
 
-      In C++14, you can simply append an ``s`` to the end of the string literal.
-      This identifies the literal as type std::string.
+      .. cpp:: 14
 
-      .. code-block:: cpp
+         Adds the concept of a *std::string literal* to the language.
 
-         auto my_string = "Howdy!"s;    // preferred
+         You can simply append an ``s`` to the end of the quoted string.
+         This identifies the literal as type std::string instead of
+         ``const char*``.
+
+         .. code-block:: cpp
+
+            auto my_string = "Howdy!"s;    // preferred
 
       Alternatively, you can call the string constructor explicitly, which
       works for C++ versions older than C++14.
@@ -305,7 +310,7 @@ within a string.
          :lines: 12
          :dedent: 3
 
-      defined using the C++14 string literal syntax,
+      defined using the string literal syntax,
       creates a new object ``us``.
 
       Once we have a ``string``, calling the string member function 

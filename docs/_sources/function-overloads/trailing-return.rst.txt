@@ -147,7 +147,7 @@ For this reason, trailing return types are preferred.
 
    - :doc:`../function-intro/auto`
    - From: cppreference.com: 
-     The `auto specifier <http://en.cppreference.com/w/cpp/language/auto>`_ and 
-     `decltype specifier <http://en.cppreference.com/w/cpp/language/decltype>`_. 
+     The :lang:`auto specifier <auto>` and 
+     :lang:`decltype specifier <decltype>`. 
 
 

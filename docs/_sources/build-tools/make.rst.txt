@@ -124,11 +124,20 @@ the following switch must also be added::
 
     g++ main.cpp -std=c++11 -o main
 
-The default C++ version for most compilers, gcc included is c++98.
+.. note::
+
+   The default C++ version varies between compilers and may change with new releases.
+   For years the default (on non-Windows compilers) was C++98.
+   That started changing around 2016 or so.
+
+   As of GCC11 (2021), the default is C++17.
+   Clang made the switch to a C++17 default in 2023 with Clang 16.
+   As of Visual Studio 2022, the default is C++14
+
 
 A summary of useful command line arguments:
 
-o
+o 
   Specify the output executable filename.
 
 g

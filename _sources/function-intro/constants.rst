@@ -172,12 +172,14 @@ Use it when no better alternative exists.
 Keyword: ``constexpr``
 ----------------------
 
-The keyword :lang:`constexpr` was added in C++11.
+.. cpp:: 11
 
-It looks similar to ``const``, but it is different.
+   The keyword :lang:`constexpr` was added in C++11.
 
-The ``constexpr`` specifier declares that it is *possible* to evaluate
-the expression, object, or function at compile time. 
+   It looks similar to ``const``, but it is different.
+
+   The ``constexpr`` specifier declares that it is *possible* to evaluate
+   the expression, object, or function at compile time. 
 
 So while this is OK:
 
@@ -228,11 +230,14 @@ is not able to be evaluated at compile time,
 therefore, it won't compile as a ``constexpr`` expression.
 You should still use it when you can.
 
-The rules for ``constexpr`` changed in C++14 and changed more in C++17.
-Although not available on the Mesa server, you should still
-:lang:`read the docs <constexpr>`
-and be aware of what is and is not a valid constant expression
-for whatever environment you are working in.
+.. cpp:: 26
+
+   The rules for ``constexpr`` changed in every release since C++11 and
+   continue to evolve to include the current standard.
+   In general most changes have simply increased the number of places
+   where ``constexpr`` can be used, so for most programmers using
+   ``constexpr`` has gotten easier with each release.
+
 
 .. index::
    pair: const; guidelines

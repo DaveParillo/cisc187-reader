@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
     <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=50109A2C" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
 
 
@@ -416,10 +419,15 @@ you actually want.
 There are several simple ways to use auto <em>and</em> get the type
 deduced to be a <code class="docutils literal notranslate"><span class="pre">std::string</span></code>.</p>
 <div id='string_auto_deduction' data-component="tabbedStuff"  class='alert alert-warning '><div data-component="tab" data-tabname="Example" >
-<p>In C++14, you can simply append an <code class="docutils literal notranslate"><span class="pre">s</span></code> to the end of the string literal.
-This identifies the literal as type std::string.</p>
+<div class="cpp-admonition cpp14 admonition">
+<p class="admonition-title">C++14 Feature</p>
+<p>Adds the concept of a <em>std::string literal</em> to the language.</p>
+<p>You can simply append an <code class="docutils literal notranslate"><span class="pre">s</span></code> to the end of the quoted string.
+This identifies the literal as type std::string instead of
+<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char*</span></code>.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">my_string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Howdy!&quot;</span><span class="n">s</span><span class="p">;</span><span class="w">    </span><span class="c1">// preferred</span>
 </pre></div>
+</div>
 </div>
 <p>Alternatively, you can call the string constructor explicitly, which
 works for C++ versions older than C++14.</p>
@@ -495,7 +503,7 @@ within a string.</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">us</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;team&quot;</span><span class="n">s</span><span class="p">;</span>
 </pre></div>
 </div>
-<p>defined using the C++14 string literal syntax,
+<p>defined using the string literal syntax,
 creates a new object <code class="docutils literal notranslate"><span class="pre">us</span></code>.</p>
 <p>Once we have a <code class="docutils literal notranslate"><span class="pre">string</span></code>, calling the string member function
 find always returns a position:</p>

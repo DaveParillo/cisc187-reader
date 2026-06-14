@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
     <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=50109A2C" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
 
 
@@ -275,7 +278,15 @@ the following switch must also be added:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">++</span><span class="w"> </span><span class="n">main</span><span class="p">.</span><span class="n">cpp</span><span class="w"> </span><span class="o">-</span><span class="n">std</span><span class="o">=</span><span class="n">c</span><span class="o">++</span><span class="mi">11</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">main</span>
 </pre></div>
 </div>
-<p>The default C++ version for most compilers, gcc included is c++98.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default C++ version varies between compilers and may change with new releases.
+For years the default (on non-Windows compilers) was C++98.
+That started changing around 2016 or so.</p>
+<p>As of GCC11 (2021), the default is C++17.
+Clang made the switch to a C++17 default in 2023 with Clang 16.
+As of Visual Studio 2022, the default is C++14</p>
+</div>
 <p>A summary of useful command line arguments:</p>
 <dl>
 <dt>o</dt><dd><p>Specify the output executable filename.</p>

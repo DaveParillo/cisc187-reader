@@ -11,19 +11,21 @@
 Keyword: ``auto``
 =================
 
-In C++11, the :lang:`auto` specifier meaning has changed significantly from
-it's definition prior to C++11.
-Prior to C++11, ``auto`` designated variables assigned to the 
-:lang:`automatic storage class duration <storage_duration>`.
-Every variable is assigned a storage duration which limits its lifetime.
-The automatic duration applied to local variables in a block scope.
-Because it was the default storage duration for variables in a block,
-it was rarely, if ever, used.
-It is still the default storage duration for block variables,
-but no C++11 keyword is reserved for this behavior.
+.. cpp:: 11
 
-Since C++11, :lang:`auto` specifier instructs the compiler to automatically deduce the type
-of a variable based on the initializer used.
+   In C++11, the :lang:`auto` specifier meaning has changed significantly from
+   it's definition prior to C++11.
+   Prior to C++11, ``auto`` designated variables assigned to the 
+   :lang:`automatic storage class duration <storage_duration>`.
+   Every variable is assigned a storage duration which limits its lifetime.
+   The automatic duration applied to local variables in a block scope.
+   Because it was the default storage duration for variables in a block,
+   it was rarely, if ever, used.
+   It is still the default storage duration for block variables,
+   but no C++11 keyword is reserved for this behavior.
+
+   Since C++11, :lang:`auto` specifier instructs the compiler to automatically deduce the type
+   of a variable based on the initializer used.
 
 .. code-block:: cpp
 
@@ -183,8 +185,8 @@ Therefore, ``auto`` cannot be used in casts or operators such as ``sizeof`` and 
 .. admonition:: More to Explore
 
   - From: cppreference.com: 
-    The `auto specifier <http://en.cppreference.com/w/cpp/language/auto>`_ and 
-    `decltype specifier <http://en.cppreference.com/w/cpp/language/decltype>`_. 
+    The :lang:`auto specifier <auto>` and 
+    :lang:`decltype specifier <decltype>`. 
   - Herb Sutter's GOTW blog
 
     - `#92 (auto part 1) <https://herbsutter.com/2013/06/05/gotw-92-auto-variables-part-1/>`_

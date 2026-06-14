@@ -252,8 +252,10 @@ This means that while the default behavior is to sort ascending since the
 default comparator is :functional:`std::less <less>` any other binary
 predicate operation could be passed in.
 
-If your compiler supports C++20 :cpp:`ranges`, then you could use the ranges versions
-of ``min_element`` and ``iter_swap`` and use a range-for loop.
+.. cpp:: 20
+
+   If your compiler supports C++20 :cpp:`ranges`, then you could use the ranges versions
+   of ``min_element`` and ``iter_swap`` and use a range-for loop.
 
 .. admonition:: Try This!
 

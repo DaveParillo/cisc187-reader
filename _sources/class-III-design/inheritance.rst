@@ -12,6 +12,7 @@
 
 Inheritance
 ===========
+
 Inheritance enables new classes to receive --- or inherit --- 
 the properties and methods of existing classes. 
 In C++, we can extend a class,
@@ -81,12 +82,14 @@ Which creates a by default a blue circle with radius = 1.
 A circle inherits its ability to change color from its parent: shape.
 This circle implements its own version of the ``move()`` function.
 
-The keyword ``override`` tells the compiler that this function
-intends to *override* a virtual function in a base class.
-Although a C++11 feature and not required,
-it is a best practice since it provides the compiler
-more information about your intent and can flag functions
-with incorrect signatures.
+.. cpp:: 11
+
+   The keyword ``override`` tells the compiler that this function
+   intends to *override* a virtual function in a base class.
+   Although this keyword not required,
+   it is very highly recommended since it provides the compiler
+   more information about your intent and can flag functions
+   with incorrect signatures.
 
 Note that a class may inherit from more than one base class.
 

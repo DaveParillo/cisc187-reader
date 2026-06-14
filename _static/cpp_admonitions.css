@@ -1,0 +1,97 @@
+/*
+ * Common styling
+ */
+
+.admonition.cpp-admonition {
+    border-left-width: 5px;
+    border-left-style: solid;
+    border-radius: 6px;
+    padding-left: 1rem;
+}
+
+/*
+ * Make room for the badge.
+ */
+
+.admonition.cpp-admonition > .admonition-title {
+    position: relative;
+    padding-left: 90px;
+    min-height: 22px;
+    line-height: 22px;
+}
+
+/*
+ * Shared badge behavior.
+ */
+
+.admonition.cpp-admonition > .admonition-title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1px;
+
+    width: 80px;
+    height: 20px;
+
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+/*
+ * C++ standard specific styling
+ */
+
+.admonition.cpp11 {
+    border-left-color: #1565c0;
+}
+
+.admonition.cpp11 > .admonition-title::before {
+    background-image:
+        url("https://img.shields.io/badge/C%2B%2B-11-1565c0");
+}
+
+.admonition.cpp14 {
+    border-left-color: #6afcfc;
+}
+
+.admonition.cpp14 > .admonition-title::before {
+    background-image:
+        url("https://img.shields.io/badge/C%2B%2B-14-6afcfc");
+}
+
+.admonition.cpp17 {
+    border-left-color: #2e7d32;
+}
+
+.admonition.cpp17 > .admonition-title::before {
+    background-image:
+        url("https://img.shields.io/badge/C%2B%2B-17-2e7d32");
+}
+
+.admonition.cpp20 {
+    border-left-color: #ef6c00;
+}
+
+.admonition.cpp20 > .admonition-title::before {
+    background-image:
+        url("https://img.shields.io/badge/C%2B%2B-20-ef6c00");
+}
+
+.admonition.cpp23 {
+    border-left-color: #6a1b9a;
+}
+
+.admonition.cpp23 > .admonition-title::before {
+    background-image:
+        url("https://img.shields.io/badge/C%2B%2B-23-6a1b9a");
+}
+
+.admonition.cpp26 {
+    border-left-color: #ad1457;
+}
+
+.admonition.cpp26 > .admonition-title::before {
+    background-image:
+        url("https://img.shields.io/badge/C%2B%2B-26-ad1457");
+}
+

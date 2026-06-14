@@ -30,7 +30,7 @@ It returns a pointer to an (optionally) initialized object of its type:
 
 .. code-block:: cpp
 
-   struct Point {
+   struct point {
         double x = 0;  // member values is a C++11 feature
         double y = 0;
    };
@@ -42,12 +42,12 @@ It returns a pointer to an (optionally) initialized object of its type:
      int* p4 = new int{5};  // allocate 1 int initialized to 5, C++11 or later
      int* p5 = new int();   // allocate 1 int initialized to 0
 
-     Point* pt1 = new Point;          // allocate a default constructed Point 
-     Point* pt2 = new Point();        // allocate a default constructed Point 
-     Point* pt3 = new Point[3];       // allocate 3 default constructed Points
+     point* pt1 = new point;          // allocate a default constructed point 
+     point* pt2 = new point();        // allocate a default constructed point 
+     point* pt3 = new point[3];       // allocate 3 default constructed points
    }
 
-Step through `example 1 here <http://pythontutor.com/cpp.html#code=struct%20Point%20%7B%0A%20%20double%20x%20%3D%200%3B%20%20//%20member%20values%20is%20a%20C%2B%2B11%20feature%0A%20%20double%20y%20%3D%200%3B%0A%7D%3B%0A%0Aint%20main%28%29%20%7B%0A%20int*%20p1%20%3D%20new%20int%3B%20%20%20%20%20//%20allocate%201%20uninitialized%20int%0A%20int*%20p2%20%3D%20new%20int%5B3%5D%3B%20%20//%20allocate%203%20uninitialized%20ints%0A%20int*%20p3%20%3D%20new%20int%285%29%3B%20%20//%20allocate%201%20int%20initialized%20to%205%0A%20int*%20p4%20%3D%20new%20int%7B5%7D%3B%20%20//%20allocate%201%20int%20initialized%20to%205,%20C%2B%2B11%20or%20later%0A%20int*%20p5%20%3D%20new%20int%28%29%3B%20%20%20//%20allocate%201%20int%20initialized%20to%200%0A%0A%20Point*%20pt1%20%3D%20new%20Point%3B%20%20%20%20%20%20%20%20%20%20//%20allocate%20a%20default%20constructed%20Point%20%0A%20Point*%20pt2%20%3D%20new%20Point%28%29%3B%20%20%20%20%20%20%20%20//%20allocate%20a%20default%20constructed%20Point%20%0A%20Point*%20pt3%20%3D%20new%20Point%5B3%5D%3B%20%20%20%20%20%20%20//%20allocate%203%20default%20constructed%20Points%0A%7D&mode=display&origin=opt-frontend.js&py=cpp&rawInputLstJSON=%5B%5D>`_.
+Step through `example 1 here <http://pythontutor.com/cpp.html#code=struct%20point%20%7B%0A%20%20double%20x%20%3D%200%3B%20%20//%20member%20values%20is%20a%20C%2B%2B11%20feature%0A%20%20double%20y%20%3D%200%3B%0A%7D%3B%0A%0Aint%20main%28%29%20%7B%0A%20int*%20p1%20%3D%20new%20int%3B%20%20%20%20%20//%20allocate%201%20uninitialized%20int%0A%20int*%20p2%20%3D%20new%20int%5B3%5D%3B%20%20//%20allocate%203%20uninitialized%20ints%0A%20int*%20p3%20%3D%20new%20int%285%29%3B%20%20//%20allocate%201%20int%20initialized%20to%205%0A%20int*%20p4%20%3D%20new%20int%7B5%7D%3B%20%20//%20allocate%201%20int%20initialized%20to%205,%20C%2B%2B11%20or%20later%0A%20int*%20p5%20%3D%20new%20int%28%29%3B%20%20%20//%20allocate%201%20int%20initialized%20to%200%0A%0A%20point*%20pt1%20%3D%20new%20point%3B%20%20%20%20%20%20%20%20%20%20//%20allocate%20a%20default%20constructed%20point%20%0A%20point*%20pt2%20%3D%20new%20point%28%29%3B%20%20%20%20%20%20%20%20//%20allocate%20a%20default%20constructed%20point%20%0A%20point*%20pt3%20%3D%20new%20point%5B3%5D%3B%20%20%20%20%20%20%20//%20allocate%203%20default%20constructed%20points%0A%7D&mode=display&origin=opt-frontend.js&py=cpp&rawInputLstJSON=%5B%5D>`_.
 
 In all of the above cases,
 since the ``new`` operator returns a pointer to an object of its type,
@@ -55,7 +55,7 @@ the initialization could use ``auto``.
 
 .. code-block:: cpp
 
-   auto pt1 = new Point;
+   auto pt1 = new point;
 
 The :memory:`operator new <new/operator_new>` allocates memory.
 When finished with the free-store memory,
@@ -64,7 +64,7 @@ the :memory:`operator delete <new/operator_delete>`:
 
 .. code-block:: cpp
 
-   struct Point {
+   struct point {
         double x = 0;  // member values is a C++11 feature
         double y = 0;
    };
@@ -73,8 +73,8 @@ the :memory:`operator delete <new/operator_delete>`:
      int* p1 = new int;
      int* p2 = new int[5];
 
-     Point* pt_x = new Point;
-     Point* points = new Point[3];
+     point* pt_x = new point;
+     point* points = new point[3];
 
      delete   p1;  // free memory allocated for a single object
      delete[] p2;  // free array memory
@@ -154,10 +154,12 @@ automatically delete the encapsulated object when the smart pointer goes out of 
 The smart pointer is defined in such a way that it can be used
 syntactically almost exactly like a raw pointer. 
 
-One of the earliest so-called 'smart pointers' was ``auto_ptr``.
-Much online documentation and many text books still refer to and recommend ``auto_ptr``.
-The ``auto_ptr`` function was officially deprecated in C++11 and removed in C++17.
-Generally, where old texts refer to ``auto_ptr``, use ``unique_ptr`` instead.
+.. cpp:: 17
+
+   One of the earliest so-called 'smart pointers' was ``auto_ptr``.
+   Much online documentation and many text books still refer to and recommend ``auto_ptr``.
+   The ``auto_ptr`` function was officially deprecated in C++11 and removed in C++17.
+   Generally, where old texts refer to ``auto_ptr``, use ``unique_ptr`` instead.
 
 
 Class ``std::unique_ptr``
@@ -171,10 +173,15 @@ The basic syntax is:
 .. code-block:: cpp
 
    // older C++11 syntax
-   // clunky and repetitive
    std::unique_ptr<int> p1 = std::unique_ptr<int>(new int);
 
-   std::unique_ptr<int> p2 = std::make_unique<int>();       // C++14 adds make_unique
+.. cpp:: 14
+
+   :memory:`make_unique` simplifies initialization:
+
+   .. code-block:: cpp
+
+      std::unique_ptr<int> p2 = std::make_unique<int>();
 
 In each example, both ``p1`` and ``p2`` are unique pointers that 'own' an ``int*``.
 Our earlier examples can be changed to:
@@ -182,7 +189,7 @@ Our earlier examples can be changed to:
 .. code-block:: cpp
 
    #include <memory>
-   struct Point {
+   struct point {
      double x = 0;
      double y = 0;
    };
@@ -197,16 +204,16 @@ Our earlier examples can be changed to:
      auto                   p5 = std::make_unique<int[]>(5);
 
      // user define types are no different
-     auto pt_x   = std::make_unique<Point>();    // one Point*
-     auto points = std::make_unique<Point[]>(3); // array of 3 Point*
+     auto pt_x   = std::make_unique<point>();    // one point*
+     auto points = std::make_unique<point[]>(3); // array of 3 point*
    }
    
 Once declared, a unique pointer can be manipulated using the same syntax as a raw pointer.
 
 .. code-block:: cpp
 
-     auto p = std::make_unique<Point>(); 
-     // modify Point coordinates and print
+     auto p = std::make_unique<point>(); 
+     // modify point coordinates and print
      p->x = 8;
      p->y = 13;
      std::cout << p->x << ' ' << p->y << '\n';
@@ -229,10 +236,10 @@ are not allowed on ``unique_ptr``:
 
 .. code-block:: cpp
 
-     auto x = std::make_unique<Point>(); 
-     std::unique_ptr<Point> y = {x};     // error - copy construction not allowed
+     auto x = std::make_unique<point>(); 
+     std::unique_ptr<point> y = {x};     // error - copy construction not allowed
 
-     std::unique_ptr<Point> z;           // new empty (nullptr) 
+     std::unique_ptr<point> z;           // new empty (nullptr) 
      if(!z) {                            // check if z != nullptr
        z = x;                            // error - copy assignment not allowed
      }

@@ -126,11 +126,11 @@ member to determine the count.
 A static member function allows us to get the count
 even if no instances of a counter class have ever been created.
 
-.. note::
+.. cpp:: 20
 
    Starting in C++20, our counter could be initialized :lang:`constinit`:
 
-   .. code-block: cpp
+   .. code-block:: cpp
 
       constinit static inline int instance_count = 0;
 

@@ -13,10 +13,13 @@
     <link rel="stylesheet" type="text/css" href="../_static/basic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
     <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=50109A2C" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
+    <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
 
 
 
@@ -336,10 +339,13 @@ It’s not.</p>
 </section>
 <section id="keyword-constexpr">
 <span id="index-4"></span><h2><span class="section-number">3.6.2. </span>Keyword: <code class="docutils literal notranslate"><span class="pre">constexpr</span></code><a class="headerlink" href="#keyword-constexpr" title="Permalink to this heading">¶</a></h2>
+<div class="cpp-admonition cpp11 admonition">
+<p class="admonition-title">C++11 Feature</p>
 <p>The keyword <a class="reference external" href="https://en.cppreference.com/w/cpp/language/constexpr">constexpr</a> was added in C++11.</p>
 <p>It looks similar to <code class="docutils literal notranslate"><span class="pre">const</span></code>, but it is different.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> specifier declares that it is <em>possible</em> to evaluate
 the expression, object, or function at compile time.</p>
+</div>
 <p>So while this is OK:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">constexpr</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">pi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14159265359</span><span class="p">;</span>
 
@@ -377,11 +383,14 @@ any function more complex than <code class="docutils literal notranslate"><span 
 is not able to be evaluated at compile time,
 therefore, it won’t compile as a <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> expression.
 You should still use it when you can.</p>
-<p>The rules for <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> changed in C++14 and changed more in C++17.
-Although not available on the Mesa server, you should still
-<a class="reference external" href="https://en.cppreference.com/w/cpp/language/constexpr">read the docs</a>
-and be aware of what is and is not a valid constant expression
-for whatever environment you are working in.</p>
+<div class="cpp-admonition cpp26 admonition">
+<p class="admonition-title">C++26 Feature</p>
+<p>The rules for <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> changed in every release since C++11 and
+continue to evolve to include the current standard.
+In general most changes have simply increased the number of places
+where <code class="docutils literal notranslate"><span class="pre">constexpr</span></code> can be used, so for most programmers using
+<code class="docutils literal notranslate"><span class="pre">constexpr</span></code> has gotten easier with each release.</p>
+</div>
 </section>
 <section id="guidelines-for-now">
 <span id="index-5"></span><h2><span class="section-number">3.6.3. </span>Guidelines for now<a class="headerlink" href="#guidelines-for-now" title="Permalink to this heading">¶</a></h2>

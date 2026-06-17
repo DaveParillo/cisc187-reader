@@ -5,6 +5,27 @@
 * Sphinx stylesheet -- Twitter Bootstrap theme.
 */
 
+/*
+ * WCAG 2.4.1 accessibility
+ * keyboard users won't need to tab through the entire navbar before reaching
+ * content.
+ *
+ * skip link allows skipping directly to main content.
+ */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10000;
+  padding: 0.5rem 1rem;
+  background: #ffffff;
+  border: 2px solid #005fcc;
+}
+
 .navbar-inverse .brand {
   color: #FFF;
 }

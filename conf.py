@@ -21,6 +21,8 @@ sys.path.insert(0, os.path.abspath('./_extensions'))
 from runestone import runestone_static_dirs, runestone_extensions, setup
 import pkg_resources
 
+# import sphinx_bootstrap_theme
+
 # -- General configuration -----------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -114,11 +116,11 @@ linkcheck_allowed_redirects = {
     r'https://en\.cppreference\.com/w/cpp/.*' : r'https://stackoverflow\.com/.*'
 }
 
-#,'runestone.video','runestone.reveal','runestone.poll','runestone.tabbedStuff','runestone.disqus','runestone.codelens','runestone.activecode', 'runestone.assess', 'runestone.animation','runestone.meta', 'runestone.parsons', 'runestone.blockly', 'runestone.livecode']
 
 # Add any paths that contain templates here, relative to this directory.
 # templates_path = [pkg_resources.resource_filename('runestone', '_static/templates')]
-templates_path = [pkg_resources.resource_filename('runestone', 'common/project_template/_templates')]
+#templates_path = [pkg_resources.resource_filename('runestone', 'common/project_template/_templates')]
+templates_path = ['_templates']
 
 # The suffix of source filenames.
 source_suffix = '.rst'
@@ -190,7 +192,11 @@ pygments_style = 'default'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'sphinx_bootstrap'
+html_theme = 'runestone'
+
+# Add any paths that contain custom themes here, relative to this directory.
+html_theme_path = ['_templates']
+# html_theme_path = [pkg_resources.resource_filename('runestone', 'common/project_template/_templates/plugin_layouts')]
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -239,9 +245,6 @@ html_theme_options = {
 
 #html_style = "style.css"
 
-# Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = [pkg_resources.resource_filename('runestone', 'common/project_template/_templates/plugin_layouts')]
-
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
 html_title = 'CISC 187 Course Reader Overview'
@@ -264,11 +267,10 @@ html_short_title ='CISC 187'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 
-html_static_path = ['_static']  + runestone_static_dirs()
-
+html_static_path = runestone_static_dirs() + ['_static']
 html_css_files = [
     'cpp_admonitions.css',
-    'custom.css'
+    'my-custom.css'
 ]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
@@ -298,21 +300,8 @@ html_use_index = True
 # If true, links to the reST sources are added to the pages.
 html_show_sourcelink = False
 
-# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
-#html_show_sphinx = True
-
-# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
-#html_show_copyright = True
-
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the
 # base URL from which the finished HTML is served.
 #html_use_opensearch = ''
-
-# This is the file name suffix for HTML files (e.g. ".xhtml").
-#html_file_suffix = None
-
-# Output file base name for HTML help builder.
-htmlhelp_basename = 'PythonCoursewareProjectdoc'
-
 

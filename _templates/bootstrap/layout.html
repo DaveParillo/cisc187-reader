@@ -1,0 +1,177 @@
+{% extends "basic/layout.html" %}
+
+{% if theme_bootstrap_version == "3" %}
+  {% set bootstrap_version, navbar_version = "3.4.1", "" %}
+  {% set bs_span_prefix = "col-md-" %}
+{% else %}
+  {% set bootstrap_version, navbar_version = "2.3.2", "-2" %}
+  {% set bs_span_prefix = "span" %}
+{% endif %}
+
+{%- set render_sidebar = (not embedded) and (not theme_nosidebar|tobool) and sidebars %}
+
+{%- set bs_content_width = render_sidebar and "9" or "12"%}
+
+{%- block doctype -%}
+<!DOCTYPE html>
+{%- endblock %}
+
+{%- block scripts %}
+{# Override the scripts block from sphinx so we can force loading of jquery/underscore/doctools js files #}
+{{ super() }}
+
+<script>
+  // A small JavaScript snippet to find all script tags and add the defer attribute
+  document.addEventListener('DOMContentLoaded', function() {
+    var scripts = document.getElementsByTagName('script');
+    for (var i = 0; i < scripts.length; i++) {
+      if (scripts[i].src && !scripts[i].hasAttribute('async')) {
+        scripts[i].setAttribute('defer', true);
+      }
+    }
+  });
+</script>
+{%- endblock %}
+
+{# Sidebar: Rework into our Bootstrap nav section. #}
+{% macro navBar() %}
+{% include "navbar" + navbar_version + ".html" %}
+{% endmacro %}
+
+{% if theme_bootstrap_version == "3" %}
+  {%- macro bsidebar() %}
+      {%- if render_sidebar %}
+      <div class="{{ bs_span_prefix }}3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+          {%- for sidebartemplate in sidebars %}
+            {%- include sidebartemplate %}
+          {%- endfor %}
+        </div>
+      </div>
+      {%- endif %}
+  {%- endmacro %}
+{% else %}
+  {%- macro bsidebar() %}
+      {%- if render_sidebar %}
+      <div class="{{ bs_span_prefix }}3">
+        <div id="sidebar" class="bs-sidenav well" data-spy="affix">
+          {%- for sidebartemplate in sidebars %}
+            {%- include sidebartemplate %}
+          {%- endfor %}
+        </div>
+      </div>
+      {%- endif %}
+  {%- endmacro %}
+{% endif %}
+
+{%- block extrahead %}
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="{{ pathto('_static/js/jquery-1.12.4.min.js', 1) }}"></script>
+<script type="text/javascript" src="{{ pathto('_static/js/jquery-fix.js', 1) }}"></script>
+<script type="text/javascript" src="{{ pathto('_static', 1) + '/bootstrap-' + bootstrap_version + '/js/bootstrap.min.js' }}"></script>
+<script type="text/javascript" src="{{ pathto('_static/bootstrap-sphinx.js', 1) }}"></script>
+<script>
+  eBookConfig = {};
+  {% if dynamic_pages == 'True' %}
+    {% raw %}
+    eBookConfig.useRunestoneServices = {{use_services}};
+    eBookConfig.host = '';
+    eBookConfig.app = eBookConfig.host + '/runestone';
+    eBookConfig.course = '{{ course_name }}';
+    eBookConfig.basecourse = '{{ base_course }}';
+    eBookConfig.isLoggedIn = {{ is_logged_in}};
+    eBookConfig.email = '{{ user_email }}';
+    eBookConfig.isInstructor = {{ is_instructor }};
+    eBookConfig.username = '{{ user_id}}';
+    eBookConfig.readings = {{ readings|safe}};
+    eBookConfig.activities = {{ activity_info|safe }}
+    eBookConfig.downloadsEnabled = {{downloads_enabled}};
+    eBookConfig.allow_pairs = {{allow_pairs}}
+    eBookConfig.enableCompareMe = {{enable_compare_me}};
+    // _`new_server_prefix`: Defined by the server to be the path to the new server.
+    eBookConfig.new_server_prefix = '{{ new_server_prefix }}';
+    eBookConfig.served_by = '{{worker_name}}';
+    {% endraw %}
+  {% else %}
+    eBookConfig.useRunestoneServices = {% if use_services == 'true' -%}true{%- else -%}false{%- endif -%};
+    eBookConfig.host = '{{course_url}}' || 'http://127.0.0.1:8000';
+    eBookConfig.app = eBookConfig.host+'/{{appname}}';
+    eBookConfig.course = '{{course_id}}';
+    eBookConfig.basecourse = '{{ basecourse }}';
+    eBookConfig.isLoggedIn = false;
+    eBookConfig.enableCompareMe = eBookConfig.useRunestoneServices;
+    eBookConfig.new_server_prefix = '';
+  {% endif %}
+  eBookConfig.ajaxURL = eBookConfig.app+'/ajax/';
+  eBookConfig.logLevel = {{loglevel}};
+  eBookConfig.loginRequired = {{login_required}};
+  eBookConfig.build_info = "{{build_info}}";
+  eBookConfig.python3 = {{ python3 }};
+  eBookConfig.acDefaultLanguage = '{{ default_ac_lang }}' ? '{{ default_ac_lang }}' : 'python'
+  eBookConfig.runestone_version = '{{ runestone_version }}';
+  eBookConfig.jobehost = '{{jobe_server}}';
+  eBookConfig.proxyuri_runs = '{{proxy_uri_runs}}';
+  eBookConfig.proxyuri_files = '{{proxy_uri_files}}';
+  eBookConfig.enable_chatcodes = {{enable_chatcodes}} ? {{ enable_chatcodes }} : false;
+  eBookConfig.enableScratchAC = true;
+</script>
+
+{% endblock %}
+
+{# Silence the sidebar's, relbar's #}
+{% block header %}{% endblock %}
+{% block relbar1 %}{% endblock %}
+{% block relbar2 %}{% endblock %}
+{% block sidebarsourcelink %}{% endblock %}
+
+{%- block content %}
+{{ navBar() }}
+<div class="container">
+  <div class="row">
+    {%- block sidebar1 %}{{ bsidebar() }}{% endblock %}
+    <div class="body {{ bs_span_prefix }}{{ bs_content_width }} content" role="main">
+      {% block body %}{% endblock %}
+    </div>
+    {% block sidebar2 %} {# possible location for sidebar #} {% endblock %}
+  </div>
+</div>
+{%- endblock %}
+
+{%- block footer %}
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      {% if theme_source_link_position == "footer" %}
+        <br/>
+        {% include "sourcelink.html" %}
+      {% endif %}
+    </p>
+    <p>
+    {%- if show_copyright %}
+      {%- if hasdoc('copyright') %}
+        {% trans path=pathto('copyright'), copyright=copyright|e %}&copy; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}<br/>
+      {%- else %}
+        {% trans copyright=copyright|e %}&copy; Copyright {{ copyright }}.{% endtrans %}<br/>
+      {%- endif %}
+    {%- endif %}
+    {%- if last_updated %}
+      {% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}<br/>
+    {%- endif %}
+    {%- if show_sphinx %}
+      {% trans sphinx_version=sphinx_version|e %}Created using <a href="http://sphinx-doc.org/">Sphinx</a> {{ sphinx_version }}.{% endtrans %}<br/>
+    {%- endif %}
+    </p>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('load', (event) => {
+    runestoneComponents.getSwitch();
+  });
+</script>
+
+{%- endblock %}

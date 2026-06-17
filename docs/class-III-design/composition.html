@@ -19,8 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/637.0fa6cababf056764.css?v=F9484CEF" />
     <link rel="stylesheet" type="text/css" href="../_static/runestone.3eb60bc006ae9a54.css?v=3A5A250C" />
     <link rel="stylesheet" type="text/css" href="../_static/cpp_admonitions.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
-
+    <link rel="stylesheet" type="text/css" href="../_static/my-custom.css" />
 
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
@@ -29,12 +28,23 @@
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/animationbase.js?v=A043C3A7"></script>
-    <script src="../_static/runtime.66b619f51b746382.bundle.js?v=C3F69EE5"></script>
-    <script src="../_static/637.d54be67956c5c660.bundle.js?v=915B1670"></script>
-    <script src="../_static/runestone.ecc6dff5cad8b815.bundle.js?v=AE959292"></script>
+    <script defer="" src="../_static/animationbase.js?v=A043C3A7"></script>
+    <script defer="" src="../_static/runtime.66b619f51b746382.bundle.js?v=C3F69EE5"></script>
+    <script defer="" src="../_static/637.d54be67956c5c660.bundle.js?v=915B1670"></script>
+    <script defer="" src="../_static/runestone.ecc6dff5cad8b815.bundle.js?v=AE959292"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
+
+<script>
+  // A small JavaScript snippet to find all script tags and add the defer attribute
+  document.addEventListener('DOMContentLoaded', function() {
+    var scripts = document.getElementsByTagName('script');
+    for (var i = 0; i < scripts.length; i++) {
+      if (scripts[i].src && !scripts[i].hasAttribute('async')) {
+        scripts[i].setAttribute('defer', true);
+      }
+    }
+  });
+</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="10.4. Inheritance" href="inheritance.html" />
@@ -50,16 +60,14 @@
 
 <script>
   eBookConfig = {};
-  
-    eBookConfig.useRunestoneServices = false;
-    eBookConfig.host = 'https://daveparillo.github.io/cisc187-reader/' || 'http://127.0.0.1:8000';
-    eBookConfig.app = eBookConfig.host+'/cisc187-reader';
-    eBookConfig.course = 'cisc187-reader';
-    eBookConfig.basecourse = 'cisc187-reader';
-    eBookConfig.isLoggedIn = false;
-    eBookConfig.enableCompareMe = eBookConfig.useRunestoneServices;
-    eBookConfig.new_server_prefix = '';
-  
+  eBookConfig.useRunestoneServices = false;
+  eBookConfig.host = 'https://daveparillo.github.io/cisc187-reader/' || 'http://127.0.0.1:8000';
+  eBookConfig.app = eBookConfig.host+'/cisc187-reader';
+  eBookConfig.course = 'cisc187-reader';
+  eBookConfig.basecourse = 'cisc187-reader';
+  eBookConfig.isLoggedIn = false;
+  eBookConfig.enableCompareMe = eBookConfig.useRunestoneServices;
+  eBookConfig.new_server_prefix = '';
   eBookConfig.ajaxURL = eBookConfig.app+'/ajax/';
   eBookConfig.logLevel = 0;
   eBookConfig.loginRequired = false;
@@ -72,11 +80,7 @@
   eBookConfig.proxyuri_files = '/jobe/index.php/restapi/files/';
   eBookConfig.enable_chatcodes = false ? false : false;
   eBookConfig.enableScratchAC = true;
-
 </script>
-
-<!-- Ad Serving Headers Only serve ads to Anonymous Users -->
-
 
 
   </head><body>
@@ -96,13 +100,9 @@
       </button>
 
       <div>
-        
-        
-          <div class="brand-logo"><img src="../_static/img/RAIcon.png" alt=""></div>
-        
         <a class="navbar-brand" href="../index.html" aria-label="index-page">
-          
-          cisc187-reader
+        <div class="brand-logo"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        CISC 187 Textbook </div>
         </a>
       </div>
     </div>
@@ -113,26 +113,27 @@
       <ul class="nav navbar-nav navbar-right" >
 
         <li class="divider-vertical"></li>
-
-        <!-- social media dropdown -->
-        <!-- end social media dropdown -->
-
-        <li class="divider-vertical"></li>
         <!-- search dropdown -->
         <li class="dropdown">
-          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+          <a class="dropdown-toggle"
+             href="#"
+             data-toggle="dropdown"
+             aria-haspopup="true"
+             aria-expanded="false"
+             aria-label="Open search menu">
             <i class="glyphicon glyphicon-search" style='opacity:0.9;'><span class="visuallyhidden" aria-label="Search">Search</span></i>
           </a>
           <ul class='dropdown-menu'>
-            
-                <li><a href='../index.html' aria-label="index-page">Table of Contents</a></li>
-            
+            <li><a href='../index.html' aria-label="index-page">Table of Contents</a></li>
             <li><a href='../genindex.html'>Book Index</a></li>
             <li class="divider"></li>
             <li style="width: 240px;">
               <form class="navbar-search" style="margin:10px;" action="../search.html" method="get">
                 <div class="input-group">
-                  <input type="text" class="form-control" name="q" placeholder="Search this book" />
+                  <label for="book-search" class="visuallyhidden">
+                    Search this book
+                  </label>
+                  <input type="text" id="book-search" class="form-control" name="q" placeholder="Search this book" />
                   <span class="input-group-btn">
                     <button class="btn btn-primary" style="margin:0;" type="submit">
                       <i class="glyphicon glyphicon-search"></i>
@@ -149,7 +150,25 @@
 
         <li class="divider-vertical"></li>
 
-        
+        <!-- user account dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle"
+             href="#"
+             data-toggle="dropdown"
+             aria-haspopup="true"
+             aria-expanded="false"
+             aria-label="Open user menu">
+            <i class="glyphicon glyphicon-user" style="opacity:0.9;"><span class="visuallyhidden" aria-label="User">User</span></i>
+          </a>
+          <ul class="dropdown-menu user-menu">
+            <!-- dark mode toggle -->
+            <li><label class="theme-switch" for="checkbox">
+              <input type="checkbox" id="checkbox" onchange="runestoneComponents.switchTheme()" />
+              <div class="slider round"></div>Dark Mode
+            </label></li>
+			 </ul>
+        </li>
+        <!-- end user account dropdown -->
         <li class="divider-vertical"></li>
         <!-- <li id="scratch_ac_link"><a href="javascript:ACFactory.toggleScratchActivecode()">Scratch ActiveCode</a></li> -->
 
@@ -159,14 +178,11 @@
         <!-- </li> -->
 
         <li class="divider-vertical"></li>
-
-        
       </ul>
 
       <ul class="nav navbar-nav">
         <li class="divider-vertical"></li>
         
-          
           <li class="divider-vertical"></li>
         
         <!-- 
@@ -207,10 +223,7 @@
 
 <div class="container" id="continue-reading"></div>
 
-<div class="container" id="main-content" role="main">
-
-<!-- Ad Serving for Runestone Campaign -->
-
+<main class="container" id="main-content" tabindex="-1">
 
   
   <section id="composition">
@@ -294,11 +307,6 @@ Chapters 2–3, covers “has-a” relationships and class collaboration.</p></l
 </section>
 
 
-  
-
-  <div id="scprogresscontainer">
-    You have attempted <span id="scprogresstotal"></span> of <span id="scprogressposs"></span> activities on this page <div id="subchapterprogress" aria-label="Page progress"></div>
-  </div>
 
   <ul role="navigation" class="nextprev-list nextprev-list" aria-label="Change page">
 <li id="relations-prev" class="navLink" title='Previous Section - 10.2. Unified modeling language' data-toggle="tooltip">
@@ -335,8 +343,6 @@ window.addEventListener('load', (event) => {
     </p>
   </div>
 </footer>
-
-
 
 
 <script>

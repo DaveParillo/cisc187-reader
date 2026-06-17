@@ -1,0 +1,56 @@
+
+/* styles to override runestone-custom-sphinx-bootstrap.css
+ * Variables holding theme colors
+ */
+:root {
+    --background: #ffffff;
+    --outerBackground: #eeeeee;
+    --links: #0645ad;
+    --bodyFont: #000000;
+    --tooltip: #ffffff;
+    --grayToWhite: #333333;
+    --navbar: #f8f8f8;
+    --navbarFont: #707070;
+    --navbarFontHover: #000000;
+    --alerts: #d9edf7;
+    --completionButton: #ffaa2b;
+    --completionButtonHover: #ff9f19;
+    --admonition: #fcf8e3;
+    --admonitionBorder: #fbeed5;
+    --codeButtons: #474949;
+    --codeButtonsBorder: #474949;
+    --dangerAlerts: #f2dede;
+    --successAlerts: #dff0d8;
+    --contentWidthRegular: 660px;
+    --contentWidthMedium: 960px;
+    --contentWidthWide: 1060px;
+    --componentBgColor: #f0f8ff;
+    --componentBorderColor: #000000;
+    --questionBgColor: #e1efff;
+}
+
+#ad_warning {
+  display: none;
+}
+
+#browsing_warning {
+  display: none;
+}
+
+.literal {
+  background-color: #ddf0ff;
+}
+
+span.pre {
+  background-color: #ddf0ff;
+  color:#205080;
+}
+
+#main-content section {
+  max-width: var(--contentWidthMedium);
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--background);
+  padding: 1rem;
+}
+

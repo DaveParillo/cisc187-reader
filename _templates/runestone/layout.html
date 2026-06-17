@@ -1,0 +1,251 @@
+<!-- ****************************************
+     |docname| - main template for this theme
+     **************************************** -->
+{% extends "basic/layout.html" %}
+
+{% if theme_bootswatch_theme %}
+  {% set css_files = css_files +
+    ['http://netdna.bootstrapcdn.com/bootswatch/2.3.1/' + theme_bootswatch_theme + '/bootstrap.min.css']
+  %}
+{% endif %}
+
+
+{%- block doctype -%}
+<!DOCTYPE html>
+{%- endblock %}
+
+{%- block scripts %}
+{# Override the scripts block from sphinx so we can force loading of jquery/underscore/doctools js files #}
+{{ super() }}
+
+<script>
+  // A small JavaScript snippet to find all script tags and add the defer attribute
+  document.addEventListener('DOMContentLoaded', function() {
+    var scripts = document.getElementsByTagName('script');
+    for (var i = 0; i < scripts.length; i++) {
+      if (scripts[i].src && !scripts[i].hasAttribute('async')) {
+        scripts[i].setAttribute('defer', true);
+      }
+    }
+  });
+</script>
+
+{%- endblock %}
+
+{# Sidebar: Rework into our Boostrap nav section. #}
+{% macro navBar() %}
+
+<!-- Begin navbar -->
+<div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+  <div class="container">
+
+    <div class="navbar-header">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button type='button' class='navbar-toggle' data-toggle="collapse" data-target=".navbar-ex1-collapse" aria-label="navbar toggle">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <div>
+        <a class="navbar-brand" href="{{ pathto(master_doc) }}" aria-label="index-page">
+        <div class="brand-logo"> <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+        {{ project|e }} </div>
+        </a>
+      </div>
+    </div>
+
+
+
+    <div class="navbar-collapse collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav navbar-right" >
+
+        <li class="divider-vertical"></li>
+        <!-- search dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle"
+             href="#"
+             data-toggle="dropdown"
+             aria-haspopup="true"
+             aria-expanded="false"
+             aria-label="Open search menu">
+            <i class="glyphicon glyphicon-search" style='opacity:0.9;'><span class="visuallyhidden" aria-label="Search">Search</span></i>
+          </a>
+          <ul class='dropdown-menu'>
+            <li><a href='{{ pathto(master_doc) }}' aria-label="index-page">Table of Contents</a></li>
+            <li><a href='{{ pathto("genindex.html",1) }}'>Book Index</a></li>
+            <li class="divider"></li>
+            <li style="width: 240px;">
+              <form class="navbar-search" style="margin:10px;" action="{{ pathto('search') }}" method="get">
+                <div class="input-group">
+                  <label for="book-search" class="visuallyhidden">
+                    Search this book
+                  </label>
+                  <input type="text" id="book-search" class="form-control" name="q" placeholder="Search this book" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" style="margin:0;" type="submit">
+                      <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                  </span>
+                </div><!-- /input-group -->
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+            </li>
+          </ul>
+        </li>
+        <!-- end search dropdown -->
+
+        <li class="divider-vertical"></li>
+
+        <!-- user account dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle"
+             href="#"
+             data-toggle="dropdown"
+             aria-haspopup="true"
+             aria-expanded="false"
+             aria-label="Open user menu">
+            <i class="glyphicon glyphicon-user" style="opacity:0.9;"><span class="visuallyhidden" aria-label="User">User</span></i>
+          </a>
+          <ul class="dropdown-menu user-menu">
+            <!-- dark mode toggle -->
+            <li><label class="theme-switch" for="checkbox">
+              <input type="checkbox" id="checkbox" onchange="runestoneComponents.switchTheme()" />
+              <div class="slider round"></div>Dark Mode
+            </label></li>
+			 </ul>
+        </li>
+        <!-- end user account dropdown -->
+        <li class="divider-vertical"></li>
+        <!-- <li id="scratch_ac_link"><a href="javascript:ACFactory.toggleScratchActivecode()">Scratch ActiveCode</a></li> -->
+
+        <!-- <li class="dropdown">             -->
+          <li id="scratch_ac_link" class="dropdown"><a href="javascript:runestoneComponents.popupScratchAC()">
+              <i class="glyphicon glyphicon-pencil" style="opacity:0.9;"><span class="visuallyhidden" aria-label="Scratch Activecode" >Scratch Activecode</span></i></a></li>
+        <!-- </li> -->
+
+        <li class="divider-vertical"></li>
+      </ul>
+
+      <ul class="nav navbar-nav">
+        <li class="divider-vertical"></li>
+        {% block sidebartoc %}
+          <li class="divider-vertical"></li>
+        {% endblock %}
+        <!-- {% block sidebarrel %}
+          {% include "relations.html" %}
+        {% endblock %}-->
+        {% if theme_source_link_position == "nav" %}
+          <li>{% include "sourcelink.html" %}</li>
+        {% endif %}
+      </ul>
+      </div> <!-- navbar-collapse -->
+    </div> <!-- navbar -->
+  </div> <!-- container -->
+{% endmacro %}
+
+{%- block extrahead %}
+
+{% if not favicon %}
+<link rel="shortcut icon" href="/{{appname}}/static/favicon.ico" type="image/ico" />
+{% endif %}
+
+{% raw %}
+<link rel="canonical" href="https://{{canonical_host}}{{new_server_prefix}}/books/published/{{base_course}}/{{pagepath}}" />
+{% endraw %}
+
+<script>
+  eBookConfig = {};
+  eBookConfig.useRunestoneServices = {% if use_services == 'true' -%}true{%- else -%}false{%- endif -%};
+  eBookConfig.host = '{{course_url}}' || 'http://127.0.0.1:8000';
+  eBookConfig.app = eBookConfig.host+'/{{appname}}';
+  eBookConfig.course = '{{course_id}}';
+  eBookConfig.basecourse = '{{ basecourse }}';
+  eBookConfig.isLoggedIn = false;
+  eBookConfig.enableCompareMe = eBookConfig.useRunestoneServices;
+  eBookConfig.new_server_prefix = '';
+  eBookConfig.ajaxURL = eBookConfig.app+'/ajax/';
+  eBookConfig.logLevel = {{loglevel}};
+  eBookConfig.loginRequired = {{login_required}};
+  eBookConfig.build_info = "{{build_info}}";
+  eBookConfig.python3 = {{ python3 }};
+  eBookConfig.acDefaultLanguage = '{{ default_ac_lang }}' ? '{{ default_ac_lang }}' : 'python'
+  eBookConfig.runestone_version = '{{ runestone_version }}';
+  eBookConfig.jobehost = '{{jobe_server}}';
+  eBookConfig.proxyuri_runs = '{{proxy_uri_runs}}';
+  eBookConfig.proxyuri_files = '{{proxy_uri_files}}';
+  eBookConfig.enable_chatcodes = {{enable_chatcodes}} ? {{ enable_chatcodes }} : false;
+  eBookConfig.enableScratchAC = true;
+</script>
+
+{% endblock %}
+
+{# Silence the sidebar's, relbar's #}
+{% block header %}{% endblock %}
+{% block sidebar1 %}{% endblock %}
+{% block sidebar2 %}{% endblock %}
+{% block relbar1 %}{% endblock %}
+{% block relbar2 %}{% endblock %}
+{% block sidebarsourcelink %}{% endblock %}
+
+{%- block content %}
+{{ navBar() }}
+
+<div class="container" id="continue-reading"></div>
+
+<main class="container" id="main-content" tabindex="-1">
+
+  {% block body %}
+    <a class="skip-link" href="#main-content">
+      Skip to main content
+    </a>
+  {% endblock %}
+
+  {% include "subchapter.html" %}
+
+</div>
+{%- endblock %}
+
+{%- block footer %}
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      {% if use_services == 'true' %}
+      {% if minimal_outside_links != 'True' %}
+      <span id='numuserspan'></span><span class='loggedinuser'></span>
+      {% endif %}
+      {% endif %}
+      | <a href="#">Back to top</a>
+      {% if theme_source_link_position == "footer" %}
+        <br />
+        {% include "sourcelink.html" %}
+      {% endif %}
+    </p>
+    <p>
+    {%- if show_copyright %}
+      {%- if hasdoc('copyright') %}
+        {% trans path=pathto('copyright'), copyright=copyright %}&copy; <a href="{{ path }}">Copyright</a> {{ copyright }}.{% endtrans %}
+      {%- else %}
+        {% trans copyright=copyright %}&copy; Copyright {{ copyright }}.{% endtrans %}
+      {%- endif %}
+    {%- endif %}
+    {%- if last_updated %}
+      {% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}<br/>
+    {%- endif %}
+    {%- if show_sphinx %}
+      {% trans sphinx_version=sphinx_version|e %}Created using <a href="http://runestoneinteractive.org/">Runestone</a> {{ runestone_version }}.{% endtrans %}
+    {%- endif %}
+    </p>
+  </div>
+</footer>
+
+
+<script>
+  window.addEventListener('load', (event) => {
+    runestoneComponents.getSwitch();
+  });
+</script>
+
+{% endblock %}

@@ -9,14 +9,22 @@
 .. index:: 
    triple: introductory topics; version control; git
 
-Using Git
-=========
+Tutorial: Using Git
+===================
+
 When you are programming, you will make mistakes. 
-If you program long enough, 
-these will eventually include shenanigans like accidentally deleting all of your source files. 
+If you program long enough, these will eventually include big mistakes like
+accidentally deleting all of your source files. 
 You are also likely to spend some of your time trying out things that don’t work, 
 at the end of which you’d like to go back to the last version of your program that did work. 
 All these problems can be solved by using a **version control system**.
+
+Think of ``git`` or any other version control system as a time machine for any
+work you do.
+But remember: you can only "go back in time" to versions of your work you saved
+in version control.
+More on that later.
+
 
 A brief summary of git is given below. 
 For more details, see the tutorials available at http://git-scm.com.
@@ -43,8 +51,9 @@ Whatever version control software you use, they all follow the same basic patter
 
 Initialize a git repository
 ---------------------------
-Typically you run git inside a directory that holds some project you are working 
-on (for example, homework). 
+
+Typically you run git inside a directory that holds some project you are
+working on (for example, homework). 
 Before you can do anything with git, 
 you need to create or copy a repository, 
 which is a hidden directory .git that records changes to your files.
@@ -219,7 +228,6 @@ figuring out when files have been moved:
 .. code-block:: none
 
     $ git mv tiny.cpp hello.cpp
-    buffy:~/git-demo 
     $ git status
     On branch master
     Changes to be committed:

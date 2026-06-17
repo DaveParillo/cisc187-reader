@@ -282,7 +282,7 @@ Variations on std::map
 ----------------------
 The STL provides 3 alternate forms of :container:`map` class:
 
-container:`multimap`
+:container:`multimap`
    A ``map`` in which duplicate keys are allowed.
 
 :container:`unordered_map`

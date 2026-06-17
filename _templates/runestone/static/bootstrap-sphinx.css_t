@@ -1,0 +1,78 @@
+/*
+* bootstrap-sphinx.css
+* ~~~~~~~~~~~~~~~~~~~~
+*
+* Sphinx stylesheet -- Twitter Bootstrap theme.
+*/
+
+/*
+ * WCAG 2.4.1 accessibility
+ * keyboard users won't need to tab through the entire navbar before reaching
+ * content.
+ *
+ * skip link allows skipping directly to main content.
+ */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10000;
+  padding: 0.5rem 1rem;
+  background: #ffffff;
+  border: 2px solid #005fcc;
+}
+
+.navbar-inverse .brand {
+  color: #FFF;
+}
+
+.page-top {
+  top: 0px;
+}
+
+{% if theme_navbar_fixed_top == 'true' %}
+body {
+{% if theme_bootswatch_theme %}
+  padding-top: 50px;
+{% else %}
+  padding-top: 40px;
+{% endif %}
+}
+.page-top {
+{% if theme_bootswatch_theme %}
+  top: 50px;
+{% else %}
+  top: 40px;
+{% endif %}
+}
+
+.navbar-inner {
+  padding-left:  12px !important;
+  padding-right: 12px !important;
+}
+{% endif %}
+
+{%- block sidebarlogo %}
+  {%- if logo %}
+@media (min-width: 980px) {
+  .navbar h3 a, .navbar .brand {
+    background: transparent url("{{ logo }}") no-repeat 22px 3px;
+    padding-left: 62px;
+  }
+}
+  {%- endif %}
+{%- endblock %}
+
+table {
+  border: 0;
+}
+
+.footer {
+  width: 100%;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}

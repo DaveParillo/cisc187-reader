@@ -704,6 +704,8 @@ This decision chart may help.
      - `clang format <https://clang.llvm.org/docs/ClangFormat.html>`__
      - `Clang C++ status <https://clang.llvm.org/cxx_status.html>`__
    
+   - `cppfront <https://github.com/hsutter/cppfront>`__ : an experimental C++
+     Syntax compiler.
    - :doc:`make`
    - :wiki:`Grok definition <Grok>`
 

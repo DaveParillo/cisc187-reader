@@ -54,3 +54,8 @@ span.pre {
   padding: 1rem;
 }
 
+table.align-default {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}

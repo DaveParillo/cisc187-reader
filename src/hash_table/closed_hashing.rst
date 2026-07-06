@@ -554,7 +554,7 @@ The graph shows how :math:`\frac {1}{1-\lambda}` changes as
    import numpy as np
    import matplotlib.pyplot as plt
 
-   n = np.linspace(0, 1, 100)
+   n = np.linspace(0, 0.96, 100)
    plt.plot(n, 1/(1-n) -1)
 
    plt.ylim(0,20.5)

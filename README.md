@@ -1,8 +1,8 @@
-# Intermediate Modern C++: Interactive Edition
+# Data Structures in C++
 [![Docs](https://img.shields.io/github/actions/workflow/status/daveparillo/cisc187-reader/publish-docs.yml?branch=main&label=docs)](https://github.com/daveparillo/cisc187-reader/actions/workflows/publish-docs.yml)
 [![License: GFDL 1.3](https://img.shields.io/badge/license-GFDL%201.3-blue.svg)](https://github.com/DaveParillo/cisc187-reader/blob/main/LICENSE.txt)
 
-A C++ textbook based on [sphinx-touchbook](https://github.com/DaveParillo/sphinx-touchbook).
+A textbook based on [sphinx-touchbook](https://github.com/DaveParillo/sphinx-touchbook).
 
 This project began with an effort to choose a suitable textbook specifically 
 for students in my CISC187 C++ course.

@@ -59,6 +59,7 @@ jobs:
       - name: Build PDF docs
         run: |
           docker run --rm \
+            --shm-size=1g \
             -v "$PWD:/docs" \
             -w /docs \
             sphinxdoc/sphinx-latexpdf:latest \

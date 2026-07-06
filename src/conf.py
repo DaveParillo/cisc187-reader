@@ -41,7 +41,13 @@ if Path(MERMAID_BROWSER).exists():
     MERMAID_PUPPETEER_CONFIG.write_text(
         (
             f'{{"executablePath": "{MERMAID_BROWSER}", '
-            '"args": ["--no-sandbox", "--disable-setuid-sandbox"]}\n'
+            '"args": ['
+            '"--no-sandbox", '
+            '"--disable-setuid-sandbox", '
+            '"--disable-dev-shm-usage", '
+            '"--disable-gpu", '
+            '"--no-zygote"'
+            "]}\n"
         ),
         encoding="utf-8",
     )
@@ -103,7 +109,9 @@ linkcheck_allowed_redirects = {
     r'https://en\.cppreference\.com/w/cpp/.*' : r'https://stackoverflow\.com/.*'
 }
 
-source_suffix = ".rst"
+source_suffix = {
+    '.rst': 'restructuredtext',
+}
 highlight_language = "cpp"
 exclude_patterns = []
 

@@ -64,7 +64,19 @@ jobs:
         env:
           MERMAID_BROWSER: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: |
+          set +e
           python -m sphinx -M latexpdf src build/latexpdf --fail-on-warning
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            find build/latexpdf -name '*.log' -print -exec sh -c '
+              for log_file do
+                echo "::group::${log_file}"
+                tail -n 240 "$log_file"
+                echo "::endgroup::"
+              done
+            ' sh {} +
+            exit "$status"
+          fi
           mkdir -p build/html/_downloads
           find build/latexpdf/latex -name '*.pdf' -exec cp {} build/html/_downloads/ \;
 

@@ -185,9 +185,9 @@ conjecture, because it is unknown if it is true.
 
    while n > 1
       if n is odd
-         n ← 3*n + 1
+         n <- 3*n + 1
       else
-         n ← n / 2
+         n <- n / 2
       done if
    done while
 

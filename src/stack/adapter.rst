@@ -16,7 +16,7 @@ Design patterns provide a reliable and easy way to follow proven design
 principles and to write well-structured and maintainable code.
 One of the popular and often used patterns in object-oriented 
 software development is the adapter pattern.
-It follows Robert C. Martin’s 
+It follows Robert C. Martin's 
 :wiki:`Dependency Inversion Principle <Dependency_inversion_principle>`
 and enables you to reuse an existing class even so it doesn't implement an
 expected interface.

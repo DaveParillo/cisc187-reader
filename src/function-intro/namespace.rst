@@ -209,7 +209,7 @@ One final word from two experts:
   Never write a ``using`` declaration or a ``using`` directive before an ``#include`` directive.
 
   Corollary: In header files, 
-  don’t write namespace-level using directives or using declarations; 
+  don't write namespace-level using directives or using declarations; 
   instead, explicitly namespace-qualify all names. 
   (The second rule follows from the first, 
   because headers can never know what other header ``#include`` might appear after them.)

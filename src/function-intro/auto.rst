@@ -145,7 +145,7 @@ declaration until you have a value to initialize it with.
 .. admonition:: Guideline
 
    Prefer to declare local variables using ``auto x = expr;`` 
-   when you don’t need to explicitly commit to a type. 
+   when you don't need to explicitly commit to a type. 
    It is efficient by default and guarantees that no implicit conversions 
    or temporary objects will occur.
 

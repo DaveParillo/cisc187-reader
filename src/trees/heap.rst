@@ -127,7 +127,7 @@ value can always be found at the tree root.
 
 
 We can show that a complete binary tree of height :math:`h` has between 
-:math:`2h` and :math:`2(h+1) − 1` nodes.
+:math:`2h` and :math:`2(h+1) - 1` nodes.
 This implies that the height of a complete binary tree is :math:`\lfloor \log N \rfloor`,
 which results in :math:`O(\log N)` performance.
 
@@ -419,8 +419,8 @@ The algorithm outline is:
 .. code-block:: bash
 
    percolate_up (value)
-      heap[0] ← value
-      hole ← last position in heap
+      heap[0] <- value
+      hole <- last position in heap
       while (value < parent_of_hole)
          move parent value to hole
          set hole to parent position
@@ -713,4 +713,3 @@ The actual implementation of ``build_heap`` is a lab assignment.
      by Steven J. Zeil for his data structures course CS361.
    - :container:`std::priority_queue <priority_queue>`
    - :wiki:`Heap data structures <Heap_(data_structure)>`
-

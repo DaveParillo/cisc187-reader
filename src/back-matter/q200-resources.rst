@@ -15,7 +15,7 @@ What other good C++ resources are out there?
 Congratulations!
 You made to the end of the semester and this book, now what?
 
-First, take a well-earned rest.  
+First, take a well-earned rest.  
 When you are ready to think about programming again,
 consider the following for further exploration.
 
@@ -60,7 +60,7 @@ in any language is by writing code.
 Suggested reading
 -----------------
 Some of these books and articles have been around a long time,
-but they are all classics that have retained considerable value.
+but they are all classics that have retained considerable value.
 
 First, a good, short blog post about
 `how to teach yourself programming <https://www.norvig.com/21-days.html>`__.
@@ -82,12 +82,12 @@ Good advice.
 - `The Pragmatic Programmer <https://pragprog.com/search/?q=t>`__.
   I really like the style of this book.
 
-  It’s thin & you can read it in any order.
+  It's thin & you can read it in any order.
   You can skip around or read it straight through.
 
-  It’s primary focus is on honing the behaviors that turn OK programmers into great ones.
+  It's primary focus is on honing the behaviors that turn OK programmers into great ones.
   If you read this, you see may similarities between sections in Code Complete.
-  This is just less comprehensive - it’s ‘agile’!
+  This is just less comprehensive - it's 'agile'!
 
 - Chapter 16 of the 
   :wiki:`Mythical Man-Month <The_Mythical_Man-Month>`: *No silver bullets*.
@@ -95,7 +95,7 @@ Good advice.
   This book gets a lot of endorsements, but honestly,
   I think most of it is not too relevant to modern computing problems,
   with a few exceptions.
-  The "No silver bullets” chapter complements the ‘religion’
+  The "No silver bullets" chapter complements the 'religion'
   section at the end of Code Complete.
 
 - *The Design of Everyday Things*, Don Norman and 
@@ -104,9 +104,9 @@ Good advice.
   These two books are focused on how people interact with
   things in general (Norman),
   and software in particular (Cooper).
-  Cooper’s main point is that knowing how to design
+  Cooper's main point is that knowing how to design
   a user interface is a distinct skill and
-  you can’t just expect any old programmer
+  you can't just expect any old programmer
   to be a great designer - which is a point made by
   Fred Brooks in No Silver bullets,
   just in less space.
@@ -115,7 +115,7 @@ Good advice.
   (but it's a bit dated - along with parts of Effective C++,
   More Effective C++ and Effective Modern C++)
 
-  You’ll find a lot of the material in Code Complete also mentioned these books as well.
+  You'll find a lot of the material in Code Complete also mentioned these books as well.
   I prefer Effective Java over Effective C++, even though Josh Bloch was inspired to write
   Effective Java *by* Effective C++.
   His version is less specific -
@@ -143,7 +143,7 @@ Good advice.
   A clear, approachable article providing insights and strategies for dealing
   with legacy codebases.
   Thanks to Tracy Cavanaugh and the young ladies of
-  `Mrs. C’s High School Club <https://www.mrscshighschoolclub.org>`__
+  `Mrs. C's High School Club <https://www.mrscshighschoolclub.org>`__
   for this recommendation.
 
   Their suggestion is timely because legacy code has been on my mind lately.

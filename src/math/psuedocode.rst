@@ -29,14 +29,14 @@ The following notations and conventions are used.
    **Array overflow is still possible**.
 #. Pseudo code operators:
 
-   - ``←`` denotes assignment.
-     The statement x ← y means "assign the value of y to x"
-     You can also read  ``←`` as "becomes", as in "x *becomes* y"
-   - ``≡`` denotes the equivalence relation.
-     The statement x ≡ y means 
+   - ``<-`` denotes assignment.
+     The statement x <- y means "assign the value of y to x"
+     You can also read  ``<-`` as "becomes", as in "x *becomes* y"
+   - ``==`` denotes the equivalence relation.
+     The statement x == y means 
      or "the object x is equivalent to the object y"
-   - ``⊕`` denotes the ``exclusive or`` as defined in C++.
-     The statement a ← x ⊕ y means
+   - ``xor`` denotes the ``exclusive or`` as defined in C++.
+     The statement a <- x xor y means
      "the bits in the integer x are combined with the bits of y
      and the result is assigned to a" 
    - ``+`` denotes numeric addition or concatenation, depending on context.
@@ -51,10 +51,10 @@ The following notations and conventions are used.
 
       while (value < 10)
           print (value)
-          value ← value + 1
+          value <- value + 1
       done while
 
-      if (value ≡ x)
+      if (value == x)
           print (value)
       else
           print (value)

@@ -59,7 +59,7 @@ As the `programming is terrible blog <https://programmingisterrible.com/post/404
 
     The first programming language you learn will likely be the hardest to learn.
     Picking something small and fun makes this less of a challenge and more of an adventure. 
-    It doesn't really matter where you start as long as you keep going—keep writing code, 
+    It doesn't really matter where you start as long as you keep going - keep writing code, 
     keep reading code. Don't forget to test it either. 
     Once you have one language you're happy with, 
     picking up a new language is less of a feat, 

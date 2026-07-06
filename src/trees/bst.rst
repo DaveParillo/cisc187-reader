@@ -175,7 +175,7 @@ This algorithm is easily applied to binary search trees.
 
    .. tb-tab:: contains
 
-      We always search a binary search tree by comparing the value we’re
+      We always search a binary search tree by comparing the value we're
       searching for to the 'current' node value. 
       If the target value is smaller,
       then we search the left subtree. 
@@ -275,7 +275,7 @@ This process is identical to the search used for contains and insert.
 
 The tricky part of removing a value from a binary search tree
 is what to do when we actually find the value we want to delete.
-We can’t just delete the tree node. 
+We can't just delete the tree node. 
 Consider the following tree.
 
 .. include:: bst.dot

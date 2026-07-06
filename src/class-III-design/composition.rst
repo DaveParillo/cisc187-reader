@@ -28,8 +28,8 @@ in any combination needed to implement the capabilities
 desired in the new class. 
 Because this results in composing a new class from existing classes,
 this concept is called *composition*.
-Composition is often described as a “has-a” relationship, 
-as in “a car has an engine.”
+Composition is often described as a "has-a" relationship, 
+as in "a car has an engine."
 
 Composition models the relation where two object lifetimes are linked:
 
@@ -91,6 +91,6 @@ If you take this approach, your designs will stay cleaner.
      Note that Meyers uses the term *layering* as a synonym for composition.
    - McLaughlin, Pollice, and West, 
      *Head First Object-Oriented Analysis and Design*.
-     Chapters 2–3, covers “has-a” relationships and class collaboration.
+     Chapters 2-3, covers "has-a" relationships and class collaboration.
    - :lang:`Aggregation and Composition <classes>`
 

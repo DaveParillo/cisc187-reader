@@ -388,6 +388,6 @@ but C++ provides a type that provides the ability to perform the same operations
      - Keyword :lang:`static_assert`
 
    - :wiki:`bitmask<Mask_(computing)>`
-   - Learn C++ article `O.3 — Bit manipulation with bitwise operators and bit masks <https://www.learncpp.com/cpp-tutorial/bit-manipulation-with-bitwise-operators-and-bit-masks/>`__
+   - Learn C++ article `O.3  -  Bit manipulation with bitwise operators and bit masks <https://www.learncpp.com/cpp-tutorial/bit-manipulation-with-bitwise-operators-and-bit-masks/>`__
 
 

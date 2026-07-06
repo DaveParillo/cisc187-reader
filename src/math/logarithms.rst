@@ -177,7 +177,7 @@ and :math:`\log 1.74 < 1`, which is a total of 4 log operations.
             :hint: log\(15/3\); Close. This expression can be even simpler.
             :hint: 0.69 0.05; This is a numeric approximation of the base 10 log, not a simplification.
             :hint: 1.69 0.05; This is a numeric approximation of the natural log, not a simplification.
-            :hint: x; Use the rule :math:`\log(a)−\log(b)=\log(\frac{a}{b})`
+            :hint: x; Use the rule :math:`\log(a)-\log(b)=\log(\frac{a}{b})`
 
    .. tb-tab:: Q2
 
@@ -242,4 +242,3 @@ and :math:`\log 1.74 < 1`, which is a total of 4 log operations.
    `Open Data Structures (OpenDSA) <https://opendsa-server.cs.vt.edu>`__
    by Ville Karavirta and Cliff Shaffer
    which is distributed under the `MIT License <https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt>`__.
-

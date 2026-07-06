@@ -207,7 +207,7 @@ Some of this information will be stored in **registers**,
 memory locations built into the CPU itself, 
 but most will go on the :term:`stack`, 
 a region of memory that on typical machines grows downward, 
-even though the most recent additions to the stack are called the “top” of the stack. 
+even though the most recent additions to the stack are called the "top" of the stack. 
 
 .. graphviz::
    :align: center
@@ -257,7 +257,7 @@ So a typical function call looks like this internally:
    - The values of the instruction pointer and stack pointer are restored 
      to what they were before the function call.
 
-From the programmer’s perspective, 
+From the programmer's perspective, 
 the important point is that both the arguments and the local variables inside a 
 function are stored in freshly allocated locations that are thrown away after the function exits. 
 After a function call the state of the CPU is restored to its previous state, 

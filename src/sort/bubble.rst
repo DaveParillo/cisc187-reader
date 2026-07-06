@@ -205,7 +205,7 @@ time.
 
       A bubble sort is often considered the most inefficient sorting method
       since it must exchange items before the final location is known. These
-      “wasted” exchange operations are very costly. However, because the
+      "wasted" exchange operations are very costly. However, because the
       bubble sort makes passes through the entire unsorted portion of the
       array, it has the capability to do something most sorting algorithms
       cannot. In particular, if during a pass there are no exchanges, then we

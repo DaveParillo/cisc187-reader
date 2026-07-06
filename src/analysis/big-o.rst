@@ -88,7 +88,7 @@ that asymptotic analysis is used for most algorithm comparisons.
 
 Big-O Notation
 --------------
-When trying to characterize an algorithm’s efficiency in terms of
+When trying to characterize an algorithm's efficiency in terms of
 execution time, independent of any particular program or computer, it is
 important to quantify the number of operations or steps that the
 algorithm will require. If each of these steps is considered to be a
@@ -103,11 +103,11 @@ The idea of a simple loop to add values should be familiar.
 .. code-block:: bash
 
    accumulate1(int: N)
-      sum ← 0
-      count  ← N
+      sum <- 0
+      count  <- N
       while count > 0
-         sum ← sum + count
-         count ← count - 1
+         sum <- sum + count
+         count <- count - 1
       done while
       return sum
    done accumulate
@@ -117,7 +117,7 @@ Compare the previous algorithm to this one:
 .. code-block:: bash
 
    accumulate2(int: N)
-      if N ≡ 0 return N
+      if N == 0 return N
       return N + accumulate(N-1)
    done accumulate
 
@@ -140,8 +140,8 @@ plus the value of *n* (the number of times we perform
 We can denote this by a function, call it ``T``,
 where :math:`T(n)=2 + 2n`. 
 The parameter *n* is often referred to as
-the “size of the problem,” and we can read this as “T(n) is the time
-it takes to solve a problem of size n, namely 2+2n steps.”
+the "size of the problem," and we can read this as "T(n) is the time
+it takes to solve a problem of size n, namely 2+2n steps."
 
 In the summation functions given above, it makes sense to use the number
 of terms in the summation to denote the size of the problem. We can then
@@ -149,7 +149,7 @@ say that the sum of the first 100,000 integers is a bigger instance of
 the summation problem than the sum of the first 1,000. Because of this,
 it might seem reasonable that the time required to solve the larger case
 would be greater than for the smaller case. Our goal then is to show how
-the algorithm’s execution time changes with respect to the size of the
+the algorithm's execution time changes with respect to the size of the
 problem.
 
 Computer scientists prefer to take this analysis technique one step further.
@@ -161,7 +161,7 @@ This dominant term is what, in the end,
 is used for comparison.
 The **order of magnitude** function describes the part
 of :math:`T(n)` that increases the fastest as the value of *n* increases. 
-Order of magnitude is often called **Big-O notation** (for “order”) and
+Order of magnitude is often called **Big-O notation** (for "order") and
 written as :math:`O(f(n))`.
 It provides a useful approximation to the actual number of
 steps in the computation. The function :math:`f(n)` provides a simple
@@ -295,11 +295,11 @@ efficient.
       .. code-block:: bash
 
          accumulate1(int: N)
-            sum ← 0
-            count  ← N
+            sum <- 0
+            count  <- N
             while count > 0
-               sum ← sum + count
-               count ← count - 1
+               sum <- sum + count
+               count <- count - 1
             done while
             return sum
          done accumulate

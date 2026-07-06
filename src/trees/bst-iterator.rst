@@ -143,7 +143,7 @@ with value ``40``, then how do we get to the next node?
    Well, we know that we should wind up at ``50``.
    But how can we get there?
 
-   We can’t, not with just a pointer to the node and 
+   We can't, not with just a pointer to the node and 
    all the nodes pointing only to their children. 
 
    The only place you can go within this tree is down, 
@@ -160,7 +160,7 @@ a recursive traversal.
 
 But this solution is clumsy and inefficient.
 Iterators tend to get assigned (copied) a lot,
-and we’d really like that to be a constant time - an O(1) operation.
+and we'd really like that to be a constant time - an O(1) operation.
 Having to copy an entire stack of pointers just isn't very attractive.
 
 
@@ -314,9 +314,9 @@ That is, the node that comes next during an in-order traversal of E?
    If you answered F, remember that in an in-order traversal, 
    we visit a node only after visiting all of its left descendents 
    and before visiting any of its right descendents. 
-   Since we’re at E, we must have already visited F.
+   Since we're at E, we must have already visited F.
 
-That example suggests that a node’s in-order successor tends to be among 
+That example suggests that a node's in-order successor tends to be among 
 its right descendants.
 
 If our previous premise is correct, then what is the in-order successor to A?
@@ -335,7 +335,7 @@ If our previous premise is correct, then what is the in-order successor to A?
    we visit a node only after visiting all of its left descendents and 
    before visiting any of its right descendents.
 
-   We have not yet visited C’s left descendants. 
+   We have not yet visited C's left descendants. 
    So have to run down from C to the left as far as we can go.
 
 This suggests that, if a node has any right descendants, we should:
@@ -395,7 +395,7 @@ If we move up over a left-child edge,
 then we're returning to a node that has already had all of its
 left descendants visited but none of its right descendants.
 That's the definition of when we want to visit a node during an 
-in-order traversal, so it’s time to visit this node.
+in-order traversal, so it's time to visit this node.
 
 So, if a node has no right child,
 we move up in the tree (following the parent pointers)
@@ -404,7 +404,7 @@ Then we stop.
 
 When applying this procedure to C,
 we move up to A (right edge), 
-then try to move up again to A’s parent. 
+then try to move up again to A's parent. 
 But since A is the tree root, 
 it's parent pointer will be null,
 which is our signal that C has no in-order successor.

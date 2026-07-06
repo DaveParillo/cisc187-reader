@@ -18,7 +18,7 @@ representation in binary as ``"1010"``. While there are many algorithms
 to solve this problem, the recursive formulation of the problem is
 elegant.
 
-Let’s look at a concrete example using base 10 and the number 769.
+Let's look at a concrete example using base 10 and the number 769.
 Suppose we have a sequence of characters corresponding to the first 10
 digits, like ``digits = "0123456789"``. It is easy to convert a
 number less than 10 to its string equivalent by looking it up in the
@@ -38,11 +38,11 @@ involve three components:
    result.
 
 The next step is to figure out how to change state and make progress
-toward the base case. Since we are working with an integer, let’s
+toward the base case. Since we are working with an integer, let's
 consider what mathematical operations might reduce a number. The most
 likely candidates are division and subtraction. While subtraction might
 work, it is unclear what we should subtract from what. Integer division
-with remainders gives us a clear direction. Let’s look at what happens
+with remainders gives us a clear direction. Let's look at what happens
 if we divide a number by the base we are trying to convert to.
 
 Using integer division to divide 769 by 10, we get 76 with a remainder
@@ -149,7 +149,7 @@ right side of the diagram.
       .. include:: to_string.txt
 
 
-Let’s trace the algorithm again; this time we will convert the number 10
+Let's trace the algorithm again; this time we will convert the number 10
 to its base 2 string representation (``"1010"``).
 
 

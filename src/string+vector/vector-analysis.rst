@@ -21,7 +21,7 @@ way to create a longer vector is to use the ``push_back()`` method.
 The ``push_back()`` method is typically :math:`O(1)`, provided
 there is adequate capacity in the underlying array.
 
-First we’ll use ``push_back()`` method.
+First we'll use ``push_back()`` method.
 :ref:`The following code <lst_mkvectcpp>` shows the code for
 making our vector.
 
@@ -208,7 +208,7 @@ So on average, even though there are some :math:`O(n)` operations, it turns out
 that ``push_back()`` is constant time.
 
 As a way of demonstrating the difference in performance between ``pop_back()``
-and ``erase()``, let’s do another timing experiment.
+and ``erase()``, let's do another timing experiment.
 Our goal is to be able
 to verify the performance of the ``pop_back()`` operation on a vector of a known
 size when the program pops from the end of the vector using ``pop_back()``, and again when the

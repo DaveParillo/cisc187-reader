@@ -114,7 +114,7 @@ Normally, however, we want to give our programs meaningful names::
 
 The ``-o`` switch tells g++ to write the executable to a file named ``main``.
 We could have added a file extension, like ``.exe``, but that is ordinarily
-only done on the Windows |copy| operating system.
+only done on the Windows (C) operating system.
 On most other systems, the extension is used for people to sort out different
 types of files, but the operating system doesn't need them to figure things out.
 
@@ -316,7 +316,7 @@ Running your programs
 
 If you compile your own program, you will need to prefix it with ./ 
 on the command line to tell the shell that you want to run a program 
-in the current directory (called ‘.’) instead of one of the standard system directories. 
+in the current directory (called '.') instead of one of the standard system directories. 
 So for example, if I've just built a program called *hello*, I can run it by typing::
 
   ./hello
@@ -335,4 +335,3 @@ So for example, if I've just built a program called *hello*, I can run it by typ
    - Pay attention to compiler warnings
      
      - Effective C++ item #48
-

@@ -6,7 +6,7 @@
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. |---| unicode:: U+2014 
+.. |---| replace:: --
 
 .. index:: 
    pair: iterator; using
@@ -263,4 +263,3 @@ erase
      - :cpp:`C++ Iterator Named Requirement <named_req/Iterator>`
      - :container:`std::vector::erase <vector/erase>`
      - :container:`std::vector::insert <vector/insert>`
-

@@ -112,9 +112,9 @@ It notices an end brace reached ``}`` but a semi-colon was expected:
 .. code-block:: none
 
    g++ -std=c++11 -Wall -Wextra -pedantic    foo.cpp   -o foo
-   g++: warning: couldn’t understand kern.osversion ‘14.5.0
-   foo.cpp: In function ‘int main()’:
-   foo.cpp:8:1: error: expected ‘;’ before ‘}’ token
+   g++: warning: couldn't understand kern.osversion '14.5.0
+   foo.cpp: In function 'int main()':
+   foo.cpp:8:1: error: expected ';' before '}' token
     }
     ^
 
@@ -162,7 +162,7 @@ to start execution:
   
 .. code-block:: none
 
-   g++: warning: couldn’t understand kern.osversion ‘14.5.0
+   g++: warning: couldn't understand kern.osversion '14.5.0
    Undefined symbols for architecture x86_64:
      "_main", referenced from:
          __start in crt1.o
@@ -352,7 +352,7 @@ and just try randomly tweaking things until the program works.
 Better is to see what the program is doing internally,
 so you can see exactly where and when it is going wrong. 
 A second temptation is to attempt to intuit where things are going wrong 
-by staring at the code or the program’s output. 
+by staring at the code or the program's output. 
 Avoid this temptation as well: 
 let the computer tell you what it is really doing inside your program instead of guessing.
 
@@ -551,7 +551,7 @@ Debug level 3 is the most detailed debug level.
 Debug levels 2 and 3 allow gdb to translate machine addresses back into 
 identifiers and line numbers in the original program for us.
 
-Let’s compile and run it and see what happens:
+Let's compile and run it and see what happens:
 
 .. code-block:: none
 
@@ -564,13 +564,13 @@ That doesn't look like the sum of 1 to 1000.
 So what went wrong? 
 If we were clever, we might notice that the test in the for loop is using the 
 shortcut -= operator instead of the <= operator that we probably want. 
-But let's suppose we're not so clever right now—it's four in the morning, 
+But let's suppose we're not so clever right now - it's four in the morning, 
 we've been working on bogus.cpp for twenty-nine straight hours, 
 and there's a -= up there because in our befuddled condition we know in our bones 
 that it's the right operator to use. 
 We need somebody else to tell us that we are deluding ourselves, 
 but nobody is around this time of night. 
-So we’ll have to see what we can get the computer to tell us.
+So we'll have to see what we can get the computer to tell us.
 
 The first thing to do is fire up ``gdb``, the debugger. 
 This runs our program in stop-motion, 

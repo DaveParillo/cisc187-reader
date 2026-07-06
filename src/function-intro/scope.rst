@@ -242,7 +242,7 @@ the result can be bugs that are difficult to identify and fix.
   - CPP Core guidelines:
 
     - :guidelines:`Keep scopes small <Res-scope>`
-    - :guidelines:`Don’t introduce a variable (or constant) before you need to use it <Res-introduce>`
+    - :guidelines:`Don't introduce a variable (or constant) before you need to use it <Res-introduce>`
     - :guidelines:`Avoid non-const global variables <i2-avoid-non-const-global-variables>`
     - :guidelines:`Keep functions short and simple <f3-keep-functions-short-and-simple>`
     - :guidelines:`Express intent <p3-express-intent>`

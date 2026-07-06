@@ -136,7 +136,7 @@ As with any kind of abstraction, there are two goals to making a function:
   if there is no succinct way to describe what this block of code is doing).
 
 Both of these goals may be trumped by the goal of making your code **clear**. 
-If you can’t describe what a function is doing in a single, simple sentence, 
+If you can't describe what a function is doing in a single, simple sentence, 
 this is a sign that maybe you need to restructure your code. 
 Having a function that does more than one thing (or does different things depending on its arguments) 
 is likely to lead to confusion.

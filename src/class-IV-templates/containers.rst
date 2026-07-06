@@ -197,7 +197,7 @@ Then this declaration would invoke
 ``array(const std::initializer_list<T>&)`` and not 
 ``array(int)``.
 If you want to match to ``int`` constructor once a list constructor has been defined, 
-you’ll need to use copy initialization or direct initialization. 
+you'll need to use copy initialization or direct initialization. 
 The rule applies to ``std::vector`` and other standard library container classes
 that define both a list constructor and another one argument conversion constructor.
 

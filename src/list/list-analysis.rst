@@ -359,7 +359,7 @@ Both the vector and list are clearly :math:`O(n)` and the list is outperforming 
 
 .. admonition:: More to Explore
 
-   - `C++ benchmark – std::vector VS std::list VS std::deque <https://baptiste-wicht.com/posts/2012/12/cpp-benchmark-vector-list-deque.html>`__
+   - `C++ benchmark - std::vector VS std::list VS std::deque <https://baptiste-wicht.com/posts/2012/12/cpp-benchmark-vector-list-deque.html>`__
 
 
 

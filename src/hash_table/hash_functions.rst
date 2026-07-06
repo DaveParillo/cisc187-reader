@@ -101,7 +101,7 @@ most strings actually contain only the 96 "printable" characters starting at
 ASCII value 32 (blank).
 
 Also we often want to make sure that similar strings, 
-likely to occur together, don’t hash to the same location. 
+likely to occur together, don't hash to the same location. 
 So a simple hash function like this:
 
 .. code-block:: cpp

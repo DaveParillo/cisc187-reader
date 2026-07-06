@@ -15,6 +15,7 @@ def project_version() -> str:
     return data["project"]["version"]
 
 language = "en"
+smartquotes = False
 master_doc = "index"
 project = "CISC 187 Textbook"
 copyright = "2017-2026 Dave Parillo"

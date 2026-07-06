@@ -59,7 +59,7 @@ the simple vectors, now sorted, as they are merged back together.
       most one.
 
       Once the ``merge_sort`` function is invoked on the left half and the
-      right half (lines 23–24), it is assumed they are sorted. The rest of the
+      right half (lines 23-24), it is assumed they are sorted. The rest of the
       function is responsible for merging the two smaller sorted
       vectors into a larger sorted vector. Notice that the merge operation places
       the items back into the original vector (``data``) one at a time by

@@ -1,4 +1,4 @@
-﻿.. _random:
+.. _random:
 
 Random numbers
 --------------

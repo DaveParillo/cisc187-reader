@@ -119,8 +119,8 @@ because the cost depends on the value of :math:`n`
    .. code-block:: bash
 
       largest(array: A)
-         max_value ← 1
-         index  ← 2
+         max_value <- 1
+         index  <- 2
          while index < array_size(A)
             if A[index] > A[max_value]
                max_value = index

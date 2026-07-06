@@ -241,12 +241,12 @@ are known as insertion and extraction operators.
 
 Since these operators change their left argument (they alter the stream), 
 they should, according to the rules of thumb, 
-be implemented as members of their left operand’s type. 
+be implemented as members of their left operand's type. 
 However, their left operands are streams from the standard library, 
 and while most of the stream output and input operators defined by the 
 standard library are indeed defined as members of the stream classes, 
 when you implement output and input operations for your own types, 
-you cannot change the standard library’s stream types. 
+you cannot change the standard library's stream types. 
 So clearly, these overloads cannot be stream member functions.
 
 It is common, however, to see C++ examples posted on the internet that
@@ -276,7 +276,7 @@ to get their hands on your private data.
   then you don't need it to be a member function
   or a ``friend``.
 
-That’s why you need to implement these operators for your own types as 
+That's why you need to implement these operators for your own types as 
 non-member non-friend functions. The canonical forms are:
 
 .. code-block:: cpp

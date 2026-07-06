@@ -28,11 +28,11 @@ when :math:`n=4`, then :math:`n! = 24`.
       .. code-block:: bash
 
          search(array: A)
-            max_value ← 1
-            index  ← 2
+            max_value <- 1
+            index  <- 2
             while index < array_size(A)
                if A[index] > A[max_value]
-                  max_value ← index
+                  max_value <- index
                done if
             done while
 
@@ -67,9 +67,9 @@ in which every location must always be examined.
       .. code-block:: bash
 
          search(array: A, integer: K)
-            index  ← 1
+            index  <- 1
             while index < array_size(A)
-               if A[index] ≡ K
+               if A[index] == K
                   return index
                done if
             done while
@@ -111,9 +111,9 @@ in which every location must always be examined.
       .. code-block:: bash
 
          search(array: A, integer: K)
-            index  ← 1
+            index  <- 1
             while index < array_size(A)
-               if A[index] ≡ K
+               if A[index] == K
                   return index
                done if
             done while
@@ -155,9 +155,9 @@ in which every location must always be examined.
       .. code-block:: bash
 
          search(array: A, integer: K)
-            index  ← 1
+            index  <- 1
             while index < array_size(A)
-               if A[index] ≡ K
+               if A[index] == K
                   return index
                done if
             done while

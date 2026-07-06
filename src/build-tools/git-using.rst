@@ -15,8 +15,8 @@ Tutorial: Using Git
 When you are programming, you will make mistakes. 
 If you program long enough, these will eventually include big mistakes like
 accidentally deleting all of your source files. 
-You are also likely to spend some of your time trying out things that don’t work, 
-at the end of which you’d like to go back to the last version of your program that did work. 
+You are also likely to spend some of your time trying out things that don't work, 
+at the end of which you'd like to go back to the last version of your program that did work. 
 All these problems can be solved by using a **version control system**.
 
 Think of ``git`` or any other version control system as a time machine for any
@@ -74,7 +74,7 @@ Then we should see something like:
 
     Initialized empty Git repository in /home/runner/WorrisomeSophisticatedCybernetics/git-demo/.git
 
-Now let’s create a file and use ``git add`` to add it to the repository:
+Now let's create a file and use ``git add`` to add it to the repository:
 
 .. code-block:: none
 
@@ -112,7 +112,7 @@ the easiest way to do this is to include the message on the command line:
      create mode 100644 tiny.cpp
 
 Without the ``-m`` argument, git runs the default editor (vim) to let you edit your commit message. 
-If you don’t like vim, you can change the default using ``git config``:
+If you don't like vim, you can change the default using ``git config``:
 
 .. code-block:: none
 
@@ -237,7 +237,7 @@ figuring out when files have been moved:
 
 
 Moving a file counts as a change.
-These changes don’t get written to the repository unless you do another git commit:
+These changes don't get written to the repository unless you do another git commit:
 
 .. code-block:: none
 

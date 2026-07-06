@@ -235,7 +235,7 @@ man
          C program '\X' escapes are noted.
 
          Oct   Dec   Hex   Char                        Oct   Dec   Hex   Char
-         ────────────────────────────────────────────────────────────────────────
+         ------------------------------------------------------------------------
          000   0     00    NUL '\0'                    100   64    40    @
          001   1     01    SOH (start of heading)      101   65    41    A
          002   2     02    STX (start of text)         102   66    42    B
@@ -340,7 +340,6 @@ passwd
      And you can build it yourself on any Unix or GNU/Linux system.
    - `GNU / Linux tutorial <https://www.debian.org/doc/manuals/debian-reference/>`_ - from debian.org
    - :wiki:`UNIX Philosophy <Unix_philosophy>` - from Wikipedia
-   - Learn Enough\ |trade| `Command-Line to be Dangerous tutorial <https://www.learnenough.com/command-line-tutorial>`_ by Michael Hartl.
+   - Learn Enough (TM) `Command-Line to be Dangerous tutorial <https://www.learnenough.com/command-line-tutorial>`_ by Michael Hartl.
    - `Ryans Tutorials: Linux <https://ryanstutorials.net/linuxtutorial/>`_ - a decent introduction to the linux command line 
-
 

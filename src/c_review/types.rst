@@ -114,7 +114,7 @@ Overflow errors may be more common when the type chosen is too small
 for its intended purpose.
 
 A slightly more involved example is the problem of how to represent signed integers.
-In mathematics, negative numbers are represented by prefixing them with a minus ("−") sign.
+In mathematics, negative numbers are represented by prefixing them with a minus ("-") sign.
 However, on a computer, there are only bit sequences.
 Once again, programmers are faced with the problem of abstraction.
 What is the 'best' way to represent a signed integer that is both efficient and unambiguous?
@@ -145,10 +145,10 @@ and setting it to 1 is for a negative number or negative zero.
 The remaining bits in the number indicate the magnitude (or absolute value). 
 
 In eight bits the magnitude can range from ``0000000`` (0) to ``1111111`` (127). 
-Numbers ranging from −127 to +127 can be represented once the sign bit (the eighth bit) is added. 
-For example, −43 encoded in an eight-bit byte is ``10101011`` while 43 is ``00101011``. 
+Numbers ranging from -127 to +127 can be represented once the sign bit (the eighth bit) is added. 
+For example, -43 encoded in an eight-bit byte is ``10101011`` while 43 is ``00101011``. 
 A consequence of using signed magnitude representation is that there are two ways to represent zero, 
-``00000000`` (0) and ``10000000`` (−0).
+``00000000`` (0) and ``10000000`` (-0).
 
 Some early binary computers (e.g., IBM 7090) use this representation for integers,
 perhaps because of its natural relation to common usage. 
@@ -212,7 +212,7 @@ C++ provides a complement operator ``~`` for this purpose.
 The complement of the 5 bit binary number ``11100``, is ``00011``, which is the number 3.
 
 Note that like sign-and-magnitude representation, ones' complement has two representations 
-of 0: ``00000000`` (+0) and ``11111111`` (−0).
+of 0: ``00000000`` (+0) and ``11111111`` (-0).
 
 A few of the 4 bit one's complement integers are:
 
@@ -912,4 +912,3 @@ using :io:`oct <manip/hex>`,
 .. topic:: Footnotes
 
    .. [Aspnes2014] Adapted from `The IEEE-754 floating-point standard (PineWiki) <https://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)FloatingPoint.html>`__ and `Class 223 notes <https://www.cs.yale.edu/homes/aspnes/classes/223/notes.html#The_IEEE-754_floating-point_standard>`__ . Retrieved 2026-07-05.
-

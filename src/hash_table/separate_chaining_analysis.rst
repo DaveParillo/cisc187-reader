@@ -27,7 +27,7 @@ Why?
 Note that the list that is being searched contains the one node that stores
 the match plus zero or more other nodes
 The expected number of "other nodes" in a table of :math:`N` elements and
-:math:`M` lists is :math:`(N − 1)/M = \lambda - 1/M`,
+:math:`M` lists is :math:`(N - 1)/M = \lambda - 1/M`,
 which is essentially :math:`\lambda`, since :math:`M` is often large.
 Recall our analysis of sequential data structures: on average, 
 half the list is searched, so combined with the matching node,
@@ -113,4 +113,3 @@ Bottom line: hash tables let us trade space for speed.
 .. admonition:: More to Explore
 
    - :wiki:`Balls into bins problem<Balls_into_bins_problem>` on Wikipedia.
-

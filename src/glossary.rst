@@ -497,7 +497,7 @@ Glossary
       "greater than" to decide which element comes first, with examples
       including :ref:`sort_merge`, :ref:`sort_quick`, and :ref:`sort_insertion`,
       all fundamentally limited to :math:`\Omega(n \log n)` time complexity
-      in the worst case because they rely on these pairwise comparisons. 
+      in the worst case because they rely on these pairwise comparisons. 
 
       The act of comparing two :term:`keys <key>` or
       :term:`records <record>`.

@@ -16,7 +16,7 @@ Version 1.3, 3 November 2008
 
 .. include:: <isonum.txt>
 
-Copyright |copy| 2000, 2001, 2002, 2007, 2008 `Free Software Foundation,
+Copyright (C) 2000, 2001, 2002, 2007, 2008 `Free Software Foundation,
 Inc. <https://www.fsf.org/>`_
 
 Everyone is permitted to copy and distribute verbatim copies of
@@ -241,7 +241,7 @@ Version's license notice. These titles must be distinct from any other section
 titles.
 
 You may add a section Entitled "Endorsements", provided it contains nothing but
-endorsements of your Modified Version by various parties—for example,
+endorsements of your Modified Version by various parties - for example,
 statements of peer review or that the text has been approved by an organization
 as the authoritative definition of a standard.
 
@@ -423,7 +423,7 @@ license notices just after the title page:
         Free Documentation License".
 
 If you have Invariant Sections, Front-Cover Texts and Back-Cover Texts, replace
-the "with … Texts." line with this:
+the "with ... Texts." line with this:
 
 ::
 
@@ -437,4 +437,3 @@ If your document contains nontrivial examples of program code, we recommend
 releasing these examples in parallel under your choice of free software
 license, such as the GNU General Public License, to permit their use in free
 software.
-

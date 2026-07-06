@@ -209,8 +209,8 @@ Adding a simple assertion causes this function to no longer compile:
 .. code-block:: text
 
    g++ -std=c++11 -Wall -Wextra -pedantic     area.cpp   -o area
-   area.cpp: In function ‘constexpr double area(double)’:
-   area.cpp:8:1: error: body of constexpr function ‘constexpr double area(double)’ not a return-statement
+   area.cpp: In function 'constexpr double area(double)':
+   area.cpp:8:1: error: body of constexpr function 'constexpr double area(double)' not a return-statement
      }
      ^
 

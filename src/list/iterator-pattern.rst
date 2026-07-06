@@ -6,7 +6,7 @@
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. |---| unicode:: U+2014 
+.. |---| replace:: --
 
 .. index:: 
    single: iterator pattern

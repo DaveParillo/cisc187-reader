@@ -130,7 +130,7 @@ Consider the following code example, from Effective Modern C++:
    }
 
    int main() {
-     // If you don’t happen to know (or can’t easily find out) what findRecord returns, 
+     // If you don't happen to know (or can't easily find out) what findRecord returns, 
      // it may not be clear whether result is a pointer type or an integral type. 
      //
      // After all, 0 (what result is tested against) could go either way. 
@@ -148,7 +148,7 @@ Consider the following code example, from Effective Modern C++:
 
        if (result == nullptr) {
        }
-       // there’s no ambiguity: result must be a pointer type.
+       // there's no ambiguity: result must be a pointer type.
      }
 
    }

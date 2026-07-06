@@ -13,7 +13,7 @@
 
 Shell sort
 ==========
-The **shell sort**, sometimes called the “diminishing increment sort,”
+The **shell sort**, sometimes called the "diminishing increment sort,"
 improves on the :ref:`insertion sort<sort_insertion>` by breaking the original vector into a
 number of smaller subvectors, each of which is sorted using an insertion
 sort. The unique way that these subvectors are chosen is the key to the
@@ -190,7 +190,7 @@ insertion sort, since it does a complete insertion sort as the last
 step. It turns out, however, that this final insertion sort does not
 need to do very many comparisons (or shifts) since the list has been
 pre-sorted by earlier incremental insertion sorts, as described above.
-In other words, each pass produces a list that is “more sorted” than the
+In other words, each pass produces a list that is "more sorted" than the
 previous one. This makes the final pass very efficient.
 
 Although a general analysis of the shell sort is well beyond the scope

@@ -16,9 +16,9 @@ for example), in computer science and mathematics,
 objects or functions exhibit recursive behavior when they 
 can be defined by two properties:
 
-- A *base case* — a terminating scenario that 
+- A *base case*  -  a terminating scenario that 
   does **not** use recursion to produce an answer
-- A *recursive step* — a set of rules that reduces all other cases 
+- A *recursive step*  -  a set of rules that reduces all other cases 
   toward the base case
 
 Some famous sequences in mathematics, 
@@ -91,7 +91,7 @@ sequence of simplifications to compute a final sum.
 
 
 How can we take this idea and turn it into a C++ program? First,
-let’s restate the sum problem in terms of a C++ vector. We might say 
+let's restate the sum problem in terms of a C++ vector. We might say 
 the sum of the vector ``values`` is the sum of the first element of the
 vector (``values[0]``), 
 and the sum of the numbers in the rest of the vector - the range 

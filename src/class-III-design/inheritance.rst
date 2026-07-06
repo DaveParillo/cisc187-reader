@@ -198,7 +198,7 @@ As we delve deeper into the implementation of a system,
 we may find that our original generalizations about the domain concepts,
 captured in our inheritance hierarchies,
 are incorrect.
-Don’t be afraid to disassemble inheritance hierarchies into sets of
+Don't be afraid to disassemble inheritance hierarchies into sets of
 complementary cooperating interfaces and components
 when the code leads you in that direction.
 
@@ -307,7 +307,7 @@ C++ allows for a single class to inherit capabilities from more than 1 class.
 The constructors of inherited classes are called in the same order
 in which they are inherited.
 For example, in the following program,
-B’s constructor is called before A’s constructor.
+B's constructor is called before A's constructor.
 
 .. tb-code:: cpp
    :name: ac_mult_inherit_ex1

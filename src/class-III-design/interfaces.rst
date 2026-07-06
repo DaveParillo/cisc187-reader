@@ -263,10 +263,10 @@ However this inaccessibility **by** the derived class
 does not have anything to do with the virtual call mechanism,
 which is **to** the derived class.
 
-What good is a method that the derived class can’t call?
-Even though the derived class can’t call it in the base class, 
+What good is a method that the derived class can't call?
+Even though the derived class can't call it in the base class, 
 the base class can call it --- down to the appropriate derived class.
-And that’s what the Template Method pattern is all about.
+And that's what the Template Method pattern is all about.
 
 In our coffee shop, we want to write the base class once,
 but still want the flexibility to think of new drink recipes today.

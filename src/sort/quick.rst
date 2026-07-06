@@ -44,8 +44,8 @@ either less than or greater than the pivot value.
 
 
 
-Partitioning begins by locating two position markers—let’s call them
-``leftmark`` and ``rightmark``—at the beginning and end of the remaining
+Partitioning begins by locating two position markers - let's call them
+``leftmark`` and ``rightmark`` - at the beginning and end of the remaining
 items in the list (positions 1 and 8 in :ref:`Figure 13 <fig_partitionA>`). The goal
 of the partition process is to move items that are on the wrong side
 with respect to the pivot value while also converging on the split

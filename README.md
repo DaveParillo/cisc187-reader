@@ -1,5 +1,4 @@
 # Intermediate Modern C++: Interactive Edition
-[![sphinx-touchbook](https://img.shields.io/pypi/v/sphinx-touchbook.svg)](https://pypi.org/project/sphinx-touchbook/)
 [![Docs](https://img.shields.io/github/actions/workflow/status/daveparillo/cisc187-reader/publish-docs.yml?branch=main&label=docs)](https://github.com/daveparillo/cisc187-reader/actions/workflows/publish-docs.yml)
 [![License: GFDL 1.3](https://img.shields.io/badge/license-GFDL%201.3-blue.svg)](https://github.com/DaveParillo/cisc187-reader/blob/main/LICENSE.txt)
 
@@ -38,8 +37,9 @@ You can build it and host it yourself in just a few simple steps.
 * Video here:  https://www.youtube.com/watch?v=IX-v6yvGYFg
 * For the impatient:
 
+**Step 1: Create and load a virtual python environment**
+
 ```
-$ python -m pip install venv
 $ python -m venv .venv
 $ source .venv
 ```
@@ -54,10 +54,17 @@ reading the docs or watching the video
  
 With the virtual environment installed and configured you can continue.
 
+**Step 2: Install doc build dependencies and build HTML**
 ```
 $ python -m pip install ".[docs]"
 $ python -m sphinx -b html src build/html
 ```
 
 Open your favorite web browser and open `build/html/index.html`.
+
+Sphinx-touchbook supports all the HTML builders, plain text, and LaTeX
+builders.
+You can build PDF versions of the documentation if you have a LaTeX
+engine installed.
+
 

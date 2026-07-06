@@ -56,6 +56,16 @@ jobs:
           MERMAID_BROWSER: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: python -m sphinx -b html src build/html --fail-on-warning
 
+      - name: Build PDF docs
+        run: |
+          docker run --rm \
+            -v "$PWD:/docs" \
+            -w /docs \
+            sphinxdoc/sphinx-latexpdf:latest \
+            sh -c 'apt-get update && apt-get install -y graphviz nodejs npm chromium && python -m pip install ".[docs]" && PUPPETEER_SKIP_DOWNLOAD=true npm install -g @mermaid-js/mermaid-cli && MERMAID_BROWSER=/usr/bin/chromium python -m sphinx -M latexpdf src build/latexpdf --fail-on-warning'
+          mkdir -p build/html/_downloads
+          find build/latexpdf/latex -name '*.pdf' -exec cp {} build/html/_downloads/ \;
+
       - name: Verify Pages artifact root
         run: test -f build/html/index.html
 

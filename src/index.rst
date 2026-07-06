@@ -79,24 +79,28 @@ Back Matter
 * :ref:`glossary`
 * :ref:`genindex`
 
-Acknowledgements
-----------------
+.. tb-reveal::
+   :showlabel: Acknowledgements
+   :modal:
+   :modal-titlebar: Acknowledgements
 
-Portions of this book would not be possible without the generosity of others
-who have created excellent textbooks and materials and also
-chose to release them in a shareable and extensible manner.
-Some content in this book is adapted from
-`On Complexity <https://runestone.academy/ns/books/published/complex/index.html?mode=browsing>`__, 
-by Janice L. Pearce
-released under the 
-`Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0) <https://creativecommons.org/licenses/by-nc-sa/4.0/>`__,
-`Problem Solving with Algorithms and Data Structures using C++ <https://runestone.academy/ns/books/published/cppds/index.html?mode=browsing>`__,
-by Brad Miller and David Ranum, Luther College, and Jan Pearce, Berea College
-also released under the 
-`CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`__,
-and `Open Data Structures (OpenDSA) <https://opendsa-server.cs.vt.edu>`__
-by Ville Karavirta and Cliff Shaffer
-which is distributed under the `MIT License <https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt>`__
+   Portions of this book would not be possible without the generosity of others
+   who have created excellent textbooks and materials and also
+   chose to release them in a shareable and extensible manner.
+   Some content in this book is adapted from
+   `On Complexity <https://runestone.academy/ns/books/published/complex/index.html?mode=browsing>`__, 
+   by Janice L. Pearce
+   released under the 
+   `Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0) <https://creativecommons.org/licenses/by-nc-sa/4.0/>`__,
+   `Problem Solving with Algorithms and Data Structures using C++ <https://runestone.academy/ns/books/published/cppds/index.html?mode=browsing>`__,
+   by Brad Miller and David Ranum, Luther College, and Jan Pearce, Berea College
+   also released under the 
+   `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`__,
+   and `Open Data Structures (OpenDSA) <https://opendsa-server.cs.vt.edu>`__
+   by Ville Karavirta and Cliff Shaffer
+   which is distributed under the `MIT License <https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt>`__
 
+
+Download the `PDF version <_downloads/cisc187textbook.pdf>`__.
 
 

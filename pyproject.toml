@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cisc187-reader"
+version = "4.0.0"
+description = "CISC 187 textbook source built with Sphinx and sphinx-touchbook."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE.txt" }
+
+[project.optional-dependencies]
+docs = [
+    "Sphinx>=7",
+    "sphinx-accessibility",
+    "sphinxcontrib-mermaid",
+    "sphinx-nefertiti",
+    "sphinx-touchbook",
+    "matplotlib",
+    "imageio",
+    "imageio-ffmpeg",
+]
+
+[tool.setuptools]
+py-modules = []

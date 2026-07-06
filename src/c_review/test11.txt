@@ -1,0 +1,21 @@
+A simple test for a modern C++ compiler:
+
+.. tb-code:: cpp
+   :name: ac_begin_compiler_test
+   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+
+   // A simple test for C++11 compiler
+   // compiled with: -Wall -Wextra -pedantic -std=c++11
+
+   #include <iostream>
+
+   // test C++11 features
+   int main () {
+     int data[] = { 1, 2, 3, 5, 8 };  // initializer list syntax
+     for (auto value: data)           // for each value in data
+     {
+       std::cout << "value is " << value << '\n';
+     }
+     return 0;
+   }
+

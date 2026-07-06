@@ -37,19 +37,15 @@ The C++ type system consists of the following types:
 
   - The type ``void``
   - The type ``nullptr_t``
-  - Arithmetic types
-
-    - Floating point types (``float``, ``double``, and ``long double``)
-    - Integral types
-
-      - The ``bool`` type (true & false)
-      - The character types:
-
-        - narrow character types (``char``, ``signed char``, ``unsigned char``)
-        - wide character types (``char16_t``, ``char32_t``, ``wchar_t``)
-
-      - signed integer types (``short int``, ``int``, ``long int``, ``long long int``)
-      - unsigned integer types (``unsigned short int``, ``unsigned int``, ``unsigned long int``, ``unsigned long long int``)
+  - Arithmetic types, including floating point types and integral types.
+  - Floating point types: ``float``, ``double``, and ``long double``.
+  - Integral types:
+    ``bool``; character types such as ``char``, ``signed char``,
+    ``unsigned char``, ``char16_t``, ``char32_t``, and ``wchar_t``;
+    signed integer types such as ``short int``, ``int``, ``long int``,
+    and ``long long int``; and unsigned integer types such as
+    ``unsigned short int``, ``unsigned int``, ``unsigned long int``,
+    and ``unsigned long long int``.
 
 - Compound types
 
@@ -916,5 +912,4 @@ using :io:`oct <manip/hex>`,
 .. topic:: Footnotes
 
    .. [Aspnes2014] Adapted from `The IEEE-754 floating-point standard (PineWiki) <https://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)FloatingPoint.html>`__ and `Class 223 notes <https://www.cs.yale.edu/homes/aspnes/classes/223/notes.html#The_IEEE-754_floating-point_standard>`__ . Retrieved 2026-07-05.
-
 

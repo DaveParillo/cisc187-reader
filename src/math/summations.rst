@@ -170,10 +170,10 @@ Summation facts
 
    .. math::
 
-      \sum_{k=2}^{n} (k-1) 2^{k+1} &= \sum_{k=1}^{n-1} k2^{k+2}           &\to \text{Fact 4} \\
-                                   &= 2^2 \sum_{k=1}^{n-1} k2^k           &\to \text{Fact 3} \\
-                                   &= 2^2 (2-n2^n + (n-1)2^{n+1} \text{ } &\to \text{Form 5} \\
-                                   &= 2^3 - (2-n)2^{n+2}
+      \sum_{k=2}^{n} (k-1) 2^{k+1} &= \sum_{k=1}^{n-1} k2^{k+2} \qquad \text{Fact 4} \\
+                                   &= 2^2 \sum_{k=1}^{n-1} k2^k \qquad \text{Fact 3} \\
+                                   &= 2^2 \left(2 - n2^n + (n-1)2^{n+1}\right) \qquad \text{Form 5} \\
+                                   &= 2^3 - (2 - n)2^{n+2}
 
 
 .. topic:: Example
@@ -296,4 +296,3 @@ close to 0.577, approximates the difference between
    `Open Data Structures (OpenDSA) <https://opendsa-server.cs.vt.edu>`__
    by Ville Karavirta and Cliff Shaffer
    which is distributed under the `MIT License <https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt>`__.
-

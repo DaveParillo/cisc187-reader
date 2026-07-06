@@ -24,9 +24,8 @@ As a special case, :math:`0! = 1`.
 
 .. math::
 
-   \begin{aligned}
-   &&  0! = 1 \\
-   &&  n! = n \cdot (n-1)!\end{aligned}
+   0! &= 1 \\
+   n! &= n \cdot (n-1)!
 
 .. note::
    Factorial is usually denoted with the symbol :math:`!`, which is not to
@@ -102,6 +101,5 @@ while :math:`\lceil -3.4 \rceil = \lceil -3.0 \rceil = -3`.
    `Open Data Structures (OpenDSA) <https://opendsa-server.cs.vt.edu>`__
    by Ville Karavirta and Cliff Shaffer
    which is distributed under the `MIT License <https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt>`__.
-
 
 

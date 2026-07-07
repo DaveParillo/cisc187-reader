@@ -243,12 +243,12 @@ Summation facts
    In order to write *count(n)* in terms of :math:`n`,
    we need to do a bit more work.
    Since :math:`2k +1 \ge n` is the stopping point for the while loop
-   it follows that :math:`2k - 1 \lt n` is the last time the 
+   it follows that :math:`2k - 1 < n` is the last time the 
    while condition is ``true``.
    In otherwords, we have the inequality
-   :math:`2k-1 \lt n \le 2k+1`.
-   Solving for :math:`k`, we have :math:`2k - 2 \lt n-1 \le 2k`,
-   which gives :math:`k-1 \lt (n-1)/2 \le k`.
+   :math:`2k-1 < n \le 2k+1`.
+   Solving for :math:`k`, we have :math:`2k - 2 < n-1 \le 2k`,
+   which gives :math:`k-1 < (n-1)/2 \le k`.
    Therefore, :math:`k = \lceil (n-1)/2 \rceil`.
    Now we can write *count(n)* in terms of :math:`n` as:
 

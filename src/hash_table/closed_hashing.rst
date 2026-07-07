@@ -503,7 +503,7 @@ Quadratic probing
 
       Again, prime numbers!
 
-      Remember the earlier discussion about how :math:`% N` tends to improve the
+      Remember the earlier discussion about how ``% N`` tends to improve the
       key distribution when ``N`` is prime?
       You can see why it's part of programming "folklore" that hash tables
       should be prime-number sized, even if most programmers can't say 
@@ -569,7 +569,7 @@ The graph shows how :math:`\frac {1}{1-\lambda}` changes as
    plt.show()
 
 
-If the table is less than half full (:math:`\lambda \lt 0.5`)
+If the table is less than half full (:math:`\lambda < 0.5`)
 then we expect to try **on average** no more than 2 slots 
 during a search or insert. 
 Not too bad.
@@ -597,5 +597,3 @@ than this idealized analysis indicates.
      Resolving Collisions 
      <https://www.cs.odu.edu/~zeil/cs361/f25-web/Public/collisions/index.html>,
      by Steven J. Zeil for his data structures course CS361. 
-
-

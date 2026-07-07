@@ -18,6 +18,7 @@ language = "en"
 smartquotes = False
 master_doc = "index"
 project = "CISC 187 Textbook"
+author = "Dave Parillo"
 copyright = "2017-2026 Dave Parillo"
 version = project_version()
 release = version

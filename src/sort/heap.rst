@@ -57,9 +57,7 @@ root or subtree parent, red marks compared or exchanged values, teal marks the
 active heap boundary, purple marks the completed max heap, and gray marks the
 sorted suffix.
 
-.. plot:: sort/heap_sort_anim.py
-   :nofigs:
-   :include-source: false
+.. Sort animation assets are generated with ``generate_sort_video.py``.
 
 .. only:: html
 

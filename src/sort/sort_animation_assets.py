@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import random
 import sys
+import os
 from collections.abc import Callable, Iterable
 from pathlib import Path
 
@@ -398,6 +399,10 @@ def save_summary(values: list[int], output_path: Path, title: str, builder: Fram
 
 
 def output_dir() -> Path:
+    if output := os.environ.get("SORT_ANIMATION_OUTPUT_DIR"):
+        generated = Path(output).resolve()
+        generated.mkdir(parents=True, exist_ok=True)
+        return generated
     source_path = Path(sys.argv[0]).resolve()
     generated = source_path.parents[1] / "_static" / "generated" / "sort"
     generated.mkdir(parents=True, exist_ok=True)

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cisc187-reader"
-version = "4.0.3"
+version = "4.0.4"
 description = "CISC 187 textbook source built with Sphinx and sphinx-touchbook."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -18,7 +18,9 @@ docs = [
     "sphinx-nefertiti",
     "sphinx-touchbook",
     "matplotlib",
-    "imageio",
+]
+media = [
+    "matplotlib",
     "imageio-ffmpeg",
 ]
 

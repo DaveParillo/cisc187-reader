@@ -86,9 +86,7 @@ have a sorted subvector of six items.
 In the following animations, yellow marks the value being inserted, red marks
 a value being shifted, and gray marks the sorted prefix.
 
-.. plot:: sort/insertion_sort_anim.py
-   :nofigs:
-   :include-source: false
+.. Sort animation assets are generated with ``generate_sort_video.py``.
 
 .. only:: html
 

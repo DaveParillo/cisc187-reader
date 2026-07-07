@@ -141,9 +141,7 @@ The following animations show the shell sort in action. Teal marks the
 current gap group, yellow marks the value being inserted, red marks a shifted
 comparison, and gray marks the final sorted state.
 
-.. plot:: sort/shell_sort_anim.py
-   :nofigs:
-   :include-source: false
+.. Sort animation assets are generated with ``generate_sort_video.py``.
 
 .. only:: html
 

@@ -40,11 +40,7 @@ final item must be in place after the :math:`(n-1)` step.
       teal marks the boundary for the current step, and gray marks values
       already sorted.
 
-      .. The following matplotlib script generates the animations and static images.
-
-      .. plot:: sort/selection_sort_anim.py
-         :nofigs:
-         :include-source: false
+      .. Sort animation assets are generated with ``generate_sort_video.py``.
 
       .. only:: html
 

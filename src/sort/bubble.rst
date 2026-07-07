@@ -109,11 +109,7 @@ When bar colors change to red,
 this indicates these are the two values compared by bubble sort.
 Bars shown in gray have already reached their final position.
 
-.. The following matplotlib script generates the animations and static images.
-
-.. plot:: sort/bubble_sort_anim.py
-   :nofigs:
-   :include-source: false
+.. Sort animation assets are generated with ``generate_sort_video.py``.
 
 .. only:: html
 

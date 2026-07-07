@@ -145,9 +145,7 @@ In the following animations, purple marks a range being split, teal marks the
 range being merged, yellow marks the target slot currently filled, and gray
 marks merged ranges.
 
-.. plot:: sort/merge_sort_anim.py
-   :nofigs:
-   :include-source: false
+.. Sort animation assets are generated with ``generate_sort_video.py``.
 
 .. only:: html
 

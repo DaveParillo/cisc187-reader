@@ -160,9 +160,7 @@ The following animations show quick sort in action. Yellow marks the current
 pivot, red marks values being compared or exchanged, teal marks a scan
 boundary, and gray marks pivot values that have been placed.
 
-.. plot:: sort/quick_sort_anim.py
-   :nofigs:
-   :include-source: false
+.. Sort animation assets are generated with ``generate_sort_video.py``.
 
 .. only:: html
 

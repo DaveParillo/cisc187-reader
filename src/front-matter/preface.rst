@@ -123,10 +123,11 @@ content in more than just one way.
 
 Overview
 --------
-Conceptually, the book is separated into 5 modules:
+Conceptually, the book is separated into 6 modules:
 
 - Introductory topics and review
 - Functions
+- Sorting
 - Classes
 - Containers
 - Iterators and Trees
@@ -171,32 +172,41 @@ Chapter 6
    Introduces recursion, properties of recursive data structures,
    and introduces the Binary Tree ADT as a recursive data structure.
 
+The next chapter introduces sorting algorithms.
+Sorting appears before the main class-design chapters so that algorithmic
+behavior and performance can be discussed while the examples still use
+familiar sequence containers and functions.
+
+Chapter 7
+   Introduces several common sorting algorithms and compares their
+   behavior, costs, and performance characteristics.
+
 The next 3 chapters introduce the foundations of classes in C++.
 There is more to explore, but other topics related to classes
 are explored in the context of linear and associative data structures
 in the later chapters.
 
-Chapter 7
+Chapter 8
    Introduces classes, starting with how a C++ differs from a *POD*,
    or *Plain Old Data* in C,
    continuing with constructors, the importance of class interfaces
    and their implementation, using ``const`` in classes,
    and class enumerations.
 
-Chapter 8
-   Expands on the material introduced in Ch 7, discussing more
+Chapter 9
+   Expands on the material introduced in Ch 8, discussing more
    constructor overloads and operator overloads in classes.
 
-Chapter 9
+Chapter 10
    Focuses on class design concepts: composition and inheritance,
    multiple inheritance, 
    the Unified Modeling Language (UML), and
    abstract base classes and interface classes.
 
-The next 4 chapters explore more C++ class concepts using
+The next 2 chapters explore more C++ class concepts using
 container classes as a springboard.
 
-Chapter 10
+Chapter 11
    Introduces class templates and begins introducing concepts 
    the rest of the book builds on as it begins to explore
    the containers in the standard library and uses them as an
@@ -205,7 +215,7 @@ Chapter 10
    Introduces container initialization lists and
    overloading the array index operator.
 
-Chapter 11
+Chapter 12
    Introduces copy and move semantics in C++.
    This chapter described copy constructors, then explores
    lvalues, rvalues, and rvalue references as a way to help
@@ -213,28 +223,32 @@ Chapter 11
    A brief introduction to using allocators, what they are for,
    and how to add them to a container.
 
-Chapter 12
+The next 2 chapters introduce linear containers and iterators.
+
+Chapter 13
    Introduces the Stack and Queue ADT's and explains how they are 
    implemented in C++ by adapting other containers.
    The Adapter design pattern is introduced.
 
-The next few chapters explore linked data structures,
-both linear linked lists as well as linked tree data structures.
-They also describe their relation to algorithms.
-Both data structures **and** algorithms are needed to make useful programs.
-
-Chapter 13
+Chapter 14
    An exploration of linked lists.
    The primary motivation for discussing lists at this point is to
    use a list implementation as a reason for needing a class
    to have a supporting iterator class.
    The Iterator design pattern is introduced.
 
-Chapter 14
+The final chapters explore trees, hash tables, and algorithms.
+Both data structures **and** algorithms are needed to make useful programs.
+
+Chapter 15
    Introduction to Trees, Binary Search Trees, sets and maps,
    and their application to searching and sorting.
 
-Chapter 15
+Chapter 16
+   Introduces hash tables, hash functions, collision handling, and
+   the performance tradeoffs involved in hash table design.
+
+Chapter 17
    The STL algorithms, the basic model in the standard library
    connecting containers, iterators, and algorithms.
 
@@ -257,5 +271,4 @@ I will let you know why.
 
    .. [1] Mark Twain, "Introduction to The New Guide of the Conversation in Portuguese and English" (1883) p. 239.
    .. [2] Bjarne Stroustrup and Herb Sutter, 
-          `C++ Core Guidelines <http://isocpp.github.io/CppCoreGuidelines>`__
-
+         `C++ Core Guidelines <https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines.html>`__

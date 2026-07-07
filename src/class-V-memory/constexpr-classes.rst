@@ -11,7 +11,7 @@
 
 ``constexpr`` classes
 =====================
-The :guidelines:`C++ Core guidelines generally <Rconst-immutable>`
+The :guidelines:`C++ Core guidelines generally <rconst-immutable>`
 prefers constant data and objects over mutable objects and data when possible.
 Previously, when we have used ``const`` and ``constexpr`` it has generally been
 limited to variables and functions.
@@ -327,6 +327,5 @@ all the program variables and instances are immutable.
 
    - C++ Core Guidelines
 
-     - :guidelines:`Con: Constants and immutability <Rconst-immutable>`
+     - :guidelines:`Con: Constants and immutability <rconst-immutable>`
      - :guidelines:`Con.5: Use constexpr for values that can be computed at compile time <con5-use-constexpr-for-values-that-can-be-computed-at-compile-time>`
-

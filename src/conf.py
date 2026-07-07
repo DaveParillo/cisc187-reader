@@ -108,7 +108,8 @@ extlinks = {
 }
 
 linkcheck_allowed_redirects = {
-    r'https://en\.cppreference\.com/w/cpp/.*' : r'https://stackoverflow\.com/.*'
+        r'https://en\.cppreference\.com/w/cpp/.*' : r'https://stackoverflow\.com/.*',
+        r'https://github\.com/.*' : r'https://github\.com/.*',
 }
 
 source_suffix = {

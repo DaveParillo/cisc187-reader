@@ -9,7 +9,7 @@
     License".
 
 .. Much of the content in this section is adapted from
-   http://www.cs.yale.edu/homes/aspnes/classes/223/notes.html
+   https://www.cs.yale.edu/homes/aspnes/classes/223/notes.html
 
 .. index:: 
    single: debugging
@@ -582,16 +582,16 @@ In the example below gdb is run from the command line:
     $ gdb bogus
     GNU gdb (GDB; openSUSE 13.1) 7.6.50.20130731-cvs
     Copyright (C) 2013 Free Software Foundation, Inc.
-    License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+    License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
     This is free software: you are free to change and redistribute it.
     There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
     and "show warranty" for details.
     This GDB was configured as "i586-suse-linux".
     Type "show configuration" for configuration details.
     For bug reporting instructions, please see:
-    <http://bugs.opensuse.org/>.
+    <https://bugs.opensuse.org/>.
     Find the GDB manual and other documentation resources online at:
-    <http://www.gnu.org/software/gdb/documentation/>.
+    <https://www.gnu.org/software/gdb/documentation/>.
     For help, type "help".
     Type "apropos word" to search for commands related to "word".
     ..
@@ -832,5 +832,5 @@ display
     :error:`assert <assert>` and
     :lang:`static_assert <static_assert>`. 
   - `GDB tips <https://heather.cs.ucdavis.edu/matloff/public_html/UnixAndC/CLanguage/Debug.html>`_
-  - `DDD <http://www.gnu.org/software/ddd/>`_
+  - `DDD <https://www.gnu.org/software/ddd/>`_
 

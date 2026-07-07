@@ -91,7 +91,7 @@ then you should use a valid email address.
 
 If you want to keep your email address private, you can do this on GitHub.
 For more information see the 
-`Manaing email page <https://docs.github.com/en/account-and-profile/how-tos/email-preferences/setting-your-commit-email-address#about-commit-email-addresses>`__
+`Manaing email page <https://docs.github.com/en/account-and-profile/how-tos/email-preferences/setting-your-commit-email-address>`__
 on GitHub.
 
 Step 3: Setup authentication

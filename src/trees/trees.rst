@@ -292,7 +292,7 @@ that support both sets and maps.
 
 .. admonition:: More to Explore
 
-   - `MyCodeSchool <http://www.mycodeschool.com>`__ video: 
+   - MyCodeSchool video: 
      `Data structures: introduction to trees <https://www.youtube.com/watch?v=qH6yxkw0u78&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=25>`__ 
    - :cpp:`STL containers library <container>`
    - `Visualgo: binary heap <https://visualgo.net/en/heap?slide=1>`_

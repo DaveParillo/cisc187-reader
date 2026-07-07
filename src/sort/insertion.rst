@@ -128,13 +128,15 @@ a value being shifted, and gray marks the sorted prefix.
    .. figure:: ../_static/generated/sort/insertion-sort-worst.png
       :alt: Insertion sort summary for a reverse-sorted input.
 
+.. _lst-insertion-sort-code:
+
 .. tb-group::
    :name: lst_insertion_sort
 
    .. tb-tab:: Insertion Sort
 
       The implementation of ``insertion_sort`` 
-      (:ref:`Run It tab <lst_insertion_cpp>`) shows that
+      (:ref:`Run It tab <lst-insertion-sort-code>`) shows that
       there are again :math:`n-1` passes to sort *n* items. The iteration
       starts at position 1 and moves through position :math:`n-1`, as these
       are the items that need to be inserted back into the sorted subvectors.

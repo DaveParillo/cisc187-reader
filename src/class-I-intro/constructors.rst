@@ -312,14 +312,13 @@ We made several changes:
 
    - From C++ Core Guidelines
 
-     - :guidelines:`Constructors <S-ctor>`
-     - :guidelines:`Prefer in-class iniitalizers <Rc-in-class-initializer>`
-     - Default operations: :guidelines:`rule of zero <Rc-zero>`
-       and :guidelines:`rule of five <Rc-five>`
+     - :guidelines:`Constructors <s-ctor>`
+     - :guidelines:`Prefer in-class iniitalizers <rc-in-class-initializer>`
+     - Default operations: :guidelines:`rule of zero <rc-zero>`
+       and :guidelines:`rule of five <rc-five>`
      - :guidelines:`Concrete types <cconcrete-concrete-types>`
 
    - `CplusPlus.com classes tutorial <https://cplusplus.com/doc/tutorial/classes/>`__.
 
      - And if you read the tutorial, then also review
-       :guidelines:`Avoid protected data <Rh-protected>`
-
+       :guidelines:`Avoid protected data <rh-protected>`

@@ -212,12 +212,11 @@ At this point, only the ``failbit`` will trigger an exception.
 
 .. admonition:: More to Explore
 
-   - :guidelines:`CPP Core Guidelines: Error Handling <S-errors>`
+   - :guidelines:`CPP Core Guidelines: Error Handling <s-errors>`
    - `ISO C++ FAQ Exceptions <https://isocpp.org/wiki/faq/exceptions>`_
    - Overview of the :cpp:`error handling <error>` library and 
      :lang:`exceptions`
    - :lang:`try`, :lang:`catch`, and :lang:`throw`
    - Post from Eric Lippert on 
      `vexing exceptions <https://learn.microsoft.com/en-us/archive/blogs/ericlippert/vexing-exceptions>`_
-
 

@@ -344,7 +344,7 @@ The ``make`` utility is described in more detail in the :doc:`make` section.
    - `vi reference cards <http://tnerual.eriogerg.free.fr/vim.html>`_ - available in several languages 
    - `vi lovers home page <https://thomer.com/vi/vi.html>`_
    - Swarthmore Dept. of Computer Science `vim tips and tricks page <https://www.cs.swarthmore.edu/newhelp/vim.html>`_
-   - `UNIX Text Processing <https://github.com/larrykollar/Unix-Text-Processing/releases/download/1.0/utp-1.0.pdf>`__ - has a chapter dedicated to vi.
+   - `UNIX Text Processing <https://github.com/larrykollar/Unix-Text-Processing>`__ - has a chapter dedicated to vi.
 
 
    **Text editor downloads**

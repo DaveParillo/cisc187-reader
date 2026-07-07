@@ -201,9 +201,8 @@ a struct to control what parts of the class may be accessed from outside the cla
 
    - From C++ Core Guidelines
 
-     - :guidelines:`C.1: Organize related data into structures <Rc-org>`
-     - :guidelines:`C.2: Use class if the class has an invariant <Rc-struct>`
-     - :guidelines:`C.3: Represent the distinction between an interface and an implementation using a class <Rc-interface>`
-     - :guidelines:`C.8: Use class rather than struct if any member is non-public <Rc-class>`
-
+     - :guidelines:`C.1: Organize related data into structures <rc-org>`
+     - :guidelines:`C.2: Use class if the class has an invariant <rc-struct>`
+     - :guidelines:`C.3: Represent the distinction between an interface and an implementation using a class <rc-interface>`
+     - :guidelines:`C.8: Use class rather than struct if any member is non-public <rc-class>`
 

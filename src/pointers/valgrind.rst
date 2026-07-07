@@ -179,7 +179,7 @@ And that is exactly where the error lies.
   - `The Valgrind Quick Start Guide <https://valgrind.org/docs/manual/QuickStart.html>`_
   - `Valgrind tutorial <https://pages.cs.wisc.edu/~bart/537/valgrind.html>`_ - from Barton P. Miller
   - `Valgrind video tutorial <https://www.youtube.com/watch?v=bb1bTJtgXrI>`_
-  - `MyCodeSchool <http://www.mycodeschool.com>`__ video: 
+  - MyCodeSchool video: 
      `Memory leak in C++ <https://www.youtube.com/watch?v=F2nrej6Kjww&list=PL2_aWCzGMAwLZp6LMUKI3cc7pgGsasm2_&index=17>`__ 
 
 

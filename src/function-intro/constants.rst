@@ -299,4 +299,4 @@ Guidelines for now
   - From: cppreference.com: 
     :lang:`const qualifier <cv>` and 
     :lang:`constexpr`
-  - :guidelines:`C++ Core Guidelines for constexpr <Rconst-constexpr>`
+  - :guidelines:`C++ Core Guidelines for constexpr <rconst-constexpr>`

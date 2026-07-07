@@ -162,7 +162,7 @@ If we pass in only ``p``, what happens?
 
 .. admonition:: More to Explore
 
-   - `MyCodeSchool <http://www.mycodeschool.com>`__ video: 
+   - MyCodeSchool video: 
      `Pointers in C/C++ playlist <https://www.youtube.com/playlist?list=PL2_aWCzGMAwLZp6LMUKI3cc7pgGsasm2_>`__ 
 
 

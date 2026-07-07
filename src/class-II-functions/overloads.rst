@@ -175,7 +175,7 @@ no action on self-assignment, and to return the ``lhs`` by reference:
    If a class requires a user-defined copy assignment operator, it
    almost certainly requires a user-defined copy constructor as well, and vice
    versa. This principle is often referred to as part of the
-   :guidelines:`rule of zero <Rc-zero>` and :guidelines:`rule of five <Rc-five>`
+   :guidelines:`rule of zero <rc-zero>` and :guidelines:`rule of five <rc-five>`
 
    The fundamental reason for this is that both the copy constructor and the
    copy assignment operator deal with the process of creating a copy of an

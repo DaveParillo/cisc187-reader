@@ -448,7 +448,7 @@ is just an example of one.
 
    - :cpp:`STL containers library <container>`
    - STL :container:`queue` class
-   - `MyCodeSchool <http://www.mycodeschool.com>`__ video: 
+   - MyCodeSchool video: 
      `Data structures: introduction to queue <https://www.youtube.com/watch?v=XuCbpw6Bj1U&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=22>`__ 
    - :wiki:`Circular buffer <Circular_buffer>` on wikipedia
 

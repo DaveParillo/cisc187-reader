@@ -15,8 +15,9 @@ Comparison with references
 Recall from our earlier discussions of pass by reference
 that the ``address of`` operator ``&`` allows us to pass by reference:
 
-.. code-block:: cpp
+.. code-block::
    :linenos:
+   :name: ptr_vs_ref_by_value_code
 
    #include <iostream>
 
@@ -37,23 +38,25 @@ The value of ``x`` is printed, but is destroyed when ``x`` goes out of scope on 
 
 No special character is needed if you want to use a function that takes a reference:
 
-.. code-block:: cpp
+.. tb-code::
+   :show-tutor:
+   :run-before: ptr_vs_ref_by_value_code
 
-   #include <iostream>
+   using std::cout;
 
    int main () {
      int beta = 11;
-     std::cout << "the address of beta is " 
-               << &beta << '\n';
+     cout << "the address of beta is " 
+          << &beta << '\n';
  
      by_value(beta);
 
-     std::cout << "beta = " << beta << '\n';
+     cout << "beta = " << beta << '\n';
 
      by_reference(beta);
 
-     std::cout << "beta is now " 
-               << beta << '\n';
+     cout << "beta is now " 
+          << beta << '\n';
    }
 
 References do have some definite advantages:
@@ -84,11 +87,45 @@ However, there are important things you can't do with references:
 We still need to be able to do all these kinds of memory manipulations.
 In C++, we achieve these goals using *pointers*.
 
+
+.. cpp:: 17
+
+  C++17 introduced the ``std::string_view`` template.
+  A ``string_view`` is a non-owning read-only view of character data.
+  It is implemented as a pointer to a character sequence and a size.
+  It is useful for read-only function parameters, but it depends on the
+  original text remaining alive. For example:
+
+  .. tb-code:: cpp
+     :show-tutor:
+
+     #include <iostream>
+     #include <string>
+     #include <string_view>
+
+     // note we normally pass string_view by value
+     void print_label(std::string_view label) {
+       std::cout << label << " has "
+                 << label.size() << " characters\n";
+     }
+
+     int main() {
+       std::string course = "CISC 187";
+
+       print_label(course);
+       print_label("Data structures");
+       print_label(std::string_view{course}.substr(5));
+     }
+
+
+
 Function passing semantics
 --------------------------
 We can pass pointers to a function that expects a reference: 
 
-.. code-block:: cpp
+.. tb-code::
+   :show-tutor:
+
 
    #include <cassert>
 
@@ -164,5 +201,4 @@ If we pass in only ``p``, what happens?
 
    - MyCodeSchool video: 
      `Pointers in C/C++ playlist <https://www.youtube.com/playlist?list=PL2_aWCzGMAwLZp6LMUKI3cc7pgGsasm2_>`__ 
-
 

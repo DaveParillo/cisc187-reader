@@ -1,5 +1,5 @@
 .. tb-code:: cpp
-   :name: ac-string-std-find
+   :name: string-std-find-code
 
    #include <iostream>
    #include <string>
@@ -15,9 +15,9 @@
      auto hi = "Hello world"s;
      pos = hi.find("wor");                 // pos == 6
 
-	  if (hi.find('o') == hi.rfind('o')) {
+     if (hi.find('o') == hi.rfind('o')) {
        std::cout << "There must be exactly 1 'o' in this string\n";
-	  }
+     }
      pos = hi.find_first_of("aeiou");      // pos == 1  (e)
      pos = hi.find_first_not_of("aeiou");  // pos == 0  (H)
 

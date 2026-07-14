@@ -272,7 +272,8 @@ Getting information out of a string
 
 A ``string`` knows its own size and can provide other useful information.
 
-.. code-block:: cpp
+.. tb-code:: cpp
+   :name: string_info_size_empty_code
    
    #include <cassert>
    #include <string>
@@ -301,8 +302,9 @@ within a string.
 
       .. literalinclude:: find-string.txt
          :language: cpp
-         :lines: 12
-         :dedent: 3
+         :start-at: auto us
+         :end-before: size_t pos
+         :dedent: 5
 
       defined using the string literal syntax,
       creates a new object ``us``.
@@ -318,8 +320,9 @@ within a string.
 
       .. literalinclude:: find-string.txt
          :language: cpp
-         :lines: 13-16
-         :dedent: 3
+         :start-at: size_t pos
+         :end-before: auto hi
+         :dedent: 5
 
       The position returned by find is a zero-based index
       into the string.
@@ -347,8 +350,9 @@ within a string.
 
       .. literalinclude:: find-string.txt
          :language: cpp
-         :lines: 17, 23
-         :dedent: 3
+         :start-at: auto hi
+         :end-before: pos = hi.find_first_not_of
+         :dedent: 5
 
       The function returns the position of 'e' in 'Hello world',
       even though 'e' and 'o' are both present,
@@ -581,3 +585,4 @@ to a null terminated character array.
    - cppreference.com :cpp:`Strings library <string>` overview
    - YoLinux `String class tutorial <http://www.yolinux.com/TUTORIALS/LinuxTutorialC++StringClass.html>`_
    - Bjarne Stroustrup's C++11 FAQ: `Raw String literals <https://www.stroustrup.com/C++11FAQ.html#raw-strings>`_
+

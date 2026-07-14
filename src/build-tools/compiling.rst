@@ -173,7 +173,7 @@ then you may compile the software and run tests.
 
    .. code-block:: none
 
-      cd cisc187-sp23-fire40/lab01-hello
+      cd cisc187-fa23-fire99/lab01-hello
 
    Your fire number and semester will be different.
 
@@ -192,6 +192,8 @@ then you may compile the software and run tests.
 
    You only need to do this step once when you make the build
    directory initially.
+   There is nothing special about the directory name *build*.
+   It is merely a convention CMake projects tend to use.
 
 5. Now you can build the project:
 
@@ -199,13 +201,26 @@ then you may compile the software and run tests.
 
       make
 
-   and run the tests
+   Once everything is built run the tests:
 
    .. code-block:: none
 
       make test
 
 That it!
+
+.. important::
+
+   A common source of error is to run ``make test`` without running ``make``
+   first.
+   The ``make test`` command only **runs** the tests.
+   It does not make or build them.
+
+   Running ``make`` will rebuild everything in your project that needs it.
+   If you edit source code and forget to rebuild, then ``make test`` just
+   runs the last old version of your program.
+
+   This behavior is frequently confusing for new programmers.
 
 There are many ways to run cmake and steps 4 and 5 above are what you commonly
 see on the internet. One alternative is:

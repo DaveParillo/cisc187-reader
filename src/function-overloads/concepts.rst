@@ -23,43 +23,143 @@ What if your template assumes one of the provided types has a
 C++ has a mechanism to resolve this ambiguity and enforce
 additional requirements on template arguments used as parameters.
 
-- Concepts
-- The ``requires`` keyword
+.. cpp:: 20
+
+   The first stable release of concepts was in C++20.
+
+   If you want to use concepts and named requirements you need to
+   ensure your compiler supports C++20.
+
 
 Concepts
 --------
 
-Without resorting to the 
-:lang:`experimental technical specification <constraints>`
-you can still get some of the readability improvements from concepts,
-just by defining an alias for the type your template expects:
+Concepts are named requirements for template arguments.
+They make templates less ambiguous by stating what operations a type must
+support before the template can be used.
+A concept is a compile-time :term:`predicate` expression: an expression that
+evaluates to ``true`` or ``false``.
+When the expression is ``true``, the template argument satisfies the concept.
+When the expression is ``false``, the template cannot be used with that
+argument.
 
-.. code-block:: cpp
+The standard library defines many useful concepts in the
+:cpp:`concepts library <concepts>`.
+For example, :cpp:`std::integral <concepts/integral>` is satisfied by integer
+types such as ``int`` and ``long``, but not by ``double`` or ``std::string``.
 
+.. tb-code:: cpp
+
+   #include <concepts>
    #include <iostream>
-   // A 'concept' for a numeric type
-   #define NumericType typename
 
-   // Same template as before
-   // 'typename' replaced with 'NumericType'
-   template <NumericType T, int N> T multiply (T val) {
+   template <std::integral T, int N>
+   T multiply(T val) {
      return val * N;
    }
 
-We haven't actually made any functional change here.
-We have simply made a change that allows our source code to 
-indicate our *intent*.
+   int main() {
+     std::cout << multiply<int, 3>(7) << '\n';
 
-Until the Concepts/Constraints Technical Specification is implemented, 
-expressing our intent is about all we can do.
+     // Error: double is not an integral type.
+     // std::cout << multiply<double, 3>(2.5) << '\n';
+   }
+
+This constraint is part of the template declaration.
+The compiler checks it before trying to generate the function body.
+If the constraint is not satisfied, the compiler can report that the template
+argument does not satisfy ``std::integral`` instead of producing a long list of
+unrelated overload failures.
+
+A concept can also be written by the programmer.
+The following example defines ``SmallValue`` using simple primitive
+operations. The expression ``sizeof(T) <= sizeof(long)`` is a compile-time
+predicate.
+
+.. tb-code:: cpp
+
+   #include <iostream>
+
+   template <typename T>
+   concept SmallValue = sizeof(T) <= sizeof(long);
+
+   template <SmallValue T>
+   void print_size(T value) {
+     std::cout << value << " uses " << sizeof(T) << " bytes\n";
+   }
+
+   int main() {
+     print_size(42);
+     print_size('a');
+
+     // Error on systems where long double is larger than long.
+     // print_size(3.14L);
+   }
+
+.. index:: requires
+
+Keyword: ``requires``
+---------------------
+
+A *requires clause* is an additional constraint on template arguments or a function.
+C++20 supports requires clauses and requires expressions.
+
+The ``requires`` keyword can be used after a template parameter list:
 
 .. code-block:: cpp
 
-   #include <iostream>
-   #include <sstream>
-   #include <string>
+   #include <concepts>
 
-   #define InputIterator typename
+   template <typename T>
+     requires std::floating_point<T>
+   T average(T a, T b) {
+     return (a + b) / 2;
+   }
+
+It can also be used with an abbreviated function template:
+
+.. code-block:: cpp
+
+   #include <concepts>
+
+   auto twice(std::integral auto value) {
+     return value * 2;
+   }
+
+Both examples are valid C++20.
+The first form is useful when the constraint is more complex or when several
+template parameters are involved.
+The second form is compact when each parameter has a simple constraint.
+
+A *requires expression* can test whether a specific expression is valid for a
+type. The following concept checks whether a value of type ``T`` can be read
+from an input stream:
+
+.. code-block:: cpp
+
+   #include <concepts>
+   #include <istream>
+
+   template <typename T>
+   concept StreamExtractable = requires(std::istream& in, T& value) {
+     { in >> value } -> std::same_as<std::istream&>;
+   };
+
+The body of the ``requires`` expression is not executed.
+It asks whether the expression ``in >> value`` is valid and whether its result
+type is ``std::istream&``.
+That is exactly the operation needed by a generic input function.
+This example reads one value and fails if the input cannot be read as ``T`` or
+if extra non-whitespace input remains:
+
+.. tb-code:: cpp
+   :stdin: 2.7818 x
+
+   #include <concepts>
+   #include <iostream>
+   #include <istream>
+   #include <stdexcept>
+   #include <string>
 
    namespace mesa {
      struct point {
@@ -67,60 +167,52 @@ expressing our intent is about all we can do.
        int y = 0;
      };
 
-     // T must overload operator >>
-     template <InputIterator T>
-       T get(std::string prompt = "Enter a single value: ") {
-         while(true) {
-           std::cout << prompt;
-           std::string line;
-           std::getline(std::cin, line);
+     template <typename T>
+     concept StreamExtractable = requires(std::istream& in, T& value) {
+       { in >> value } -> std::same_as<std::istream&>;
+     };
 
-           // If we can't stream into our type T
-           // then the input was not valid for that type.
-           std::istringstream buf(line);
-           T result;
-           if(buf >> result) {
-             // check for any extra input and reject input if found
-             char junk;
-             if(buf >> junk) {
-               std::cerr << "Unexpected character.\n";
-             } else {
-               return result;
-             }
-           } else {
-             std::cerr << "Not a valid input.\n";
-           }
-         }
+     template <StreamExtractable T>
+     T get(std::istream& in) {
+       T result;
+       if (!(in >> result)) {
+         throw std::runtime_error("input could not be read as the requested type");
        }
+
+       std::string extra;
+       if (in >> extra) {
+         throw std::runtime_error("unexpected input after the value: " + extra);
+       }
+
+       return result;
+     }
    }
 
    int main() {
-     auto a = mesa::get<int>();
-     auto b = mesa::get<int>("Enter an integer: ");
-     auto c = mesa::get<float>("Enter a float: ");
+     auto num = mesa::get<float>(std::cin);
+     std::cout << "Value: " << num << '\n';
 
-     std::cout << "Values: " << a << ", "
-                             << b << ", "
-                             << c << '\n';
-
-     // auto p = mesa::get<mesa::point>();  // compile error!
+     // Error: mesa::point does not satisfy StreamExtractable.
+     // auto bad_value = mesa::get<mesa::point>();
      return 0;
    }
 
-
-Attempting to 'get' a ``mesa::point`` is a compile error because our point object does not
-have a definition for the ``operator>>`` function overload.
-The compiler first displays the error, which may look something like this:
+Attempting to ``get`` a ``mesa::point`` is a compile error because
+``mesa::point`` does not define an ``operator>>`` overload.
+With a concept, the compiler can diagnose the failed requirement directly.
+The exact wording depends on the compiler, but the error is usually centered on
+the unsatisfied concept:
 
 .. code-block:: none
 
-   concept.cpp:25:16: error: invalid operands to binary expression ('std::istringstream' (aka 'basic_istringstream<char>') and 'mesa::point')
-           if(buf >> result)
-   concept.cpp:41:18: note: in instantiation of function template specialization 'mesa::get<mesa::point>' requested here
-     auto p = mesa::get<mesa::point>();
+   error: no matching function for call to 'get<mesa::point>'
+   note: constraints not satisfied
+   note: the required expression 'in >> value' is invalid
 
-
-The compiler will then display an exhaustive list of every type it tried:
+Without the concept, the compiler would try to compile the body of ``get`` and
+fail at ``buf >> result``.
+That can produce a long list of unrelated ``operator>>`` overloads, because the
+compiler has to explain every candidate it considered.
 
 .. code-block:: none
 
@@ -138,19 +230,30 @@ The compiler will then display an exhaustive list of every type it tried:
 
 The more code you have written and the more code pulled in from ``#include`` directives,
 the longer the list will be.
-It can run on for thousand of lines.
-Clearly we'd like something better, but the C++ standard doesn't offer a solution until C++20.
+It can run on for thousands of lines.
+Concepts give the compiler a better place to stop and a better vocabulary for
+the diagnostic.
 
+.. important::
 
+   Why did ``get`` still need the checks and ``throw`` statements?
+   If ``x`` is not ``StreamExtractable``, why is any check inside ``get``
+   needed?
 
+   .. tb-reveal::
 
-.. index:: requires
+      ``StreamExtractable`` checks a **type** at compile time.
+      It answers the question, "Can this type be read from a stream with
+      ``operator>>``?"
 
-Keyword: ``requires``
----------------------
+      It does not check the actual characters supplied at run time.
+      A ``float`` is stream-extractable, so ``get<float>`` is allowed to
+      compile. But the input from ``std::cin`` might still be missing,
+      malformed, or followed by unexpected text.
 
-A *requires clause* is an additional constraint on template arguments or a function.
-It is planned for release in C++20.
+      The concept protects the template from being instantiated with a type
+      that has no suitable input operation. The checks inside ``get`` protect
+      the program from bad input values.
 
 You will sometimes encounter *named requirements* in C++ code.
 
@@ -158,13 +261,10 @@ The :cpp:`named requirements listed <named_req>`
 are the named requirements used in the C++ standard to define the 
 expectations of the standard library.
 
-Some of these requirements are being formalized in C++20 using the concepts language feature. 
-Until then, the burden is on the programmer to ensure that library templates are 
-instantiated with template arguments that satisfy these requirements. 
-Failure to do so may result in very complex compiler errors and warnings.
-
-Even though they do not enforce any specific compiler rule or constraint (yet),
-they can improve the intent of expected template types.
+Some named requirements are now represented by C++20 concepts.
+Others remain specification terms that describe standard library behavior.
+When a named requirement has a matching concept, prefer the concept in new code.
+It documents intent and lets the compiler enforce the requirement.
 
 -----
 
@@ -175,6 +275,5 @@ they can improve the intent of expected template types.
    - From cppreference.com
 
      - :cpp:`Concepts Library <concepts>`
+     - :lang:`Constraints and concepts <constraints>`
      - :cpp:`Named requirements <named_req>`
-
-

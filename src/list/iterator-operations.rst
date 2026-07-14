@@ -81,13 +81,25 @@ Non-mutable iterators are called *constant iterators*.
     ];
     edge [dir=back, arrowsize=0.5];
 
-    input [label="Input Iterator", URL="https://en.cppreference.com/cpp/named_req/InputIterator"];
-    fwd [label="Forward Iterator", URL="https://en.cppreference.com/cpp/named_req/ForwardIterator"];
-    bi [label="Bidirectional Iterator", URL="https://en.cppreference.com/cpp/named_req/BidirectionalIterator"];
-    random [label="RandomAccess Iterator", URL="https://en.cppreference.com/cpp/named_req/RandomAccessIterator"];
-    contiguous [label="Contiguous Iterator", URL="https://en.cppreference.com/cpp/named_req/ContiguousIterator"];
+    input [label="Input Iterator", 
+           tooltip="Link to Input Iterator page on cppreference", 
+           URL="https://en.cppreference.com/cpp/named_req/InputIterator"];
+    fwd [label="Forward Iterator",
+         tooltip="Link to Forward Iterator page on cppreference", 
+         URL="https://en.cppreference.com/cpp/named_req/ForwardIterator"];
+    bi [label="Bidirectional Iterator"
+        tooltip="Link to Bidirectional Iterator page on cppreference", 
+        URL="https://en.cppreference.com/cpp/named_req/BidirectionalIterator"];
+    random [label="RandomAccess Iterator",
+            tooltip="Link to Random Access Iterator page on cppreference", 
+            URL="https://en.cppreference.com/cpp/named_req/RandomAccessIterator"];
+    contiguous [label="Contiguous Iterator",
+                tooltip="Link to Contiguous Iterator page on cppreference", 
+                URL="https://en.cppreference.com/cpp/named_req/ContiguousIterator"];
  
-    output [label="Output Iterator", URL="https://en.cppreference.com/cpp/named_req/OutputIterator"];
+    output [label="Output Iterator",
+            tooltip="Link to Output Iterator page on cppreference", 
+            URL="https://en.cppreference.com/cpp/named_req/OutputIterator"];
 
     input -> fwd -> bi -> random -> contiguous [weight=100];
     edge [style=dotted, dir=none];

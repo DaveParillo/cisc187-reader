@@ -5,7 +5,7 @@ Development tools
 This chapter introduces the development environment used throughout
 the book and what you need to do in order to complete assignments.
 
-Understanding the first 3 section of this chapter are critical -
+Understanding the first 3 sections of this chapter are critical -
 all assignments are turned in using ``git`` and are 
 compiled and tested using ``cmake``.
 People who plan to complete assignments on a system other than

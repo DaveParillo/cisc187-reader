@@ -1747,7 +1747,7 @@ Glossary
 
    partition
       The process of splitting a set into two parts, typically centering
-      around a predicate expression or a value.
+      around a :term:`predicate` expression or a value.
 
       In quick sort, the central value is called the ``pivot`` value.
       One partition will contain values less then the pivot,
@@ -1839,6 +1839,8 @@ Glossary
       of all possible :term:`subsets <subset>` for :math:`\mathbf{S}`.
 
    predicate
+      An expression that evaluates to either true or false.
+
    predicate function
       A function that returns a boolean value.
 
@@ -2720,5 +2722,4 @@ Glossary
       :math:`n` is big, since we are referring to the worst from a
       class of inputs (i.e, we want the worst of those inputs of size
       :math:`n`).
-
 

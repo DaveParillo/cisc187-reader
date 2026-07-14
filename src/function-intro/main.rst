@@ -67,23 +67,54 @@ don't apply to any other C++ functions. The main function:
    .. tb-tab:: Run It
 
       A simple :index:`command line argument` handling program.
-      `Compile, link, run (coliru) <https://coliru.stacked-crooked.com/>`__ provides a c++
-      compiler and a very basic command line.
 
-      Press the "edit" button and then 'Compile, link and run" to compile and run the program.
+      .. tb-code::
+         :runargs: -h
 
-      .. raw:: html
+         #include <cstring>
+         #include <iostream>
 
-         <div>
-         <iframe height="600px" width="100%" src="https://coliru.stacked-crooked.com/a/c4e50db1d3dea7cb" scrolling="yes" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-         </div>
+         const char* help (const char* name); // declare function
 
-      Replit provides an interactive shell.
-      You can run this program manually in the shell by typing
+         int main( int argc, char* argv[], char* envp[] )
+         {
+           using std::cout;
+           bool number_lines = false;
 
-      .. code-block:: text
+           // If -n is passed to main, display numbers
+           // next to environment variables.
+           for (int i=1; i < argc; ++i) {
+             if (std::strncmp(argv[i], "-h", 2) == 0) {
+               std::cerr << help(* argv);
+               return 0;
+             } else if (std::strncmp(argv[i], "-n", 2) == 0) {
+               number_lines = true;
+             } else {
+               std::cerr << "Unknown command line argument\n" << help(argv[0]);
+               return 1;
+             }
+           }
 
-         ./main
+           // Print environment until a NULL is encountered.
+           for (int i = 0; envp[i] != NULL; ++i) {
+             if (number_lines) {
+               cout << i << ": ";
+             }
+             cout << envp[i] << '\n';
+           }
+         }
+
+         const char* help (const char* name) {
+           std::cout << "Program '" << name << "':";
+           constexpr const char* text = R"eot(
+         Options:
+           -h   Show this text
+           -n   Show numbers before each env variable.
+         )eot";
+
+           return text;
+         }
+
 
 
 Another convention is to store the name of the program as invoked on the 

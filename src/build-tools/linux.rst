@@ -284,27 +284,8 @@ passwd
 
 
 .. index::
-   pair: repl.it; bash tutorial
    pair: linux; command prompt
 
-.. admonition:: Try This!
-
-   Use this example terminal to try the commands described in this section.
-
-   It's a sandbox, feel free to play for a bit.
-   
-   - The top window is a file where you can type and save commands.
-   - The bottom window is a linux shell.
-     Commands typed directly in the shell are not saved.
-
-
-   .. raw:: html
-
-      <div>
-      <iframe height="400px" width="100%" src="https://repl.it/@DaveParillo/bashtutorial?lite=true" scrolling="no" frameborder="no" allowtransparency="true" allowfullscreen="true" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
-      </div>
-
-    
 .. admonition:: Try This!
 
    Modify this program to make the output look like the table in the ascii man page.

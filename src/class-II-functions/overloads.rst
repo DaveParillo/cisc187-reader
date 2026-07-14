@@ -16,7 +16,7 @@ functions for user defined types.
 
 **Case 1**
 
-Operator overloads are *required* for some containers in the STL.
+Operator overloads are *required* for some containers in the standard library.
 Notably :container:`set`,
 which requires any type used in a set overloads ``operator<``,
 or the operator defined for the set if a custom comparison
@@ -412,6 +412,8 @@ in terms of ``<`` and ``==``.
 
    inline bool operator!=(const T& lhs, const T& rhs){ return !(lhs == rhs); }
 
+.. _spaceship-operator:
+
 .. cpp:: 20
 
    Since C++20, all 6 comparison operators are defined if the 
@@ -666,8 +668,8 @@ or an explicit constructor call:
    - C++ Core Guidelines for :guidelines:`overloading <c138-create-an-overload-set-for-a-derived-class-and-its-bases-with-using>`
    - :lang:`Comparison operators <operator_comparison>` from cppreference.com.
    - :cpp:`Named requirements: Compare <named_req/Compare>`.
-     This page also includes a list of the parts of the STL that expect types
-     that satisfy this requirement.
+     This page also includes a list of the parts of the standard library that
+     expect types that satisfy this requirement.
    - Effective Java, 3rd edition, Joshua Bloch. Addison-Wesley Professional, Jan 2018.
      
      The section regarding overloading toString is in section 12 of the 

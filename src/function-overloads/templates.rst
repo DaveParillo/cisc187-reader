@@ -265,11 +265,11 @@ in the function declaration.
      }
 
 
-Non-generic template parameters
--------------------------------
+Non-type template parameters
+----------------------------
 
-Not every template parameter has to be a class or a typename.
-Any specific type is a valid template parameter.
+Not every template parameter has to name a type.
+A template parameter can also be a compile-time value.
 
 The following example defines a template
 that defines a function that multiplies 
@@ -277,9 +277,7 @@ a value of type ``T`` by a provided ``int N``.
 The template parameter ``int N`` can be used in the function body
 just like any other local variable or function parameter.
 
-Non-generic template parameters may be specified as 
-``const`` if the function
-body will not modify them.
+Non-type template parameters are constant expressions inside the template body.
 
 .. tb-group::
    :name: non_type_parameter_tabbed
@@ -308,7 +306,7 @@ body will not modify them.
          #include <iostream>
 
          // it is possible to forward declare a template
-         template <class T, const int N> 
+         template <class T, int N> 
          constexpr
          T multiply (const T& val);
 
@@ -335,11 +333,12 @@ is a required template parameter:
 
 .. note::
 
-   Templates that include non-generic template parameters can't use auto type deduction.
-   For example, ``std::array`` needs both the type and the array size.
-   Our ``multiply`` example needs both the type and the operand ``N``.
-   While it might be possible to deduce the type based on the argument provided,
-   there is no way for the compiler to 'deduce' the second operand ``N``.
+   Templates that include non-type template parameters need values for those
+   parameters.
+   The values may be written explicitly or deduced from function arguments.
+   In this ``multiply`` example, the type ``T`` can be deduced from the
+   argument, but there is no argument that tells the compiler which value to use
+   for ``N``.
 
    .. code-block:: cpp
 
@@ -363,6 +362,4 @@ is a required template parameter:
      - :lang:`Template parameters <template_parameters>`
      - :lang:`Implicit type conversion <implicit_conversion>` and
        :lang:`arithmetic conversions <operator_arithmetic#Conversions>`
-     - The utlity function :utility:`std::hash <hash>`
-
-
+     - The utility function :utility:`std::hash <hash>`

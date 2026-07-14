@@ -17,16 +17,26 @@ Problem:
 
 - You created a template, but the return type needs to be a type other than one of the template parameters.
 
-You'd like to be able to use auto to simply:
+You'd like to be able to use ``auto`` to simply write:
 
 .. code-block:: cpp
 
    template<class T, class U>
    auto mystery_function(T t, U u);
 
-Starting in C++17, this syntax works much more often than in previous version of the standard,
-because the rules for deducing types have expanded.
-Earlier version of C++ need to resort to a **trailing return type**.
+In modern C++, this syntax works well when the compiler can deduce one return
+type from the function body.
+For example:
+
+.. code-block:: cpp
+
+   template <typename T, typename U>
+   auto add(const T& lhs, const U& rhs) {
+     return lhs + rhs;
+   }
+
+However, there are still cases where writing the return type explicitly is
+clearer or necessary.
 
 Even in C++17, depending on what a function does, return type deduction may not always work.
 If it is possible for our function to return different types,
@@ -56,7 +66,7 @@ Keyword: decltype
 Added in C++11,
 the ``decltype`` type specifier yields the **type** of a specified expression, object, or literal value. 
 We use :lang:`decltype` when we want to define a variable based on the result of an expression,
-but we don't want to use the expression to initialize the variables value.
+but we don't want to use the expression to initialize the variable's value.
 For example:
 
 .. code-block:: cpp
@@ -75,7 +85,7 @@ Similarly, there is a symmetry between the :lang:`auto` specifier and :lang:`dec
 Trailing return type syntax
 ---------------------------
 
-Since the :lang:`auto` specifier and :lang:`decltype` are complimentary operators,
+Since the :lang:`auto` specifier and :lang:`decltype` are complementary operators,
 they work well together to help write generic functions that avoid
 committing to a specific type.
 
@@ -106,16 +116,16 @@ before the function body.
 .. code-block:: cpp
 
    template<typename T, typename U>
-   auto add(const& T rhs, const& U lhs) -> decltype(rhs + lhs)
+   auto add(const T& lhs, const U& rhs) -> decltype(lhs + rhs)
    {
-       return rhs+lhs;
+       return lhs + rhs;
    }
 
 Calling this add function like so:
 
 .. code-block:: cpp
 
-   auto val = numeric_limits<unsigned short>::max(); // typically 65,536
+   auto val = std::numeric_limits<unsigned short>::max(); // typically 65,536
    auto sum = add(val, val);
 
 Even though a variable of type ``unsigned short`` was used in both parameters,
@@ -127,18 +137,19 @@ Instead, the compiler used ``decltype`` to determine in this case,
 the return type should be ``int``.
 
 Do trailing return types seem like a lot of trouble?
-Prior to C++11, when trailing return type syntax was introduced,
-you could use :lang:`decltype` and :utility:`declval` instead:
+Without a trailing return type, you can use :lang:`decltype` and
+:utility:`declval` to describe the return type before the parameter names
+exist:
 
 .. code-block:: cpp
 
    template<typename T, typename U>
      decltype(std::declval<T>() + std::declval<U>()) 
-     add(const& T lhs, const& U rhs) {
+     add(const T& lhs, const U& rhs) {
        return lhs + rhs;
      }
 
-This get unreadable fairly quickly.
+This gets unreadable fairly quickly.
 For this reason, trailing return types are preferred.
 
 -----
@@ -149,5 +160,3 @@ For this reason, trailing return types are preferred.
    - From: cppreference.com: 
      The :lang:`auto specifier <auto>` and 
      :lang:`decltype specifier <decltype>`. 
-
-

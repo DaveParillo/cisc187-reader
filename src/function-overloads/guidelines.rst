@@ -205,7 +205,7 @@ Your future co-workers will thank you.
 
 .. note::
 
-   Also be aware the STL provides functions
+   Also be aware the C++ standard library provides functions
    :algorithm:`std::min <min>` and
    :algorithm:`std::max <max>`,
    which eliminate the need for our ``minimum`` and ``maximum`` entirely

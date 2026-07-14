@@ -36,6 +36,13 @@ so you may only want to overload ``==`` and ``!=`` for a complex number.
 If you overload ``==`` you should always overload ``!=``.
 If you overload ``==`` and ``<``, then you should overload all 6 relational operators.
 
+.. cpp:: 20
+
+   C++20 can generate several comparison operators from ``operator==`` and
+   ``operator<=>``.
+   The three-way comparison operator is introduced later in
+   :ref:`the discussion of class operator overloads <spaceship-operator>`.
+
 
 Relational operators
 --------------------
@@ -50,13 +57,13 @@ The general signature for these non-member functions is:
 
    // In this example, T is a placeholder for your type.
    // Note that this is not a function template.
-   inline bool operator<(const T& lhs, const T& rhs)
+   bool operator<(const T& lhs, const T& rhs)
    {
       // compare the data in left-hand side and right-hand side objects
       // for less than
    }
    
-   inline bool operator==(const T& lhs, const T& rhs)
+   bool operator==(const T& lhs, const T& rhs)
    {
       // compare the data in left-hand side and right-hand side objects
       // for equality
@@ -75,7 +82,7 @@ lexicographical comparison provided by :utility:`std::tie <tuple/tie>`:
        double weight;
    };
 
-   inline bool operator<(const Record& lhs, const Record& rhs)
+   bool operator<(const Record& lhs, const Record& rhs)
    {
       // parameters passed to each tie must be in the same order
       // or this will always return false
@@ -95,12 +102,12 @@ in terms of ``<`` and ``==``.
 .. code-block:: cpp
 
    // note the operands swapped inside the function body
-   inline bool operator> (const T& lhs, const T& rhs){ return   rhs < lhs; }
+   bool operator> (const T& lhs, const T& rhs){ return   rhs < lhs; }
 
-   inline bool operator<=(const T& lhs, const T& rhs){ return !(lhs > rhs); }
-   inline bool operator>=(const T& lhs, const T& rhs){ return !(lhs < rhs); }
+   bool operator<=(const T& lhs, const T& rhs){ return !(lhs > rhs); }
+   bool operator>=(const T& lhs, const T& rhs){ return !(lhs < rhs); }
 
-   inline bool operator!=(const T& lhs, const T& rhs){ return !(lhs == rhs); }
+   bool operator!=(const T& lhs, const T& rhs){ return !(lhs == rhs); }
 
 .. note::
 
@@ -108,7 +115,35 @@ in terms of ``<`` and ``==``.
    each relational overload.
 
    This is a common source of error and can lead to bugs that are very difficult
-   to track down.
+   to track down. For example:
+
+   .. tb-code:: cpp
+      :show-tutor:
+
+      #include <iostream>
+      #include <string>
+
+      struct record {
+        std::string name;
+        int id;
+      };
+
+      bool operator==(const record& lhs, const record& rhs) {
+        return lhs.name == rhs.name && lhs.id == rhs.id;
+      }
+
+      bool operator!=(const record& lhs, const record& rhs) {
+        return lhs.name == rhs.name || lhs.id != rhs.id;
+      }
+
+      int main() {
+        record a {"Ada", 1};
+        record b {"Ada", 1};
+
+        std::cout << std::boolalpha;
+        std::cout << "a == b: " << (a == b) << '\n';
+        std::cout << "a != b: " << (a != b) << '\n';
+      }
 
 
 Insertion and extraction overloads

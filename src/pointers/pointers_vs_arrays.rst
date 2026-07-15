@@ -36,7 +36,8 @@ The pointer is constructed to point to the first element of the array.
 This conversion happens whenever arrays are used in an expression where
 arrays are not expected, but pointers are:
 
-.. code-block:: cpp
+.. tb-code::
+   :show-tutor:
 
    #include <iostream>
      
@@ -63,7 +64,9 @@ arrays are not expected, but pointers are:
 
 This behavior applies to function calling as well:
 
-.. code-block:: cpp
+.. tb-code::
+   :show-tutor:
+
 
    #include <iostream>
      
@@ -219,6 +222,9 @@ From the standard:
 
    .. tb-code:: cpp
       :name: ac-array-index-1
+      :show-tutor:
+
+
 
       #include <iostream>
       using std::cout;
@@ -257,6 +263,7 @@ the C string as a loop exit condition:
 
 .. tb-code:: c
    :name: ac-array-c-copy-idiom
+   :show-tutor:
 
    #include <stdio.h>
 

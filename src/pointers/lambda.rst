@@ -147,7 +147,7 @@ The return type is also optional.
 A lambda will ordinarily be able to deduce the correct type from the return
 statement, so an explicit return is not needed.
 
-.. code-block:: cpp
+.. tb-code::
 
    #include <algorithm>
    #include <iostream>
@@ -191,7 +191,8 @@ statement, so an explicit return is not needed.
 
 .. admonition:: Try this!
     
-    Rewrite the rot13/rot47 program to use lambdas to perform the rotation instead of traditional function calls
+   Rewrite the Caesar cipher program to use lambdas to perform the rotation
+   instead of traditional function calls
 
 
 Assigning a lambda to a variable
@@ -220,21 +221,25 @@ Note the use of ``auto`` when defining the type of a lambda.
 In the case of a lambda, auto is not an option.
 If auto was not used, what type would we supply in its place?
 
-.. code-block:: cpp
-   :emphasize-lines: 7-8, 11
+.. tb-code:: cpp
+   :emphasize-lines: 11-12, 15
    :linenos:
 
+   #include <algorithm>
+   #include <iostream>
+   #include <vector>
+
    int main () {
-     vector<int> numbers { 1, 2, 3, 4, 5, 10, 15, 20, 25,
-                          35, 45, 50 };
+     std::vector<int> numbers { 1, 2, 3, 4, 5, 10, 15, 20, 25,
+                               35, 45, 50 };
      const int* begin = numbers.data();
      const auto end = begin + numbers.size();
 
-     auto gt_5 = count_if(begin, end, 
+     auto gt_5 = std::count_if(begin, end, 
                    [](int x) { return (x > 5); });
 
-     cout << "The # of elements > 5 is: "
-          << gt_5 << ".\n";
+     std::cout << "The # of elements > 5 is: "
+               << gt_5 << ".\n";
    }
 
 Actually, there is no way to know.
@@ -279,19 +284,21 @@ This is true for both lambdas and normal functions.
 In the following function, we want to return a type
 other than what would normally be returned by the operations.
 
-.. code-block:: cpp
+.. tb-code::
+
+   #include <iostream>
 
    int main () {
-     cout << "The return value of this odd function is: "
-             [](double x, double y) -> int { 
-               if (x > 5) {
-                 return x + y; 
-               } else if (y < 2) {
-                 return x - y; 
-               } else {
-                 return x * y;
-               }
-             } (3.14159, 2.71828) << ".\n";
+     std::cout << "The return value of this odd function is: "
+               <<  [](double x, double y) -> int { 
+                     if (x > 5) {
+                       return x + y; 
+                     } else if (y < 2) {
+                       return x - y; 
+                     } else {
+                       return x * y;
+                     }
+                   } (3.14159, 2.71828) << ".\n";
    }
    
 Note in the previous example we defined a lambda taking two parameters and then

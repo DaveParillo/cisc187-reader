@@ -30,6 +30,7 @@ It returns a pointer to an (optionally) initialized object of its type:
 
 .. tb-code:: cpp
    :show-tutor:
+   :compileargs: ['-std=c++20', '-Wall', '-Wno-unused-variable']
 
    struct point {
         double x = 0;  // member values is a C++11 feature
@@ -61,7 +62,10 @@ When finished with the free-store memory,
 we return it to the pool of available memory using 
 the :memory:`operator delete <new/operator_delete>`:
 
-.. code-block:: cpp
+.. tb-code:: cpp
+   :show-tutor:
+   :compileargs: ['-std=c++20', '-Wall', '-Wno-unused-variable']
+
 
    struct point {
         double x = 0;  // member values is a C++11 feature
@@ -185,7 +189,10 @@ The basic syntax is:
 In each example, both ``p1`` and ``p2`` are unique pointers that 'own' an ``int*``.
 Our earlier examples can be changed to:
 
-.. code-block:: cpp
+.. tb-code::
+   :show-tutor:
+   :compileargs: ['-std=c++20', '-Wall', '-Wno-unused-variable']
+
 
    #include <memory>
    struct point {

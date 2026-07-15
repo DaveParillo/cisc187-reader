@@ -16,7 +16,7 @@ Each new pointer just adds another to the chain of pointers.
 The language does not impose a strict limit.
 The only limit is your sanity...
 
-.. tb-code:: cpp
+.. tb-code::
    :show-tutor:
 
    #include <iostream>
@@ -43,7 +43,9 @@ of keeping clear in our minds the difference between
 When dealing with pointers to pointers, we have to manage
 the pointer, what it points to, and *what the pointer that it points to points to*.
 
-.. code-block:: cpp
+.. tb-code::
+   :show-tutor:
+
 
    #include <iostream>
    #include <string>

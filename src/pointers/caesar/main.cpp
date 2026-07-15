@@ -1,18 +1,18 @@
 
-#include "caesar.h"
-#include "help.h"
-
 #include <cstring>    // strcmp
 #include <iostream>
 #include <string>
 
+#include "caesar.h"
+#include "help.h"
+
 int main(int argc, char** argv) {
     // Define a default a 'character handler'
-    // the variable 'handler' provides an option to 
+    // the variable 'handler' provides an option to
     // change the encryption function at runtime
     transform handler = rot13;
 
-    // loop on command line argumenats
+    // loop on command line arguments
     // call help and exit or
     // use of the 2 transforms
     // or reject the input and exit

@@ -111,7 +111,8 @@ To initialize a pointer,
 you assign it the address of something that already exists.
 If you already have an object, you can use the **address of operator** ``&``:
 
-.. code-block:: cpp
+.. tb-code::
+   :show-tutor:
 
    int main() {
      int n = 5; // a stack int
@@ -124,8 +125,9 @@ You can declare and initialize in a single step.
 Once you have an initialized pointer, use the **dereference operator** ``*``
 to get the value stored in the pointer, or to assign a new value.
 
+.. tb-code::
+   :show-tutor:
 
-.. code-block:: cpp
 
    int main() {
       int x  = 10;
@@ -142,7 +144,8 @@ to get the value stored in the pointer, or to assign a new value.
 
 The equivalent example for references is:
 
-.. code-block:: cpp
+.. tb-code::
+   :show-tutor:
 
    int main() {
       int y  = 10;

@@ -52,43 +52,6 @@ For example:
      cout << add (31.4, double(10)) << '\n';
    }
 
-Overload resolution can be surprising when an overload set mixes integral
-types and pointer types.
-The literal ``0`` is an integer, even though it has also been used as a null
-pointer constant in older C and C++ code.
-
-.. cpp:: 11
-
-   Modern C++ provides ``nullptr`` for null pointer values.
-   Unlike ``0`` and ``NULL``, ``nullptr`` has its own type,
-   ``std::nullptr_t``, and selects pointer overloads.
-   The macro ``NULL`` is not a pointer type but its name implies it is one.
-   It is usually defined as ``0`` or ``0LL``, but the definition is
-   implementation-defined and may select an integral overload or be ambiguous.
-
-   .. tb-code:: cpp
-      :name: ac-nullptr-overload
-
-      #include <iostream>
-
-      void f(int) {
-        std::cout << "f(int)\n";
-      }
-
-      void f(void*) {
-        std::cout << "f(void*)\n";
-      }
-
-      int main() {
-        // Avoid this kind of overload set when possible.
-        f(0);
-        // If this compiles it  is easy for callers to choose the wrong
-        // overload by accident.
-        // f(NULL);
-        f(nullptr);
-      }
-
-
 Function overloads are a huge advantage over C
 where (nearly) every function is global
 and every function name must be unique.

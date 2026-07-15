@@ -198,7 +198,7 @@ standard input
 
       .. literalinclude:: caesar/help.h
          :language: cpp
-
+         :name: help.h
 
    .. tb-tab:: ceasar.h
 
@@ -215,6 +215,7 @@ standard input
 
       .. literalinclude:: caesar/caesar.h
          :language: cpp
+         :name: caesar.h
 
       The :lang:`using declaration <type_alias>`
       exists only to simplify our use of our function pointer.
@@ -234,6 +235,14 @@ standard input
 
       .. literalinclude:: caesar/caesar.cpp
          :language: cpp
+         :name: caesar.cpp
+
+      .. container:: d-none
+
+         .. literalinclude:: caesar/caesar.cpp
+            :language: cpp
+            :name: caesar-runtime.cpp
+            :start-after: #include "caesar.h"
 
 
    .. tb-tab:: main.cpp
@@ -246,8 +255,46 @@ standard input
 
       The difference is a common source of confusion.
 
-      .. literalinclude:: caesar/main.cpp
-         :language: cpp
+      .. tb-code:: cpp
+         :name: caesar-main-run
+         :caption: Caesar cipher command line program
+         :run-before: help.h, caesar.h, caesar-runtime.cpp
+         :runargs: -f
+         :stdin: Hello, CISC 187!
+
+         #include <cstring>    // strcmp
+         #include <iostream>
+         #include <string>
+
+         int main(int argc, char** argv) {
+             // Define a default a 'character handler'
+             // the variable 'handler' provides an option to 
+             // change the encryption function at runtime
+             transform handler = rot13;
+
+             // loop on command line argumenats
+             // call help and exit or
+             // use of the 2 transforms
+             // or reject the input and exit
+             for (int i=1; i < argc; ++i) {
+                 if (!std::strcmp(argv[i], "-h")) {
+                     help(*argv);
+                 } else if (!std::strcmp(argv[i], "-l")) {
+                     handler = rot13;
+                 } else if (!std::strcmp(argv[i], "-f")) {
+                     handler = rot47;
+                 } else {
+                     usage(*argv);
+                     exit(-1);
+                 }
+             }
+
+             std::string message;
+             while (getline(std::cin, message)) {
+                 render_text(message, handler);
+             }
+             return 0;
+         }
 
       Note, we did not use the function call operator, ``operator()`` when 
       assigning values to ``handler``.  
@@ -278,4 +325,3 @@ standard input
        :cstring:`islower`. 
      - :cstring:`strcmp`
      - :string:`getline`
-

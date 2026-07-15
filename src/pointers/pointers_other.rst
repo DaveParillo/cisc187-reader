@@ -62,61 +62,69 @@ Typically the value 0 was used:
 
 This definition carries over from standard C.
 
-Using the value ``long long 0`` as an indicator for a null pointer created
-several problems over the years in C++ programs.
+.. cpp:: 11
 
-Null pointers are the same type as regular integral types.
+   Overload resolution can be surprising when an overload set mixes integral
+   types and pointer types.
+   The literal ``0`` is an integer, even though it has also been used as a null
+   pointer constant in older C and C++ code.
 
-While it is unlikely that the number 0 could ever be confused with a valid address,
-it creates problems regular old C never had to handle.
-Specifically, C++ introduces function overloads,
-which exposes the weakness in using an integral type for both
-numbers and the concept ``NULL``.
-For example:
+   Using the value ``long long 0`` as an indicator for a null pointer created
+   several problems over the years in C++ programs.
 
-.. code-block:: cpp
+   Null pointers are the same type as regular integral types.
 
-   #include <cstdio>
-   #define NULL 0LL
+   While it is unlikely that the number 0 could ever be confused with a valid address,
+   it creates problems regular old C never had to handle.
+   Specifically, C++ introduces function overloads,
+   which exposes the weakness in using an integral type for both
+   numbers and the concept ``NULL``.
+   For example:
 
-   // Three overloads of f
-   void f(int)   { puts("f(int)"); }
-   void f(bool)  { puts("f(bool)"); }
-   void f(void*) { puts("f(void*)"); }
- 
-   int main() {
-     f(0);     // calls f(int) overload, not f(void*)
- 
-     f(NULL);  // might not compile, typically calls
-               // f(int) overload.  
-               // Never calls f(void*)
-   }
-   
-The overload with ``f(NULL)`` is never called,
-because ``NULL`` is not a pointer type.
+   .. tb-code::
 
-C++ resolves this by creating a new type just to hold the null pointer.
-The type is ``nullptr_t`` and the variable of that type is ``nullptr``.
+      #include <cstdio>
+      #undef NULL
+      #define NULL 0LL
 
-.. code-block:: cpp
+      // Three overloads of f
+      void f(int)   { puts("f(int)"); }
+      void f(bool)  { puts("f(bool)"); }
+      void f(void*) { puts("f(void*)"); }
+    
+      int main() {
+        f(0);     // calls f(int) overload, not f(void*)
+    
+        f(NULL);  // might not compile, might call
+                  // f(int) overload.  
+                  // Never calls f(void*)
+      }
+      
+   The overload with ``f(NULL)`` is never called,
+   because ``NULL`` is not a pointer type.
 
-   #include <cstdio>
+   C++ resolves this by creating a new type just to hold the null pointer.
+   The type is ``nullptr_t`` and the variable of that type is ``nullptr``.
 
-   // Three overloads of f
-   void f(int)   { puts("f(int)"); }
-   void f(bool)  { puts("f(bool)"); }
-   void f(void*) { puts("f(void*)"); }
- 
-   int main() {
-     f(0);        // calls f(int) overload as before
- 
-     f(nullptr);  // calls f(void*) overload
-   }
+   .. tb-code::
 
-The variable ``nullptr`` is a distinct type.
-It is not a pointer type, pointer to member, integral type, size type, reference type,
-or a member of any type group.
-The ``nullptr`` **does** implicitly convert to a pointer type.
+      #include <cstdio>
+
+      // Three overloads of f
+      void f(int)   { puts("f(int)"); }
+      void f(bool)  { puts("f(bool)"); }
+      void f(void*) { puts("f(void*)"); }
+    
+      int main() {
+        f(0);        // calls f(int) overload as before
+    
+        f(nullptr);  // calls f(void*) overload
+      }
+
+   The variable ``nullptr`` is a distinct type.
+   It is not a pointer type, pointer to member, integral type, size type, reference type,
+   or a member of any type group.
+   The ``nullptr`` **does** implicitly convert to a pointer type.
 
 In short, using ``nullptr`` improves code clarity and correctness.
 Using ``nullptr`` improves code clarity, especially when auto variables are involved.

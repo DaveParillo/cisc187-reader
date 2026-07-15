@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <cctype>      // isalpha, islower
-#include <string>
+#include <string_view>
 
 // TODO: add locale and extend non english alphabets
 
@@ -23,11 +23,10 @@ char rot47(const unsigned char c) {
     return (c - start + 47) % 94 + start;
 }
 
-void render_text(std::string message, transform handler) {
+void render_text(std::string_view message, transform handler) {
     for (const auto& c: message) {  // extract each char from the string
         std::cout << handler(c);    // print transformed character
     }
     std::cout << std::endl;         // print newline and flush stream
 }
-
 

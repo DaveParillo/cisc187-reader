@@ -1,5 +1,4 @@
-#pragma once
-
+#include <cstdlib>
 #include <iostream>
 
 static void usage(const char* name) {
@@ -26,4 +25,3 @@ static void help (const char* name) {
         << "Running on cipher text creates plain text\n\n";
     exit(0);
 }
-

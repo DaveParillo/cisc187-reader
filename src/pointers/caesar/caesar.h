@@ -1,5 +1,3 @@
-#pragma once
-
 //
 // Function to perform simple character rotations through an alphabet.
 // 
@@ -7,7 +5,7 @@
 // These functions are easily decrypted, even using pencil and paper.
 //
 
-#include <string>
+#include <string_view>
 
 // A pointer to the function that will transform a character
 using transform = char (*)(const unsigned char c);
@@ -28,5 +26,4 @@ char rot47(const unsigned char c);
 
 // Use a 'character handler' (rot13 or rot47) to
 // transform a message 1 character at a time.
-void render_text(std::string message, transform handler);
-
+void render_text(std::string_view message, transform handler);

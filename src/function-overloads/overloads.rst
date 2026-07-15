@@ -31,13 +31,11 @@ For example:
    using std::cout;
 
    // add two ints
-   constexpr
-   int add (int a, int b) {
+   constexpr int add (int a, int b) {
      return a+b;
    }
    // add two doubles
-   constexpr
-   double add (double a, double b) {
+   constexpr double add (double a, double b) {
      return a+b;
    }
 
@@ -53,6 +51,42 @@ For example:
      // explicit conversion is OK
      cout << add (31.4, double(10)) << '\n';
    }
+
+Overload resolution can be surprising when an overload set mixes integral
+types and pointer types.
+The literal ``0`` is an integer, even though it has also been used as a null
+pointer constant in older C and C++ code.
+
+.. cpp:: 11
+
+   Modern C++ provides ``nullptr`` for null pointer values.
+   Unlike ``0`` and ``NULL``, ``nullptr`` has its own type,
+   ``std::nullptr_t``, and selects pointer overloads.
+   The macro ``NULL`` is not a pointer type but its name implies it is one.
+   It is usually defined as ``0`` or ``0LL``, but the definition is
+   implementation-defined and may select an integral overload or be ambiguous.
+
+   .. tb-code:: cpp
+      :name: ac-nullptr-overload
+
+      #include <iostream>
+
+      void f(int) {
+        std::cout << "f(int)\n";
+      }
+
+      void f(void*) {
+        std::cout << "f(void*)\n";
+      }
+
+      int main() {
+        // Avoid this kind of overload set when possible.
+        f(0);
+        // If this compiles it  is easy for callers to choose the wrong
+        // overload by accident.
+        // f(NULL);
+        f(nullptr);
+      }
 
 
 Function overloads are a huge advantage over C
@@ -87,22 +121,19 @@ Another example: a family of functions to compute volume.
    #include <numbers>
 
    // volume of a cube
-   constexpr
-   double volume (const double a) {
+   constexpr double volume (const double a) {
      return a * a * a;
    }
 
    // volume of a cylinder
-   constexpr
-   double volume (const double r, const double h) {
+   constexpr double volume (const double r, const double h) {
      // starting with C++20, numeric constants are preferred over
      // macros like `M_PI`
      return std::numbers::pi * r * r * h;
    }
 
    // volume of a cuboid
-   constexpr
-   double volume (const double a, const double b, const double c) {
+   constexpr double volume (const double a, const double b, const double c) {
      return a * b * c;
    }
 
@@ -171,4 +202,6 @@ It is almost certain someone will invoke the wrong version occasionally.
 
   - From: cppreference.com: 
     :lang:`overload resolution <overload_resolution>` 
-
+  - Item 08: *Prefer nullptr to 0 and NULL*.
+    'Effective Modern C++', by Scott Meyers (O’Reilly). 
+    Copyright 2015 Scott Meyers, 978-1-491-90399-5.

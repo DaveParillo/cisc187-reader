@@ -57,13 +57,13 @@ The general signature for these non-member functions is:
 
    // In this example, T is a placeholder for your type.
    // Note that this is not a function template.
-   bool operator<(const T& lhs, const T& rhs)
+   constexpr bool operator<(const T& lhs, const T& rhs)
    {
       // compare the data in left-hand side and right-hand side objects
       // for less than
    }
    
-   bool operator==(const T& lhs, const T& rhs)
+   constexpr bool operator==(const T& lhs, const T& rhs)
    {
       // compare the data in left-hand side and right-hand side objects
       // for equality
@@ -102,12 +102,12 @@ in terms of ``<`` and ``==``.
 .. code-block:: cpp
 
    // note the operands swapped inside the function body
-   bool operator> (const T& lhs, const T& rhs){ return   rhs < lhs; }
+   constexpr bool operator> (const T& lhs, const T& rhs){ return   rhs < lhs; }
 
-   bool operator<=(const T& lhs, const T& rhs){ return !(lhs > rhs); }
-   bool operator>=(const T& lhs, const T& rhs){ return !(lhs < rhs); }
+   constexpr bool operator<=(const T& lhs, const T& rhs){ return !(lhs > rhs); }
+   constexpr bool operator>=(const T& lhs, const T& rhs){ return !(lhs < rhs); }
 
-   bool operator!=(const T& lhs, const T& rhs){ return !(lhs == rhs); }
+   constexpr bool operator!=(const T& lhs, const T& rhs){ return !(lhs == rhs); }
 
 .. note::
 

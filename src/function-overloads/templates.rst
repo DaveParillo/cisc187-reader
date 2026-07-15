@@ -33,9 +33,9 @@ even if it's only to call another function.
 
       .. code-block:: cpp
 
-         int    sum (int a, int b);
+         constexpr int    sum (int a, int b);
 
-         double sum (double a, double b);
+         constexpr double sum (double a, double b);
 
    .. tb-tab:: Run It
 
@@ -46,13 +46,11 @@ even if it's only to call another function.
 
          #include <iostream>
 
-         constexpr
-         int sum (int a, int b) {
+         constexpr int sum (int a, int b) {
            return a+b;
          }
 
-         constexpr
-         double sum (double a, double b) {
+         constexpr double sum (double a, double b) {
            return a+b;
          }
 
@@ -111,7 +109,7 @@ For example:
       .. code-block:: cpp
 
          template <class T> 
-         T sum (T a, T b) {  
+         constexpr T sum (T a, T b) {  
            return a+b;
          }
 
@@ -123,8 +121,7 @@ For example:
          #include <iostream>
 
          template <class T> 
-         constexpr
-         T sum (T a, T b) {  
+         constexpr T sum (T a, T b) {  
            return a+b;
          }
 
@@ -179,7 +176,7 @@ take care when mixing types when two or more parameters are involved:
    #include <iostream>
 
    template <class T>
-   T sum (const T a, const T b) {
+   constexpr T sum (const T a, const T b) {
      return a+b;
    }
 
@@ -235,7 +232,7 @@ with each parameter potentially having a different type.
    #include <iostream>
 
    template <typename T1, typename T2>
-   bool are_equal (const T1& a, const T2& b) {
+   constexpr bool are_equal (const T1& a, const T2& b) {
      return (a==b);
    }
 
@@ -253,7 +250,7 @@ in the function declaration.
 .. code-block:: cpp
 
    template <typename T1, typename T2>
-     T2 foo (const T1& x, const T2& y) {
+     constexpr T2 foo (const T1& x, const T2& y) {
        T1 tmp_x = x;
        T2 tmp_y = y < 1? 1: y*y;
        while (tmp_y < tmp_x) {
@@ -287,7 +284,7 @@ Non-type template parameters are constant expressions inside the template body.
       .. code-block:: cpp
 
         template <class T, int N> 
-        T multiply (const T& val) {
+        constexpr T multiply (const T& val) {
           return val * N;
         }
 
@@ -307,8 +304,7 @@ Non-type template parameters are constant expressions inside the template body.
 
          // it is possible to forward declare a template
          template <class T, int N> 
-         constexpr
-         T multiply (const T& val);
+         constexpr T multiply (const T& val);
 
          int main() {
            std::cout << multiply<double,2>(3.14159) << '\n';
@@ -318,7 +314,7 @@ Non-type template parameters are constant expressions inside the template body.
          // note the definition includes ALL of the declaration
          // including the template information
          template <class T, int N> 
-         T multiply (const T& val) {
+         constexpr T multiply (const T& val) {
            return val * N;
          }
 
@@ -343,7 +339,7 @@ is a required template parameter:
    .. code-block:: cpp
 
      template <class T, int N> 
-     T multiply (const T& val) {
+     constexpr T multiply (const T& val) {
        return val * N;
      }
 

@@ -54,7 +54,7 @@ types such as ``int`` and ``long``, but not by ``double`` or ``std::string``.
    #include <iostream>
 
    template <std::integral T, int N>
-   T multiply(T val) {
+   constexpr T multiply(T val) {
      return val * N;
    }
 
@@ -112,7 +112,7 @@ The ``requires`` keyword can be used after a template parameter list:
 
    template <typename T>
      requires std::floating_point<T>
-   T average(T a, T b) {
+   constexpr T average(T a, T b) {
      return (a + b) / 2;
    }
 
@@ -122,7 +122,7 @@ It can also be used with an abbreviated function template:
 
    #include <concepts>
 
-   auto twice(std::integral auto value) {
+   constexpr auto twice(std::integral auto value) {
      return value * 2;
    }
 

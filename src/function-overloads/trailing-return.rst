@@ -30,8 +30,18 @@ For example:
 
 .. code-block:: cpp
 
+   constexpr auto square(int value) {
+     return value * value;
+   }
+
+The compiler sees that ``value * value`` produces an ``int``, so the function
+return type is deduced as ``int``.
+The same idea works for many simple function templates:
+
+.. code-block:: cpp
+
    template <typename T, typename U>
-   auto add(const T& lhs, const U& rhs) {
+   constexpr auto add(const T& lhs, const U& rhs) {
      return lhs + rhs;
    }
 
@@ -106,7 +116,7 @@ before the function body.
 
 .. code-block:: cpp
 
-   auto f(const bool val) -> float
+   constexpr auto f(const bool val) -> float
    {
        if (val) return 123; // return widens int to float
        else return 3.14f;   // return type float
@@ -116,7 +126,7 @@ before the function body.
 .. code-block:: cpp
 
    template<typename T, typename U>
-   auto add(const T& lhs, const U& rhs) -> decltype(lhs + rhs)
+   constexpr auto add(const T& lhs, const U& rhs) -> decltype(lhs + rhs)
    {
        return lhs + rhs;
    }
@@ -144,7 +154,7 @@ exist:
 .. code-block:: cpp
 
    template<typename T, typename U>
-     decltype(std::declval<T>() + std::declval<U>()) 
+     constexpr decltype(std::declval<T>() + std::declval<U>()) 
      add(const T& lhs, const U& rhs) {
        return lhs + rhs;
      }

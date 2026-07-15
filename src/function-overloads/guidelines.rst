@@ -175,26 +175,26 @@ Two functions would be far simpler:
 
    // return the maximum of x and y
    // if x == y, return y
-   int maximum (int x, int y) {
+   constexpr int maximum (int x, int y) {
      return (x < y) ? y : x;
    }
 
    // return the minimum of x and y
    // if x == y, return y
-   int minimum (int x, int y) {
+   constexpr int minimum (int x, int y) {
      return (y < x) ? y : x;
    }
 
-   int computeMinOrMax(int x, int y, bool getMax) {
-       if(getMax) {
+   constexpr int compute_min_or_max(int x, int y, bool get_max) {
+       if(get_max) {
          return maximum(x, y);
        }
        return minimum(x, y);
    }
 
    // or more compactly:
-   int computeMinOrMax(int x, int y, bool getMax) {
-     return getMax ? maximum(x,y) : minimum(x,y);
+   constexpr int compute_min_or_max(int x, int y, bool get_max) {
+     return get_max ? maximum(x,y) : minimum(x,y);
    }
 
    
@@ -217,7 +217,7 @@ Your future co-workers will thank you.
 
       #include <algorithm>
 
-      int computeMinOrMax(int x, int y, bool getMax) {
+      constexpr int computeMinOrMax(int x, int y, bool getMax) {
         return getMax ? std::max(x,y) : std::min(x,y);
       }
 
@@ -241,19 +241,87 @@ A more realistic example might help.
       Unfortunately, it is full of issues and this is the kind of program structure
       that will **not** help you when trying to create your own complicated projects.
 
-      Open this in Replit and run ``./main`` in the console tab.
-      You may need to type ``make main`` first.
+      As an interactive program it does not run in the textbook.
+      Copy this program to your development environment and compile it locally.
 
-      .. raw:: html
+      .. code-block:: cpp
 
-         <iframe height="400px" width="100%" 
-          src="https://repl.it/@DaveParillo/NumberGuessingFunctionRefactorOriginal?lite=true" 
-          scrolling="no" 
-          frameborder="no" 
-          allowtransparency="true" 
-          allowfullscreen="true" 
-          sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+         #include <iostream>
+         #include <cstdlib>
+         #include <ctime>
 
+         int main(void) {
+            srand(time(NULL)); // To not have the same numbers over and over again.
+
+            while(true) { // Main loop.
+               // Initialize and allocate.
+               int number = rand() % 99 + 2; // System number is stored in here.
+               int guess; // User guess is stored in here.
+               int tries = 0; // Number of tries is stored here.
+               char answer; // User answer to question is stored here.
+
+               while(true) { // Get user number loop.
+                  // Get number.
+                  std::cout << "Enter a number between 1 and 100 ("
+                            << 20 - tries << " tries left): ";
+                  std::cin >> guess;
+                  std::cin.ignore();
+
+                  // Check is tries are taken up.
+                  if(tries >= 20) {
+                     break;
+                  }
+
+                  // Check number.
+                  if(guess > number) {
+                     std::cout << "Too high! Try again.\n";
+                  } else if(guess < number) {
+                     std::cout << "Too low! Try again.\n";
+                  } else {
+                     break;
+                  }
+
+                  // If not number, increment tries.
+                  tries++;
+               }
+
+               // Check for tries.
+               if(tries >= 20) {
+                  std::cout << "You ran out of tries!\n\n";
+               } else {
+                  // Or, user won.
+                  std::cout << "Congratulations!! " << std::endl;
+                  std::cout << "You got the right number in " << tries << " tries!\n";
+               }
+
+               while(true) { // Loop to ask user is he/she would like to play again.
+                  // Get user response.
+                  std::cout << "Would you like to play again (Y/N)? ";
+                  std::cin >> answer;
+                  std::cin.ignore();
+
+                  // Check if proper response.
+                  if(answer == 'n' || answer == 'N' || answer == 'y' || answer == 'Y') {
+                     break;
+                  } else {
+                     std::cout << "Please enter 'Y' or 'N'...\n";
+                  }
+               }
+
+               // Check user's input and run again or exit;
+               if(answer == 'n' || answer == 'N') {
+                  std::cout << "Thank you for playing!";
+                  break;
+               } else {
+                  std::cout << "\n\n\n";
+               }
+            }
+
+            // Safely exit.
+            std::cout << "\n\nEnter anything to exit. . . ";
+            std::cin.ignore();
+            return 0;
+         }
 
       .. admonition:: Try This!
 
@@ -458,7 +526,7 @@ A more realistic example might help.
 
          // Get number.
 
-			std::cout << "Enter a number between 1 and 100 (" << 20 - tries << " tries left): ";
+         std::cout << "Enter a number between 1 and 100 (" << 20 - tries << " tries left): ";
 
       .. code-block:: cpp
 
@@ -474,19 +542,171 @@ A more realistic example might help.
 
    .. tb-tab:: Final
 
-      Open this in Replit and run ``./main`` in the console tab.
-      You may need to type ``make main`` first.
+      ..  tb-group::
+
+          .. tb-tab:: prompt
+
+             .. code-block:: cpp
+                :name: prompt.h
+
+                #ifndef MESA_CISC187_PROMPT_H
+                #define MESA_CISC187_PROMPT_H
+
+                #include <string>
+
+                // Get text input from the user
+                // The only validation needed is for them to not enter nothing
+                std::string get_entry (const std::string& prompt);
+
+                // get numeric input from the user, within the range (min .. max)
+                int get_value (const std::string& prompt, int min=0, int max=100);
+
+                #endif
+
+             .. code-block:: cpp
+                :name: prompt.cpp
+
+                #include <iostream>
+                #include <limits>
+                #include <string>
+
+                #include "prompt.h"
+
+                using std::cin;
+                using std::cout;
+
+                // get text input from the user.
+                std::string get_entry(const std::string &prompt) {
+                  cout << prompt;
+                  std::string line;
+                  while (getline(cin, line)) {
+                    if (!line.empty())
+                      break;
+                    line.clear();
+                  }
+                  return line;
+                }
+
+                // attempt to read a single int from the user.
+                int get_value(const std::string &prompt, int min, int max) {
+                  std::cout << prompt;
+                  std::string line;
+                  int val = std::numeric_limits<int>::max();
+                  while (getline(std::cin, line)) {
+                    try {
+                      val = std::stoi(line);
+                      if (val < min || val > max) {
+                        std::cerr << "Value out of range. Try again the range (" << min << ',' << max << "): ";
+                      } else {
+                        break;
+                      }
+                    } catch ( ... ) {
+                      std::cerr << "Bad input, try again: ";
+                    }
+                    line.clear();
+                  }
+                  return val;
+                }
+
+          .. tb-tab:: guess
+
+             .. code-block:: cpp
+                :name: guess.h
+
+                #ifndef MESA_CISC187_GUESS_H
+                #define MESA_CISC187_GUESS_H
+
+                // return true if the guessed number matches the goal value
+                // and print a hint towards the goal
+                bool guess_matches (int guess, int goal);
+
+                // play the number guessing game
+                // @param number is the number the user needs to guess
+                void guess(int number);
+
+                #endif
 
 
-      .. raw:: html
+             .. code-block:: cpp
+                :name: guess.cpp
+  
+                #include <cctype>
+                #include <iostream>
+  
+                #include "guess.h"
+                #include "prompt.h"
+ 
+                using std::cout;
+ 
+                // return true if the guessed number matches the goal value
+                // and print a hint towards the goal
+                bool guess_matches (int guess, int goal) {
+                  if(guess > goal) {
+                        cout << "Too high! ";
+                    return false;
+                  }
+                  if(guess < goal) {
+                        cout << "Too low! ";
+                        return false;
+                  }
+                    return true;
+                }
+ 
+                // play the number guessing game
+                // @param number The number the user needs to guess
+                void guess(int number) {
+                  constexpr int maximum_tries = 10;
+                  int tries_remaining = maximum_tries;
+                  do {
+                    if (guess_matches(get_value("Enter a number between 1 and 100: ", 1, 100), number)) {
+                     break;
+                    } else {
+                      --tries_remaining;
+                      cout << "Try again. (" << tries_remaining << " tries left)\n";
+                    }
+                  } while (tries_remaining > 0);
 
-         <iframe height="400px" width="100%" 
-          src="https://repl.it/@DaveParillo/NumberGuessingFunctionRefactor?lite=true" 
-          scrolling="no" 
-          frameborder="no" 
-          allowtransparency="true" 
-          allowfullscreen="true" 
-          sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-modals"></iframe>
+                  if (tries_remaining == 0) {
+                    cout << "You ran out of tries!\n\n";
+                  } else {
+                    cout << "Congratulations!! \n"
+                             << "You got the right number in " << maximum_tries - tries_remaining + 1 << " tries!\n";
+                  }
+                }
+
+
+          .. tb-tab:: main
+
+             .. code-block:: cpp
+                :name: main.cpp
+
+                #include <cctype>
+                #include <iostream>
+                #include <locale>
+                #include <random>
+ 
+                #include "guess.h"
+                #include "prompt.h"
+
+                // Helper to simplify the prompt in main.
+                char play_again();
+ 
+                int main() {
+                  std::random_device r;
+                  std::default_random_engine eng(r()); // make a random number generator
+                  do {
+                    int number = std::uniform_int_distribution<int>{1, 100}(eng);
+                    guess(number);
+                  } while ('y' == play_again());
+                  std::cout << "Thanks for playing!\n";
+                  return 0;
+                }
+ 
+                char play_again() {
+                  return std::tolower(
+                     get_entry("Would you like to play another game? [y/n] ", std::locale()).front());
+                }
+
 
 
       This is **NOT** the only way to improve the original program.

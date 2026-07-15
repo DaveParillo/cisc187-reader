@@ -308,5 +308,7 @@ Any information stored in local variables is lost.
   - `Basic intro to functions <https://www.youtube.com/watch?v=-87KQS-rZCA>`__
     from Buckys C++ Programming Tutorials.
   - From: cppreference.com: 
-    :lang:`function declarations <function>`. 
+
+    - :lang:`function declarations <function>`
+    - The :lang:`nodiscard attribute <attributes/nodiscard>`
   - cppplusplus.com tutorial on `functions <https://cplusplus.com/doc/tutorial/functions/>`_

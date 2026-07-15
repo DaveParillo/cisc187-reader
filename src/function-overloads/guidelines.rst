@@ -149,18 +149,18 @@ So, for example, this is not a good function definition:
    // It's an example of how NOT to write a function.
 
    /** 
-    * If getMax is true, return maximum of x and y,
+    * If get_max is true, return maximum of x and y,
     * else return minimum.
     */
-   int computeMinOrMax(int x, int y, bool getMax) {
+   int compute_min_or_max(int x, int y, bool get_max) {
      if(x > y) {
-       if(getMax) { 
+       if(get_max) { 
          return x;
        } else {
          return y; 
        }
      } else { 
-       if(getMax) { 
+       if(get_max) { 
          return y;
        } else {
           return x; 
@@ -217,8 +217,8 @@ Your future co-workers will thank you.
 
       #include <algorithm>
 
-      constexpr int computeMinOrMax(int x, int y, bool getMax) {
-        return getMax ? std::max(x,y) : std::min(x,y);
+      constexpr int compute_min_or_max(int x, int y, bool get_max) {
+        return get_max ? std::max(x,y) : std::min(x,y);
       }
 
 .. index::
@@ -330,7 +330,7 @@ A more realistic example might help.
 
    .. tb-tab:: Bugs
 
-      This program has a few bugs.
+      This program has several bugs.
 
       Code like:
 
@@ -338,9 +338,20 @@ A more realistic example might help.
 
          if(tries >= 20)
 
-      seems to imply you have 20 tries.
-      The program actually gives you 21.
+      seems to imply the loop stops cleanly after 20 tries.
+      But the check happens after the program prompts for another guess,
+      so the user can be asked for a 21st input when there are ``0`` tries left.
+      That input is ignored because the loop breaks before checking it.
       Off-by-one errors like this are common.
+
+      There is also a range bug in the random number expression:
+
+      .. code-block:: cpp
+
+         int number = rand() % 99 + 2;
+
+      The prompt says the number is between 1 and 100, but this expression
+      only produces values from 2 through 100. The program can never choose 1.
 
 
       This code looks ok, but isn't.
@@ -367,6 +378,16 @@ A more realistic example might help.
       Since guess is uninitialized, if ``cin`` fails to fill ``guess``,
       then ``guess`` will not have any value when the if statement is evaluated,
       which is undefined behavior.
+
+      Another input bug is repeated in several places:
+
+      .. code-block:: cpp
+
+         std::cin.ignore();
+
+      This ignores only one character. If the user types extra characters,
+      such as ``42abc`` or ``yes``, the leftover characters remain in the input
+      stream and can break the next input operation.
 
 
    .. tb-tab:: Issues
@@ -397,7 +418,7 @@ A more realistic example might help.
       .. index:: random_device
       .. index:: uniform_int_distribution
 
-      Next problem is the way the random numbers are created:
+      Another issue is the way the random numbers are created:
 
       .. code-block:: cpp
 
@@ -414,8 +435,7 @@ A more realistic example might help.
       - We have to remember what modulus does.
 
       Yes, not big hurdles, but this is where bugs hide.
-      And for the record, the program asks the user to pick a number
-      from 1 to 100, but this algorithm will never choose 1.
+      The range bug described in the previous tab is an example of that.
 
       The standard library has a superior alternative to ``rand``:
 
@@ -439,7 +459,7 @@ A more realistic example might help.
          }
 
 
-      Because there are no functions, it is necessary to repeat block of code like this:
+      Because there are no functions, it is necessary to repeat blocks of code like this:
 
       .. code-block:: cpp
 
@@ -482,13 +502,13 @@ A more realistic example might help.
       Finally, pet peeves of mine:
 
       This code is mostly redundant.
-      I just prefer not to see code that looks like this, even though it works.
+      Even though the following works, I just prefer alternatives.
 
       .. code-block:: cpp
 
          if(answer == 'n' || answer == 'N' || answer == 'y' || answer == 'Y') {
 
-      I would rather use a function:
+      Consider a function:
 
       .. code-block:: cpp
 
@@ -500,27 +520,7 @@ A more realistic example might help.
          // and use it like this
          while ('y' == play_again());
 
-      instead of:
-
-      .. code-block:: cpp
-
-         while(true) { // Loop to ask user is he/she would like to play again.
-            // Get user response.
-            std::cout << "Would you like to play again (Y/N)? ";
-            std::cin >> answer;
-            std::cin.ignore();
-
-            // Check if proper response.
-            if(answer == 'n' || answer == 'N' || answer == 'y' || answer == 'Y') {
-               break;
-            } else {
-               std::cout << "Please enter \'Y\' or \'N\'...\n";
-            }
-         }
-
-
-
-      Is this comment helping?
+      Useless comment. Are these comments helping?
 
       .. code-block:: cpp
 
@@ -546,6 +546,12 @@ A more realistic example might help.
 
           .. tb-tab:: prompt
 
+             Input is a separate concern from the game rules.
+             Moving prompt handling into its own file gives the rest of the
+             program one place to ask for validated text or numbers.
+             That makes input errors easier to fix because the validation code
+             is no longer scattered through ``main``.
+
              .. code-block:: cpp
                 :name: prompt.h
 
@@ -553,13 +559,14 @@ A more realistic example might help.
                 #define MESA_CISC187_PROMPT_H
 
                 #include <string>
+                #include <string_view>
 
                 // Get text input from the user
                 // The only validation needed is for them to not enter nothing
-                std::string get_entry (const std::string& prompt);
+                std::string get_entry (std::string_view prompt);
 
-                // get numeric input from the user, within the range (min .. max)
-                int get_value (const std::string& prompt, int min=0, int max=100);
+                // get integer input from the user, within the range (min .. max)
+                int get_value (std::string_view prompt, int min=0, int max=100);
 
                 #endif
 
@@ -569,14 +576,15 @@ A more realistic example might help.
                 #include <iostream>
                 #include <limits>
                 #include <string>
+                #include <string_view>
 
                 #include "prompt.h"
 
                 using std::cin;
                 using std::cout;
 
-                // get text input from the user.
-                std::string get_entry(const std::string &prompt) {
+                std::string get_entry (std::string_view prompt)
+                {
                   cout << prompt;
                   std::string line;
                   while (getline(cin, line)) {
@@ -588,7 +596,8 @@ A more realistic example might help.
                 }
 
                 // attempt to read a single int from the user.
-                int get_value(const std::string &prompt, int min, int max) {
+                int get_value (std::string_view prompt, int min, int max)
+                {
                   std::cout << prompt;
                   std::string line;
                   int val = std::numeric_limits<int>::max();
@@ -610,6 +619,13 @@ A more realistic example might help.
 
           .. tb-tab:: guess
 
+             The game logic is also separate from ``main``.
+             The ``guess`` function owns one round of play: ask for guesses,
+             compare them to the target number, count attempts, and report the
+             result. This makes the game easier to read and gives the program a
+             natural place to test or change the rules without touching startup
+             code.
+
              .. code-block:: cpp
                 :name: guess.h
 
@@ -630,7 +646,6 @@ A more realistic example might help.
              .. code-block:: cpp
                 :name: guess.cpp
   
-                #include <cctype>
                 #include <iostream>
   
                 #include "guess.h"
@@ -638,8 +653,6 @@ A more realistic example might help.
  
                 using std::cout;
  
-                // return true if the guessed number matches the goal value
-                // and print a hint towards the goal
                 bool guess_matches (int guess, int goal) {
                   if(guess > goal) {
                         cout << "Too high! ";
@@ -652,35 +665,43 @@ A more realistic example might help.
                     return true;
                 }
  
-                // play the number guessing game
-                // @param number The number the user needs to guess
                 void guess(int number) {
                   constexpr int maximum_tries = 10;
                   int tries_remaining = maximum_tries;
-                  do {
+                  while (tries_remaining > 0) {
                     if (guess_matches(get_value("Enter a number between 1 and 100: ", 1, 100), number)) {
                      break;
                     } else {
                       --tries_remaining;
                       cout << "Try again. (" << tries_remaining << " tries left)\n";
                     }
-                  } while (tries_remaining > 0);
+                  }
 
                   if (tries_remaining == 0) {
                     cout << "You ran out of tries!\n\n";
                   } else {
                     cout << "Congratulations!! \n"
-                             << "You got the right number in " << maximum_tries - tries_remaining + 1 << " tries!\n";
+                             << "You got the right number in "
+                             << (maximum_tries - tries_remaining + 1) << " tries!\n";
                   }
                 }
 
+             .. admonition:: Something to consider
+
+                Why did we choose to change the max number of tries
+                from 20 to 10?
 
           .. tb-tab:: main
+
+             The job of ``main`` is now small: create the random number
+             generator, start each round, and ask whether to play again.
+             That is an advantage of splitting out ``prompt`` and ``guess``:
+             ``main`` describes the program at a high level instead of hiding
+             that structure inside input loops and special cases.
 
              .. code-block:: cpp
                 :name: main.cpp
 
-                #include <cctype>
                 #include <iostream>
                 #include <locale>
                 #include <random>
@@ -704,7 +725,8 @@ A more realistic example might help.
  
                 char play_again() {
                   return std::tolower(
-                     get_entry("Would you like to play another game? [y/n] ", std::locale()).front());
+                     get_entry("Would you like to play another game? [y/n] ").front(),
+                     std::locale());
                 }
 
 

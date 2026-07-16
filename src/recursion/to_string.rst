@@ -226,6 +226,8 @@ we get the result in the proper order.
 
 .. admonition:: More to Explore
 
+   - `Problem Solving with Algorithms and Data Structures: Recursion
+     <https://runestone.academy/ns/books/published/pythonds/Recursion/toctree.html>`__
    - :string:`std::to_string<to_string>` from `cppreference.com <https://en.cppreference.com/>`__
 
 

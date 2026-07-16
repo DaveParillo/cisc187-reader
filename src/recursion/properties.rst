@@ -102,5 +102,13 @@ problem by using the three properties of recursive functions.
 
 .. admonition:: More to Explore
 
-   - TBD
+   - `Problem Solving with Algorithms and Data Structures: Recursion
+     <https://runestone.academy/ns/books/published/pythonds/Recursion/toctree.html>`__
+     by Brad Miller and David Ranum. Especially useful for the 'three laws of
+     recursion,' stack frames, and visual examples.
+   - Wikipedia:
+
+      - :wiki:`Recursion in computer science <Recursion_%28computer_science%29>`
+      - :wiki:`Recursive definition <Recursive_definition>`
+
 

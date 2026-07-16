@@ -30,7 +30,9 @@ the children are commonly referred to as the **left** and **right** children.
 
 A simple binary tree can be implemented as a recursive data structure:
 
-.. code-block:: cpp
+.. code-block::
+   :caption: A simple recursive tree
+   :name: recursion-tree
    
    template <class T>
     struct tree {
@@ -98,6 +100,43 @@ let's implement functions that traverse the tree using each of the four methods.
    b->bm;
    a->am;
 
+.. tb-code:: cpp
+   :name: make-tree
+   :hidden:
+
+   tree<char>* make_tree() {
+     static tree<char> a;
+     static tree<char> b;
+     static tree<char> c;
+     static tree<char> d;
+     static tree<char> e;
+     static tree<char> f;
+     static tree<char> g;
+     static tree<char> h;
+     static tree<char> i;
+
+     a = {'a'};
+     b = {'b'};
+     c = {'c'};
+     d = {'d'};
+     e = {'e'};
+     f = {'f'};
+     g = {'g'};
+     h = {'h'};
+     i = {'i'};
+
+     a.left  = &b;
+     a.right = &c;
+     b.right = &d;
+     c.left  = &e;
+     c.right = &f;
+     e.left  = &g;
+     f.left  = &h;
+     f.right = &i;
+
+     return &a;
+   }
+
 
 Preorder traversal
 ..................
@@ -129,15 +168,9 @@ Visit all nodes **before** visiting children:
 
       .. tb-code:: cpp
          :name: ac-trees-preorder
+         :run-before: recursion-tree, make-tree
 
          #include <iostream>
-
-         template <class T>
-         struct tree {
-           T value;
-           tree<T>* left = nullptr;
-           tree<T>* right = nullptr;
-         };
 
          template <class T>
          void print(tree<T>* node) {
@@ -149,38 +182,9 @@ Visit all nodes **before** visiting children:
            print(node->right);
          }
 
-         ====
-
          int main() {
-           tree<char> a;
-           tree<char> b;
-           tree<char> c;
-           tree<char> d;
-           tree<char> e;
-           tree<char> f;
-           tree<char> g;
-           tree<char> h;
-           tree<char> i;
-           a.value = 'a';
-           b.value = 'b';
-           c.value = 'c';
-           d.value = 'd';
-           e.value = 'e';
-           f.value = 'f';
-           g.value = 'g';
-           h.value = 'h';
-           i.value = 'i';
-           a.left  = &b;
-           a.right = &c;
-           b.right = &d;
-           c.left  = &e;
-           c.right = &f;
-           e.left  = &g;
-           f.left  = &h;
-           f.right = &i;
-
            std::cout << "Preorder: ";
-           print (&a);
+           print(make_tree());
 
            return 0;
          }
@@ -218,15 +222,9 @@ Visit all nodes **after** visiting children:
 
       .. tb-code:: cpp
          :name: ac-trees-postorder
+         :run-before: recursion-tree, make-tree
 
          #include <iostream>
-
-         template <class T>
-         struct tree {
-           T value;
-           tree<T>* left = nullptr;
-           tree<T>* right = nullptr;
-         };
 
          template <class T>
          void print(tree<T>* node) {
@@ -238,38 +236,9 @@ Visit all nodes **after** visiting children:
            std::cout << node->value << ' ';
          }
 
-         ====
-
          int main() {
-           tree<char> a;
-           tree<char> b;
-           tree<char> c;
-           tree<char> d;
-           tree<char> e;
-           tree<char> f;
-           tree<char> g;
-           tree<char> h;
-           tree<char> i;
-           a.value = 'a';
-           b.value = 'b';
-           c.value = 'c';
-           d.value = 'd';
-           e.value = 'e';
-           f.value = 'f';
-           g.value = 'g';
-           h.value = 'h';
-           i.value = 'i';
-           a.left  = &b;
-           a.right = &c;
-           b.right = &d;
-           c.left  = &e;
-           c.right = &f;
-           e.left  = &g;
-           f.left  = &h;
-           f.right = &i;
-
            std::cout << "Postorder: ";
-           print (&a);
+           print(make_tree());
 
            return 0;
          }
@@ -307,15 +276,9 @@ visit the right child (and the right child subtree),
 
       .. tb-code:: cpp
          :name: ac-trees-inorder
+         :run-before: recursion-tree, make-tree
 
          #include <iostream>
-
-         template <class T>
-         struct tree {
-           T value;
-           tree<T>* left = nullptr;
-           tree<T>* right = nullptr;
-         };
 
          template <class T>
          void print(tree<T>* node) {
@@ -327,38 +290,9 @@ visit the right child (and the right child subtree),
            print(node->right);
          }
 
-         ====
-
          int main() {
-           tree<char> a;
-           tree<char> b;
-           tree<char> c;
-           tree<char> d;
-           tree<char> e;
-           tree<char> f;
-           tree<char> g;
-           tree<char> h;
-           tree<char> i;
-           a.value = 'a';
-           b.value = 'b';
-           c.value = 'c';
-           d.value = 'd';
-           e.value = 'e';
-           f.value = 'f';
-           g.value = 'g';
-           h.value = 'h';
-           i.value = 'i';
-           a.left  = &b;
-           a.right = &c;
-           b.right = &d;
-           c.left  = &e;
-           c.right = &f;
-           e.left  = &g;
-           f.left  = &h;
-           f.right = &i;
-
            std::cout << "Inorder: ";
-           print (&a);
+           print(make_tree());
 
            return 0;
          }
@@ -402,22 +336,16 @@ then visit the children one level deeper.
 
       .. tb-code:: cpp
          :name: ac-trees-levelorder
+         :run-before: recursion-tree, make-tree
 
          #include <iostream>
          #include <queue>
 
          template <class T>
-         struct tree {
-           T value;
-           tree<T>* left = nullptr;
-           tree<T>* right = nullptr;
-         };
-
-         template <class T>
          void print(tree<T>* node) {
            if (!node) return;
 
-           std::queue<tree<char>*> q;
+           std::queue<tree<T>*> q;
            q.push(node);
            while (!q.empty()) {
              auto tmp = q.front();
@@ -428,38 +356,9 @@ then visit the children one level deeper.
            }
          }
 
-         ====
-
          int main() {
-           tree<char> a;
-           tree<char> b;
-           tree<char> c;
-           tree<char> d;
-           tree<char> e;
-           tree<char> f;
-           tree<char> g;
-           tree<char> h;
-           tree<char> i;
-           a.value = 'a';
-           b.value = 'b';
-           c.value = 'c';
-           d.value = 'd';
-           e.value = 'e';
-           f.value = 'f';
-           g.value = 'g';
-           h.value = 'h';
-           i.value = 'i';
-           a.left  = &b;
-           a.right = &c;
-           b.right = &d;
-           c.left  = &e;
-           c.right = &f;
-           e.left  = &g;
-           f.left  = &h;
-           f.right = &i;
-
            std::cout << "Level order: ";
-           print (&a);
+           print(make_tree());
 
            return 0;
          }

@@ -29,29 +29,35 @@ Accumulating a sum
 Consider a problem you are already familiar with:
 computing the sum of a sequence of numbers.
 
-.. tb-group::
-   :name: sum
+- The function ``accumulate`` loops over each element
+  in the vector ``values``.
+- The variable ``sum`` holds the running total.
+- When the loop completes, the total is returned.
+- If the vector is empty, then 0 is returned.
 
-   .. tb-tab:: Example: iterative sum
+.. tb-code::
+   :name: recursion-sum
 
-      The function ``accumulate`` loops over each element
-      in the vector ``values``.
+   #include <iostream>
+   #include <vector>
 
-      The variable ``sum`` holds the running total.
+   // iterative sum
+   int accumulate(const std::vector<int>& values) {
+     int sum = 0;
+     for (const auto& x: values) {
+       sum = sum + x;
+     }
+     return sum;
+   }
 
-      When the loop completes, the total is returned.
+   int main () {
+     std::vector<int> values = {1,2,3,4,5,6,7,8,9,10};
 
-      If the vector is empty, then 0 is returned.
+     auto sum = accumulate(values);
+     std::cout << "sum is: " << sum << '\n';
 
-      .. literalinclude:: sum.txt
-         :language: cpp
-         :start-after: // iterative
-         :dedent: 3
-         :linenos:
-
-   .. tb-tab:: Run It
-
-      .. include:: sum.txt
+     return sum;
+   }
 
 The implementation details are not critical here.
 We could have used a traditional ``for`` loop or a ``while`` loop
@@ -89,7 +95,6 @@ sequence of simplifications to compute a final sum.
     total = \  (1 + 9) \\
     total = \  10
 
-
 How can we take this idea and turn it into a C++ program? First,
 let's restate the sum problem in terms of a C++ vector. We might say 
 the sum of the vector ``values`` is the sum of the first element of the
@@ -97,40 +102,53 @@ vector (``values[0]``),
 and the sum of the numbers in the rest of the vector - the range 
 ``values.begin()+1`` to ``values.end()``.
 
-.. tb-group::
-   :name: sum_recursive
+Instead of a local variable to accumulate the sum,
+the return value of the function stores the accumulated sum.
 
-   .. tb-tab:: Example: recursive sum
+Each return value is the current first element of the vector
+plus a *slice* of the vector composed of all the 
+elements after the first element.
 
-      Instead of a local variable to accumulate the sum,
-      the return value of the function stores the accumulated sum.
+The base case occurs when the vector is empty - 
+there is nothing left to add.
+We return zero since no matter what is in the vector,
+adding zero does not change the final result.
 
-      Each return value is the current first elment of the vector
-      plus a *slice* of the vector composed of all the 
-      elements after the first element.
+If the container is not empty, then it must contain at least
+one element.
+The recursive case is then the first element, plus everything
+after the first element (which might be nothing).
 
-      The base case occurs when the vector is empty - 
-      there is nothing left to add.
-      We return zero since no matter what is in the vector,
-      adding zero does not change the final result.
 
-      If the container is not empty, then it must contain at least
-      one element.
-      The recursive case is then the first element, plus everything
-      after the first element (which might be nothing).
+.. tb-code::
+   :name: recursion-sum-recursive
 
-      .. literalinclude:: sum_recursive.txt
-         :language: cpp
-         :start-after: // recursive
-         :dedent: 3
-         :linenos:
+   #include <iostream>
+   #include <vector>
 
-      Run both the iterative an recursive versions and verify
-      they both produce the same results.
+   // recursive sum
+   int accumulate(const std::vector<int>& values) {
+     // base case
+     if (values.empty()) return 0;
 
-   .. tb-tab:: Run It
+     // recursive case
+     auto slice = std::vector<int>(values.begin()+1, values.end());
+     return values[0] + accumulate(slice);
+   }
 
-      .. include:: sum_recursive.txt
+   int main () {
+     std::vector<int> values = {1,2,3,4,5,6,7,8,9,10};
+
+     auto sum = accumulate(values);
+     std::cout << "sum is: " << sum << '\n';
+
+     return sum;
+   }
+
+.. admonition:: Try This!
+
+   Run both the iterative and recursive versions and verify
+   they both produce the same results.
 
 The recursive calls to accumulate perform in code the same steps
 outlined when we grouped the addition sequence using parentheses.

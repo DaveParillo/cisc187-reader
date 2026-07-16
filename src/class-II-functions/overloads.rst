@@ -316,12 +316,12 @@ but to illustrate the usage:
 
 .. code-block:: cpp
 
-   struct Sum {
-       int sum;
-       Sum() : sum(0) { }
+   struct add {
+       int sum = 0;
+       add() = default;
        void operator()(int n) { sum += n; }
    };
-   Sum s = std::for_each(v.begin(), v.end(), Sum());
+   add s = std::for_each(v.begin(), v.end(), add());
 
 .. note::
 
@@ -346,13 +346,13 @@ The general signatures for these non-member functions is:
 
 .. code-block:: cpp
 
-   inline bool operator<(const T& lhs, const T& rhs)
+   bool operator<(const T& lhs, const T& rhs)
    {
       // compare the data in left-hand side and right-hand side objects
       // for less than
    }
    
-   inline bool operator==(const T& lhs, const T& rhs)
+   bool operator==(const T& lhs, const T& rhs)
    {
       // compare the data in left-hand side and right-hand side objects
       // for equality
@@ -371,7 +371,7 @@ lexicographical comparison provided by :utility:`std::tie <tuple/tie>`:
        double weight;
    };
 
-   inline bool operator<(const package& lhs, const package& rhs)
+   bool operator<(const package& lhs, const package& rhs)
    {
       // parameters passed to each tie must be in the same order
       // or this will always return false
@@ -405,12 +405,12 @@ in terms of ``<`` and ``==``.
 .. code-block:: cpp
 
    // note the operands swapped inside the function body
-   inline bool operator> (const T& lhs, const T& rhs){ return   rhs < lhs; }
+   bool operator> (const T& lhs, const T& rhs){ return   rhs < lhs; }
 
-   inline bool operator<=(const T& lhs, const T& rhs){ return !(lhs > rhs); }
-   inline bool operator>=(const T& lhs, const T& rhs){ return !(lhs < rhs); }
+   bool operator<=(const T& lhs, const T& rhs){ return !(lhs > rhs); }
+   bool operator>=(const T& lhs, const T& rhs){ return !(lhs < rhs); }
 
-   inline bool operator!=(const T& lhs, const T& rhs){ return !(lhs == rhs); }
+   bool operator!=(const T& lhs, const T& rhs){ return !(lhs == rhs); }
 
 .. _spaceship-operator:
 

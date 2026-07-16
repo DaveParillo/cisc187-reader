@@ -1,59 +1,58 @@
 .. tb-code:: cpp
    :name: ac-class-enum-cards-ex1
-   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
 
    #include <array>
    #include <iostream>
    #include <vector>
 
-   enum class Rank {
-     Ace = 1, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King
+   enum class rank {
+     ace = 1, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king
    };
 
-   // Define an array of Rank to allow range-for looping
-   const std::array<Rank,13> ranks = 
-   {
+   // Define an array of rank to allow range-for looping
+   constexpr std::array ranks {
+     rank::ace, rank::two, rank::three, rank::four, rank::five,
+     rank::six, rank::seven, rank::eight, rank::nine, rank::ten,
+     rank::jack, rank::queen, rank::king
+   };
+
+   enum class suit {
+     clubs, diamonds, hearts, spades
+   };
+
+   // Define an array of suit to allow range-for looping
+   constexpr std::array suits {
+     suit::clubs, suit::diamonds, suit::hearts, suit::spades
+   };
+
+   struct card {
+     rank card_rank;
+     suit card_suit;
+
+     card(rank r, suit s)
+       : card_rank{r},
+         card_suit{s}
      {
-       Rank::Ace, Rank::Two, Rank::Three, Rank::Four, Rank::Five,    
-       Rank::Six, Rank::Seven, Rank::Eight, Rank::Nine, Rank::Ten,    
-       Rank::Jack, Rank::Queen, Rank::King     
      }
    };
 
-   enum class Suit {
-     Clubs, Diamonds, Hearts, Spades
-   };
-
-   // Define an array of Suit to allow range-for looping
-   const std::array<Suit,4> suits = 
-   {
-     {
-       Suit::Clubs, Suit::Diamonds, Suit::Hearts, Suit::Spades     
-     }
-   };
-
-   struct Card {
-     Rank rank;
-     Suit suit;
-   };
-
-   std::ostream& operator<<(std::ostream& os, const Rank& rhs );
-   std::ostream& operator<<(std::ostream& os, const Suit& rhs );
-   std::ostream& operator<<(std::ostream& os, const Card& rhs );
+   std::ostream& operator<<(std::ostream& os, rank value);
+   std::ostream& operator<<(std::ostream& os, suit value);
+   std::ostream& operator<<(std::ostream& os, const card& value);
 
 
    // short, but take care . . . 
    // a change in the order of the enum could break this,
    // Assumes order: A,2,3,4,5,6,7,8,9,10,J,Q,K
    // A more verbose switch would be better
-   std::ostream& operator<<(std::ostream& os, const Rank& rhs ) {
-     if (rhs > Rank::Ace && rhs < Rank::Jack) {
-       os << static_cast<int>(rhs);
-     } else if (rhs == Rank::Ace) {
+   std::ostream& operator<<(std::ostream& os, rank value) {
+     if (value > rank::ace && value < rank::jack) {
+       os << static_cast<int>(value);
+     } else if (value == rank::ace) {
        os << "Ace";
-     } else if (rhs == Rank::Jack) {
+     } else if (value == rank::jack) {
        os << "Jack";
-     } else if (rhs == Rank::Queen) {
+     } else if (value == rank::queen) {
        os << "Queen";
      } else {
        os << "King";
@@ -62,30 +61,28 @@
      return os;
    }
 
-   std::ostream& operator<<(std::ostream& os, const Suit& rhs ) {
-     switch(rhs) {
-       case Suit::Clubs:    os << "Clubs"; break;
-       case Suit::Diamonds: os << "Diamonds"; break;
-       case Suit::Hearts:   os << "Hearts"; break;
-       case Suit::Spades:   os << "Spades"; break;
+   std::ostream& operator<<(std::ostream& os, suit value) {
+     switch(value) {
+       case suit::clubs:    os << "Clubs"; break;
+       case suit::diamonds: os << "Diamonds"; break;
+       case suit::hearts:   os << "Hearts"; break;
+       case suit::spades:   os << "Spades"; break;
      }
      return os;
    }
 
-   std::ostream& operator<<(std::ostream& os, const Card& rhs ) {
-     return os << rhs.rank << " of " << rhs.suit;
+   std::ostream& operator<<(std::ostream& os, const card& value) {
+     return os << value.card_rank << " of " << value.card_suit;
    }
 
    int main() {
-     std::vector<Card> deck;
-     for (const auto& s: suits) {
-       for (const auto& r: ranks) {
-         deck.push_back(Card{r,s});
+     std::vector<card> deck;
+     for (const auto s: suits) {
+       for (const auto r: ranks) {
+         deck.emplace_back(r, s);
        }
      }
-     for(const auto& c : deck ) {
+     for (const auto& c: deck) {
        std::cout << c << '\n';
      }
-     return 0;
    }
-

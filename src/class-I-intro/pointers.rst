@@ -28,6 +28,8 @@ And smart pointers that manage the memory for us:
 
    auto p = std::unique_ptr<int>(new int{5});
    auto d = std::unique_ptr<dog>(new dog{"Fido"});
+   // or alternately
+   auto dog = std::make_unique<dog>("Andy");
 
 In both cases, the initialization essentially identical.
 
@@ -60,7 +62,7 @@ When ``buddy`` is a pointer:
 
 .. code-block:: cpp
 
-   auto buddy = std::unique_ptr<dog>(new dog{"Andy", 12.6});
+   auto buddy = std::make_unique<dog>("Andy", 12.6);
 
 It seems that if ``buddy.name`` works when not a pointer, then
 given a pointer to a ``buddy``, that ``*buddy.name``
@@ -96,7 +98,7 @@ Putting it all together:
 
    int main() {
      using std::cout;
-     auto buddy = std::unique_ptr<dog>(new dog{"Andy", 12.6});
+     auto buddy = std::make_unique<dog>("Andy", 12.6);
 
      cout << "name using dereference and member access: " << (*buddy).name
           << '\n'

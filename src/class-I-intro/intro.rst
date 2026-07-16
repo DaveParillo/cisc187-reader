@@ -115,60 +115,66 @@ The general (simplified) format is:
 
 We will be adding to this basic structure over the next several chapters.
 
-In C++, a ``struct`` **is a** ``class`` with default public access:
+.. note::
 
-.. tb-group::
-   :name: talk-struct
+   In C++, a ``struct`` **is a** ``class`` with default public access.
 
-   .. tb-tab:: Example
+This program works because everything in a ``struct`` is publicly visible 
+to any other component in the program.
 
-      This program works because everything in a ``struct`` is publicly visible 
-      to any other component in the program.
+.. tb-code:: cpp
+   :name: ac-class-talk-struct
 
-      .. literalinclude:: talk-struct.txt
-         :language: cpp
-         :lines: 5-
-         :dedent: 3
+   #include <cstdio>
 
-      .. note::
+   struct talk {
+     void hello() {
+       std::puts("Hello, world!");
+     }
+   };
 
-         Two things:
+   int main() {
+     talk say;     // Create an object from a class
+     say.hello();  // Call a function in the object
+   }
 
-         #. Notice the trailing semi-colon (``;``) after the definition of ``struct Talk``?
+.. important::
 
-            This is required for a ``class`` or ``struct`` to compile and
-            forgetting to include a trailing ``;`` is a common source of error.
+   Two things:
 
-         #. The function ``main`` accesses the function ``hello`` using the 
-            :lang:`member access operator <operator_member_access>`.
+   #. Notice the trailing semi-colon (``;``) after the definition of ``struct talk``?
 
-            The general format is *object name* . *member name*.
+      This is required for a ``class`` or ``struct`` to compile and
+      forgetting to include a trailing ``;`` is a common source of error.
 
-   .. tb-tab:: Run It
+   #. The function ``main`` accesses the function ``hello`` using the 
+      :lang:`member access operator <operator_member_access>`.
 
-      .. include:: talk-struct.txt
+      The general format is *object name* . *member name*.
 
 
 Here we have a very similar program, but with one important change.
 
-.. tb-group::
-   :name: talk-class
+This program does not compile because everything in a ``class`` is **private** by default.
+Only objects of type ``talk`` may use or even know about its private data.
 
-   .. tb-tab:: Example
+.. tb-code:: cpp
+   :name: ac-class-talk
 
-      This program does not compile because everything in a ``class`` is **private** by default.
-      Only objects of type ``Talk`` may use or even know about its private data.
+   #include <cstdio>
 
-      .. literalinclude:: talk-class.txt
-         :language: cpp
-         :lines: 5-
-         :dedent: 3
+   class talk {
+     void hello() {
+       std::puts("Hello, world!");
+     }
+   };
 
-   .. tb-tab:: Run It
+   int main() {
+     talk say;     // Create an object from a class
+     say.hello();  // Call a function in the object
+   }
 
-      .. include:: talk-class.txt
-
-We can fix our broken ``class Talk`` by adding ``public:`` to the class.
+We can fix our broken ``class talk`` by adding ``public:`` to the class.
 The :lang:`access specifiers <access>` *public* and *private* are used in a class or
 a struct to control what parts of the class may be accessed from outside the class.
 
@@ -185,9 +191,9 @@ a struct to control what parts of the class may be accessed from outside the cla
 
 .. admonition:: Try this!
 
-   - Add an access specifier to ``class Talk`` so that it compiles and runs.
-   - Add an access specifier to ``struct Talk`` so that it fails with a similar error 
-     as ``class Talk`` did before you modified it.
+   - Add an access specifier to ``class talk`` so that it compiles and runs.
+   - Add an access specifier to ``struct talk`` so that it fails with a similar error 
+     as ``class talk`` did before you modified it.
    
 
 -----

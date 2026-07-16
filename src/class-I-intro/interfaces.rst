@@ -20,8 +20,10 @@ will interact with it.
 
 Consider a simple ``date`` class.
 This class does not allow direct access to y, m, and d.
-These class members can only be set using the 3 arg constructor provided
+These class members can only be set using the 3 argument constructor provided
 and can only be retrieved using the functions provided.
+
+.. index:: tuple
 
 .. code-block:: cpp
 
@@ -88,7 +90,7 @@ Implement interfaces in your cpp files (*date.cpp*):
    { }
 
    std::tuple<int,int,int> date::as_tuple () {
-     return std::make_tuple(y, m,d);
+     return std::make_tuple(y,m,d);
    }
 
    int date::year ()  { return y; }
@@ -130,6 +132,7 @@ Having a simple convention to distinguish them is important.
 
      - :cpp:`Source file inclusion <preprocessor/include>`
      - :cpp:`#pragma directives <preprocessor/impl>`
+     - :utility:`std::tuple <tuple>`
 
    - From C++ Core Guidelines
 

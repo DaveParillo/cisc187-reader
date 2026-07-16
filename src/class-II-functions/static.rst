@@ -30,7 +30,7 @@ inside the class definition, but not with the definition of that static member:
 
 An example of a static member:
 
-.. code-block:: cpp
+.. tb-code:: cpp
 
    #include <iostream>
 
@@ -65,28 +65,24 @@ An example of a static member:
       counter a;
       print(a);
       {
-         counter a;
-         counter b;
-         counter c;
-         print(a);
-         print(b);
-         print(c);
+         counter a; print(a);
+         counter b; print(b);
+         counter c; print(c);
       }
       print(a);
-      return 0;
    }
 
 We could have written our counter so that we did not need an instance
 member to determine the count.
 
-.. code-block:: cpp
+.. tb-code:: cpp
 
    #include <iostream>
 
-   // a class that counts how many live objects
-   // currently exist
+   // a class that counts how many live objects currently exist
    class counter {
-      static inline int instance_count = 0;   // declaration and definition
+      // declaration and definition
+      constinit static inline int instance_count = 0;
       public:
          counter() {
             ++instance_count;
@@ -113,14 +109,13 @@ member to determine the count.
          counter a;
          print();
          {
-            counter a;
-            counter b;
-            counter c;
-            print();
+            counter a; print();
+            counter b; print();
+            counter c; print();
          }
+         print();
       }
       print();
-      return 0;
    }
 
 A static member function allows us to get the count
@@ -128,12 +123,7 @@ even if no instances of a counter class have ever been created.
 
 .. cpp:: 20
 
-   Starting in C++20, our counter could be initialized :lang:`constinit`:
-
-   .. code-block:: cpp
-
-      constinit static inline int instance_count = 0;
-
+   Starting in C++20, our counter can be initialized :lang:`constinit`:
 
    `constinit` is useful for variables that must be initialized at compile
    time but are still mutable.

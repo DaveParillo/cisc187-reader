@@ -68,7 +68,7 @@ You had to understand how it was *made* even to get it started.
 This is not true with most cars today.
 Compare the previous steps with starting a car today:
 
-#. Step on brake pedal and push button.
+#. Step on brake pedal and push ``Start`` button.
 
 Over the last 100 years
 manufacturers have hidden most implementation details
@@ -91,7 +91,7 @@ Let's examine a poorly abstracted car class:
 
 .. code-block:: cpp
 
-   class Car {
+   class car {
      private:
        double speed_;
        double heading_;
@@ -130,7 +130,7 @@ This list is long, but here are some of the major problems:
      (:math:`0 - 360`?  :math:`0 - 2\pi`?)
 
 #. The car position is maintained in two separate ``int`` members, not a location object. 
-#. If users try to use this ``Car``, 
+#. If users try to use this ``car``, 
    then **they** are responsible for calculating correct x and y
    from the current heading and speed.
 #. Fundamentally, this is not how cars are operated.
@@ -149,24 +149,24 @@ We could do just this:
 .. code-block:: cpp
 
    // a location on a Cartesian grid
-   struct Point {
+   struct point {
      double x = 0.0;   
      double y = 0.0;
    };
 
 This works, but it's not much fun to use.
-When using ``Point`` objects, we will often want to initialize both the x and y values at once:
+When using ``point`` objects, we will often want to initialize both the x and y values at once:
 
 .. code-block:: cpp
 
-   Point r {3.0,3.0};
+   point r {3.0,3.0};
 
 The default constructors won't do this automatically.
 We need a 2 argument constructor:
 
 .. code-block:: cpp
 
-     Point (double x_value, double y_value)
+     point (double x_value, double y_value)
          : x{x_value}, y{y_value}
      {}
 
@@ -176,41 +176,41 @@ so we need to be explicit:
 
 .. code-block:: cpp
 
-     Point () = default;
+     point () = default;
 
-And putting them together we have very minimal class:
+And putting them together we have a very minimal class:
 
 .. code-block:: cpp
 
    // a location on a Cartesian grid
-   struct Point {
+   struct point {
      double x = 0.0;   
      double y = 0.0;
-     Point (double x_value, double y_value)
+     point (double x_value, double y_value)
          : x{x_value}, y{y_value}
      {}
-     Point () = default;
+     point () = default;
    };
 
-We can't consider this class complete, but we will stop with Point for now and move onto the Car class.
-When we use Point, we should prevent ``Car`` users from changing it directly:
+We can't consider this class complete, but we will stop with ``point`` for now and move onto the ``car`` class.
+When we use ``point``, we should prevent ``car`` users from changing it directly:
 
 .. code-block:: cpp
 
-   class Car {
+   class car {
      private:
-       Point  location_;
+       point  location_;
        double speed_    = 0.0;
        double heading_  = 0.0;
 
      public:
-       Point  location() const;
+       point  location() const;
        double speed()    const;
        double heading()  const;
    };
 
 It is OK to keep the access functions for speed and heading.
-``Car`` users are likely to need this information,
+``car`` users are likely to need this information,
 but they should never set them directly.
 We should also promise that these functions will never change the state
 of a ``car`` by making all of the access functions ``const``.
@@ -218,32 +218,33 @@ of a ``car`` by making all of the access functions ``const``.
 In order to make our car more 'real',
 we should add two more private member variables,
 one for the current steer angle and one for the current change in speed.
-Users are never given access to these, but internally a Car can use them to
+Users are never given access to these, but internally a ``car`` can use them to
 compute a new location:
 
 .. code-block:: cpp
 
-   class Car {
+   class car {
      private:
-       Point  location_;
+       point  location_;
        double speed_    = 0;
        double heading_  = 0;
        double angle_    = 0;  // current steering angle
        double rate_     = 0;  // current change in speed
 
      public:
-       Point  location() const;
+       point  location() const;
        double speed()    const;
        double heading()  const;
    };
 
 
-Since users can't change steer angle directly, there needs to be come way to influence that value.
+Since users can't change steer angle directly, there needs to be some way to
+influence that value.
 One way is to define an enumerated type to set the angle on the steering wheel:
 
 .. code-block:: cpp
 
-   enum class Direction { CENTER, LEFT, RIGHT };
+   enum class direction { CENTER, LEFT, RIGHT };
 
 
 With these parts added,
@@ -251,17 +252,15 @@ we can add public functions that use them:
 
 .. code-block:: cpp
 
-   //
    // Users steer the car by choosing a steer direction.
    // As long as a direction is applied, the steer angle will increase (or decrease)
    // towards the indicated direction until the max steering angle
    // for the car is reached.
    //
-   // The max steer angle might be Car make/model dependent.
+   // The max steer angle might be car make/model dependent.
    //
-   double steer (Direction dir);
+   double steer (direction dir);
 
-   //
    // Change the car speed by (de)accelerating.
    // Positive values will increase car speed.
    // Negative values will reduce car speed.
@@ -275,36 +274,34 @@ Putting it all together:
 .. code-block:: cpp
 
    // a location on a Cartesian grid
-   struct Point {
+   struct point {
      double x = 0.0;   
      double y = 0.0;
-     Point (double x_value, double y_value)
+     point (double x_value, double y_value)
          : x{x_value}, y{y_value}
      {}
-     Point () = default;
+     point () = default;
    };
 
-   enum class Direction { CENTER, LEFT, RIGHT };
+   enum class direction { CENTER, LEFT, RIGHT };
 
-   class Car {
+   class car {
      private:
-       Point  location_;
+       point  location_;
        double speed_    = 0;
        double heading_  = 0;
        double angle_    = 0;
        double rate_     = 0;
 
      public:
-       Point  location() const;
+       point  location() const;
        double speed()    const;
        double heading()  const;
 
-       double steer (Direction dir);
+       double steer (direction dir);
        double accelerate (double rate);
        void   update();
    };
-
-Actually implementing these functions is a lab assignment.
 
 While this class is far from complete,
 at least now we have a design that we can extend without needing to completely
@@ -322,5 +319,3 @@ change it later once we realize it did not control any of its invariants.
 .. topic:: Footnotes
 
    .. [#f1] From https://www.caranddriver.com/features/a15142307/how-to-drive-a-ford-model-t
-
-

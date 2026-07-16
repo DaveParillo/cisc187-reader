@@ -83,7 +83,7 @@ The compiler may still create other default operations.
 
 So while this is fine:
 
-.. code-block:: cpp
+.. tb-code:: cpp
 
    struct point {
      int x = 0;
@@ -92,26 +92,36 @@ So while this is fine:
 
    int main () {
      point p;        // implicitly defined constructor
+     [[maybe_unused]]
      point q = p;    // implicitly defined copy constructor
    }
 
-We can only initialize our point using the default constructor.
+If the only constructor available is a default constructor,
+then we can only initialize our point using the default constructor.
 
-.. code-block:: cpp
+.. tb-code:: cpp
+   :compileargs: ['-std=c++11']
 
+   struct point {
+     int x = 0;
+     int y = 0;
+   };
+
+   int main () {
      // this works, but it's tedious
      point p;
      p.x = 8;
      p.y = 13;
      
-
-     // This syntax is preferred, but won't compile
+     // This syntax is preferred, but won't compile in C++11
      point e {3,5};
+   }
 
-If we want to initialize class members at construction time,
+As a general rule, if we want to initialize class members at construction time,
 then we need to add custom constructors.
 
-.. code-block:: cpp
+.. tb-code:: cpp
+   :compileargs: ['-std=c++20']
 
    struct point {
      int x;
@@ -121,17 +131,17 @@ then we need to add custom constructors.
 
    int main () {
      point p {3,5};  // 2 arg constructor OK
-     point q = p;    // default copy constructor
+     point q = p;    // default copy constructor OK
      point e;        // compile error
    }
 
 Now we can use our 2 argument constructor,
 but now our old default invocation is broken.
-You'll see and error like this:
 
-.. code-block:: none
+Why?
 
-   foo.cpp:11:11: error: no matching constructor for initialization of 'point'
+Because whenever you write a non-default constructor the compiler will
+no longer write a default constructor for you.
 
 This is fixed by either:
 
@@ -155,10 +165,12 @@ This is fixed by either:
 
      point () = delete;
 
-  In this case, attempting the use the default constructor is still a 
-  compile error, but the error is more explicit: you can't use it because it was deleted.
+  In the ``= delete`` case, attempting the use the default constructor is still
+  a compile error, but the error is more explicit:
+  you can't use the default constructor because it was deleted.
+  The compiler will provide a clear error message saying so.
 
-.. note::
+.. important::
 
    If you write a non-default constructor,
    then you should *always* write your own default constructor,
@@ -169,7 +181,6 @@ This is fixed by either:
    Delete it only when you are sure objects of the class will **never** 
    need to be default constructed or that there is simply no sensible
    set of defaults for the class.
-
 
 Initialization syntax
 ---------------------
@@ -383,7 +394,7 @@ Consider this example:
 
 .. code-block:: cpp
 
-   class NutritionFacts {
+   class nutrition_facts {
      private:
        // variables in need of initialization to make valid object
        const double serving_size_;  // mL
@@ -395,7 +406,7 @@ Consider this example:
     
      public:
        // How about this as a solution?
-      NutritionFacts(double, int, double, double, double, double); 
+      nutrition_facts(double, int, double, double, double, double); 
    };
 
 
@@ -411,8 +422,8 @@ a builder is an effective alternative.
 Basic ideas:
 
 - Use constructor parameters to accept mandatory parameters.
-- Use a helper class (Builder) to default initialize optional parameters.
-- A ``Builder::build()`` function creates a NutritionFacts object from a builder.
+- Use a helper class (builder) to default initialize optional parameters.
+- A ``builder::build()`` function creates a nutrition_facts object from a builder.
 - The builder makes the class it helps a friend.
 
   This is used only avoid creating builder accessor functions.
@@ -422,12 +433,12 @@ Basic ideas:
 
 
 .. code-block:: cpp
-
-   #pragma once
+   :name: nutrition_facts.h
+   :caption: A nutrition facts class
 
    #include <iostream>
 
-   class NutritionFacts {
+   class nutrition_facts {
      private:
        // variables in need of initialization to make valid object
        const double serving_size_;  // mL
@@ -437,19 +448,18 @@ Basic ideas:
        const double sodium_;        // mg
        const double carbs_;         // g
     
-
      public:
-       // Only one simple constructor for mandatory parameters
-       // - rest is handled by Builder
-       NutritionFacts( const double serving_size, const int servings) 
+       // Only one simple constructor for mandatory parameters.
+       // The remaining members are handled by builder
+       nutrition_facts( const double serving_size, const int servings) 
          : serving_size_{serving_size}, servings_{servings},
          calories_{0}, fat_{0}, sodium_{0}, carbs_{0}
        {}
 
-       // use this class to construct Nutritionfacts
-       class Builder {
+       // use this class to construct nutrition_facts
+       class builder {
          private:
-           friend NutritionFacts;
+           friend nutrition_facts;
            double serving_size_ = 15;  // mL
            int servings_ = 10;         // per container
            double calories_ = 0;       // Kcal
@@ -458,41 +468,41 @@ Basic ideas:
            double carbs_ = 0;          // g
 
          public:
-           Builder() = default;
+           builder() = default;
 
-           // create a NutritionFacts object from a builder
-           NutritionFacts build() {
-             return NutritionFacts (*this);
+           // create a nutrition_facts object from a builder
+           nutrition_facts build() {
+             return nutrition_facts (*this);
            }
 
-           Builder& serving_size(const double size) { 
+           builder& serving_size(const double size) { 
              serving_size_ = size; 
              return *this;
            }
-           Builder& servings(const int s) { 
+           builder& servings(const int s) { 
              servings_ = s; 
              return *this;
            }
-           Builder& calories(const double c) { 
+           builder& calories(const double c) { 
              calories_ = c; 
              return *this;
            }
-           Builder& fat(const double f) { 
+           builder& fat(const double f) { 
              fat_ = f; 
              return *this;
            }
-           Builder& sodium(const double s) { 
+           builder& sodium(const double s) { 
              sodium_ = s; 
              return *this;
            }
-           Builder& carbohydrates(const double c) { 
+           builder& carbohydrates(const double c) { 
              carbs_ = c; 
              return *this;
            }
 
        };
 
-       explicit NutritionFacts(const Builder& builder)
+       explicit nutrition_facts(const builder& builder)
          : serving_size_{builder.serving_size_}, 
          servings_{builder.servings_},
          calories_{builder.calories_}, 
@@ -510,30 +520,29 @@ Basic ideas:
    };
 
 
-   std::ostream& operator<<(std::ostream& os, const NutritionFacts& rhs) {
+   std::ostream& operator<<(std::ostream& os, const nutrition_facts& rhs) {
      return os << "Serving size: " << rhs.serving_size()
                << "\tServings: " << rhs.servings()
-               << "\tCal: " << rhs.calories()
-               << "\tFat: " << rhs.fat()
-               << "\tSodium: " << rhs.sodium()
-               << "\tCarbs: " << rhs.carbohydrates();
+               << "\n\tCal: " << rhs.calories()
+               << "\n\tFat: " << rhs.fat()
+               << "\n\tSodium: " << rhs.sodium()
+               << "\n\tCarbs: " << rhs.carbohydrates();
    }
 
 
 When complete, the classes can be used like this:
 
-.. code-block:: cpp
-
-   #include "NutritionFacts.h"
+.. tb-code:: cpp
+   :run-before: nutrition_facts.h
 
    #include <iostream>
 
    int main() {
      // make facts without any optional parts
-     NutritionFacts cake = {75, 8};
+     auto cake = nutrition_facts{75, 8};
 
      // create a builder
-     NutritionFacts::Builder b;
+     nutrition_facts::builder b;
 
      // change the state
      b.serving_size(28.4).servings(1);
@@ -544,9 +553,9 @@ When complete, the classes can be used like this:
 
      // create nutrition facts without creating a (named)
      // temporary builder object
-     NutritionFacts soda = NutritionFacts::Builder()
-                           .serving_size(368).servings(1)
-                           .carbohydrates(40).calories(150).sodium(15).build();
+     auto soda = nutrition_facts::builder()
+                 .serving_size(368).servings(1)
+                 .carbohydrates(40).calories(150).sodium(15).build();
 
      std::cout << "Cake:\t" << cake << '\n';
      std::cout << "Chips:\t" << chips << '\n';
@@ -558,7 +567,6 @@ When complete, the classes can be used like this:
 While not the most idiomatic C++ solution, 
 it is something we can create and use with only the knowledge 
 of classes we have so far.
-We will revisit the builder pattern later after we cover inheritance.
 
 -----
 
@@ -575,5 +583,4 @@ We will revisit the builder pattern later after we cover inheritance.
      - `Example telescoping constructor <https://gist.github.com/DavidTPate/9041099>`__
      - Effective Java, by Joshua Bloch. 
        Item #2: Consider a builder when faced with many constructor parameters
-
 

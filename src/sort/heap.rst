@@ -43,6 +43,10 @@ Heapsort has all of the advantages just listed.
 The complete binary tree is balanced, its array representation is
 space efficient, and we can load all values into the tree at once,
 taking advantage of the efficient ``buildheap`` function.
+
+Heap sort analysis
+------------------
+
 The asymptotic performance of Heapsort when all of the records have
 unique key values is :math:`\Theta(n \log n)` in the best, average,
 and worst cases.

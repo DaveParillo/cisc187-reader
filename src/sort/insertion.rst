@@ -130,6 +130,9 @@ a value being shifted, and gray marks the sorted prefix.
 
 .. _lst-insertion-sort-code:
 
+Insertion sort analysis
+-----------------------
+
 .. tb-group::
    :name: lst_insertion_sort
 

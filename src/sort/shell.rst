@@ -185,6 +185,9 @@ comparison, and gray marks the final sorted state.
    .. figure:: ../_static/generated/sort/shell-sort-worst.png
       :alt: Shell sort summary for a reverse-sorted input.
 
+Shell sort analysis
+-------------------
+
 At first glance you may think that a shell sort cannot be better than an
 insertion sort, since it does a complete insertion sort as the last
 step. It turns out, however, that this final insertion sort does not

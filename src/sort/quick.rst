@@ -202,6 +202,9 @@ boundary, and gray marks pivot values that have been placed.
    .. figure:: ../_static/generated/sort/quick-sort-worst.png
       :alt: Quick sort summary for a reverse-sorted input.
 
+Quick sort analysis
+-------------------
+
 To analyze the ``quick_sort`` function, note that for a list of length
 *n*, if the partition always occurs in the middle of the list, there
 will again be :math:`\log n` divisions. In order to find the split

@@ -144,7 +144,7 @@ Bars shown in gray have already reached their final position.
             :height: 385
             :thumbnail: ../_static/generated/sort/bubble-sort-worst.png
 
-            Bubble sort on a reverse sorted input.
+      Bubble sort on a reverse sorted input.
 
 .. only:: not html
 
@@ -165,6 +165,9 @@ Bars shown in gray have already reached their final position.
       :align: center
 
       Bubble sort on a reverse sorted input.
+
+Bubble sort analysis
+--------------------
 
 To analyze the bubble sort, we should note that regardless of how the
 items are arranged in the initial array, :math:`n-1` passes will be

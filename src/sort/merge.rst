@@ -187,6 +187,9 @@ marks merged ranges.
    .. figure:: ../_static/generated/sort/merge-sort-worst.png
       :alt: Merge sort summary for a reverse-sorted input.
 
+Merge sort analysis
+-------------------
+
 In order to analyze the ``merge_sort`` function, we need to consider the
 two distinct processes that make up its implementation. 
 First, the vector is split into halves.

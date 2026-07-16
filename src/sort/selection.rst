@@ -113,8 +113,11 @@ final item must be in place after the :math:`(n-1)` step.
            }
            std::cout << '\n';
            return 0;
-         }
+	         }
 
+
+Selection sort analysis
+-----------------------
 
 You may see that the selection sort makes the same number of comparisons
 as the :ref:`bubble sort<sort_bubble>` and is therefore also :math:`O(n^{2})`. 

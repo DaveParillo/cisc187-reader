@@ -112,7 +112,7 @@ array ``A`` to be ready for the next pass.
 Variable ``rtoi`` stores :math:`r^i` for use in bin computation
 on the :math:`i`'th iteration.
 
-Radix Sort Analysis
+Radix sort analysis
 -------------------
 **Is it really a reasonable assumption to treat** :math:`k` **as a
 constant?**
@@ -193,4 +193,3 @@ or the last character in variable length strings.
    `Open Data Structures (OpenDSA) <https://opendsa-server.cs.vt.edu>`__
    by Ville Karavirta and Cliff Shaffer
    which is distributed under the `MIT License <https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt>`__.
-

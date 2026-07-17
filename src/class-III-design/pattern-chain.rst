@@ -48,20 +48,20 @@ dynamically-built switch statement.
 
       class food_handler {
         <<interface>>
-        +handle(request string) string
+        +handle(request string_view) string
       }
       class monkey_food_handler {
-        +handle(request string) string
+        +handle(request string_view) string
       }
       class squirrel_food_handler {
-        +handle(request string) string
+        +handle(request string_view) string
       }
       class dog_food_handler {
-        +handle(request string) string
+        +handle(request string_view) string
       }
       class food_handlers {
-        -chain vector~unique_ptr~food_handler~~
-        +handle(food_item string) string
+        -chain_ vector~unique_ptr~food_handler~~
+        +handle(food_item string_view) string
       }
       class client {
         <<function>>
@@ -79,9 +79,8 @@ dynamically-built switch statement.
       .. code-block:: cpp
 
          struct food_handler {
-             constexpr const std::string empty;  // sentinel value
-             virtual std::string handle(std::string request) const = 0;
-             virtual ~handler() = default;
+           virtual std::string handle(std::string_view request) const = 0;
+           virtual ~food_handler() = default;
          };
 
       Note this class has no logic to visit the next node.
@@ -100,27 +99,29 @@ dynamically-built switch statement.
       .. code-block:: cpp
 
          struct monkey_food_handler : food_handler {
-           std::string handle(std::string request) const override {
+           std::string handle(std::string_view request) const override {
              if (request == "Banana") {
-               return "Monkey: I'll eat the " + request + ".\n";
+               return "Monkey: I'll eat the " + std::string{request} + ".\n";
              }
-             return empty;
+             return {};
            }
          };
+
          struct squirrel_food_handler : food_handler {
-           std::string handle(std::string request) const override {
+           std::string handle(std::string_view request) const override {
              if (request == "Nut") {
-               return "Squirrel: I'll eat the " + request + ".\n";
+               return "Squirrel: I'll eat the " + std::string{request} + ".\n";
              }
-             return empty;
+             return {};
            }
          };
+
          struct dog_food_handler : food_handler {
-           std::string handle(std::string request) const override {
+           std::string handle(std::string_view request) const override {
              if (request == "MeatBall") {
-               return "Dog: I'll eat the " + request + ".\n";
+               return "Dog: I'll eat the " + std::string{request} + ".\n";
              }
-             return empty;
+             return {};
            }
          };
 
@@ -133,23 +134,25 @@ dynamically-built switch statement.
 
       .. code-block:: cpp
 
-         class food_handlers : food_handler
-         {
-           std::vector<std::unique_ptr<food_handler>> chain;
-           public:
-             food_handlers() {
-               chain.push_back(std::make_unique<food_handler>(monkey_food_handler));
-               chain.push_back(std::make_unique<food_handler>(squirrel_food_handler));
-               chain.push_back(std::make_unique<food_handler>(dog_food_handler));
-             }
-             std::string handle(std::string food_item) const override {
-               std::string reply;
-               for(const auto& link: chain) {
-                 reply = link->handle(food_item);
-                 if(!reply.empty()) { return reply; }
+         class food_handlers : public food_handler {
+         public:
+           food_handlers() {
+             chain_.push_back(std::make_unique<monkey_food_handler>());
+             chain_.push_back(std::make_unique<squirrel_food_handler>());
+             chain_.push_back(std::make_unique<dog_food_handler>());
+           }
+
+           std::string handle(std::string_view food_item) const override {
+             for (const auto& link: chain_) {
+               if (std::string reply = link->handle(food_item); !reply.empty()) {
+                 return reply;
                }
-               return reply;
              }
+             return {};
+           }
+
+         private:
+           std::vector<std::unique_ptr<food_handler>> chain_;
          };
 
 
@@ -166,7 +169,8 @@ dynamically-built switch statement.
       .. code-block:: cpp
 
          void client(const food_handlers& eaters) {
-           std::vector<std::string> food = {"Nut", "Banana", "Cup of coffee"};
+           const std::vector<std::string_view> food {"Nut", "Banana", "Cup of coffee"};
+
            for (const auto& snack : food) {
              std::cout << "Client: Who wants a " << snack << "?\n";
              const std::string result = eaters.handle(snack);
@@ -197,59 +201,65 @@ dynamically-built switch statement.
          #include <iostream>
          #include <memory>
          #include <string>
+         #include <string_view>
          #include <vector>
 
          struct food_handler {
-             const std::string empty;
-             virtual std::string handle(std::string request) const = 0;
-             virtual ~food_handler() = default;
+           virtual std::string handle(std::string_view request) const = 0;
+           virtual ~food_handler() = default;
          };
 
          struct monkey_food_handler : food_handler {
-             std::string handle(std::string request) const override {
-               if (request == "Banana") {
-                 return "Monkey: I'll eat the " + request + ".\n";
-               }
-               return empty;
+           std::string handle(std::string_view request) const override {
+             if (request == "Banana") {
+               return "Monkey: I'll eat the " + std::string{request} + ".\n";
              }
+             return {};
+           }
          };
+
          struct squirrel_food_handler : food_handler {
-             std::string handle(std::string request) const override {
-               if (request == "Nut") {
-                 return "Squirrel: I'll eat the " + request + ".\n";
-               }
-               return empty;
+           std::string handle(std::string_view request) const override {
+             if (request == "Nut") {
+               return "Squirrel: I'll eat the " + std::string{request} + ".\n";
              }
+             return {};
+           }
          };
+
          struct dog_food_handler : food_handler {
-             std::string handle(std::string request) const override {
-               if (request == "MeatBall") {
-                 return "Dog: I'll eat the " + request + ".\n";
-               }
-               return empty;
+           std::string handle(std::string_view request) const override {
+             if (request == "MeatBall") {
+               return "Dog: I'll eat the " + std::string{request} + ".\n";
              }
+             return {};
+           }
          };
-         class food_handlers : food_handler
-         {
-           std::vector<std::unique_ptr<food_handler>> chain;
-           public:
-             food_handlers() {
-               chain.push_back(std::unique_ptr<food_handler>(new monkey_food_handler));
-               chain.push_back(std::unique_ptr<food_handler>(new squirrel_food_handler));
-               chain.push_back(std::unique_ptr<food_handler>(new dog_food_handler));
-             }
-             std::string handle(std::string food_item) const override {
-               std::string reply;
-               for(const auto& dude: chain) {
-                 reply = dude->handle(food_item);
-                 if(!reply.empty()) { return reply; }
+
+         class food_handlers : public food_handler {
+         public:
+           food_handlers() {
+             chain_.push_back(std::make_unique<monkey_food_handler>());
+             chain_.push_back(std::make_unique<squirrel_food_handler>());
+             chain_.push_back(std::make_unique<dog_food_handler>());
+           }
+
+           std::string handle(std::string_view food_item) const override {
+             for (const auto& link: chain_) {
+               if (std::string reply = link->handle(food_item); !reply.empty()) {
+                 return reply;
                }
-               return reply;
              }
+             return {};
+           }
+
+         private:
+           std::vector<std::unique_ptr<food_handler>> chain_;
          };
 
          void client(const food_handlers& eaters) {
-           std::vector<std::string> food = {"Nut", "Banana", "Cup of coffee"};
+           const std::vector<std::string_view> food {"Nut", "Banana", "Cup of coffee"};
+
            for (const auto& item : food) {
              std::cout << "Client: Who wants a " << item << "?\n";
              const std::string result = eaters.handle(item);
@@ -264,7 +274,6 @@ dynamically-built switch statement.
          int main() {
            food_handlers eaters;
            client(eaters);
-           return 0;
          }
 
 

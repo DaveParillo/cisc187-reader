@@ -33,30 +33,31 @@ as in "a car has an engine."
 
 Composition models the relation where two object lifetimes are linked:
 
-- When a Car is created, it comes with an Engine.
-- The Engine can exist only as long as the Car exists.
-- The Engine exists solely for the benefit of the Car that contains the Engine
-- No other car can use this engine.
-- When the Car is destroyed, the Engine is destroyed.
+- When a ``car`` is created, it comes with an ``engine``.
+- The ``engine`` can exist only as long as the ``car`` exists.
+- The ``engine`` exists solely for the benefit of the ``car`` that contains the
+  ``engine``.
+- No other car can use this ``engine``.
+- When the ``car`` is destroyed, the ``engine`` is destroyed.
 
 .. code-block:: cpp
 
-   struct Engine { . . . };
-   struct Tire   { . . . };
-   struct Stereo { . . . };
+   struct engine { . . . };
+   struct tire   { . . . };
+   struct stereo { . . . };
 
-   struct Car {
-     Engine e;
-     Stereo s;
-     std::array<Tire, 4> tires;
+   struct car {
+     engine e;
+     stereo s;
+     std::array<tire, 4> tires;
    };
 
    int main() {
      {  // create a temporary scope
 
        // create a car (and all its components)
-       Car c;
-     } // when the Car goes out of scope,
+       car c;
+     } // when the car goes out of scope,
        // both the car and its components are destroyed
    }
 

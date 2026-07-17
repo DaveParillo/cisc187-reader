@@ -11,6 +11,26 @@
 
 Strategy pattern
 ================
+.. graphviz::
+   :alt: Fly strategy
+   :align: right
+   :caption: Fly strategy
+
+   digraph "strategy"
+   {
+     node [
+       fontname="BitstreamVeraSans",
+       fontsize="12",
+       color="black",
+       fillcolor="lightblue",
+       shape=record,
+       style="filled"
+     ];
+     fly [
+       label="{fly_behavior|-strategy: std::function\<void\>\l|+fly(): void\l}"
+     ];
+   }
+
 We can think of flying as a *strategy* different birds employ to move around.
 Birds don't *inherit* a fly behavior, they *have it*.
 The centerpiece of the solution is to isolate many different
@@ -18,47 +38,51 @@ types of flying behavior behind a single class that stores
 a pointer to a function implementing the behavior.
 Each implementation defines a different **strategy** for the interface.
 
-.. mermaid::
-   :alt: Flying strategy
-
-   classDiagram
-      class fly_behavior {
-         -strategy std::function~void()~
-         +fly() void
-      }
-
 Any callable entity (function, function object, or lambda) is
 a potential strategy that derived classes of a bird can now use.
 
 .. code-block:: cpp
+   :name: fly-strategy-core
+   :caption: Fly strategy support code
 
-   #include <iostream>
+   #include <concepts>
    #include <functional>
+   #include <iostream>
    #include <utility>
-
-   #define FunctionObject typename 
 
    // an alias to avoid copying std::function<void()> everywhere
    using fly_strategy = std::function<void()>;
 
+   template <typename S>
+   concept fly_strategy_source =
+     std::constructible_from<fly_strategy, S>;
+
    class fly_behavior {
-     public:
-       template<FunctionObject F>
-       explicit fly_behavior(F strategy) 
-         : strategy {strategy}
-       { }
+   public:
+     template <fly_strategy_source S>
+     explicit fly_behavior(S&& new_strategy)
+       : strategy_{std::forward<S>(new_strategy)}
+     {
+     }
 
-       void fly() { strategy(); }
+     void fly() const {
+       strategy_();
+     }
 
-     private:
-       fly_strategy strategy;
+     template <fly_strategy_source S>
+     void strategy(S&& new_strategy) {
+       strategy_ = std::forward<S>(new_strategy);
+     }
+
+   private:
+     fly_strategy strategy_;
    };
 
    // a function object that implements a strategy
    struct soar
    {
-     void operator() () {
-      std::cout << "fly by soaring.\n";
+     void operator()() const {
+       std::cout << "fly by soaring.\n";
      }
    };
 
@@ -68,7 +92,13 @@ a potential strategy that derived classes of a bird can now use.
    }
 
 
-The base class now *delgates* the fly behavior to the strategy
+The concept ``fly_strategy_source`` is a real template requirement:
+any strategy must be a callable object that can be stored in a
+``std::function<void()>``.
+The ``fly_behavior`` class owns that callable and provides one place
+to execute or replace the current strategy.
+
+The base class now *delegates* the fly behavior to the strategy
 instead of either defining a single fixed behavior or forcing every
 derived class to create one.
 In languages without lambda expressions, each implemented strategy
@@ -82,25 +112,35 @@ then implement as a class or function object.
 If the strategy is stateless, then implement a functional solution.
 
 .. code-block:: cpp
+   :name: bird-base
+   :caption: Bird base class using the fly strategy
 
    class bird {
-     fly_strategy strategy = soar();
-
-     public:
-     bird () = default;
-     explicit bird(fly_strategy strategy)
-      : strategy(strategy)
-     {}
-     ~bird () = default;
-
-     // change strategy mid-stream
-     void fly_behavior (fly_strategy new_strategy) {
-      strategy = new_strategy;
+   public:
+     bird()
+       : flight_{soar{}}
+     {
      }
 
-     void fly() {
-      strategy();
+     template <fly_strategy_source S>
+     explicit bird(S&& new_strategy)
+       : flight_{std::forward<S>(new_strategy)}
+     {
      }
+
+     virtual ~bird() = default;
+
+     template <fly_strategy_source S>
+     void set_fly_behavior(S&& new_strategy) {
+       flight_.strategy(std::forward<S>(new_strategy));
+     }
+
+     void fly() const {
+       flight_.fly();
+     }
+
+   private:
+     fly_behavior flight_;
    };
 
 In this example, a bird may
@@ -112,20 +152,30 @@ In this example, a bird may
 An example of birds using the strategy:
 
 .. code-block:: cpp
+   :name: strategy-birds
+   :caption: Birds with different fly strategies
 
    // a hawk can use the default soar behavior
    class hawk : public bird {
-     public:
-      hawk() = default;
+   public:
+     hawk() = default;
    };
 
    // this penguin defines its fly behavior using a free function
    class penguin : public bird {
-     public:
-      penguin()
-        : bird(no_flying_allowed)
-      {}
+   public:
+     penguin()
+       : bird{no_flying_allowed}
+     {
+     }
    };
+
+And now the reusable pieces can be combined into a complete program.
+
+.. tb-code:: cpp
+   :name: strategy-hawk-penguin
+   :caption: Hawk and penguin fly strategies
+   :run-before: fly-strategy-core, bird-base, strategy-birds
 
    int main() {
      hawk h;
@@ -135,14 +185,12 @@ An example of birds using the strategy:
      p.fly();
 
      // change the behavior for just this penguin
-     p.fly_behavior(
-        [](){ 
-         std::cout << "With a rocket pack, now I can fly!!\n";
-        }
+     p.set_fly_behavior(
+       []() {
+         std::cout << "With a rocket pack, now I can fly!\n";
+       }
      );
      p.fly();
-
-     return 0;
    }
 
 Notice that we fixed our inheritance problem by using :term:`composition`.
@@ -156,5 +204,3 @@ it also allowed a simple hook to enable changing the behavior at runtime.
    - `Strategy Design Pattern <https://www.oodesign.com/strategy-pattern/>`__ on oodesign.com
      and on :wiki:`Wikipedia <Strategy_pattern>`.
    - `Design Patterns Are Missing Language Features <http://wiki.c2.com/?DesignPatternsAreMissingLanguageFeatures>`__ from the PortlandPatternRepository.
-
-

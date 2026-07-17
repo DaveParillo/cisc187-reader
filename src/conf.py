@@ -128,6 +128,7 @@ html_theme = 'sphinx_nefertiti'
 html_static_path = ['_static']
 html_css_files = [
     'cpp_admonitions.css',
+    'custom.css',
 ]
 html_js_files = [
   'nefertiti-logo-scheme.js',
@@ -165,4 +166,3 @@ tb_code_language_defaults = {
     'cpp': {'compileargs': ['-Wall', '-Wextra', '-pedantic', '-std=c++20']},
 }
 tb_code_block_defaults = {'linenos': True}
-

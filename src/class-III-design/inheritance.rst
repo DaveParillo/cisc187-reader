@@ -21,15 +21,15 @@ Consider the following example:
 
 .. code-block:: cpp
 
-   enum class Color {RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET};
+   enum class visible {red, orange, yellow, green, blue, indigo, violet};
 
    class shape {
-       Color color_ = Color::BLUE;
+       visible color_ = visible::blue;
      public:
-       virtual ~shape() = default;
-       void   color (Color new_color) { color_ = new_color; }
-       Color  color ()  const         { return color_; }
-       virtual void   move();
+       virtual  ~shape() = default;
+       void     color (visible new_color) { color_ = new_color; }
+       visible  color ()  const           { return color_; }
+       virtual  void  move();
    };
 
 The class ``shape`` defines common behaviors that
@@ -75,7 +75,7 @@ Applying this to our base class shape we can define a circle like this:
    class circle: public shape {
       double radius = 1;
      public:
-       void   move() override;
+       void  move() override;
    };
 
 Which creates a by default a blue circle with radius = 1.
@@ -109,7 +109,7 @@ without having special case code to determine *what* the shape type is:
    }
 
    int main() {
-     Circle c;
+     circle c;
      draw_shape(c);
    }
 
@@ -128,7 +128,7 @@ Passing a pointer would work as well as a reference:
    }
 
    int main() {
-     Circle c;
+     circle c;
      draw_shape(&c);
    }
 
@@ -342,16 +342,16 @@ the following relationships are valid:
    :alt: multiple inheritance
 
    classDiagram
-      Person <|-- Student
-      Person <|-- Faculty
-      Student <|-- TeachingAssistant
-      Faculty <|-- TeachingAssistant
+      person <|-- student
+      person <|-- faculty
+      student <|-- teaching_assistant
+      faculty <|-- teaching_assistant
 
 
-The ``TeachingAssistant`` class is both a ``Faculty`` and a ``Student``
-and inherits two copies of the ``Person`` base class data.
-When a TA is created, the Person constructor is called *twice*.
-Once for each copy of the Person stored.
+The ``teaching_assistant`` class is both a ``faculty`` and a ``student``
+and inherits two copies of the ``person`` base class data.
+When a TA is created, the ``person`` constructor is called *twice*.
+Once for each copy of the ``person`` stored.
 This is both wasteful and creates ambiguities.
 
 The C++ solution to this problem is to inherit *virtual base* classes.
@@ -369,36 +369,36 @@ For example:
    using std::cout; 
    using std::string; 
 
-   struct Person { 
+   struct person { 
        explicit
-       Person(string n)  { cout << "Person(" << n << ") called\n";   } 
-       Person()          { cout << "Person() called\n";   } 
+       person(string n)  { cout << "person(" << n << ") called\n";   } 
+       person()          { cout << "person() called\n";   } 
    }; 
 
-   struct Faculty : virtual public Person { 
+   struct faculty : virtual public person { 
        explicit
-       Faculty(string n) : Person(n)   { 
-          cout<<"Faculty(" << n << ") called\n"; 
+       faculty(string n) : person(n)   { 
+          cout<<"faculty(" << n << ") called\n"; 
        } 
    }; 
 
-   struct Student : virtual public Person { 
+   struct student : virtual public person { 
        explicit
-       Student(string n) : Person(n) { 
-           cout<<"Student(" << n << ") called\n"; 
+       student(string n) : person(n) { 
+           cout<<"student(" << n << ") called\n"; 
        } 
    }; 
 
-   struct TeachingAssistant : public Faculty, public Student  { 
+   struct teaching_assistant : public faculty, public student  { 
        explicit
-       TeachingAssistant(string n)
-         : Faculty(n), Student(n)   { 
+       teaching_assistant(string n)
+         : faculty(n), student(n)   { 
            cout<<"TA(" << n << ") called\n"; 
        } 
    }; 
 
    int main()  { 
-       TeachingAssistant ta("Alice"); 
+       teaching_assistant ta("Alice"); 
    } 
 
 This solves the 'multiple grandparent problem' for the teaching assistant class,
@@ -406,24 +406,24 @@ but note that the **default** Person constructor is called.
 If the name is stored in the Person class,
 then we need to call the non-default constructor.
 
-The ``Person(string)`` constructor can be explicitly called in the
-``TeachingAssistant`` initializer.
-In order for ``Faculty`` and ``Student`` to initialize correctly,
-the Person class must be constructed first:
+The ``person(string)`` constructor can be explicitly called in the
+``teaching_assistant`` initializer.
+In order for ``faculty`` and ``student`` to initialize correctly,
+the person class must be constructed first:
 
 .. code-block:: cpp
 
    explicit
-       TeachingAssistant(string n)
-         : Person(n), Faculty(n), Student(n)   { . . . } 
+       teaching_assistant(string n)
+         : person(n), faculty(n), student(n)   { . . . } 
 
 .. admonition:: Try This!
 
    Change the TA signature in the previous active code example
    to call the 1 argument Person constructor.
 
-What about the situation where ``Person`` defines a virtual function,
-which is overridden by ``Faculty`` and ``Student``?
+What about the situation where ``person`` defines a virtual function,
+which is overridden by ``faculty`` and ``student``?
 
 Which version of the function is invoked?
 
@@ -439,11 +439,11 @@ like this:
 
 .. code-block:: cpp
 
-   TeachingAssistant::foo() {
+   teaching_assistant::foo() {
       if (weekday) {
-         Faculty::foo();
+         faculty::foo();
       } else {
-         Student::foo();
+         student::foo();
       }
    }
 

@@ -56,14 +56,14 @@ one unimplemented function:
 
 .. code-block:: cpp
 
-   class enum Color {RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET};
+   enum class visible {red, orange, yellow, green, blue, indigo, violet};
 
    class shape {
-       Color color_ = Color::BLUE;
+       visible color_ = visible::blue;
      public:
        virtual ~shape() = default;
-       void   color (Color new_color) { color_ = new_color; }
-       Color  color ()  const         { return color_; }
+       void    color (visible new_color) { color_ = new_color; }
+       visible color ()  const           { return color_; }
        virtual void   move();      // implemented in shape.cpp
        virtual void   draw() = 0;
        virtual void   erase() = 0;
@@ -121,11 +121,11 @@ or by declaring an existing virtual function as pure virtual.
 
 .. code-block:: cpp
 
-   struct Base {
+   struct base {
        virtual void f() = 0; // pure virtual
    };
     
-   struct X : Base {
+   struct X : base {
        void f() override {} // non-pure virtual
        virtual void g();     // non-pure virtual
    };
@@ -140,10 +140,10 @@ or by declaring an existing virtual function as pure virtual.
     
    int main()
    {
-       Base b;      // Error: abstract class
+       base b;      // Error: abstract class
        X x;         // OK
 
-       Base& b = x; // OK to reference abstract base
+       base& b = x; // OK to reference abstract base
        b.f();       // virtual dispatch to X::f()
        Y y;         // Error: abstract class (final overrider of g() is pure)
        Z z;         // OK: final overrider of g() is non-pure
@@ -368,8 +368,8 @@ Attempting to override a final function is a compile error.
 
      - :lang:`virtual function specifier <virtual>`
      - :lang:`Abstract classes <abstract_class>`
-     - :wiki:`The Template Method design pattern<Template_method_pattern>`
      - :lang:`final specifier <final>`
 
    - `Virtuality <http://www.gotw.ca/publications/mill18.htm>`__ by Herb Sutter
+   - :wiki:`The Template Method design pattern<Template_method_pattern>`
 

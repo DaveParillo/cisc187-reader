@@ -34,6 +34,436 @@ so you could also think of it as a more general,
 dynamically-built switch statement.
 
 .. mermaid::
+   :alt: Food handler chain UML class diagram
+   :caption: Food handler chain of responsibility
+
+   classDiagram
+      direction TB
+      client ..> food_handlers : uses
+      food_handlers --|> food_handler
+      food_handler <|-- monkey_food_handler
+      food_handler <|-- squirrel_food_handler
+      food_handler <|-- dog_food_handler
+      food_handler --* food_handlers : chain
+
+      class food_handler {
+        <<interface>>
+        +handle(request string) string
+      }
+      class monkey_food_handler {
+        +handle(request string) string
+      }
+      class squirrel_food_handler {
+        +handle(request string) string
+      }
+      class dog_food_handler {
+        +handle(request string) string
+      }
+      class food_handlers {
+        -chain vector~unique_ptr~food_handler~~
+        +handle(food_item string) string
+      }
+      class client {
+        <<function>>
+      }
+
+
+.. tb-group::
+   :name: cor_pattern_refactor_tab
+
+   .. tb-tab:: Interface
+
+      The interface declares methods for building the chain of handlers
+      and for executing a request.
+
+      .. code-block:: cpp
+
+         struct food_handler {
+             constexpr const std::string empty;  // sentinel value
+             virtual std::string handle(std::string request) const = 0;
+             virtual ~handler() = default;
+         };
+
+      Note this class has no logic to visit the next node.
+      This class has one job - provide an interface to handle a request.
+
+   .. tb-tab:: Implementing classes
+
+      The implementing classes are where 'handling' gets done.
+
+      Classes return an empty string if they do not handle anything.
+
+      The string is used as an early exit condition from the chain:
+      as soon as some link in the change returns a non-empty string
+      the chain can return the result to the client.
+
+      .. code-block:: cpp
+
+         struct monkey_food_handler : food_handler {
+           std::string handle(std::string request) const override {
+             if (request == "Banana") {
+               return "Monkey: I'll eat the " + request + ".\n";
+             }
+             return empty;
+           }
+         };
+         struct squirrel_food_handler : food_handler {
+           std::string handle(std::string request) const override {
+             if (request == "Nut") {
+               return "Squirrel: I'll eat the " + request + ".\n";
+             }
+             return empty;
+           }
+         };
+         struct dog_food_handler : food_handler {
+           std::string handle(std::string request) const override {
+             if (request == "MeatBall") {
+               return "Dog: I'll eat the " + request + ".\n";
+             }
+             return empty;
+           }
+         };
+
+      In this example we use a vector to manage the handlers.
+      Any iterable standard library container could be used here, but 
+      :container:`vector`, :container:`array`, and :container:`list` would be
+      typical choices.
+
+      The constructor builds the chain, which is completely private.
+
+      .. code-block:: cpp
+
+         class food_handlers : food_handler
+         {
+           std::vector<std::unique_ptr<food_handler>> chain;
+           public:
+             food_handlers() {
+               chain.push_back(std::make_unique<food_handler>(monkey_food_handler));
+               chain.push_back(std::make_unique<food_handler>(squirrel_food_handler));
+               chain.push_back(std::make_unique<food_handler>(dog_food_handler));
+             }
+             std::string handle(std::string food_item) const override {
+               std::string reply;
+               for(const auto& link: chain) {
+                 reply = link->handle(food_item);
+                 if(!reply.empty()) { return reply; }
+               }
+               return reply;
+             }
+         };
+
+
+      No other code needs to know what classes are actually in the chain.
+
+
+   .. tb-tab:: Client
+
+      The client function provides the data that needs to be handled - in this
+      case our food items.
+      The client also needs to know about food handlers as a group, but does
+      not know what classes are doing the handling or how many there are.
+
+      .. code-block:: cpp
+
+         void client(const food_handlers& eaters) {
+           std::vector<std::string> food = {"Nut", "Banana", "Cup of coffee"};
+           for (const auto& snack : food) {
+             std::cout << "Client: Who wants a " << snack << "?\n";
+             const std::string result = eaters.handle(snack);
+             if (result.empty()) {
+               std::cout << ' ' << snack << " was left untouched.\n";
+             } else {
+               std::cout << ' ' << result;
+             }
+           }
+         }
+
+
+      One of the big benefits of all this work is how little main needs to
+      know:
+
+      .. code-block:: cpp
+
+         int main() {
+           food_handlers eaters;
+           client(eaters);
+         }
+
+   .. tb-tab:: Run It
+
+      .. tb-code:: cpp
+         :name: ac_class_design_pattern_chain_of_responsibility_refactor
+
+         #include <iostream>
+         #include <memory>
+         #include <string>
+         #include <vector>
+
+         struct food_handler {
+             const std::string empty;
+             virtual std::string handle(std::string request) const = 0;
+             virtual ~food_handler() = default;
+         };
+
+         struct monkey_food_handler : food_handler {
+             std::string handle(std::string request) const override {
+               if (request == "Banana") {
+                 return "Monkey: I'll eat the " + request + ".\n";
+               }
+               return empty;
+             }
+         };
+         struct squirrel_food_handler : food_handler {
+             std::string handle(std::string request) const override {
+               if (request == "Nut") {
+                 return "Squirrel: I'll eat the " + request + ".\n";
+               }
+               return empty;
+             }
+         };
+         struct dog_food_handler : food_handler {
+             std::string handle(std::string request) const override {
+               if (request == "MeatBall") {
+                 return "Dog: I'll eat the " + request + ".\n";
+               }
+               return empty;
+             }
+         };
+         class food_handlers : food_handler
+         {
+           std::vector<std::unique_ptr<food_handler>> chain;
+           public:
+             food_handlers() {
+               chain.push_back(std::unique_ptr<food_handler>(new monkey_food_handler));
+               chain.push_back(std::unique_ptr<food_handler>(new squirrel_food_handler));
+               chain.push_back(std::unique_ptr<food_handler>(new dog_food_handler));
+             }
+             std::string handle(std::string food_item) const override {
+               std::string reply;
+               for(const auto& dude: chain) {
+                 reply = dude->handle(food_item);
+                 if(!reply.empty()) { return reply; }
+               }
+               return reply;
+             }
+         };
+
+         void client(const food_handlers& eaters) {
+           std::vector<std::string> food = {"Nut", "Banana", "Cup of coffee"};
+           for (const auto& item : food) {
+             std::cout << "Client: Who wants a " << item << "?\n";
+             const std::string result = eaters.handle(item);
+             if (result.empty()) {
+               std::cout << ' ' << item << " was left untouched.\n";
+             } else {
+               std::cout << ' ' << result;
+             }
+           }
+         }
+
+         int main() {
+           food_handlers eaters;
+           client(eaters);
+           return 0;
+         }
+
+
+This next fun example is adapted from Thinking in C++, Vol 2.
+It uses some non-standard vocabulary to define the basic elements of the chain,
+but it is still a chain of responsibility.
+
+.. tb-group::
+   :name: cor_pattern_ticpp_tab
+
+   .. tb-tab:: Interface
+
+      First we define an interface each handler
+      in the chain of responsibility must implement. 
+
+      .. code-block:: cpp
+
+         #include <iostream>
+         #include <memory>
+         #include <vector>
+
+         enum class Answer { NO, YES };
+
+         // This is our handler interface.
+         // Every class that inherits from this
+         // must implement the canIHave function
+         struct GimmeStrategy {
+           virtual Answer canIHave() = 0;
+           virtual ~GimmeStrategy() = default;
+         };
+
+
+      Rather than a ``bool``, in this case, our early termination
+      criteria is an enumerated type.
+
+
+   .. tb-tab:: Implementing classes
+
+      For a chain to be a chain, at least two classes must implement the interface.
+      (It's not much of a chain with only 1 link).
+
+      .. code-block:: cpp
+
+         struct AskMom : public GimmeStrategy {
+           Answer canIHave() {
+             std::cout << "Mommy? Can I have this?\n";
+             return Answer::NO;
+           }
+         };
+
+         struct AskDad : public GimmeStrategy {
+           Answer canIHave() {
+             std::cout << "Dad, I really need this!\n";
+             return Answer::NO;
+           }
+         };
+
+         struct AskGrandpa : public GimmeStrategy {
+           Answer canIHave() {
+             std::cout << "Grandpa, is it my birthday yet?\n";
+             return Answer::NO;
+           }
+         };
+
+         struct AskGrandma : public GimmeStrategy {
+           Answer canIHave() {
+             std::cout << "Grandma, I really love you!\n";
+             return Answer::YES;
+           }
+         };
+
+   .. tb-tab:: Building the chain
+
+      Much discussion related to this pattern is about how to create 
+      the chain of responsibility as a linked list.
+      However, when you look at the pattern it really shouldn't matter how 
+      the chain is created: that's an implementation detail.
+      The only important part is that *some* kind of
+      :term:`iterable` type is used to visit each handler.
+      How that is implemented should be invisible to users.
+
+      While the ``Gimme`` class also is derived from the ``GimmeStrategy``
+      it is used to construct the chain of all the other strategies
+      used.
+
+      .. code-block:: cpp
+
+         class Gimme : public GimmeStrategy {
+            private:
+               std::vector<std::unique_ptr<GimmeStrategy>> chain;
+            public:
+              Gimme() {
+                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskMom));
+                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskDad));
+                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskGrandpa));
+                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskGrandma));
+              }
+              Answer canIHave() {
+                for (const auto& it: chain) {
+                  if (it->canIHave() == Answer::YES) {
+                     return Answer::YES;
+                  }
+                }
+                // Reached end without success...
+                std::cout << "Waaaaaahh!!\n";
+                return Answer::NO;
+              }
+         };
+
+   .. tb-tab:: Run It
+
+      Once the abstract and implementing classes have been defined,
+      then calling the chain is easy:
+
+      .. code-block:: cpp
+
+         int main() {
+           Gimme chain;
+           chain.canIHave();
+         }
+
+      .. tb-code:: cpp
+         :name: ac_class_design_pattern_chain_of_responsibility_ticpp
+
+         #include <iostream>
+         #include <memory>
+         #include <vector>
+
+         enum class Answer { NO, YES };
+
+         struct GimmeStrategy {
+           virtual Answer canIHave() = 0;
+           virtual ~GimmeStrategy() = default;
+         };
+
+         struct AskMom : public GimmeStrategy {
+           Answer canIHave() {
+             std::cout << "Mommy? Can I have this?\n";
+             return Answer::NO;
+           }
+         };
+
+         struct AskDad : public GimmeStrategy {
+           Answer canIHave() {
+             std::cout << "Dad, I really need this!\n";
+             return Answer::NO;
+           }
+         };
+
+         struct AskGrandpa : public GimmeStrategy {
+           Answer canIHave() {
+             std::cout << "Grandpa, is it my birthday yet?\n";
+             return Answer::NO;
+           }
+         };
+
+         struct AskGrandma : public GimmeStrategy {
+           Answer canIHave() {
+             std::cout << "Grandma, I really love you!\n";
+             return Answer::YES;
+           }
+         };
+
+         class Gimme : public GimmeStrategy {
+            private:
+               std::vector<std::unique_ptr<GimmeStrategy>> chain;
+            public:
+              Gimme() {
+                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskMom));
+                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskDad));
+                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskGrandpa));
+                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskGrandma));
+              }
+              Answer canIHave() {
+                for (const auto& it: chain) {
+                  if (it->canIHave() == Answer::YES) {
+                     return Answer::YES;
+                  }
+                }
+                // Reached end without success...
+                std::cout << "Waaaaaahh!!\n";
+                return Answer::NO;
+              }
+         };
+
+         int main() {
+           Gimme chain;
+           chain.canIHave();
+         }
+
+The 'classic' version
+---------------------
+
+The 'classic' implementation of the chain of responsibility implements the design
+shown in the UML diagram with a handler interface and an abstract handler to encapsulate
+maintenance of the chain.
+
+
+.. mermaid::
    :alt: chain of responsibility UML diagram
 
    classDiagram
@@ -57,9 +487,17 @@ dynamically-built switch statement.
          +handle() override
       }
 
-The 'classic' implementation of the chain of responsibility implements the design
-shown in the UML diagram with a handler interface and an abstract handler to encapsulate
-maintenance of the chain.
+The 'classic' Chain of Responsibility in the 'Gang of Four' Patterns book
+does some work that is not needed  in C++.
+Specifically the code related to managing a linked list from scratch.
+The standard library provides several containers that will work just as well.
+This is one of the reasons why this pattern is no longer implemented as written
+in the original book.
+
+Keeping in mind that the essence of Chain of Responsibility is 
+to try a number of solutions until you find one that works, 
+you'll realize that the implementation of the sequencing mechanism is not 
+an essential part of the pattern.
 
 .. tb-group::
    :name: cor_pattern_cppguru_tab
@@ -281,416 +719,6 @@ maintenance of the chain.
 
          }
 
-
-
-The 'classic' Chain of Responsibility in the 'Gang of Four' Patterns book
-does some work that is not needed - specifically the code related to creating and
-managing a linked list from scratch.
-The standard library provides several containers that will work just as well.
-
-Keeping in mind that the essence of Chain of Responsibility is 
-to try a number of solutions until you find one that works, 
-you'll realize that the implementation of the sequencing mechanism is not 
-an essential part of the pattern.
-
-.. tb-group::
-   :name: cor_pattern_refactor_tab
-
-   .. tb-tab:: Interface
-
-      The interface declares methods for building the chain of handlers
-      and for executing a request.
-
-      .. code-block:: cpp
-
-         struct food_handler {
-             const std::string empty;
-             virtual std::string handle(std::string request) const = 0;
-             virtual ~handler() = default;
-         };
-
-      Notice the code to visit the next node has been removed and the
-      abstract handler that had been used to encapsulate the linked list is
-      no longer needed.
-
-
-   .. tb-tab:: Implementing classes
-
-      The implementing classes are mostly the same. Differences:
-
-      - Classes now inherit directly from the interface type.
-      - Instead of returning the value from the next link in the chain,
-        classes return an empty string if they do not handle anything.
-
-        The string is used as an early exit condition from the chain:
-        as soon as some link in the change returns a non-empty string
-        the chain can return the result to the client.
-
-      .. code-block:: cpp
-
-         struct monkey_food_handler : food_handler {
-           std::string handle(std::string request) const override {
-             if (request == "Banana") {
-               return "Monkey: I'll eat the " + request + ".\n";
-             }
-             return empty;
-           }
-         };
-         struct squirrel_food_handler : food_handler {
-           std::string handle(std::string request) const override {
-             if (request == "Nut") {
-               return "Squirrel: I'll eat the " + request + ".\n";
-             }
-             return empty;
-           }
-         };
-         struct dog_food_handler : food_handler {
-           std::string handle(std::string request) const override {
-             if (request == "MeatBall") {
-               return "Dog: I'll eat the " + request + ".\n";
-             }
-             return empty;
-           }
-         };
-
-      The abstract handler class is no longer abstract and uses a vector to
-      manage the handlers.
-      Any iterable standard library container could be used here, but 
-      :container:`vector`, :container:`array`, and :container:`list` would be
-      typical choices.
-
-      The constructor builds the chain, which is now completely private.
-
-      The big improvement here is no the chain is responsible for managing it's own memory.
-      It defers the task to :memory:`unique_ptr`, but in contrast wi the earlier example,
-      all the memory needed to be managed by everyt *user* of the chain.
-
-      .. code-block:: cpp
-
-         class food_handlers : food_handler
-         {
-           std::vector<std::unique_ptr<food_handler>> chain;
-           public:
-             food_handlers() {
-               chain.push_back(std::unique_ptr<food_handler>(new monkey_food_handler));
-               chain.push_back(std::unique_ptr<food_handler>(new squirrel_food_handler));
-               chain.push_back(std::unique_ptr<food_handler>(new dog_food_handler));
-             }
-             std::string handle(std::string food_item) const override {
-               std::string reply;
-               for(const auto& link: chain) {
-                 reply = link->handle(food_item);
-                 if(!reply.empty()) { return reply; }
-               }
-               return reply;
-             }
-         };
-
-
-      No other code needs to know what classes are actually in the chain.
-
-
-   .. tb-tab:: Client
-
-      The signature of the client function has changed slightly to reflect passing
-      in a different type, but the client is essentially untouched.
-      It still loops on each data item and sends each one to the handler
-      for processessing.
-
-      .. code-block:: cpp
-
-         void client(const food_handlers& eaters) {
-           std::vector<std::string> food = {"Nut", "Banana", "Cup of coffee"};
-           for (const auto& snack : food) {
-             std::cout << "Client: Who wants a " << snack << "?\n";
-             const std::string result = eaters.handle(snack);
-             if (result.empty()) {
-               std::cout << ' ' << snack << " was left untouched.\n";
-             } else {
-               std::cout << ' ' << result;
-             }
-           }
-         }
-
-
-      The big change is in main, which no longer contains any boilerplate code
-      to build individual links in the chain, or clean up after the chain.
-
-      .. code-block:: cpp
-
-         int main() {
-           food_handlers eaters;
-           client(eaters);
-           return 0;
-         }
-
-   .. tb-tab:: Run It
-
-      .. tb-code:: cpp
-         :name: ac_class_design_pattern_chain_of_responsibility_refactor
-
-         #include <iostream>
-         #include <memory>
-         #include <string>
-         #include <vector>
-
-         struct food_handler {
-             const std::string empty;
-             virtual std::string handle(std::string request) const = 0;
-             virtual ~food_handler() = default;
-         };
-
-         struct monkey_food_handler : food_handler {
-             std::string handle(std::string request) const override {
-               if (request == "Banana") {
-                 return "Monkey: I'll eat the " + request + ".\n";
-               }
-               return empty;
-             }
-         };
-         struct squirrel_food_handler : food_handler {
-             std::string handle(std::string request) const override {
-               if (request == "Nut") {
-                 return "Squirrel: I'll eat the " + request + ".\n";
-               }
-               return empty;
-             }
-         };
-         struct dog_food_handler : food_handler {
-             std::string handle(std::string request) const override {
-               if (request == "MeatBall") {
-                 return "Dog: I'll eat the " + request + ".\n";
-               }
-               return empty;
-             }
-         };
-         class food_handlers : food_handler
-         {
-           std::vector<std::unique_ptr<food_handler>> chain;
-           public:
-             food_handlers() {
-               chain.push_back(std::unique_ptr<food_handler>(new monkey_food_handler));
-               chain.push_back(std::unique_ptr<food_handler>(new squirrel_food_handler));
-               chain.push_back(std::unique_ptr<food_handler>(new dog_food_handler));
-             }
-             std::string handle(std::string food_item) const override {
-               std::string reply;
-               for(const auto& dude: chain) {
-                 reply = dude->handle(food_item);
-                 if(!reply.empty()) { return reply; }
-               }
-               return reply;
-             }
-         };
-
-         void client(const food_handlers& eaters) {
-           std::vector<std::string> food = {"Nut", "Banana", "Cup of coffee"};
-           for (const auto& item : food) {
-             std::cout << "Client: Who wants a " << item << "?\n";
-             const std::string result = eaters.handle(item);
-             if (result.empty()) {
-               std::cout << ' ' << item << " was left untouched.\n";
-             } else {
-               std::cout << ' ' << result;
-             }
-           }
-         }
-
-         int main() {
-           food_handlers eaters;
-           client(eaters);
-           return 0;
-         }
-
-
-This fun example is adapted from Thinking in C++, Vol 2.
-It uses some non-standard vocabulary to define the basic elements of the chain,
-but it is still a chain of responsibility.
-
-.. tb-group::
-   :name: cor_pattern_ticpp_tab
-
-   .. tb-tab:: Interface
-
-      First we define an interface each handler
-      in the chain of responsibility must implement. 
-
-      .. code-block:: cpp
-
-         #include <iostream>
-         #include <memory>
-         #include <vector>
-
-         enum class Answer { NO, YES };
-
-         // This is our handler interface.
-         // Every class that inherits from this
-         // must implement the canIHave function
-         struct GimmeStrategy {
-           virtual Answer canIHave() = 0;
-           virtual ~GimmeStrategy() = default;
-         };
-
-
-      Rather than a ``bool``, in this case, our early termination
-      criteria is an enumerated type.
-
-
-   .. tb-tab:: Implementing classes
-
-      For a chain to be a chain, at least two classes must implement the interface.
-      (It's not much of a chain with only 1 link).
-
-      .. code-block:: cpp
-
-         struct AskMom : public GimmeStrategy {
-           Answer canIHave() {
-             std::cout << "Mommy? Can I have this?\n";
-             return Answer::NO;
-           }
-         };
-
-         struct AskDad : public GimmeStrategy {
-           Answer canIHave() {
-             std::cout << "Dad, I really need this!\n";
-             return Answer::NO;
-           }
-         };
-
-         struct AskGrandpa : public GimmeStrategy {
-           Answer canIHave() {
-             std::cout << "Grandpa, is it my birthday yet?\n";
-             return Answer::NO;
-           }
-         };
-
-         struct AskGrandma : public GimmeStrategy {
-           Answer canIHave() {
-             std::cout << "Grandma, I really love you!\n";
-             return Answer::YES;
-           }
-         };
-
-   .. tb-tab:: Building the chain
-
-      Much discussion related to this pattern is about how to create 
-      the chain of responsibility as a linked list.
-      However, when you look at the pattern it really shouldn't matter how 
-      the chain is created: that's an implementation detail.
-      The only important part is that *some* kind of
-      :term:`iterable` type is used to visit each handler.
-      How that is implemented should be invisible to users.
-
-      While the ``Gimme`` class also is derived from the ``GimmeStrategy``
-      it is used to construct the chain of all the other strategies
-      used.
-
-      .. code-block:: cpp
-
-         class Gimme : public GimmeStrategy {
-            private:
-               std::vector<std::unique_ptr<GimmeStrategy>> chain;
-            public:
-              Gimme() {
-                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskMom));
-                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskDad));
-                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskGrandpa));
-                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskGrandma));
-              }
-              Answer canIHave() {
-                for (const auto& it: chain) {
-                  if (it->canIHave() == Answer::YES) {
-                     return Answer::YES;
-                  }
-                }
-                // Reached end without success...
-                std::cout << "Waaaaaahh!!\n";
-                return Answer::NO;
-              }
-         };
-
-   .. tb-tab:: Run It
-
-      Once the abstract and implementing classes have been defined,
-      then calling the chain is easy:
-
-      .. code-block:: cpp
-
-         int main() {
-           Gimme chain;
-           chain.canIHave();
-         }
-
-      .. tb-code:: cpp
-         :name: ac_class_design_pattern_chain_of_responsibility_ticpp
-
-         #include <iostream>
-         #include <memory>
-         #include <vector>
-
-         enum class Answer { NO, YES };
-
-         struct GimmeStrategy {
-           virtual Answer canIHave() = 0;
-           virtual ~GimmeStrategy() = default;
-         };
-
-         struct AskMom : public GimmeStrategy {
-           Answer canIHave() {
-             std::cout << "Mommy? Can I have this?\n";
-             return Answer::NO;
-           }
-         };
-
-         struct AskDad : public GimmeStrategy {
-           Answer canIHave() {
-             std::cout << "Dad, I really need this!\n";
-             return Answer::NO;
-           }
-         };
-
-         struct AskGrandpa : public GimmeStrategy {
-           Answer canIHave() {
-             std::cout << "Grandpa, is it my birthday yet?\n";
-             return Answer::NO;
-           }
-         };
-
-         struct AskGrandma : public GimmeStrategy {
-           Answer canIHave() {
-             std::cout << "Grandma, I really love you!\n";
-             return Answer::YES;
-           }
-         };
-
-         class Gimme : public GimmeStrategy {
-            private:
-               std::vector<std::unique_ptr<GimmeStrategy>> chain;
-            public:
-              Gimme() {
-                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskMom));
-                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskDad));
-                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskGrandpa));
-                chain.push_back(std::unique_ptr<GimmeStrategy>(new AskGrandma));
-              }
-              Answer canIHave() {
-                for (const auto& it: chain) {
-                  if (it->canIHave() == Answer::YES) {
-                     return Answer::YES;
-                  }
-                }
-                // Reached end without success...
-                std::cout << "Waaaaaahh!!\n";
-                return Answer::NO;
-              }
-         };
-
-         int main() {
-           Gimme chain;
-           chain.canIHave();
-         }
-
-
 -----
 
 .. admonition:: More to Explore
@@ -698,4 +726,3 @@ but it is still a chain of responsibility.
    - `Chain of Responsibility Design Pattern <https://www.oodesign.com/chain-of-responsibility-pattern/>`__ on oodesign.com
      and on :wiki:`Wikipedia <Chain-of-responsibility_pattern>`.
    - Bruce Eckel. Thinking in C++, Vol 2.,  section 3.3.10.
-

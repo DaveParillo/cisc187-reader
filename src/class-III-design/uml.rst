@@ -80,26 +80,57 @@ and the collaborations between objects.  Dynamic views include:
 
 Class diagrams
 --------------
-.. sidebar:: A simple class
 
-   .. mermaid::
-      :alt: The simplest class diagram
+.. graphviz::
+   :alt: The simplest class diagram
+   :align: right
+   :caption: A simple class
 
-      classDiagram
-         class simple
+   digraph "simple_class"
+   {
+     graph [rankdir=TB];
+     node [
+       fontname="BitstreamVeraSans",
+       fontsize="10",
+       height=0.2,
+       width=0.4,
+       color="black",
+       fillcolor="lightblue",
+       shape=box,
+       style="filled"
+     ];
+     simple;
+   }
 
 The **class diagram** is one of the most commonly encountered diagrams.
 It describes the types of objects in a system and the kinds of static 
 relationships that exist among them.
+In UML, a class is represented by a rectangle with one or more
+horizontal compartments.
 
 .. index::
    pair: class diagram; visibility
 
-In UML, a class is represented by a rectangle with one or more
-horizontal compartments.
-By convention, the class name starts with a capital letter.
-Another convention is to italicize the class name if the class is an
-*AbstractClass*.
+.. graphviz::
+   :alt: Class attributes
+   :align: right
+   :caption: Class attributes
+
+   digraph "class_attributes"
+   {
+     node [
+       fontname="BitstreamVeraSans",
+       fontsize="10",
+       color="black",
+       fillcolor="lightblue",
+       shape=record,
+       style="filled"
+     ];
+     car [
+       label="{car|-speed: double = 0\l-direction: double = 90\l|+speed(acceleration: double): double\l+speed(): double\l+heading(steer_angle: double): double\l+heading()\l}"
+     ];
+   }
+
 The top compartment holds the name of the class. The name of the class
 is the only required field in a class diagram. 
 The middle compartment of the class rectangle holds the list of the
@@ -112,19 +143,6 @@ Attribute and method visibility is indicated using a single character
 before the class member.
 Static members are indicated by underlining the member name.
 The UML term for static members is *classifier members*.
-
-.. mermaid::
-   :alt: Class attributes
-
-   classDiagram
-      class car {
-        -speed double = 0
-        -direction double = 90
-        +speed(acceleration double) double
-        +speed() double
-        +heading(steer_angle double) double
-        +heading()
-      }
 
 The UML syntax for an attribute is:
 *visibility name : type = defaultValue*
@@ -148,16 +166,36 @@ class composition, and other associations.
 
 **Inheritance relationships**
 
-.. sidebar:: Inheritance
+.. container:: float-image
 
-   .. mermaid::
-      :alt: Class attributes
+   .. graphviz::
+      :alt: Class inheritance
+      :align: right
+      :caption: Class inheritance
 
-      classDiagram
-         person <|-- student
-         person <|-- teacher
+      digraph "inheritance"
+      {
+        graph [rankdir=BT];
+        edge [
+          arrowhead="empty",
+          arrowsize="0.7",
+          color="black"
+        ];
+        node [
+          fontname="BitstreamVeraSans",
+          fontsize="10",
+          height=0.2,
+          width=0.4,
+          color="black",
+          fillcolor="lightblue",
+          shape=box,
+          style="filled"
+        ];
+        student -> person;
+        teacher -> person;
+      }
          
-   Generalization in action: 
+   Generalization in action:
    
    Students and Teachers are both People
 
@@ -186,26 +224,40 @@ A *realization* is a relationship between two model elements,
 in which one model element (the client) realizes (implements or executes) the 
 behavior that the other model element (the supplier) specifies.
 
-.. mermaid::
+.. graphviz::
+   :align: right
    :alt: Person inheritance
+   :caption: Person inheritance
 
-   classDiagram
-      person <|.. student
-      person <|.. teacher
-
-      class person {
-        <<interface>>
-        +age int
-        +first_name string
-        +last_name string
-        +full_name() string
-      }
-      class student {
-        -major()
-      }
-      class teacher {
-        -salary()
-      }
+   digraph "person_realization"
+   {
+     graph [rankdir=BT];
+     edge [
+       arrowhead="empty",
+       arrowsize="0.7",
+       color="black",
+       style="dashed"
+     ];
+     node [
+       fontname="BitstreamVeraSans",
+       fontsize="10",
+       color="black",
+       fillcolor="lightblue",
+       shape=record,
+       style="filled"
+     ];
+     person [
+       label="{\<\<interface\>\>\nperson|+age: int\l+first_name: string\l+last_name: string\l|+full_name(): string\l}"
+     ];
+     student [
+       label="{student||-major()\l}"
+     ];
+     teacher [
+       label="{teacher||-salary()\l}"
+     ];
+     student -> person;
+     teacher -> person;
+   }
 
 The UML graphical representation of a realization is a hollow triangle 
 shape on the interface end of the dashed line (or tree of lines) that 
@@ -236,15 +288,37 @@ relationships between classes.
 
 An association represents a relationship between two classes. 
 
-.. sidebar:: Association
+.. graphviz::
+   :alt: association
+   :align: right
+   :caption: Association
 
-   
-   .. mermaid::
-      :alt: association
-
-      classDiagram
-         direction LR
-         author "1..*" --> "0..*" book : writes
+   digraph "association"
+   {
+     graph [rankdir=LR];
+     edge [
+       fontname="BitstreamVeraSans",
+       fontsize="10",
+       labelfontname="BitstreamVeraSans",
+       labelfontsize="10",
+       color="black"
+     ];
+     node [
+       fontname="BitstreamVeraSans",
+       fontsize="10",
+       height=0.2,
+       width=0.4,
+       color="black",
+       fillcolor="lightblue",
+       shape=box,
+       style="filled"
+     ];
+     author -> book [
+       label="writes",
+       taillabel="1..* ",
+       headlabel="0..* "
+     ];
+   }
 
 An association between two classes is shown by a line joining the two classes. 
 Association indicates that one class uses an attribute
@@ -263,8 +337,8 @@ other as a parameter to a method.
 
 .. code-block:: cpp
 
-   struct Author {
-     void write(Book b) { 
+   struct author {
+     void write(book b) { 
        // do something with the Book
      }
    };
@@ -309,32 +383,32 @@ but their lifetimes are independent (they could exist independently), then
 this relationship is called aggregation. 
 
 
-.. sidebar:: Aggregation
+.. graphviz:: 
+   :alt: aggregation
+   :align: right
+   :caption: Aggregation
 
-   .. graphviz:: 
-      :alt: aggregation
-
-      digraph "aggregation"
-      {
-        edge [fontname="BitstreamVeraSans",
-              fontsize="10",
-              labelfontname="BitstreamVeraSans",
-              labelfontsize="10",
-              arrowtail="odiamond",
-              dir="back",
-              minlen=4,
-              style="solid",
-              color="black"];
-        node [fontname="BitstreamVeraSans",
-              fontsize="10",
-              height=0.2,
-              width=0.4,
-              color="black",
-              fillcolor="lightblue",
-              shape=box,
-              style="filled"];
-        Department -> Professor [constraint=false, headlabel="1..* "];
-      }
+   digraph "aggregation"
+   {
+     edge [fontname="BitstreamVeraSans",
+           fontsize="10",
+           labelfontname="BitstreamVeraSans",
+           labelfontsize="10",
+           arrowtail="odiamond",
+           dir="back",
+           minlen=4,
+           style="solid",
+           color="black"];
+     node [fontname="BitstreamVeraSans",
+           fontsize="10",
+           height=0.2,
+           width=0.4,
+           color="black",
+           fillcolor="lightblue",
+           shape=box,
+           style="filled"];
+     department -> professor [constraint=false, headlabel="1..* "];
+   }
 
 For example, a university owns various departments (e.g., chemistry), 
 and each department has a number of professors.
@@ -348,11 +422,11 @@ For example:
 
 .. code-block:: cpp
 
-   struct Department {
-     Professor* prof;    // non-owning pointer to a professor
+   struct department {
+     professor* prof;    // non-owning pointer to a professor
    };
 
-A ``Department`` **has-a** ``Professor``,
+A ``department`` **has-a** ``professor``,
 but the professor exists independently of any department.
 
 .. index::
@@ -360,10 +434,12 @@ but the professor exists independently of any department.
 
 **Compositon**
 
-.. sidebar:: Composiiton
+.. container:: float-right
 
    .. graphviz:: 
       :alt: composition
+      :align: right
+      :caption: Composition
 
       digraph "composition"
       {
@@ -384,15 +460,16 @@ but the professor exists independently of any department.
               fillcolor="lightblue",
               shape=box,
               style="filled"];
-        Car -> Engine [constraint=false, headlabel="1..1 "];
+        car -> engine [constraint=false, headlabel="1..1 "];
       }
 
 
-   A car not only *has* an engine, it *owns* it.
+A ``car`` not only *has* an ``engine``, it *owns* it.
 
 Composition is even more specific than aggregation.
 Like aggregation, one class *has an* instance of another class,
-but the child class's instance life cycle is dependent on the parent class's instance life cycle. 
+but the child class's instance life cycle is dependent on the parent class's
+instance life cycle. 
 In other words, when the parent dies, the child dies.
 
 .. index::
@@ -455,12 +532,37 @@ The caller of the purchase method is required to supply a *book*.
 
 This type of relationship is represented with a dashed line:
 
-.. mermaid::
+.. graphviz::
    :alt: dependency
+   :align: right
+   :caption: Dependency
 
-   classDiagram
-      direction LR
-      customer ..> book : purchase
+   digraph "dependency"
+   {
+     graph [rankdir=LR];
+     edge [
+       fontname="BitstreamVeraSans",
+       fontsize="10",
+       labelfontname="BitstreamVeraSans",
+       labelfontsize="10",
+       color="black"
+     ];
+     node [
+       fontname="BitstreamVeraSans",
+       fontsize="10",
+       height=0.2,
+       width=0.4,
+       color="black",
+       fillcolor="lightblue",
+       shape=box,
+       style="filled"
+     ];
+     customer -> book [
+       label="purchase",
+       arrowhead="vee",
+       style="dashed"
+     ];
+   }
 
 As discussed in the introduction to this section,
 the UML is much more involved than simple class diagrams.
@@ -483,4 +585,3 @@ inheritance and composition, this is enough.
    .. [#] :wiki:`Data Flow Diagrams <Data-flow_diagram>`
    .. [#] `The Integration DEFinition (IDEF) model family <https://www.idef.com/>`_
    .. [#] :wiki:`The Open Group Architecture Framework <TOGAF>`
-

@@ -1,0 +1,67 @@
+.float-image {
+  float: right;
+  width: 18rem;
+  max-width: 40%;
+  margin: 0 0 1rem 1.5rem;
+}
+
+.float-image-center {
+  width: 18rem;
+  max-width: 40%;
+  margin: 0 0 1rem 1.5rem;
+}
+
+.float-image-small {
+  width: 9rem;
+  max-width: 20%;
+}
+
+.float-image img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.float-image pre.mermaid {
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.float-image svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.float-image .caption,
+.float-image figcaption {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.float-image p {
+  font-size: 0.9rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 48rem) {
+  .float-image {
+    float: none;
+    width: 100%;
+    max-width: 100%;
+    margin: 1rem 0;
+  }
+
+  .float-image-small {
+    width: 100%;
+    max-width: 100%;
+  }
+}

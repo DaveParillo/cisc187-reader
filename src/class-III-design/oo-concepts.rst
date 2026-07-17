@@ -18,15 +18,15 @@ Object-oriented concepts
 Object-oriented programming (OOP) is a programming paradigm based on the 
 concept of :term:`objects <object>`, which are :term:`data structures
 <data structure>` that contain data,
-in the form of fields (or attributes) 
-and code, in the form of procedures, (or functions, or methods). 
-A distinguishing feature of objects is that an object's procedures 
+in the form of fields (or variables or attributes) 
+and code, in the form of functions (or procedures or methods). 
+A distinguishing feature of objects is that an object's functions 
 provide access to and modify its fields.
 
 In object-oriented programming, computer programs are created
 out of objects that interact with one another. 
 There is significant diversity in object-oriented programming, 
-but most popular languages are class-based, 
+but many popular languages are class-based, 
 meaning that objects are instances of classes, 
 which typically also determines their type.
 
@@ -371,7 +371,8 @@ development of very large programs.
    - `SOLID Principles and the Arts of Finding the Beach <https://sebastiankuebeck.wordpress.com/2017/09/17/solid-principles-and-the-arts-of-finding-the-beach/>`__.
    - `Slides: 'Why Every Element of SOLID is Wrong' <https://speakerdeck.com/tastapod/why-every-element-of-solid-is-wrong>`__,
      by Dan North, 2017.
-     With some `additional backstory <https://dannorth.net/cupid-the-back-story/>`__ written in 2021.
+     With some `additional backstory <https://dannorth.net/cupid-the-back-story/>`__ written in 2021,
+     and `CUPID for Joyful Coding <https://dannorth.net/blog/cupid-for-joyful-coding/>`__ written in 2022.
 
 .. topic:: Footnotes
 

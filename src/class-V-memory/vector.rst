@@ -192,52 +192,66 @@ passing string and vector objects to legacy C functions\ [1]_\ .
 Given a legacy C function that expects a raw array:
 
 .. code-block:: cpp
+   :name: memory-vector-print-sum
 
-  void print_sum (const int* values, size_t array_size) {
-    int sum = 0;
-    for (size_t i = 0; i < array_size; ++i) {
-      sum += values[i];
-    }
-    printf("Sum of ints in the array is %d\n", sum);
-  }
+   #include <cstdlib>
+   #include <cstdio>
+
+   void print_sum (const int* values, size_t array_size) {
+     int sum = 0;
+     for (size_t i = 0; i < array_size; ++i) {
+       sum += values[i];
+     }
+     printf("Sum of ints in the array is %d\n", sum);
+   }
 
 We expect to be able to pass in an array and print the sum:
 
-.. code-block:: cpp
+.. tb-code:: cpp
+   :show-tutor:
+   :include:
+      PRINT_SUM: memory-vector-print-sum
+
+   {{PRINT_SUM}}
 
    int main() {
 
+     constexpr
      int data[] = { -30, 102, 55, -19, 0, 222, -3000, 4000, 8, -2 };
-     const int numValues = sizeof data / sizeof(int);
+     constexpr
+     int num_values = sizeof data / sizeof(int);
 
      print_sum (data, num_values);
-
-     return 0;
    }
 
 We can pass a ``vector`` to this same legacy function:
 
-.. code-block:: cpp
+.. tb-code:: cpp
+   :show-tutor:
+   :include:
+      PRINT_SUM: memory-vector-print-sum
+
+   #include <vector>
+   {{PRINT_SUM}}
 
    int main() {
+     constexpr
      int data[] = { -30, 102, 55, -19, 0, 222, -3000, 4000, 8, -2 };
+     constexpr
      const int num_values = sizeof data / sizeof(int);
 
      print_sum (data, num_values);
 
      std::vector<int> v;
      v.insert (v.begin(), data, data + num_values);	// insert the ints in data
-                                                    // into v at the front
+                                                      // into v at the front
 
      print_sum (&v[0], v.size());   // ok, unless v is empty
 
      if (!v.empty()) {              // safer
        print_sum (&v[0], v.size()); //&v[0] is better than v.begin()
      }
-
-     return 0;
    }
-
 
 -----
 

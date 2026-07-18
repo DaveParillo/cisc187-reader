@@ -38,7 +38,7 @@ Additionally, ``std::array`` provides convenience functions such as:
 Unlike a raw array, ``std::array`` cannot infer its size if
 declared with an initializer list:
 
-.. code-block:: cpp
+.. tb-code:: cpp
 
    #include <array>
    #include <iostream>
@@ -50,14 +50,11 @@ declared with an initializer list:
 
      std::array<char, 6> letters = {{'h', 'o', 'w', 'd', 'y', '!'}};
 
-     if (!letters.empty()) {
-       cout << "The first character is: " << letters.front() << '\n';
-       cout << "The last character is: " << letters.back() << '\n';
+     cout << "The first character is: " << letters.front() << '\n';
+     cout << "The last character is: " << letters.back() << '\n';
 
-       for (const auto& c: letters) {
-         cout << c;
-       }
-       cout << std::endl;
+     for (const auto& c: letters) {
+       cout << c;
      }
    }
 

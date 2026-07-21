@@ -6,46 +6,21 @@
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. index:: immutability
+.. index:: compile-time evaluation
    pair: classes; constexpr
 
 ``constexpr`` classes
 =====================
-The :guidelines:`C++ Core guidelines generally <rconst-immutable>`
-prefers constant data and objects over mutable objects and data when possible.
-Previously, when we have used ``const`` and ``constexpr`` it has generally been
-limited to variables and functions.
-But what about an entire class?
-Can we design a class that can only store a single value?
-Even if we can, should we?
-
-Let's answer that last question first.
-
-Immutable object provide several important benefits:
-
-- Objects that are immutable are easier to reason about.
-  They don't surprise you with unexpected behaviors.
-- It can prevent errors when an object changes its state unexpectedly.
-- Interfaces that accept constant objects are easier to work with and debug.
-- Although we don't discuss multi-threaded programming in this course,
-  constant objects are inherently thread safe - that is they can safely be
-  accessed simultaneously by concurrent independent execution threads.
-- Gives the compiler more tools to:
-
-  - Report errors in usage
-  - Make optimizations (more on this in a moment)
-
-
-Awesome. So how can we make an immutable class?
-
-Simply by declaring all of the class functions as ``constexpr``!
+Previously, we used ``constexpr`` with variables and functions.  We can also
+define a class whose constructors and member functions can participate in
+constant expressions.  Such a class lets the compiler evaluate operations on
+its objects while compiling the program.
 
 Let's examine a value class for a distance in meters.
 
 .. code-block:: cpp
 
    namespace length{
-
      class distance{
        public:
          explicit constexpr distance(double value = 0)
@@ -53,114 +28,125 @@ Let's examine a value class for a distance in meters.
          {}
 
        private:
-         double m;	 // meters 
+         double m; // meters
      };
-
    } // end namespace length
 
-All member functions, including any constructors must be ``const`` or ``constexpr``.
-The private data is not constant.
-That's OK, because we won't allow any function to change it.
+The data member does not need to be declared ``constexpr``.  The
+``constexpr`` constructor makes it possible to create a ``distance`` object
+in a constant expression.  Member functions that should be evaluated at
+compile time must also be declared ``constexpr``.
 
-Recall that ``constexpr`` member functions are implicitly ``const`` member functions -
-that is, they cannot change the state of the object.
+In C++14, the rules for ``constexpr`` functions became less restrictive.
+They may contain multiple statements and may modify an object whose lifetime
+began during constant evaluation.  This lets a compile-time calculation use
+the same update operations as a run-time calculation.
 
 After we define our constructor, we can add other functions as appropriate.
 In our case we want to perform basic math operations on distances.
-And in keeping our use of the 'standard pattern' for arithmetic overloads,
-we want to create member functions like this:
+We will use the standard pattern for arithmetic overloads.  A compound
+assignment operator is a member function that updates its left-hand operand
+and returns ``*this``:
 
 .. code-block:: cpp
 
-   constexpr distance operator+=(const distance& other);
+   constexpr distance& operator+=(const distance& other);
 
-Normally when we implement these functions we modify the current object
-and return ``*this``.
-But we can't do that if our objects are immutable.
-What we do instead is construct a new distance object by combining the 
-two objects on either side of the operand:
+The corresponding ``operator+`` is a non-friend, non-member function.  It
+takes its left-hand operand by value, applies ``operator+=``, and returns the
+new value:
 
 .. code-block:: cpp
 
-   constexpr distance operator+=(const distance& other) {
-     return distance(m + other.m);
+   constexpr distance operator+(distance lhs, const distance& rhs) {
+     lhs += rhs;
+     return lhs;
    }
 
-The current object is still involved - it is the object on the left-hand side
-of the expression, but we do not modify it.
-
-An important implication of this implementation is that every change in state
-creates a new object to store it.
+The copy passed as ``lhs`` is modified, while the caller's object is
+unchanged.  The same pattern applies to subtraction, multiplication, and
+division.
 
 
 Adding the overloads for addition, subtraction, multiplication, and division
 yields the following:
 
 .. code-block:: cpp
+   :name: constexpr-distance
 
    namespace length{
-
      class distance{
        public:
+         explicit
          constexpr distance(double i)
            :m{i}
          {}
 
-         constexpr distance operator+=(const distance& other) {
-           return distance(m + other.m);
+         constexpr distance& operator+=(const distance& other) {
+           m += other.m;
+           return *this;
          }
-         constexpr distance operator-=(const distance& other) {
-           return distance(m - other.m);
+         constexpr distance& operator-=(const distance& other) {
+           m -= other.m;
+           return *this;
          }
-         constexpr distance operator*=(double scalar) {
-           return distance(m*scalar);
+         constexpr distance& operator*=(double scalar) {
+           m *= scalar;
+           return *this;
          }
-         constexpr distance operator/=(int scalar) {
-           return distance(m/scalar);
+         constexpr distance& operator/=(std::size_t scalar) {
+           m /= scalar;
+           return *this;
          }
-
+         explicit constexpr operator int() const {
+           return static_cast<int>(m);
+         }
        private:
-         double m;	 // meters 
+         double m; // meters
      };
 
      constexpr distance operator+(distance lhs, const distance& rhs){
-       return distance(lhs+= rhs);
+       lhs += rhs;
+       return lhs;
      }
-     constexpr distance operator-(distance lhs,const distance& rhs){
-       return distance(lhs-= rhs);
+     constexpr distance operator-(distance lhs, const distance& rhs){
+       lhs -= rhs;
+       return lhs;
      }
-     constexpr distance operator*(int scalar, distance a){
-       return distance(a*=scalar);
+     constexpr distance operator*(distance lhs, double scalar){
+       lhs *= scalar;
+       return lhs;
      }
-     constexpr distance operator/(distance a, size_t denominator){
-       return distance(a/=denominator);
+     constexpr distance operator*(double scalar, distance rhs){
+       rhs *= scalar;
+       return rhs;
      }
-
+     constexpr distance operator/(distance lhs, std::size_t denominator){
+       lhs /= denominator;
+       return lhs;
+     }
    } // end namespace length
 
-We might choose to add more, but these 4 demonstrate the basic idea.
-
-We should also implement the complete set of relational overloads,
-since there is no reason to treat distances as anything other than
-completely regular types.
+We might choose to add more, but these operations demonstrate the basic idea.
 
 Working exclusively in meters is not always convenient, so we can also add
 distance literals so that we can easily work with numbers that are either
 meters or kilometers:
 
 .. code-block:: cpp
+   :name: constexpr-unit
 
    namespace length{
      namespace unit{
-       constexpr distance operator "" _km(long double d){
+       constexpr distance operator""_km(long double d){
          return distance(1000*d);
        }
-       constexpr distance operator "" _m(long double m){
+       constexpr distance operator""_m(long double m){
          return distance(m);
        }
      } // end namespace unit
    } // end namespace length
-     
+
 Notice that these overloads are non-friend non-member functions.
 Each simply constructs a new distance based on the units implied by the literal used.
 
@@ -171,21 +157,22 @@ Each simply constructs a new distance based on the units implied by the literal 
 
       Finally we can write some functions that use our constexpr class.
 
-      Here we add a free function tthat takes a list of distances and
-      accumulates an average.
-      We could have used :algorithm:`std::accumulate <accumulate>`,
+      Here we add a free function that takes a list of distances and
+      accumulates an average.  We could have used
+      :algorithm:`std::accumulate <accumulate>`,
       or in C++17 and later, we could use :algorithm:`std::reduce <reduce>`
-      to achive the same outcome.
+      to achieve the same outcome.
 
       Once we have that, we can define some distances,
-      generate a few weeks works of values and compute the final result.
+      generate a few weeks' worth of values, and compute the final result.
 
       .. code-block:: cpp
+         :name: constexpr-main
 
          constexpr length::distance average_distance(std::initializer_list<length::distance> distances){
            auto sum = length::distance{0.0};
            for (auto d: distances) sum = sum + d;
-           return sum/distances.size(); 
+           return sum/distances.size();
          }
 
          int main(){
@@ -203,7 +190,8 @@ Each simply constructs a new distance based on the units implied by the literal 
 
            constexpr auto avg_travel = average_distance({week1,week2,week3,week4});
 
-           return int(avg_travel); // 264000m
+           static_assert(static_cast<int>(avg_travel) == 264000);
+           return static_cast<int>(avg_travel); // 264000m
          }
 
    .. tb-tab:: Run It
@@ -215,97 +203,36 @@ Each simply constructs a new distance based on the units implied by the literal 
 
 
       .. tb-code:: cpp
-         :name: ac_memory_constexpr_classes
+         :name: memory_constexpr_class
+         :include:
+            DISTANCE: constexpr-distance
+            UNIT: constexpr-unit
+            MAIN: constexpr-main
 
          #include <cstdlib>
+         #include <cstddef>
          #include <initializer_list>
 
-         namespace length{
+         {{DISTANCE}}
+         {{UNIT}}
+         {{MAIN}}
 
-           class distance{
-             public:
-               explicit constexpr distance(double i)
-                 :m{i}
-               {}
+The ``constexpr`` declarations require the initializations of these distance
+objects and the call to ``average_distance`` to be valid constant expressions.
+The ``static_assert`` makes that requirement visible: the compiler must
+evaluate the average at compile time or reject the program.
 
-               constexpr distance operator+=(const distance& other) {
-                 return distance(m + other.m);
-               }
-               constexpr distance operator-=(const distance& other) {
-                 return distance(m - other.m);
-               }
-               constexpr distance operator*=(double scalar) {
-                 return distance(m*scalar);
-               }
-               constexpr distance operator/=(int scalar) {
-                 return distance(m/scalar);
-               }
-
-               constexpr operator int() const { return static_cast<int>(m);}
-
-             private:
-               double m;	 // meters 
-           };
-
-           constexpr distance operator+(distance lhs, const distance& rhs){
-             return distance(lhs+= rhs);
-           }
-           constexpr distance operator-(distance lhs,const distance& rhs){
-             return distance(lhs-= rhs);
-           }
-           constexpr distance operator*(int scalar, distance a){
-             return distance(a*=scalar);
-           }
-           constexpr distance operator/(distance a, size_t denominator){
-             return distance(a/=denominator);
-           }
-
-           namespace unit{
-             constexpr distance operator "" _km(long double d){
-               return distance(1000*d);
-             }
-             constexpr distance operator "" _m(long double m){
-               return distance(m);
-             }
-           }
-
-         } // end namespace length
-
-         constexpr length::distance average_distance(std::initializer_list<length::distance> distances){
-           auto sum = length::distance{0.0};
-           for (auto d: distances) sum = sum + d;
-           return sum/distances.size(); 
-         }
-
-         int main(){
-           using namespace length::unit;
-
-           constexpr auto work = 63.0_km;
-           constexpr auto commute = 2 * work;
-           constexpr auto gym = 2 * 1600.0_m;
-           constexpr auto shopping = 2 * 1200.0_m;
-
-           constexpr auto week1 = 4*commute + gym + shopping;
-           constexpr auto week2 = 4*commute + 2*gym;
-           constexpr auto week3 = 4*gym     + 2*shopping;
-           constexpr auto week4 = 5*gym     + shopping;
-
-           constexpr auto avg_travel = average_distance({week1,week2,week3,week4});
-
-           return int(avg_travel); // 264000m
-         }
-
-Declaring all variables as ``constexpr`` means all instances of distance and all functions are constant expressions.
-The compiler performs all of these operations at compile time.
-That means the *entire program will be executed at compile time* and
-all the program variables and instances are immutable. 
+This does not mean that the entire program runs at compile time.  ``main``
+still runs when the program is launched, and non-``constexpr`` objects and
+expressions can be evaluated at run time.  The compiler may perform other
+evaluations or optimizations as well, but ``constexpr`` does not require that.
 
 .. admonition:: Try This!
 
    Copy this code into the online `Compiler explorer <https://godbolt.org>`__
    and see what the generated code looks like.
 
-   Try setting the compiler optimiztion in the explorer "compiler options" text box:
+   Try setting the compiler optimization in the explorer "compiler options" text box:
    `-O2` - does anything change? It should!
 
    Is the final symbol code what you expected?
@@ -318,14 +245,10 @@ all the program variables and instances are immutable.
 
 .. admonition:: More to Explore
 
-   - The content on this page was adapted from
-     Rainer Grimm's blog *MODERNES C++*: `Immutable data <https://www.modernescpp.com/index.php/immutable-data>`__
-
    - From cppreference.com
 
      - :lang:`constexpr`
 
    - C++ Core Guidelines
 
-     - :guidelines:`Con: Constants and immutability <rconst-immutable>`
      - :guidelines:`Con.5: Use constexpr for values that can be computed at compile time <con5-use-constexpr-for-values-that-can-be-computed-at-compile-time>`

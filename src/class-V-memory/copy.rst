@@ -51,6 +51,9 @@ a new or existing object, the copy constructor is called:
    std::vector<std::string> words;
    std::vector<std::string> w2 = words; // copy words into w2
 
+Copy constructors
+-----------------
+
 Both explicit and implicit copies are controlled by 
 a special constructor called the *copy constructor*.
 Like other constructors,
@@ -146,198 +149,92 @@ the behavior is the same: each class member is copied, in initialization order.
 
 When objects manage their own resources,
 simple member-wise assignment cannot be used.
-Consider the following:
+Consider a small ``mesa::string`` class.
+It owns a dynamically allocated character array, but it does not define
+its own copy constructor.
+That means the compiler-generated copy constructor copies each data member
+directly, including the pointer.
 
-.. code-block:: cpp
+.. tb-code:: cpp
+   :name: ac_shallow_copy_string_class
+   :caption: A shallow copy problem
+   :show-tutor:
 
+   #include <algorithm>
+   #include <cctype>
    #include <cstddef>
-   #include <cstring>
    #include <iostream>
+   #include <locale>
+   #include <string_view>
 
    namespace mesa {
      class string {
-       private:
-         char* data = nullptr;
-         size_t sz = 0;
+     public:
+       string() = default;
 
-       public:
-         string() = default;
-         explicit string(const char* source) {
-           // if source not null terminated, strlen behavior is undefined
-           sz = std::strlen(source) + 1; // +1 for null terminator
-           data = new char[sz];
-           std::strncpy(data, source, sz);
+       explicit string(std::string_view source)
+         : size_{source.size() + 1},
+           data_{new char[size_]}
+       {
+         std::copy(source.begin(), source.end(), data_);
+         data_[source.size()] = '\0';
+       }
+
+       void upper_case() {
+         for (std::size_t i = 0; i + 1 < size_; ++i) {
+           data_[i] = std::toupper(data_[i], std::locale());
          }
+       }
 
-         void upper_case() {
-           for (size_t i=0; i < sz; ++i) {
-             data[i] = std::toupper(data[i], std::locale());
-           }
-         }
+       ~string() {
+         // Uncomment this line after running the program once.
+         // A correct string class must release its memory.
+         // What happens if we cleanup the string memory?
+         // delete[] data_;
+       }
 
-         ~string() {
-           delete[] data;
-         }
+       const char* c_str() const {
+         return data_ == nullptr ? "" : data_;
+       }
 
-         char* c_str() const noexcept { return data; }
+     private:
+       std::size_t size_ = 0;
+       char* data_ = nullptr;
      };
    } // namespace mesa
 
+   int main() {
+     mesa::string hello{"Hello, world!"};
+     mesa::string copy = hello;
 
-This class encapsulates an array of characters, providing 5 functions:
+     copy.upper_case();
 
-- A default constructor.
-- A one arg constructor that converts a cstring into a ``mesa::string``
-  The constructor allocates memory for the ``char`` array and copies
-  the provided string
-- A destructor to clean up memory allocated by the constructor
-- A function ``upper_case`` to transform the entire string to upper case.
+     std::cout << "hello: " << hello.c_str() << '\n';
+     std::cout << "copy:  " << copy.c_str() << '\n';
+   }
 
-.. tb-group::
-   :name: shallow_copy_tab
+Even though we copied ``hello``,
+changing the case of ``copy`` also changed the original.
+The compiler-generated copy constructor copied the pointer value,
+not the character array pointed to by the pointer.
+After the copy, both objects point to the same memory.
 
-   .. tb-tab:: Using mesa::string
+When we copy a value, we expect a *cloned object*:
+an object that has the same value, but is separate and distinct.
+We do **not** want changes in one object to affect the other.
 
-      What happens when we use this class?
-
-      .. code-block:: cpp
-
-         int main() {
-           mesa::string hello("Hello, world!");
-           mesa::string copy = hello;
-           copy.upper_case();
-           std::cout << hello.c_str() << '\n';
-           std::cout << copy.c_str() << '\n';
-
-           return 0;
-         }
-
-   .. tb-tab:: Run It
-
-      .. tb-code:: cpp
-         :name: ac_shallow_copy_string_class
-
-         #include <cstddef>
-         #include <cstring>
-         #include <iostream>
-         #include <locale>
-
-         namespace mesa {
-           class string {
-             private:
-               char* data = nullptr;
-               size_t sz = 0;
-
-             public:
-               string() = default;
-               explicit string(const char* source) {
-                 // if source not null terminated, strlen behavior is undefined
-                 sz = std::strlen(source) + 1; // +1 for null terminator
-                 data = new char[sz];
-                 std::strncpy(data, source, sz);
-               }
-
-               void upper_case() {
-                 for (size_t i=0; i < sz; ++i) {
-                   data[i] = std::toupper(data[i], std::locale());
-                 }
-               }
-
-               ~string() {
-                 // commented out to prevent double delete
-                 // delete[] data;
-               }
-
-               char* c_str() { return data; }
-           };
-
-         } // namespace mesa
-
-         int main() {
-           mesa::string hello("Hello, world!");
-           mesa::string copy = hello;
-           copy.upper_case();
-           std::cout << hello.c_str() << '\n';
-           std::cout << copy.c_str() << '\n';
-
-           return 0;
-         }
-
-      Even though we copied ``hello``,
-      changing the case of copy also resulted in changes to the original.
-      In this case, we only copied the pointer, not the data pointed to.
-
-      When we copy a value, we expect a *cloned object*.
-      A object that in all respects has the same attributes,
-      but that is separate and distinct.
-      We **don't** want changes in one to affect the other.
-
-   .. tb-tab:: Code Lens
-
-      The default copy behavior is a *shallow copy*:
-      a literal copying of the bytes of each member variable.
-      In the case of our string class, the ``char*`` is faithfully copied.
-      When the copy is made, both variables point to the same memory.
-
-      .. tb-code:: cpp
-         :name: codelens_shallow_copy_string_class
-         :show-tutor:
-
-         #include <cstddef>
-         #include <cstring>
-         #include <iostream>
-         #include <locale>
-
-         namespace mesa {
-           class string {
-             private:
-               char* data = nullptr;
-               size_t sz = 0;
-
-             public:
-               string() = default;
-               explicit string(const char* source) {
-                 // if source not null terminated, strlen behavior is undefined
-                 sz = std::strlen(source) + 1; // +1 for null terminator
-                 data = new char[sz];
-                 std::strncpy(data, source, sz);
-               }
-
-               void upper_case() {
-                 for (size_t i=0; i < sz; ++i) {
-                   data[i] = std::toupper(data[i], std::locale());
-                 }
-               }
-
-               // In this broken class, the destructor delete the same
-               // memory multiple times, which is a crash
-               // ~string() {
-               //   delete[] data;
-               // }
-
-               char* c_str() { return data; }
-           };
-
-         } // namespace mesa
-
-         int main() {
-           mesa::string hello("Hello, world!");
-           mesa::string copy = hello;
-           copy.upper_case();
-           std::cout << hello.c_str() << '\n';
-           std::cout << copy.c_str() << '\n';
-
-           return 0;
-         }
-
+The destructor body is commented out so the program can run by default.
+If you uncomment ``delete[] data_;`` and run the program again,
+the shallow copy has an even more serious consequence:
+both objects will try to release the same memory.
 
 Because there are two pointers to the same data on the free store,
 when either is deleted, the free-store memory is recovered.
-Consider this:
+Consider this sequence:
 
 .. code-block:: cpp
 
-   mesa::string hello("Hello, world!");
+   mesa::string hello{"Hello, world!"};
 
    // create a new scope
    {
@@ -346,12 +243,15 @@ Consider this:
 
    std::cout << hello.c_str() << '\n';
 
-What does the last line print?
+What does the last line print if the destructor deletes ``data_``?
 
 .. tb-reveal::
    :name: reveal_str_copy_ube
 
    There is no way to know for sure.
+
+   A modern compiler should detect the double delete and fail to compile.
+   But that behavior is not perfect.
 
    When ``copy`` goes out of scope and its destructor is called,
    it deletes the memory ``copy::data`` points to,
@@ -360,33 +260,27 @@ What does the last line print?
 
 
 Fixing these problems requires writing a custom copy constructor.
-
-.. code-block:: cpp
-
-   string (const string& other) {
-     sz = other.sz;
-     data = new char[sz];
-     std::strncpy(data, other.data, sz);
-   }
-
-Each class member needs to be copied.
-The member ``sz`` can simply be default copied.
-It's the pointer member that needs special treatment:
+Each class member needs to be copied correctly.
+The member ``size_`` can simply be copied.
+The pointer member needs special treatment:
 
 - Initialize a new memory block large enough to hold the copy
 - Copy each element of the source array into the destination.
-  This is what :cstring:`std::strncpy<strncpy>` does.
 
 In contrast to a *shallow* copy,
 this copy is a **deep copy**.
-It doesn't copy the pointer at all.
-It makes an entirely new pointer and (deeply)
+It does not copy the pointer value.
+It creates an entirely new pointer and
 copies all of the data pointed to by the source pointer to the destination.
 
 .. admonition:: Try This!
 
-   Take the copy constructor provided and implement in the previous 
-   ``mesa::string`` examples in this section.
+   Add a copy constructor to ``mesa::string``.
+   The copy should preserve the value of the source string,
+   but the copy and the original should not share the same character array.
+
+   After the copy constructor works,
+   uncomment the destructor body and confirm that the program still runs.
 
 Copy assignment
 ---------------
@@ -498,4 +392,3 @@ it is in the process of being constructed.
 
      - :lang:`Copy constructors <copy_constructor>`
      - :cpp:`Null-terminated byte strings <string/byte>`
-

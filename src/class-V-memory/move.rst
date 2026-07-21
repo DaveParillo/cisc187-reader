@@ -50,6 +50,15 @@ the swap algorithm in terms of moves
       b = static_cast<vector<string>&&>(temp);
    }
 
+.. code-block:: cpp
+
+   void swap(vector<string>& a, vector<string>& b)
+   {
+      auto temp = static_cast<vector<string>&&>(a); // cast to rvalue reference
+      a = static_cast<vector<string>&&>(b);
+      b = static_cast<vector<string>&&>(temp);
+   }
+
 Casting manually to a rvalue reference is ugly and awkward.
 Simplifying this expression is the motivation behind :utility:`move`:
 
@@ -67,14 +76,15 @@ and marks the object as being ready for a 'move'.
 Using ``std::move`` is exactly the same as using a static cast to
 an rvalue reference.
 
-Just a moment ago, we mentioned a big 'if' regarding moves.
-We said 
+.. rubric:: Why do all this? Why cast?
 
-   ... if the object supports moving ... 
+Since this is a compile time operation, at runtime ``std::move`` results in
+zero machine instructions. The compiler simply treats the  moved variable as an
+rvalue so it can select the right overloaded functions - functions that
+*move data* instead of a potentially expensive copy.
 
-How do we create objects that support moving?
-
-With a move constructor.
+The actual move occurs in an object move constructor or move assignment
+operator.
 
 .. index:: move constructor
    single: move assignment

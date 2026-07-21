@@ -11,4 +11,4 @@ This section discusses class-based memory management in C++.
    move.rst
    allocators.rst
    constexpr-classes.rst
-
+   immutable-classes.rst

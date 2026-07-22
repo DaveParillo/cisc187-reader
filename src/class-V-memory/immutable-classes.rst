@@ -203,10 +203,6 @@ Adding the complete set of operations gives us this immutable class:
 
          {{MAIN}}
 
-The operators provide familiar syntax, but they do not make the class
-mutable.  ``work += work`` creates ``doubled_work`` and leaves ``work``
-unchanged, as the two ``static_assert`` statements demonstrate.
-
 Template metaprogramming approach
 ---------------------------------
 The immutable class above stores its value in an *object*.

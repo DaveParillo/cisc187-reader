@@ -115,6 +115,10 @@ back
        {rank=sink; o a b c d e z}
    }
 
+.. note::
+
+   Like ``std::stack`` it is your responsibility to only call
+   ``front()``, ``back()``, or ``pop()`` when the queue is not empty.
 
 Minor modifications change ``pop_all()`` from a function
 performing ``stack`` operations into one
@@ -125,10 +129,8 @@ performing ``queue`` operations:
    #include <iostream>
    #include <queue>
 
-   #define QueueContainer typename
-
-   template <QueueContainer C>
-   void pop_all(C& q) {
+   template <typename Container>
+   void pop_all(Container& q) {
      while(!q.empty()) {
        std::cout << q.front() << " ";
        q.pop();
@@ -136,7 +138,8 @@ performing ``queue`` operations:
      std::cout << "\npopped all from queue\n";
    }
 
-The STL containers ``std::list`` and ``std::deque`` can be adapted to create a queue.
+The standard library containers ``std::list`` and ``std::deque`` can be adapted
+to create a queue.
 
 Circular queues
 ---------------
@@ -156,12 +159,9 @@ is just an example of one.
 
       Conceptually, a circular buffer is a closed ring of data.
 
-      - One element needs to be chosen as the start of the data.
-        The terms ``start``, ``begin``, or ``head`` are all reasonable.
-      - One element needs to be chosen as the end of the data.
-        The terms ``last``, ``end``, or ``tail`` are all reasonable.
-
-      The start locations of ``head`` and ``tail`` are arbitrary.
+      One element needs to be chosen as the start of the data.  We will call
+      this index ``head``.  The head identifies the oldest element currently
+      stored in the queue.
 
       A ring buffer is initially empty and of some predefined length.
       For example, this is an 8-element buffer conceptually:
@@ -190,13 +190,23 @@ is just an example of one.
             tail -> 0
          }
 
-      The ``tail`` node always refers to the element just past the end
-      of our data (as always).
-      So when the head and tail are equal, the buffer is empty.
+      This example stores ``head`` and ``size``.  It does not store ``tail``
+      separately.  The next available position is computed whenever it is
+      needed:
+
+      .. math::
+
+         \mathit{tail} = (\mathit{head} + \mathit{size}) \mathbin{\%}
+         \mathit{capacity}
+
+      For an empty buffer, ``head == 0`` and ``size == 0``, so ``tail == 0``.
+      When the buffer is full, ``size == capacity`` and the formula produces
+      ``tail == head``.  The ``size`` value removes the ambiguity that would
+      otherwise make ``head == tail`` mean either empty or full.
 
       The ``capacity`` is the maximum number of elements that can be
       stored in the buffer.
-      In this example, the capcacity is ``8``.
+      In this example, the capacity is ``8``.
 
       The ``size`` is the current number of elements used in the buffer.
       In our initially empty buffer, the size is ``0``.
@@ -226,8 +236,9 @@ is just an example of one.
 
    .. tb-tab:: Add
 
-      Adding one element to the buffer involves storing a new value 
-      at the tail location and moving the tail.
+      Adding one element stores a new value at the computed tail location and
+      increases ``size``.  The next tail is then computed from the unchanged
+      head and the new size.
 
       .. graphviz::
          :graphviz_dot: circo
@@ -304,14 +315,15 @@ is just an example of one.
 
    .. tb-tab:: Remove
 
-      Removing an element from the buffer involves 
+      Removing an element from the buffer involves
 
       - returning the oldest element from the buffer
       - moving the head
-      - decrease buffer size
+      - decreasing the buffer size
 
-      As with earlier containers, there is no need to erase the oldest
-      element, since after the head has moved, we can no longer access it.
+      C++ does not erase the old value from the array when an element is
+      removed.  Once ``head`` moves and ``size`` decreases, that old slot is
+      outside the active sequence and can be reused by a later write.
 
       .. graphviz::
          :align: center
@@ -324,7 +336,7 @@ is just an example of one.
                   style=filled, 
                   fillcolor=lightblue
            ];
-           ring [label="<f0>A | <f1>B | <f2>C | <f3> | <f4> | <f5> | <f6> | <f7> "] 
+           ring [label="<f0>A* | <f1>B | <f2>C | <f3> | <f4> | <f5> | <f6> | <f7> "] 
            ring:f7:e -> ring:f0:w
            node [shape=plain, style=""];
            ring:f1 -> head [dir=back]
@@ -339,9 +351,10 @@ is just an example of one.
       Starting with our buffer containing [B,C], we can add elements until it
       is completely full.
 
-      Recall we popped ``A`` from this buffer earlier.
-
-      Adding a few elements moves the tail and increases the size.
+      Adding three more elements produces ``[B,C,D,E,F]`` in the active
+      sequence.  The stale ``A`` remains in its old slot, but it is not part
+      of the queue.  The state is now ``head == 1``, ``size == 5``, and
+      ``tail == (1 + 5) % 8 == 6``.
 
       .. graphviz::
          :align: center
@@ -354,7 +367,7 @@ is just an example of one.
                   style=filled, 
                   fillcolor=lightblue
            ];
-           ring [label="<f0>A | <f1>B | <f2>C | <f3>D | <f4>E | <f5>F | <f6> | <f7> "] 
+           ring [label="<f0>A* | <f1>B | <f2>C | <f3>D | <f4>E | <f5>F | <f6> | <f7> "] 
            ring:f7:e -> ring:f0:w
            node [shape=plain, style=""];
            ring:f1 -> head [dir=back]
@@ -362,11 +375,10 @@ is just an example of one.
            ring:f6 -> tail [dir=back]
          }
 
-      At this point the buffer is almost full.
-      The tail now refers to the first element in the array.
-      It needed to wrap around to avoid potentially allowing a write outside
-      the array bounds.
-      The slot containing 'A' is available for writing, since it was removed earlier.
+      Adding ``G`` at index ``6`` and ``H`` at index ``7`` leaves one unused
+      logical slot.  The state is now ``head == 1``, ``size == 7``, and
+      ``tail == (1 + 7) % 8 == 0``.  The tail has wrapped around to the first
+      array slot.
 
       .. graphviz::
          :align: center
@@ -379,16 +391,17 @@ is just an example of one.
                   style=filled, 
                   fillcolor=lightblue
            ];
-           ring [label="<f0>A | <f1>B | <f2>C | <f3>D | <f4>E | <f5>F | <f6>G | <f7>H "] 
+           ring [label="<f0>A* | <f1>B | <f2>C | <f3>D | <f4>E | <f5>F | <f6>G | <f7>H "]
            ring:f7:e -> ring:f0:w
            node [shape=plain, style=""];
            ring:f1 -> head [dir=back]
-           ring:f0 -> tail [style=invis]
-           ring:f0 -> tail [dir=back]
+           ring:f7 -> tail [style=invis]
+           ring:f7 -> tail [dir=back]
          }
 
-      One more write to the element at position 0 and
-      now the buffer is completely full.
+      One more write stores ``I`` at index ``0``.  The buffer is now full:
+      ``head == 1``, ``size == 8``, and
+      ``tail == (1 + 8) % 8 == 1``.
 
       .. graphviz::
          :align: center
@@ -409,17 +422,13 @@ is just an example of one.
            ring:f1 -> tail [dir=back]
          }
 
-      The buffer size is now ``8``.
-      It is important to note that in this implementation
-      ``head == tail`` does not represent the idea of an empty buffer.
-      In this implementation the ``head == tail`` state can mean either
-      a completely empty or a full queue.
-
-      An extra variable ``size`` is used to distinguish empty from full,
-      since we know the array size
-      ahead of time.
-      If we chose to not keep track of size and use only the head and tail
-      then the maximum size of the would be :math:`capacity - 1`.
+      The queue now contains ``B`` through ``I`` in logical order, beginning
+      at ``head`` and wrapping from index ``7`` to index ``0``.
+      If we stored only ``head`` and ``tail``, the equal indices would not
+      distinguish this full state from the empty state.  Storing ``size``
+      makes both states explicit.  A design that omits ``size`` must reserve
+      one slot, limiting the maximum number of elements to
+      ``capacity - 1``.
 
       Different designs could result in different outcomes, there are no
       hard and fast rules here.
@@ -435,8 +444,14 @@ is just an example of one.
         such as when processing keystrokes from the user, or managing a
         print queue.
 
+        In this policy, a write is rejected when ``size == capacity``.
+
       - Allow writes to overwrite the oldest elements.
         The oldest values are lost in favor of new values.
+
+        In this policy, the next write uses the derived ``tail`` position,
+        which equals ``head`` when the buffer is full.  After overwriting,
+        both ``head`` and ``size`` are updated to describe the retained data.
 
         This implementation is used when the oldest information may 
         no longer be important enough by the time the buffer is full.
@@ -446,9 +461,8 @@ is just an example of one.
 
 .. admonition:: More to Explore
 
-   - :cpp:`STL containers library <container>`
-   - STL :container:`queue` class
+   - :cpp:`C++ containers library <container>`
+   - C++ :container:`queue` class
    - MyCodeSchool video: 
      `Data structures: introduction to queue <https://www.youtube.com/watch?v=XuCbpw6Bj1U&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=22>`__ 
    - :wiki:`Circular buffer <Circular_buffer>` on wikipedia
-

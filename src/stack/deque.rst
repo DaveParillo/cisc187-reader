@@ -20,20 +20,54 @@ or references to the rest of the elements.
 It's primary role in the standard library is to function as
 the default container underlying ``std::stack`` and ``std::queue``.
 
-.. tb-group::
-   :name: deque
+.. tb-code:: cpp
+   :name: container-deque-example
+   :caption: Basic std::deque usage
 
-   .. tb-tab:: std::deque
+   #include <iostream>
+   #include <deque>
+   #include <string>
 
-      .. literalinclude:: deque.txt
-         :language: cpp
-         :start-after: compileargs
-         :dedent: 3
-         :linenos:
+   using std::cout;
+   using std::deque;
+   using std::string;
 
-   .. tb-tab:: Run It
+   void print (const deque<string>& container)
+   {
+     cout << "\n\nItems in the Deque: \n";
+     for (const auto& value: container) {
+       cout << value << ' ';
+     }
+     cout << '\n';
 
-      .. include:: deque.txt
+   }
+
+   int main() {
+     deque<string> d;
+     cout << "Deque Empty? " << d.empty() << '\n';
+     d.push_back("Zebra");
+     cout << "Deque Empty? " << d.empty() << '\n';
+
+     d.push_front("Turtle");
+     d.push_front("Panda");
+     d.push_back("Catfish");
+     d.push_back("Giraffe");
+
+     cout << "Deque Size: " << d.size() << '\n';
+     cout << "Item at the front: " << d.front() << '\n';
+     cout << "Item at the back: " << d.back() << '\n';
+
+     print (d);
+
+     d.pop_back();
+     d.pop_front();
+
+     cout << "\n\nItem at the front: " << d.front();
+     cout << "\nItem at the back: " << d.back();
+     cout << "\nDeque Size: " << d.size();
+
+     print (d);
+   }
 
 An interesting problem that can be easily solved using the deque 
 data structure is the classic palindrome problem. 
@@ -55,45 +89,63 @@ be left with a deque of size 1 depending on whether the length of the
 original string was even or odd. In either case, 
 the string must be a palindrome.
 
+.. tb-code:: cpp
+   :name: ac-container-deque-palindrome
+   :caption: Palindrome checker using std::deque
 
-.. tb-group::
-   :name: check_palindrome
+   #include <iostream>
+   #include <deque>
+   #include <iostream>
+   #include <string>
 
-   .. tb-tab:: Check Palindrome
+   using std::deque;
+   using std::string;
 
-      .. literalinclude:: palindrome.txt
-         :language: cpp
-         :start-after: #include <iostream>
-         :end-before: int main
-         :dedent: 3
-         :linenos:
+   bool check_palindrome(const string& value) {
+     if (value.size() < 2) return true;
+     deque<char> letters (value.begin(), value.end());
 
-   .. tb-tab:: Run It
+     while (letters.size() > 1) {
+       char first = letters.front();  // could omit these temporaries
+       char last = letters.back();
+       if (first != last) {
+          return false;
+       }
+       letters.pop_front();
+       letters.pop_back();
+     }
+     return true;
+   }
 
-      .. include:: palindrome.txt
+   int main() {
+     std::cout << std::boolalpha 
+               << check_palindrome("not a palindrome") << '\n';
+     std::cout << check_palindrome("radar") << '\n';
+   }
 
 .. index:: std::equal
 
 A moment of full disclosure:
 even though it is possible to use a deque to determine if a string is a
 palindrome or not, it's far from the simplest or most efficient
-solution tot he the problem.
-Simply checking the string characters directly is better:
+solution to the problem.
+Simply checking the string characters directly is better.
 
 .. tb-group::
-   :name: is_palindrome
 
    .. tb-tab:: Is Palindrome
 
-      .. literalinclude:: is_palindrome.txt
-         :language: cpp
-         :start-after: compileargs
-         :end-before: int main
-         :dedent: 3
-         :linenos:
+      The standard library provides the :algorithm:`equal` template which
+      allows comparing the values in a pair ranges.
 
-      The STL provides the :algorithm:`equal` template which allows
-      comparing the values in a pair ranges.
+      .. code-block:: cpp
+         :name: is-palindrome
+
+         bool is_palindrome(const std::string& value) {
+            return equal(value.begin(), 
+                         value.begin() + value.size()/2, 
+                         value.rbegin());
+         }
 
       The first `begin` and `end` define a range of values to be compared.
       The second `begin` defines the start of the second range of values.
@@ -107,7 +159,23 @@ Simply checking the string characters directly is better:
 
    .. tb-tab:: Run It
 
-      .. include:: is_palindrome.txt
+      .. tb-code:: cpp
+         :name: container-equal-palindrome
+         :caption: Palindrome checker using std::equal
+         :include:
+            IS_PALINDROME: is-palindrome
+
+         #include <algorithm>
+         #include <iostream>
+         #include <string>
+
+         {{IS_PALINDROME}}
+
+         int main() {
+           std::cout << std::boolalpha 
+                     << is_palindrome("not a palindrome") << '\n';
+           std::cout << is_palindrome("radar") << '\n';
+         }
 
 While this solution does require more familiarity with the standard library,
 it avoids copying the string into the container, 

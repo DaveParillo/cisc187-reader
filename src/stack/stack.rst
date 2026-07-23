@@ -54,7 +54,7 @@ void push (T value)
 void pop()
    Remove an element from the top of the stack.
 
-T top()
+const T& top()
    Get the value of the element at the top of the stack.
    
 .. graphviz::
@@ -92,6 +92,14 @@ T top()
        top -> e [style=dotted, dir=back, constraint=false]
    }
 
+.. caution::
+
+   The standard library implementation of ``std::stack`` does not check any
+   preconditions.
+   Calling ``top()`` or ``pop()`` on an empty stack violates the container
+   adaptor’s preconditions.
+   It is your responsibility to only call these functions on a non-empty
+   stack -- for example, by calling ``empty()`` first.
 
 .. tb-group::
    :name: tab_stack_ex_1
@@ -136,9 +144,6 @@ T top()
            if (strings.empty()) {
              cout << "stack is empty.\n";
            }
-
-
-           return 0;
          }
 
 It is also possible to initialize a stack from another container.
@@ -152,8 +157,8 @@ but any container that provides
 - ``pop_back()``
 
 can be used as a stack adapter.
-In the STL, besides deque, :container:`vector` and :container:`list` also
-can be adapted by a stack.
+In the standard library, besides deque, :container:`vector` and
+:container:`list` also can be adapted by a stack.
 
 .. digraph:: stack_adapter
    :align: center
@@ -200,7 +205,7 @@ can be adapted by a stack.
 
          // initialize stack from deque
          std::deque<int> x = { 1, 2, 3, 4, 5 };
-         stack<int>> numbers(x);
+         stack<int> numbers(x);
 
       To copy a list into a stack will only work if the
       stack instance uses a list as its backing store.
@@ -246,8 +251,6 @@ can be adapted by a stack.
            if (numbers.empty()) {
              cout << "stack is empty.\n";
            }
-
-           return 0;
          }
 
 Notice the elements from the list are pushed onto the stack in the order
@@ -255,7 +258,7 @@ they are retrieved from the list.
 The number ``1`` is pushed first, so when initialization is complete,
 it is on the bottom of the stack.
    
-Stack elements **cannot** be accessed directly in the way
+Stack elements other than the top **cannot** be accessed directly in the way
 you are used to with other sequential containers like
 arrays, vectors, and lists.
 To 'visit' each element in a ``stack``, the items need to be popped off.
@@ -278,11 +281,7 @@ In most programming languages,
 arithmetic expressions are written using **infix notation** 
 as in the above example.
 The symbol for each binary operation is placed between the operands.
-Many compilers first transform infix expressions into **postfix notation**,
-and then generates machine instructions to evaluate these postfix expressions.
-This two-step process is used because
-transformations from infix to postfix is straightforward,
-and postfix expressions are generally easier to evaluate than infix expressions.
+It can be simpler to parse expressions in **postfix notation** instead.
 
 In postfix notation the operator follows the operands and parentheses 
 are not needed.

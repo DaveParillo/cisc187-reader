@@ -6,117 +6,177 @@
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. index:: 
+.. index::
    pair: design patterns; adapter
 
 The Adapter pattern
 ===================
+An adapter converts one interface into another interface that clients expect.
+It lets existing code work with a client without changing either the client
+or the adapted component.
 
-Design patterns provide a reliable and easy way to follow proven design
-principles and to write well-structured and maintainable code.
-One of the popular and often used patterns in object-oriented 
-software development is the adapter pattern.
-It follows Robert C. Martin's 
-:wiki:`Dependency Inversion Principle <Dependency_inversion_principle>`
-and enables you to reuse an existing class even so it doesn't implement an
-expected interface.
+For example, imagine an existing temperature sensor that reports Celsius:
 
-If you do some research on the adapter pattern, you will find two different versions of it:
+.. code-block:: cpp
+   :name: celsius-sensor-class
 
-#. The **class** adapter pattern that implements the adapter using 
-   :term:`inheritance <inherit>`.
-#. The **object** adapter pattern that uses :term:`composition` 
-   to reference an instance of the wrapped class within the adapter.
+   class celsius_sensor{
+   public:
+     constexpr explicit celsius_sensor(double value)
+       :value_{value}
+     {}
 
-The object adapter pattern is generally more popular and the one
-used within the STL to implement 
-:container:`stack` and :container:`queue`.
+     constexpr double read_celsius() const {
+       return value_;
+     }
 
-The general idea of an adapter in software development is identical to the one
-in the physical world. 
-If you have travelled to foreign countries, 
-you probably noticed that electrical outlet vary from country to country.
-Outlet shapes vary such that the plug of your electrical device doesn't fit. 
-How do you connect the charger of your mobile phone or laptop to these
-power outlets?
+   private:
+     double value_;
+   };
 
-The answer is simple.
-You get an adapter which you can put into the power outlet and 
-then you put your plug into the other end of the adapter. 
-The adapter changes the form of your plug so that you can use it with 
-the power outlet. 
-In that example and in most other situations, 
-the adapter doesn't provide any additional features.
-It just enables you to connect your plug to a different outlet.
+Suppose a client expects a sensor with a ``read_fahrenheit()`` operation
+instead.  The existing sensor and the client have compatible responsibilities,
+but incompatible interfaces.  An adapter supplies the missing conversion:
 
 .. mermaid::
-   :alt: The adapter pattern UML diagram
+   :alt: Client uses a temperature adapter that forwards to a Celsius sensor
    :align: center
 
    classDiagram
-      client --> adapter : uses
-      legacy_component --o adapter
-      class adapter {
-         +do_this() int
+      Client --> FahrenheitAdapter : uses
+      FahrenheitAdapter --> CelsiusSensor : reads
+      class FahrenheitAdapter {
+         +read_fahrenheit() double
       }
-      class legacy_component {
-         +do_that() void
-      }
-
-
-Often when programming you have a class that does *almost* what
-you need it to, 
-or it contains a lot of capability you would like to reuse,
-but the class interface is not a good fit.
-A class adapter is a simple design pattern that helps solve
-problems like this.
-We can use an adapter when we want to
-convert the interface of a class into another interface clients expect. 
-An adapter lets classes work together that couldn't otherwise
-because of incompatible interfaces.
-An adapter also allows us to 
-wrap an existing class with a new interface
-without making any changes to the original class - the class being adapted.
-
-Socket wrenches provide an example of the Adapter.
-A socket attaches to a ratchet,
-provided that the size of the drive is the same.
-Typical drive sizes in the United States are 1/2" and 1/4".
-Obviously, a 1/2" drive ratchet will not fit into a 1/4" drive socket
-unless an adapter is used.
-A 1/2" to 1/4" adapter has a 1/2" female connection 
-to fit on the 1/2" drive ratchet, 
-and a 1/4" male connection to fit in the 1/4" drive socket.
-
-.. mermaid::
-   :alt: A tool anology for the adapter pattern
-   :align: center
-
-   classDiagram
-      ratchet --> adapter : uses
-      socket --o adapter
-      class ratchet {
-         +drive_6mm (male)
-      }
-      class adapter {
-         +drive_6mm (female)
-         +drive_3mm (male)
-      
-      }
-      class socket {
-         +drive_3mm (female)
+      class CelsiusSensor {
+         +read_celsius() double
       }
 
+Traditional adapter implementations
+------------------------------------
+The traditional design-pattern descriptions distinguish class adapters from
+object adapters.
 
-The data structures in this chapter :container:`stack` and :container:`queue`
-both use the adapter patter to achieve their design goals.
+A **class adapter** uses inheritance.  The adapter derives from the adapted
+class and adds the interface that clients expect:
 
------
+.. code-block:: cpp
+
+   class fahrenheit_class_adapter : private celsius_sensor{
+   public:
+     using celsius_sensor::celsius_sensor;
+
+     constexpr double read_fahrenheit() const {
+       return read_celsius() * 9.0 / 5.0 + 32.0;
+     }
+   };
+
+This approach is simple, but it couples the adapter to one concrete base
+class.  The private inheritance keeps ``read_celsius()`` out of the adapter's
+public interface.  Clients see the Fahrenheit operation, while the adapter
+can still call the inherited Celsius operation internally.
+
+An **object adapter** uses composition.  The adapter stores a reference or
+object of the adapted type and delegates through that member:
+
+.. code-block:: cpp
+
+   class fahrenheit_object_adapter{
+   public:
+     constexpr explicit fahrenheit_object_adapter(
+         const celsius_sensor& sensor)
+       :sensor_{sensor}
+     {}
+
+     constexpr double read_fahrenheit() const {
+       return sensor_.read_celsius() * 9.0 / 5.0 + 32.0;
+     }
+
+   private:
+     const celsius_sensor& sensor_;
+   };
+
+Composition avoids an inheritance relationship and lets one adapter wrap an
+existing object.  The reference also makes the ownership rule explicit: the
+sensor must outlive the adapter.
+
+C++ adapter implementations
+---------------------------
+C++ does not require a class to inherit from an interface.  A client can use
+any object that supplies the operations it needs.  Templates make this
+flexibility useful: an adapter can be parameterized by the adapted type
+instead of being tied to one concrete class.
+
+Since C++20, a concept can document and check the interface required by the
+adapter:
+
+.. code-block:: cpp
+   :name: sensor-concept
+
+   template <class Sensor>
+   concept celsius_readable = requires(const Sensor& sensor){
+     { sensor.read_celsius() } -> std::convertible_to<double>;
+   };
+
+The concept does not create a base class or add run-time overhead.  It states
+the expressions that a type must support.  The adapter can then use any
+matching sensor type:
+
+.. code-block:: cpp
+   :name: fahrenheit-adapter
+
+   template <celsius_readable Sensor>
+   class fahrenheit_adapter{
+   public:
+     constexpr explicit fahrenheit_adapter(const Sensor& sensor)
+       :sensor_{sensor}
+     {}
+
+     constexpr double read_fahrenheit() const {
+       return sensor_.read_celsius() * 9.0 / 5.0 + 32.0;
+     }
+
+   private:
+     const Sensor& sensor_;
+   };
+
+This adapter is still an object adapter because it uses composition, but its
+interface is checked at compile time and it can wrap any suitable sensor.
+There is no virtual function, base class, or run-time type check.
+
+The complete example is small enough to compile and run:
+
+.. tb-code:: cpp
+   :include:
+      SENSOR: celsius-sensor-class
+      CONCEPT: sensor-concept
+      ADAPTER: fahrenheit-adapter
+
+   #include <concepts>
+   #include <iostream>
+
+   {{SENSOR}}
+
+   {{CONCEPT}}
+
+   {{ADAPTER}}
+
+   int main(){
+     celsius_sensor sensor{20.0};
+     fahrenheit_adapter adapter{sensor};
+     std::cout << "20C == 68F: " << std::boolalpha
+               <<  (adapter.read_fahrenheit() == 68.0);
+   }
+
+The standard library also uses the adapter pattern for its container
+adaptors.  ``std::stack``, ``std::queue``, and ``std::priority_queue`` expose
+purpose-specific interfaces over underlying containers.  The next pages use
+``std::stack`` and ``std::queue`` as concrete container-adaptor examples;
+``std::priority_queue`` is covered later.
 
 .. admonition:: More to Explore
 
-   - `Sourcemaking - Adapter Design Pattern <https://sourcemaking.com/design_patterns/adapter>`__
-   - `DIP in the Wild <https://martinfowler.com/articles/dipInTheWild.html>`__
-     (The Dependency Inversion Principle)
-   - `Design Patterns Explained - Adapter Pattern with Code Examples <https://stackify.com/design-patterns-explained-adapter-pattern-with-code-examples/>`__
-
+   - :container:`stack`
+   - :container:`queue`
+   - :container:`priority_queue`
+   - `Refactoring Guru: Adapter <https://refactoring.guru/design-patterns/adapter>`__

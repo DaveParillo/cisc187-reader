@@ -40,6 +40,11 @@ We will use the same distance value class from the previous section:
            :m{value}
          {}
 
+         distance(const distance&) = default;
+         distance& operator=(const distance&) = delete;
+         distance(distance&&) = default;
+         distance& operator=(distance&&) = delete;
+
        private:
          double m; // meters
      };
@@ -48,6 +53,11 @@ We will use the same distance value class from the previous section:
 The data member is not ``const``.  It does not need to be, because no public
 member function can modify it.  The constructor creates the initial value,
 and the ``const`` member functions below can only inspect that value.
+
+Copy and move construction remain available.  Each operation creates a new
+object and leaves the source object unchanged.  Copy and move assignment are
+deleted because assignment would replace the value stored in an existing
+object.
 
 The familiar compound-assignment operators are problematic in an immutable
 class.
@@ -92,6 +102,11 @@ Adding the complete set of operations gives us this immutable class:
            :m{value}
          {}
 
+         distance(const distance&) = delete;
+         distance& operator=(const distance&) = delete;
+         distance(distance&&) = delete;
+         distance& operator=(distance&&) = delete;
+
          explicit constexpr operator int() const {
            return static_cast<int>(m);
          }
@@ -123,7 +138,7 @@ Adding the complete set of operations gives us this immutable class:
 
 
    The use of ``constexpr`` in this class is **not** what is providing the
-   immutablilty here.
+   immutability here.
    Immutability exists because the class only defines ``const`` member
    functions.
 
@@ -149,18 +164,68 @@ Adding the complete set of operations gives us this immutable class:
 
    .. tb-tab:: Using distance
 
-      This function calculates an average using the immutable distance type.
-      Each assignment to ``sum`` binds the name to a newly created value;
-      no existing distance is modified.
+      The ``average_distance`` requires some refactoring when the distance
+      class is immutable.
+      The traditional 'accumulating the sum' loop algorithm requires
+      a mutable ``sum``:
+
+      .. code-block::
+
+         auto sum = length::distance{0.0};
+         for (auto d: distances) sum = sum + d;
+
+      The distances are passed to ``average_distance`` using a ``std::span``.
+      A span is a small, non-owning view: it remembers where
+      a sequence begins and how many elements it contains, but it does not
+      copy or destroy those elements.
+      
+      The class cannot use an ordinary running total because assignment is
+      deleted.  This function therefore computes the sum recursively.  Each
+      recursive call handles one element and asks the next call for the sum of
+      the remaining elements:
+
+      .. code-block:: text
+
+         sum of [a, b, c]
+         = a + sum of [b, c]
+         = a + (b + sum of [c])
+         = a + (b + (c + sum of []))
+         = a + (b + (c + 0))
+
+      The empty span is the base case and contributes a zero distance.  Every
+      ``operator+`` call creates a new distance; no existing distance is
+      copied, assigned, or modified.
+
+      .. code-block:: cpp
+         :name: immutable-sum
+
+         constexpr
+         length::distance sum_distances(std::span<const length::distance> distances,
+                                        std::size_t index = 0)
+         {
+           if (index == distances.size()) {
+             return length::distance{0.0};
+           }
+           return distances[index] + sum_distances(distances, index + 1);
+         }
+
+         constexpr
+         length::distance average_distance(std::span<const length::distance> distances)
+         {
+           return sum_distances(distances) / distances.size();
+         }
+
+      The ``std::array`` below is constructed from distance values produced by
+      the arithmetic expressions.  The array stores those values, and the
+      span lets the averaging function work with any array size without
+      exposing the array's ownership or representation.
+
+      The ``const`` in ``std::span<const length::distance>`` is important.  It
+      means that this function can inspect the distances through the span, but
+      cannot modify them.
 
       .. code-block:: cpp
          :name: immutable-main
-
-         constexpr length::distance average_distance(std::initializer_list<length::distance> distances){
-           auto sum = length::distance{0.0};
-           for (auto d: distances) sum = sum + d;
-           return sum / distances.size();
-         }
 
          int main(){
            using namespace length::unit;
@@ -170,12 +235,14 @@ Adding the complete set of operations gives us this immutable class:
            constexpr auto gym = 2 * 1600.0_m;
            constexpr auto shopping = 2 * 1200.0_m;
 
-           constexpr auto week1 = 4 * commute + gym + shopping;
-           constexpr auto week2 = 4 * commute + 2 * gym;
-           constexpr auto week3 = 4 * gym + 2 * shopping;
-           constexpr auto week4 = 5 * gym + shopping;
+           constexpr std::array weeks{
+             4 * commute + gym + shopping,
+             4 * commute + 2 * gym,
+             4 * gym + 2 * shopping,
+             5 * gym + shopping
+           };
 
-           constexpr auto avg_travel = average_distance({week1, week2, week3, week4});
+           constexpr auto avg_travel = average_distance(weeks);
 
            static_assert(static_cast<int>(avg_travel) == 264000);
            return static_cast<int>(avg_travel); // 264000m
@@ -192,14 +259,18 @@ Adding the complete set of operations gives us this immutable class:
          :include:
             DISTANCE: immutable-distance
             UNIT: immutable-unit
+            SUM: immutable-sum
             MAIN: immutable-main
 
          #include <cstddef>
-         #include <initializer_list>
+         #include <array>
+         #include <span>
 
          {{DISTANCE}}
 
          {{UNIT}}
+
+         {{SUM}}
 
          {{MAIN}}
 
@@ -297,37 +368,46 @@ Here is the immutable distance class converted to use template metadata:
      template <double M>
      struct distance{
        static constexpr double value = M;
+
+       constexpr distance() = default;
+       distance(const distance&) = default;
+       distance& operator=(const distance&) = delete;
+       distance(distance&&) = default;
+       distance& operator=(distance&&) = delete;
      };
 
      template <int N>
      inline constexpr std::integral_constant<int, N> constant{};
 
      template <double LHS, double RHS>
-     constexpr auto operator+(distance<LHS>, distance<RHS>)
+     constexpr auto operator+(const distance<LHS>&, const distance<RHS>&)
        -> distance<LHS + RHS>{
        return {};
      }
 
      template <double LHS, double RHS>
-     constexpr auto operator-(distance<LHS>, distance<RHS>)
+     constexpr auto operator-(const distance<LHS>&, const distance<RHS>&)
        -> distance<LHS - RHS>{
        return {};
      }
 
      template <int N, double M>
-     constexpr auto operator*(std::integral_constant<int, N>, distance<M>)
+     constexpr auto operator*(std::integral_constant<int, N>,
+                              const distance<M>&)
        -> distance<N * M>{
        return {};
      }
 
      template <double M, int N>
-     constexpr auto operator*(distance<M>, std::integral_constant<int, N>)
+     constexpr auto operator*(const distance<M>&,
+                              std::integral_constant<int, N>)
        -> distance<M * N>{
        return {};
      }
 
      template <int N, double M>
-     constexpr auto operator/(distance<M>, std::integral_constant<int, N>)
+     constexpr auto operator/(const distance<M>&,
+                              std::integral_constant<int, N>)
        -> distance<M / N>{
        return {};
      }

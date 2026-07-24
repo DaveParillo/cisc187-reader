@@ -11,18 +11,18 @@
 
 Analysis of list operators
 ==========================
-Conventional wisdom states that a list is faster than a vector
-when operating on elements other than the back.
-We know ``push_back()`` is :math:`O(1)` for vector and we know
-that vector doesn't have a 'push_front', because it's something
-we intuitively feel we should discourage in a vector.
-Every push front would involve shifting all the elements in the vector
-down one position.
+Lists can be faster than vectors when inserting or erasing at a position
+that is already represented by an iterator.
+They are not generally faster for every operation, however.
+We know ``push_back()`` is amortized :math:`O(1)` for a vector,
+and we know that a vector does not have a ``push_front()`` operation.
+Inserting at the beginning of a vector requires shifting all of its
+existing elements to make room.
 
 
-:ref:`The table below <tbl_listbigo>` shows the average complexity efficiency
-of some basic list operations. 
-Note that many are constant time.
+:ref:`The table below <tbl_listbigo>` shows the asymptotic complexity
+of some common list operations.
+Note that many are constant time when the required iterator is already available.
 Note that many list operations such as ``insert`` and ``erase`` take an iterator
 as a parameter.
 Once you have the iterator, these operations take constant time,
@@ -33,22 +33,29 @@ if you have not saved the iterator from a previous operation.
 
 .. table:: **Complexity of C++ List Operators**
 
-    ===================== ==================
-                Operation         Complexity
-    ===================== ==================
-             assignment =               O(n)
-              push_back()               O(1)
-               pop_back()               O(1)
-                 erase(i)               O(1)
-          insert(i, item)               O(1)
-          insert(i, b, e) O(n) in the range
-                          from ``b``, ``e``
-                 splice()               O(1)
-                  begin()               O(1)
-                    end()               O(1)
-                   size() O(1) or O(n) C++11
-                   size()   O(1) after C++11
-    ===================== ==================
+    ================================ ================================
+                Operation                     Complexity
+    ================================ ================================
+    assignment =                     O(n + m), where n and m
+                                     are the two list sizes
+    push_front()                     O(1)
+    pop_front()                      O(1)
+    push_back()                      O(1)
+    pop_back()                       O(1)
+    erase(i)                         O(1)
+    insert(i, item)                  O(1)
+    insert(i, b, e)                  O(n) in the inserted range
+    splice(whole list)               O(1)
+    begin()                          O(1)
+    end()                            O(1)
+    size()                           O(n) before C++11;
+                                     O(1) since C++11
+    ================================ ================================
+
+Here ``i`` is an iterator identifying the position. The constant-time
+``erase`` and ``insert`` entries describe operations after that iterator
+has been found. The whole-list ``splice`` overload transfers existing nodes
+without copying their values.
 
 Both ``vector`` and ``list`` support an ``insert()`` method.
 There are multiple overloads for each and both support inserting
@@ -61,12 +68,12 @@ inserting a range into a container.
 ::
 
    template<class Container>
-   void test_insert(Container data, Container new_data){
+   void test_insert(Container& data, const Container& new_data){
        data.insert(data.begin(), new_data.begin(), new_data.end());
    }
 
 
-The ref:`test_insert code <lst_test_insert>` inserts the range at the
+The :ref:`test_insert code <lst_test_insert>` inserts the range at the
 beginning of the current data set.
 This situation should benefit the linked list and handicap the vector.
 This is one of the classic situations where linked lists are said to
@@ -80,8 +87,8 @@ is stored in the containers.
 In this example, we take increasingly large containers
 and insert increasingly large containers to their fronts.
 
-Each insert operation creates a new vector with an initial size.
-The test function then inserts a second vector of equal size
+Each iteration creates containers with an initial size.
+The test function then inserts a second container of equal size
 at position 0.
 
 .. tb-code:: cpp
@@ -97,14 +104,14 @@ at position 0.
    using std::vector;
 
    template<class Container>
-   void test_insert(Container data, Container other){
+   void test_insert(Container& data, const Container& other){
        data.insert(data.begin(), other.begin(), other.end());
    }
 
 
    int main(){
        using std::cout;
-       using clock = std::chrono::high_resolution_clock;
+       using clock = std::chrono::steady_clock;
        using msec_t = std::chrono::duration<double, std::milli>;
 
        cout << std::setw(6) << "size\t"
@@ -114,6 +121,7 @@ at position 0.
        for(int size = 10'000; size < 100'001; size += 10'000) {
          vector<int> vector_data (size);
          vector<int> new_vector_data (size);
+         vector_data.reserve(size * 2);
          auto begin = clock::now();
          test_insert(vector_data, new_vector_data);
          auto end = clock::now();
@@ -135,15 +143,20 @@ at position 0.
    }  
 
 
-Both list and vector have similar complexity for this form of insert.
-Both are linear in ``std::distance(first, last)`` - and vector has an additional
-linear term in the distance between the insert position and end of the container.
-(Vector has all those moves to perform).
-Since we chose to insert at the first element location and force the destination
-vector to resize on every insert, we really expect lists to outperform vector.
+Both list and vector have linear complexity for this form of insert.
+The list must create nodes for the inserted range.
+The vector must also move its existing elements after the insertion point.
+This example reserves enough vector capacity to avoid measuring a possible
+reallocation, so the comparison focuses on moving elements versus allocating
+list nodes.
 
 But it's not even close.
-Running the previous code on values up to 1,000,000 should produce results similar to this:
+The embedded example intentionally stops at ``100,000`` so it can run within
+the textbook compiler time and memory limits.
+The graph below was generated separately, offline, with a longer version of
+this benchmark and a loop starting at ``10,000`` and increasing by ``50,000``
+until it reached ``1,000,000``.
+Therefore, its final measured point is ``960,000``.
 
 .. plot::
    :alt: Comparison of vector and list insert times
@@ -189,40 +202,37 @@ Running the previous code on values up to 1,000,000 should produce results simil
    pair: memory; cache miss
 
 
-It may not look like it, but both of these lines are both :math:`O(n)` on the distance
-over the size of the range inserted.
-It's just that for small types like ``int``, the vector is on average 150 times
-faster than the linked list.
+It may not look like it, but both of these insertions are :math:`O(n)` in
+the size of the range inserted.
+In this particular run, for small types like ``int``, the vector was about
+150 times faster than the linked list. The exact ratio depends on the compiler,
+library, hardware, allocator, and system load.
 
 How can this be?
 
 In short: memory.
 
-Recall that for a vector all the data resides in a single chunk of data.
-For a linked list, each new  member lives in a separate location.
+Recall that a vector stores its elements contiguously.
+A linked list typically allocates each node separately.
 
 Computers have a feature called cache memory and it turns out the vector is
 able to exploit this resource better than a list.
 
 .. admonition:: What is Cache Memory?
 
-   Cache memory is a small amount of computer memory that provides high-speed data access
-   to a processor and stores frequently used computer programs, applications and data.
-   Cache memory is the fastest memory available and acts as a buffer between RAM and the CPU.
-   When a processor requests data that already has an instance in cache memory,
-   it does not need to go to the main memory or the hard disk to fetch the data.
-   The processor checks whether a corresponding entry is available in the cache every time
-   it needs to read or write a location which reduces the time required to access information.
+   Modern processors use a hierarchy of storage, including registers, cache,
+   and main memory. Cache is smaller and faster than main memory, and the
+   processor automatically moves data between these levels in cache lines.
+   When nearby data is reused, contiguous storage gives the processor a better
+   chance of finding it in cache instead of waiting for main memory.
 
-   Cache memory is relatively small - it is intended to speed access to frequently used data,
-   not serve as a replacement for RAM.
-   When the cache is full and something needs to be written, the least frequently used data
-   is overwritten.
+   Cache is relatively small and is managed by hardware. Its replacement policy
+   is not necessarily simply "least frequently used."
 
-Although both keep their data on the free store, because the vector is a single chunk,
+Although both commonly use dynamically allocated storage, because the vector is a single chunk,
 the CPU has a better chance of keeping more of the data in cache memory.
 
-In addition, it turns out that modern CPU's are just very good at creating, copying,
+In addition, it turns out that modern CPUs are just very good at creating, copying,
 and moving chunks of memory.
 
 There are situations where a list does outperform vector, we just have to work harder to see it.
@@ -259,7 +269,7 @@ timing example.
    using std::vector;
 
    template<class Container>
-   void test_insert(Container data, Container other){
+   void test_insert(Container& data, const Container& other){
        data.insert(data.begin(), other.begin(), other.end());
    }
 
@@ -272,7 +282,7 @@ timing example.
 
    int main(){
        using std::cout;
-       using clock = std::chrono::high_resolution_clock;
+       using clock = std::chrono::steady_clock;
        using msec_t = std::chrono::duration<double, std::milli>;
 
        cout << std::setw(6) << "size\t"
@@ -284,6 +294,7 @@ timing example.
        for(int size = 1'000; size < 10'001; size += 1'000) {
          vector<junk<JUNK_SIZE>> vector_data (size);
          vector<junk<JUNK_SIZE>> new_vector_data (size);
+         vector_data.reserve(size * 2);
          auto begin = clock::now();
          test_insert(vector_data, new_vector_data);
          auto end = clock::now();
@@ -308,8 +319,10 @@ timing example.
 A change in data type stored in the vector produces different results.
 
 The online compiler is limited in both memory and time allowed.
-The 2MB value for ``JUNK_SIZE`` is roughly the 'break even' point on this compiler.
-The graph below shows what running with and 8MB size looks like.
+The ``JUNK_SIZE`` value is measured in bytes, so ``2048`` is 2 KiB per element.
+That value was roughly the break-even point on the compiler used for the JOBE example.
+The graph below was generated separately, offline, with ``JUNK_SIZE`` set to
+8192, or 8 KiB per element.
 
 Run this example on your own computer with larger values and compare.
 
@@ -360,7 +373,3 @@ Both the vector and list are clearly :math:`O(n)` and the list is outperforming 
 .. admonition:: More to Explore
 
    - `C++ benchmark - std::vector VS std::list VS std::deque <https://baptiste-wicht.com/posts/2012/12/cpp-benchmark-vector-list-deque.html>`__
-
-
-
-

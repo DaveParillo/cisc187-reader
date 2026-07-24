@@ -8,258 +8,287 @@
 
 .. |---| replace:: --
 
-.. index:: 
+.. index::
    pair: iterator; using
 
 Using iterators
 ===============
 
-Assigning an iterator explicitly to a variable works much like any other type:
+An iterator is an object that identifies a position in a container.
+It can be dereferenced like a pointer to access the element at that position.
+When a range-based ``for`` loop is not the right tool, an explicit iterator
+allows a program to control traversal more precisely.
 
-.. code-block:: cpp
+Declaring and dereferencing an iterator
+---------------------------------------
+The iterator type is associated with the container and its element type.
+For example, ``std::vector<int>::iterator`` and
+``std::vector<std::string>::iterator`` are different types.
 
-   vector<int> nums = {1, 2, 3, 4, 5};
-   vector<int>::iterator it = nums.begin();
+In modern C++, ``auto`` is usually the clearest way to declare an iterator:
 
-The variable ``it`` now points to the beginning of the container ``nums``
-and can used much like a pointer:
+.. tb-code:: cpp
+   :name: using_iterator_declaration_ac
 
-.. code-block:: cpp
+   #include <iostream>
+   #include <vector>
 
-   vector<int> nums = {1, 2, 3, 4, 5};
-   vector<int>::iterator it = nums.begin();
+   int main() {
+     std::vector<int> nums = {1, 2, 3, 4, 5};
+     auto it = nums.begin();
 
-   cout << *it;  // prints: 1
-
-The iterator type always matches the value type of the enclosing container.
-Just as with pointers, an iterator to a ``vector<int>``
-is a different type from an iterator to a ``vector<string>``.
-
-It is possible to declare an iterator and use it in a traditional for loop:
-
-.. code-block:: cpp
-
-   vector<int> nums = {1, 2, 3, 4, 5};
-   cout << "nums contains:";
-
-   for (vector<int>::iterator it = nums.begin(); 
-        it != nums.end(); ++it) {
-       std::cout << ' ' << *it;
+     std::cout << *it << '\n';
    }
 
-Which produces:
+The expression ``*it`` accesses the element. The iterator itself represents
+a position; it is not the element value. The iterator must be dereferenceable,
+so ``nums.end()`` cannot be dereferenced.
 
-.. code-block:: none
+Traditional iterator loops
+---------------------------
+An explicit iterator can be used in a traditional ``for`` loop:
 
-   nums contains: 1 2 3 4 5
+.. tb-code:: cpp
+   :name: using_iterator_for_ac
 
-A while loop can produce equivalent results:
+   #include <iostream>
+   #include <vector>
 
-.. code-block:: cpp
+   int main() {
+     const std::vector<int> nums = {1, 2, 3, 4, 5};
+     std::cout << "nums contains:";
 
-   vector<int> nums = {1, 2, 3, 4, 5};
-   cout << "nums contains:";
+     for (auto it = nums.begin(); it != nums.end(); ++it) {
+       std::cout << ' ' << *it;
+     }
+     std::cout << '\n';
+   }
 
-   vector<int>::iterator it = nums.begin(); 
-   while (it != nums.end())
+The same traversal can be written with a ``while`` loop. Braces are required
+when the loop body contains both the output operation and the increment:
+
+.. tb-code:: cpp
+   :name: using_iterator_while_ac
+
+   #include <iostream>
+   #include <vector>
+
+   int main() {
+     const std::vector<int> nums = {1, 2, 3, 4, 5};
+     std::cout << "nums contains:";
+
+     auto it = nums.begin();
+     while (it != nums.end()) {
        std::cout << ' ' << *it;
        ++it;
+     }
+     std::cout << '\n';
    }
 
-We can shorten either example with ``auto``, 
-since the compiler can easily determine what type is returned from ``begin()``:
+When the loop body does not need to modify the container, a range-based
+``for`` loop is usually shorter and clearer:
 
-.. code-block:: cpp
+.. tb-code:: cpp
+   :name: using_iterator_range_for_ac
 
-   for (auto it = nums.begin(); it != nums.end(); ++it) {
-       std::cout << ' ' << *it;
+   #include <iostream>
+   #include <vector>
+
+   int main() {
+     const std::vector<int> nums = {1, 2, 3, 4, 5};
+     std::cout << "nums contains:";
+
+     for (const auto& num : nums) {
+       std::cout << ' ' << num;
+     }
+     std::cout << '\n';
    }
 
-Example code like one of the two previous examples is commonly found on the web,
-even when the point of the example has nothing to do with iterators.
-When you don't need an iterator, don't use it:
+The range declaration initializes a loop variable from each element.
+With ``const auto&``, it binds a read-only reference and avoids copying the
+element. Use ``auto&`` when the loop should modify elements, or ``auto`` when
+an independent copy is useful. Unlike ``*it``, the range variable is already
+the element value or reference; it is not an iterator and must not be
+dereferenced.
 
-.. code-block:: cpp
+Limits of range-based ``for``
+------------------------------
+Range-based ``for`` is designed to visit every element in order.
+It is not the best fit when a loop needs a custom stopping condition or must
+coordinate traversal through multiple containers. An explicit loop can stop
+where the program needs:
 
-   for (const auto& n: nums) {
-       std::cout << ' ' << n;
+.. tb-code:: cpp
+   :name: using_iterator_partial_ac
+
+   #include <iostream>
+
+   int main() {
+     for (int value = 32; value > 0; value /= 2) {
+       std::cout << value << ' ';
+     }
+     std::cout << '\n';
    }
 
-A common source of error for new programmers is confusion about the types used in these two loops:
+When two containers must be traversed together, keep one iterator for each
+container and stop when either reaches its end:
 
-``begin()``
-    **Always** returns an iterator that must be dereferenced in order to access the element value.
+.. tb-code:: cpp
+   :name: using_iterator_multiple_ac
 
-The range for declaration
-    **Always** is assigned a value from the container.
-    Unless the container is a container of pointers, no dereferencing is needed.
+   #include <iostream>
+   #include <list>
+   #include <vector>
 
+   int main() {
+     const std::vector<int> left = {1, 2, 3, 4};
+     const std::list<int> right = {10, 20, 30};
 
-Limits of Range-based for loops
--------------------------------
-The :lang:`range-for` loop, while convenient, has limitations.
-
-Any situation in which you do not need or want to visit every element
-requires a traditional loop:
-
-.. code-block:: cpp
-
-   for (int i=n; i>0; i/=2) {
-     // do something with i . . .
+     auto left_it = left.begin();
+     auto right_it = right.begin();
+     while (left_it != left.end() && right_it != right.end()) {
+       std::cout << *left_it + *right_it << ' ';
+       ++left_it;
+       ++right_it;
+     }
+     std::cout << '\n';
    }
 
-Similarly, if you need to iterate through multiple containers in a single loop,
-possibly at different rates, then you need a traditional for loop:
-
-.. code-block:: cpp
-
-   for (int i=n, j=0; i>0; i/=2, j++) {
-     // do something with i and j . . .
-   }
-
-If you need to :term:`traverse` a container and remove items,
-then you need an explicit iterator so that you can call the container ``erase`` method.
-
-See the erase example in the following section.
+C++20 also provides ranges and views for composing some partial traversals.
+Explicit iterators remain useful when teaching iterator mechanics or when a
+loop needs stateful control that is clearer as an imperative loop.
 
 Container functions that require iterators
 ------------------------------------------
-Most container functions that use position information do not 
-accept an integral position or an index like ``operator[]``.
-Position information is expressed using iterators.
+Container functions that use position information generally accept iterators
+rather than an integral position or an index like ``operator[]``.
 
-insert
-   Inserts elements at the specified location in the container.
+``insert``
+   Inserts elements before the position identified by an iterator.
 
-.. tb-group::
-   :name: tab_iterator_using_insert
+The following example inserts one value, repeated values, a range from another
+container, and a raw array range. The iterator returned by ``insert`` points
+to the first inserted element. Vector insertion can invalidate existing
+iterators, so the example obtains a fresh iterator before each later operation.
 
-   .. tb-tab:: Example
+.. tb-code:: cpp
+   :name: using_iterator_insert_ac
 
-      Create a ``vector<int>`` and initialize it with 3 values:
+   #include <iostream>
+   #include <iterator>
+   #include <vector>
 
-      .. code-block:: cpp
+   void print(const std::vector<int>& values) {
+     for (const auto value : values) {
+       std::cout << ' ' << value;
+     }
+     std::cout << '\n';
+   }
 
-         std::vector<int> nums(3,100);
+   int main() {
+     std::vector<int> nums(3, 100);
+     print(nums);
 
-      Insert a value at the beginning of the vector:
+     auto it = nums.insert(nums.begin(), 200);
+     print(nums);
 
-      .. code-block:: cpp
+     it = nums.insert(nums.begin(), 2, 300);
+     print(nums);
 
-         auto it = nums.begin();
-         it = nums.insert(it, 200);
+     std::vector<int> fib = {1, 1, 2, 3, 5, 8, 13, 21};
+     it = nums.begin() + 2;
+     nums.insert(it, fib.begin(), fib.end());
+     print(nums);
 
-      Insert 2 values at the beginning of the vector:
+     int values[] = {501, 502, 503};
+     nums.insert(nums.begin(), std::begin(values), std::end(values));
+     print(nums);
+   }
 
-      .. code-block:: cpp
+``erase``
+   Removes one element or a contiguous range of elements.
 
-         it = nums.insert(it, 2, 200);
+The following example erases the first element, erases a range, and then
+removes every even value. ``vector::erase`` returns an iterator to the element
+that follows the erased range. Erasing from a vector invalidates iterators and
+references at or after the erase position, so the returned iterator must be
+used for continued traversal.
 
-      Insert one vector into another vector:
+.. tb-code:: cpp
+   :name: using_iterator_erase_ac
 
-      .. code-block:: cpp
+   #include <iostream>
+   #include <vector>
 
-         auto it = nums.begin();
-         std::vector<int> fib {1, 1, 2, 3, 5, 8, 13, 21};
-         nums.insert(it+2, fib.begin(), fib.end());
+   void print(const std::vector<int>& values) {
+     for (const auto value : values) {
+       std::cout << ' ' << value;
+     }
+     std::cout << '\n';
+   }
 
-   .. tb-tab:: Run it
+   int main() {
+     std::vector<int> nums = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+     print(nums);
 
-      .. tb-code:: cpp
-         :name: ac_iterator_insert
+     nums.erase(nums.begin());
+     print(nums);
 
-         #include <iostream>
-         #include <vector>
+     nums.erase(nums.begin() + 2, nums.begin() + 5);
+     print(nums);
 
-         void print(const std::vector<int>& v) {
-           for (auto x: v) {
-             std::cout << ' ' << x;
-           }
-           std::cout << '\n';
-         }
+     nums = {2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9};
+     for (auto it = nums.begin(); it != nums.end();) {
+       if (*it % 2 == 0) {
+         it = nums.erase(it);
+       } else {
+         ++it;
+       }
+     }
+     print(nums);
+   }
 
-         int main () {
-           std::vector<int> nums(3,100);
-           print(nums);
+.. cpp:: 20
 
-           auto it = nums.begin();
-           it = nums.insert(it, 200);
-           print(nums);
+   ``std::erase_if(nums, predicate)`` is a concise alternative
+   when the goal is simply to remove elements matching a condition. The
+   following example removes all odd values from the first ten Fibonacci
+   numbers:
 
-           nums.insert(it,2,300);
-           print(nums);
+   .. tb-code:: cpp
+      :name: using_iterator_erase_if_ac
+      :compileargs: ['-std=c++20', '-Wall', '-Wextra', '-pedantic']
 
-           // 'it' no longer valid, get a new one:
-           it = nums.begin();
+      #include <algorithm>
+      #include <iostream>
+      #include <vector>
 
-           std::vector<int> fib {1, 1, 2, 3, 5, 8, 13, 21};
-           nums.insert(it+2, fib.begin(), fib.end());
-           print(nums);
+      void print(const std::vector<int>& values) {
+        for (const auto value : values) {
+          std::cout << ' ' << value;
+        }
+        std::cout << '\n';
+      }
 
-           int arr[] = { 501,502,503 };
-           nums.insert(nums.begin(), arr, arr+3);
-           print(nums);
-         }
+      int main() {
+        std::vector<int> fibonacci = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34};
+        print(fibonacci);
 
+        std::erase_if(fibonacci, [](int value) {
+          return value % 2 != 0;
+        });
+        print(fibonacci);
+      }
 
-erase
-   Removes specified elements from the container.
-   ``erase`` may remove a single element or a contiguous range of elements.
-
-.. tb-group::
-   :name: tab_iterator_using_erase
-
-   .. tb-tab:: Example
-
-      Given a ``vector<int>``:
-
-      .. code-block:: cpp
-
-         std::vector<int> nums = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-
-      We can erase the first element:
-
-      .. code-block:: cpp
-
-         nums.erase(nums.begin());
-
-      or erase a range of adjacent elements:
-
-      .. literalinclude:: using_erase.txt
-         :language: cpp
-         :dedent: 5
-         :lines: 23
-
-      or erase other elements:
-
-      .. literalinclude:: using_erase.txt
-         :language: cpp
-         :dedent: 5
-         :lines: 28-35
-
-      Things to note about the last erase example:
-
-      - ``it`` is not incremented in the for loop iteration expression
-      - If an element is erased, the current iterator is *invalidated*.
-        Any further use would be an error in a ``vector``.
-
-        The :container:`vector::erase <vector/erase>` function returns the iterator to the next element
-        in the container.
-      - If an element is **not** erased, *then* increment the iterator.
-
-
-   .. tb-tab:: Run it
-
-      .. include:: using_erase.txt
-
+   The explicit loop above shows why an iterator must advance differently
+   after ``erase`` than after an element is retained.
 
 -----
 
 .. admonition:: More to Explore
 
-   - From cppreference.com
-
-     - :cpp:`Iterator Library <iterator>`
-     - :cpp:`C++ Iterator Named Requirement <named_req/Iterator>`
-     - :container:`std::vector::erase <vector/erase>`
-     - :container:`std::vector::insert <vector/insert>`
+   - :cpp:`Iterator Library <iterator>`
+   - :cpp:`C++20 Concepts Library <concepts>`
+   - :cpp:`C++20 Ranges Library <ranges>`
+   - :container:`std::vector::erase <vector/erase>`
+   - :container:`std::vector::insert <vector/insert>`

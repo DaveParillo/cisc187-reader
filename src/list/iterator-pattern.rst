@@ -13,9 +13,9 @@
 
 Iterator pattern
 ================
-The :lang:`range-for` loop works because the function
-expects a standard interface the loop can use to establish
-basic facts about the range of elements in the sequence:
+The :lang:`range-for` statement works because C++ defines a standard
+iterator interface that the compiler can use to establish basic facts
+about the range of elements in the sequence:
 
 - Where does the sequence start?
 - Where is the next element?
@@ -25,8 +25,9 @@ basic facts about the range of elements in the sequence:
   *"Is there a next element?"*
 
  
-Most OO languages solve this problem using a form of the
-iterator design pattern.
+Many object-oriented languages solve this problem using a form of the
+iterator design pattern. A typical object-oriented design might look like
+this:
 
 .. mermaid::
    :alt: A notional iterator pattern UML diagram
@@ -65,23 +66,63 @@ In the case of :term:`iterators <iterator>`,
 the idea has solutions in most modern languages, including C++.
 Each language generally provides iterators using a design
 appropriate for the language. 
-C++ is no different.
+C++ is no different, but it does not normally use this inheritance-based
+design for standard-library iterators.
 
-C++ implements iterators using pointer semantics and an
-*Iterator* base class is generally avoided in C++ iterators.
-Since classes can overload all of the pointer operations,
-an iterator can be implemented that exposes a pointer interface.
+C++ iterators have pointer-like syntax, and an
+*Iterator* base class is generally avoided. Instead, an iterator type
+supports the operations required by its iterator category. Since classes
+can overload pointer-like operators, an iterator can expose a familiar
+interface without using virtual functions.
 
 The key advantage to this solution is that functions can be
 written more generically.
-Functions interact with a simple, consistent and well-known
+Generic algorithms interact with a simple, consistent and well-known
 interface that works both for user defined types,
-built-in pointer types, and arrays.
-However, this solution does require an "end" iterator to test for equality.
+plain pointers, and arrays.
+For classic container iterators, this solution uses a matching ``end``
+iterator to test for the end of the sequence. Modern C++20 ranges can also
+use a separate sentinel type for the end position.
 
-Each STL container class provides an :term:`iterator` class
-that clients can use to retrieve the correct 
-:term:`element` from the :term:`container`.
+Each C++ standard library container provides an :term:`iterator` type
+that clients can use to identify a position in the :term:`container`
+and access its :term:`elements <element>`.
+
+The following notional diagram shows the kind of concrete class that can
+implement a legacy bidirectional iterator. It is not an inheritance
+hierarchy: the iterator meets its requirements by providing the required
+operations. A real ``std::list<T>::iterator`` may have a different internal
+layout.
+
+.. mermaid::
+   :alt: A notional C++ bidirectional iterator class diagram
+   :align: center
+
+   classDiagram
+      class list~T~ {
+         +iterator begin()
+         +iterator end()
+      }
+
+      class list_iterator~T~ {
+         -node* current
+         +T& operator*()
+         +bool operator==(iterator)
+         +bool operator!=(iterator)
+         +iterator& operator++()
+         +iterator operator++(int)
+         +iterator& operator--()
+         +iterator operator--(int)
+      }
+
+      class node~T~ {
+         +T value
+         +node* next
+         +node* previous
+      }
+
+      list~T~ ..> list_iterator~T~ : returns
+      list_iterator~T~ --> node~T~ : traverses
 
 .. digraph:: iterator
    :align: center
@@ -117,15 +158,18 @@ that clients can use to retrieve the correct
 
    {rank=same; a b c d e f};
    
-The element defined by ``begin()`` is part of the sequence.
+The iterator returned by ``begin()`` points to the first element when the
+sequence is not empty. For an empty sequence, ``begin() == end()``.
 
-The element defined by ``end()`` is **not part** of the sequence.
-In C++, the ``end`` iterator is always one past the end of the sequence.
-Forgetting this is a common source of error.
+The iterator returned by ``end()`` is a past-the-end position, not an element,
+and must never be dereferenced. For classic container iterators, it represents
+the position one past the final element. Forgetting this is a common source
+of error.
 
 -----
 
 .. admonition:: More to Explore
 
   - :cpp:`Iterator Library <iterator>` at cppreference.com
-  - :cpp:`C++ Concepts: Iterator <named_req/Iterator>`
+  - :cpp:`C++20 Concepts Library <concepts>`
+  - :cpp:`C++20 Ranges Library <ranges>`

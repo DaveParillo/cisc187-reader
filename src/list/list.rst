@@ -206,7 +206,7 @@ For example, to print all of the elements, we could:
    }
 
 
-Which, given the list we created, will print ``61 62\0``.
+Which, given the list we created, will print ``61 62`` and a trailing space.
 
 Obviously, no one would want to use such a list.
 Every trivial detail needs to be managed, and any program using it
@@ -221,32 +221,30 @@ provides a list with many convenient features:
    #include <list>
    using std::cout;
 
-   void print_list(const list<int>&);
+   void print_list(const std::list<int>&);
 
    int main () {
-     std::list<int> list = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-     cout << "size: "  << list.size();
-     cout << "\nfront: " << list.front();
-     cout << "\nback: "  << list.back();
+     std::list<int> values = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+     cout << "size: "  << values.size()
+          << "\nfront: " << values.front()
+          << "\nback: "  << values.back();
 
      cout << "\n\npush_back 13: ";
-     list.push_back(13);
-     cout << "\nsize: "  << list.size();
-     cout << "\nback() " << list.back();
+     values.push_back(13);
+     cout << "\nsize: "  << values.size()
+          << "\nback() " << values.back();
 
      print_list(list);
-
-     return 0;
    }
 
-   void print_list(const std::list<int>& list) {
-     if (list.empty()) {
+   void print_list(const std::list<int>& values) {
+     if (values.empty()) {
        cout << "list is empty.\n";
      } else {
        cout << "list contains:\n";
      }
-     for(const int i: list) {
-       cout << i << " ";
+     for(const int i: values) {
+       cout << i << ' ';
      }
      cout << "\n\n";
    }
@@ -271,20 +269,25 @@ pop_front
 front
    Get the value of the element at the beginning of the list.
 
+insert
+   Insert elements at a specified position in the list.
 
-.. note:: empty() vs. size() == 0
+erase
+   Remove elements at a specified position in the list.
 
-   In most containers, calling ``size()`` is constant time.
+splice
+   Transfer elements from one list to another.
+   Lists can do this without copying or moving any elements.
 
-   That is it takes the same amount of time regardless of
-   the number items in the container.
 
-   Not so for lists.
+Operations like ``insert``, ``erase``, and ``splice`` are central to why
+``std::list`` exists.
 
-   There are situations where a list cannot determine the size
-   without traversing the range and counting them.
+.. cpp:: 11
 
-   In general, never assume ``size()`` is as efficient as ``empty()``.
+   Checking ``empty()`` vs. checking ``size() == 0``
+
+   Perfer writing code that expresses intent.
 
    If you **really** want to know if a container is empty (or not),
    then call ``empty()``.
@@ -292,14 +295,13 @@ front
    If you **really** want to know the number of elements in a container,
    then call ``size()``.
 
-   See *Effective STL*, for more details\ [1]_\ .
-
 Underneath, the standard library ``list`` is not very different from the ``struct node`` above.
-The primary characteristics are:
+Typical characteristics are:
 
-- All data is stored on the heap
+- Node storage on the heap (free store).
 - Node traversal is accomplished by following pointers from one node to the next
 - Access based on an index is not allowed.
+  ``std::list`` does not implement ``operator[]`` or ``at()`` functions.
   This kind of access, called *random  access* describes
   the ability to compute a location in memory using a starting address and an offset.
   Arrays and vectors support random access.
@@ -313,7 +315,3 @@ The primary characteristics are:
    - :cpp:`STL containers library <container>`
    - :cpp:`STL iterator library <iterator>`
    - `Visualgo: lists <https://visualgo.net/en/list?slide=1>`_
-
-.. topic:: Footnotes
-
-   .. [1] Effective STL (Item #4) by Scott Meyers (Addison-Wesley Professional).  Copyright 2001 Scott Meyers, 978-0-201-74962-5.

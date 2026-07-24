@@ -8,84 +8,87 @@
 
 .. |---| replace:: --
 
-.. index:: 
+.. index::
    single: iterable types
 
-Iterable ADT's
+Iterable Types
 ==============
 How can we visit each :term:`element` in a :term:`container`
-and remain ignorant of the underlying container implementation details?
-For example, given:
+without depending on the container's storage details?
+For example, an array stores elements contiguously, while a list stores
+elements in separate nodes. Both can still be visited in order.
 
-.. code-block:: cpp
+Positional indexing
+-------------------
+An indexed loop works when the container provides positional access through
+``operator[]``. An array is one example:
 
-   array<string, 3> names = {"Alice", "Bob", "Clara"};
-   std::list<int>   ages  = {27, 3, 1};
+.. tb-code:: cpp
+   :name: iterators_indexed_array_ac
 
-What options do we have for operating on each :term:`element` in ``names`` and ``ages``?
-A traditional :lang:`for` or :lang:`while` loop works for ``names``:
+   #include <array>
+   #include <cstddef>
+   #include <iostream>
+   #include <string>
 
-.. code-block:: cpp
+   int main() {
+     const std::array<std::string, 3> names = {"Alice", "Bob", "Clara"};
 
-   for (unsigned i=0; i < names.size(); ++i) {
-     cout << names[i] << '\n';
+     for (std::size_t i = 0; i < names.size(); ++i) {
+       std::cout << names[i] << '\n';
+     }
    }
 
-   unsigned i = 0;
-   while(i < names.size()) {
-     cout << names[i++] << '\n';
+The loop above depends on two operations: ``size()`` and ``operator[]``.
+``std::list`` does not provide positional access through either ``operator[]``
+or ``at()``. A loop that assumes an integer position therefore cannot be
+adapted to a list by changing only the container type.
+
+``std::set`` also has no positional indexing. ``std::map`` is different:
+it provides ``operator[]`` for lookup by key, not for locating an element by
+position. For example, ``records[42]`` asks for the value associated with key
+``42``; it does not mean the forty-third element.
+
+Range-based for loops
+---------------------
+The :lang:`range-based for loop <range-for>` avoids explicit indexing.
+The same loop syntax works for standard containers with ``begin()`` and
+``end()``, including both arrays and lists:
+
+.. tb-code:: cpp
+   :name: iterators_range_for_ac
+
+   #include <array>
+   #include <iostream>
+   #include <list>
+   #include <string>
+
+   int main() {
+     const std::array<std::string, 3> names = {"Alice", "Bob", "Clara"};
+     const std::list<int> ages = {27, 3, 1};
+
+     std::cout << "names:";
+     for (const auto& name : names) {
+       std::cout << ' ' << name;
+     }
+     std::cout << '\n';
+
+     std::cout << "ages:";
+     for (const auto& age : ages) {
+       std::cout << ' ' << age;
+     }
+     std::cout << '\n';
    }
 
-However, this code does not compile:
+The declaration ``const auto&`` binds a reference to each existing element,
+so the loop does not copy the element. The ``const`` prevents the loop body
+from changing the container's elements. Use ``auto&`` when modification is
+intended, or ``auto`` when an independent copy is useful.
 
-.. code-block:: cpp
-
-   for (unsigned i=0; i < ages.size(); ++i) {
-     cout << ages[i] << '\n';
-   }
-
-   unsigned i = 0;
-   while(i < ages.size()) {
-     cout << ages[i++] << '\n';
-   }
-
-Traditional loops using an ``int`` index do not work with containers
-that do not overload ``operator[]``.
-Containers in this category include 
-:container:`list`,
-:container:`set`, and
-:container:`map`.
-
-We solve this problem by avoiding explicit indexing altogether.
-The :lang:`range-based for loop <range-for>` 
-provides a more readable equivalent to the traditional for loop:
-
-.. code-block:: cpp
-   
-   for (string s: names) {
-     cout << s << '\n';
-   }
-
-   // better: avoids copying
-   for (const auto& s: names) {
-     cout << s << '\n';
-   }
-
-The same syntax can be used for any STL container:
-   
-.. code-block:: cpp
-
-   std::list<int>  ages  = {27, 3, 1};
-
-   for (const auto& a: ages) {
-     cout << a << '\n';
-   }
-
-When you need to loop over each element in a collection,
-the :lang:`range-for` loop has completely
-abstracted away the idea of moving from one element to the next.
-
-We say these containers are :term:`iterable`.
+The range-based loop hides the iterator syntax, but it still relies on the
+same operations: obtain a beginning position, compare it with the end
+position, dereference the current position, and advance to the next one.
+We say that containers supporting this interface are :term:`iterable`.
 
 -----
 

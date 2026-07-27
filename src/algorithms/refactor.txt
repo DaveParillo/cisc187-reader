@@ -1,17 +1,20 @@
 .. tb-code:: cpp
    :name: ac-algorithm-refactor-sum
-   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
    :show-tutor:
 
+   #include <concepts>
    #include <iostream>
+   #include <iterator>
    #include <list>
 
    // accumulate the sum of values in range [first, last)
-   template <typename InputIt, typename T>
-   // requires: InputIt is convertible to T when dereferenced
-   //        && InputIt is EqualityComparable
-   //        && T is Regular
-   T sum (InputIt first, InputIt last, T value) {
+   template <std::input_iterator InputIt, class T>
+   requires std::movable<T>
+         && requires(T value, std::iter_reference_t<InputIt> element) {
+              { value + element } -> std::convertible_to<T>;
+            }
+   T sum(InputIt first, InputIt last, T value) {
      while (first != last) {
        value = value + *first;
        ++first;
@@ -19,19 +22,13 @@
      return value;
    }
 
-   int main () {
-     float a[]  = {1,1,2,3,5,8,13,21,34};
-     float* end = a+sizeof(a)/sizeof(*a);
-     double d   = 0;
+   int main() {
+     float values[] = {1, 1, 2, 3, 5, 8, 13, 21, 34};
+     float* end = values + sizeof(values) / sizeof(*values);
+     double total = sum(values, end, 0.0);
+     std::cout << "array sum = " << total << '\n';
 
-     d = sum (a, end, d);
-     std::cout << "array sum  = " << d << '\n';
-
-     // now do list
-     d = 0;
-     std::list<float> b = {1,1,2,3,5,8,13,21,34};
-
-     d = sum (b.begin(), b.end(), d);
-     std::cout << "list sum  = " << d << '\n';
-     return 0;
+     std::list<float> linked_values = {1, 1, 2, 3, 5, 8, 13, 21, 34};
+     total = sum(linked_values.begin(), linked_values.end(), 0.0);
+     std::cout << "list sum = " << total << '\n';
    }

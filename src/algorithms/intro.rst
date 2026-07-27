@@ -15,8 +15,8 @@ Background
 Recall from :doc:`../class-IV-templates/containers` that a container
 is a generic collection.
 Containers allow us to store data using *well-known* data structures.
-The STL containers provide the patterns we can use to make
-custom containers, if needed.
+The standard library containers provide reusable interfaces and behavior that
+we can use directly or study when designing custom containers.
 
 Recall from :doc:`../list/iterators` that an iterator
 is a :term:`type` that performs operations that *feel* like a pointer.
@@ -26,7 +26,7 @@ Each container is responsible for its own iterators.
 When a container is created, it has the ability to create an iterator
 that knows how to visit elements of the type stored in the container.
 
-Now that we have these two great tools in the STL,
+Now that we have these two tools in the standard library,
 we want to use them to solve problems.
 It turns out that many programming tasks fall into basic groups:
 
@@ -37,13 +37,13 @@ It turns out that many programming tasks fall into basic groups:
 - sort
 
 These are all *actions* that we perform on *sequences*.
-The goal of the STL algorithms is to define these actions in a generic way.
-The STL algorithms satisfy this goal using small, 
+The goal of standard library algorithms is to define these actions in a generic
+way. They satisfy this goal using small,
 reusable functions that avoid writing repetitive code
 and define a consistent, portable interface.
 
-The :term:`abstractions <abstraction>` in the STL are primarily
-concerned with performing actions on data stored in STL containers.
+The :term:`abstractions <abstraction>` in the standard library are primarily
+concerned with performing actions on data accessed through iterator ranges.
 Consider that counting elements in a :term:`list` is not very different
 from counting elements in a :term:`vector`.
 
@@ -89,15 +89,13 @@ from counting elements in a :term:`vector`.
    single: uninitialized_fill
    single: destroy
 
-STL Algorithms at a glance
---------------------------
-The STL algorithms are part of the 
+Standard library algorithms at a glance
+---------------------------------------
+The standard library algorithms are part of the
 `ISO C++ Standard <https://isocpp.org/std/the-standard>`__.
-Currently, it contains more than 150 algorithms for 
-searching, counting, and manipulating ranges.
-C++17 alone added 69 more algorithms to the library.
-While most of these (but not all) were new overloads to existing algorithms,
-it does demonstrate the dynamic nature of the STL and its growth.
+The library provides algorithms for searching, counting, comparing, rearranging,
+sorting, and manipulating ranges. The set of available algorithms grows as new
+C++ standards add capabilities and new overloads.
 
 The algorithms are organized into broad categories:
 
@@ -116,7 +114,7 @@ The algorithms are organized into broad categories:
      - :algorithm:`is_partitioned`, :algorithm:`partition_copy`,
        :algorithm:`stable_partition`
    * - Sorting operations
-     - :algorithm:`is_sorted`, :algorithm:`sort`, :algorithm:`stable_partition`
+     - :algorithm:`is_sorted`, :algorithm:`sort`, :algorithm:`stable_sort`
    * - Binary search operations
      - :algorithm:`lower_bound`, :algorithm:`binary_search`,
        :algorithm:`equal_range`
@@ -141,31 +139,38 @@ The algorithms are organized into broad categories:
        :memory:`destroy`
 
 
-Notice that only a single category of algorithms is considered 'numeric'.
-In C++11, only 5 algorithms specifically do numeric computations.
-C++17 adds 6 more.
+Numeric algorithms are grouped together because they combine or generate
+values, but several other standard algorithms also perform arithmetic as part
+of their work. The categories above are a guide for finding related
+operations, not an exhaustive classification of every algorithm.
 
 .. index:: 
    pair: algorithms; loops
 
 
-STL algorithms and loops
-------------------------
-Most STL algorithms are essentially wrappers around loops.
-They often take a range of elements and an operation that is performed on each element.
+Standard library algorithms and loops
+-------------------------------------
+Many standard library algorithms are reusable patterns for traversing a range.
+They often take a range of elements and an operation that is performed on each
+element, although some algorithms do more than a simple loop or have optimized
+implementations.
 Structurally, this makes them similar to loops.
 
 Most tasks you've written so far could be rewritten using algorithms.
 
-One way to think about STL algorithms is to consider them *named loops*.
+One way to think about standard library algorithms is to consider them
+*named loops*.
 That is, a loop that is important and general enough
 to justify getting named and encapsulated in its own function.
 
-:algorithm:`iota` is a STL algorithm that fills a range ``[first, last)`` 
+:algorithm:`iota` is a standard library algorithm that fills a range
+``[first, last)``
 with sequentially increasing values.
 This is the sort of algorithm that occurs often enough that it was decided
 to include it in the standard library 
 (but not until C++11).
+
+The example below shows a possible implementation.
 
 .. tb-group::
    :name: iota
@@ -178,15 +183,10 @@ to include it in the standard library
 
       .. literalinclude:: iota.txt
          :language: cpp
-         :start-after: // possible
+         :start-at: template
          :end-before: void print
          :dedent: 3
          :linenos:
-
-      Note the order of operations on 5.
-
-      - First ``first`` is dereferenced and ``value`` is assigned.
-      - **Then** the iterator is incremented.
 
    .. tb-tab:: Run It
 
@@ -194,44 +194,47 @@ to include it in the standard library
 
 Why prefer algorithms to hand-written loops?
 
-- Efficiency, for one.
+- Reuse and clarity
 
-  Algorithms are often more efficient than the loops programmers produce.
-  The developers of the STL have had overt 20 years to consider how to make these
-  algorithms efficient.
-  Many algorithms have code to handle specific edge cases your initial implementations
-  might overlook.
+  An algorithm gives a common name to a well-defined operation. It can make
+  the intent of the code easier to recognize and avoids repeating the same
+  loop structure in multiple places. Standard implementations are also
+  carefully designed and may take advantage of library- or platform-specific
+  optimizations, but an algorithm call is not automatically faster than an
+  equivalent hand-written loop.
 
 - Correctness
 
-  Writing loops is more subject to errors than algorithm calls.
+  Writing loops exposes more bookkeeping details than an algorithm call.
   As a programmer you have to worry about initializing the loop,
   incrementing the loop, terminating the loop as well as the loop body.
 
-  When calling an algorithm, you only need to get the start and end
-  iterators correct.
+  When calling an algorithm, you still need to provide a valid range, the
+  required iterator category, suitable predicates, and any required output
+  range. The algorithm handles the traversal and its documented edge cases,
+  but it cannot make an invalid range or invalid predicate safe.
 
   Often you don't even need to care about the body - the algorithm takes care
   of all the details for you. Sometimes a lambda or function pointer is expected.
 
-  The STL implementations have been carefully reviewed and tested in
-  many thousands of programs.
-  It is safe to say that any STL algorithm has been tested more thoroughly
-  than any comparable code you write yourself.
+  Standard library implementations receive extensive review and testing.
+  Using them avoids maintaining another copy of a common operation, provided
+  the caller follows the algorithm's documented contract.
 
 
 - Maintainability
 
   Algorithm calls result in clearer code.
-  The STL is designed around a simple consistent set of interfaces.
+  The standard library is designed around a simple, consistent set of
+  interfaces.
   The more you use these interfaces, the more consistently
   your own code will be structured.
 
-  When combined together, algorithms can eliminate lots of code
-  you other wise would have needed to write and
-  results in more straightforward than the corresponding explicit loops.
+  When combined together, algorithms can eliminate code that would otherwise
+  need to be written and can make the result more straightforward than a
+  collection of explicit loops.
 
-  Code you use from the STL is code you don't need to maintain.
+  Code you use from the standard libray is code you don't need to maintain.
   The less code you have to maintain, the cheaper and easier it is to maintain.
 
 
@@ -239,6 +242,8 @@ Why prefer algorithms to hand-written loops?
 
 .. admonition:: More to Explore
 
-   - From cppreference.com
+  - From cppreference.com
 
-     - Overview of the :cpp:`algorithms <algorithm>` library
+    - Overview of the :cpp:`algorithms <algorithm>` library
+    - :algorithm:`std::iota <iota>`
+    - :cpp:`C++20 Ranges Library <ranges>`

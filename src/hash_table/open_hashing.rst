@@ -1,46 +1,52 @@
 ..  Copyright (C)  Dave Parillo.  Permission is granted to copy, distribute
     and/or modify this document under the terms of the GNU Free Documentation
     License, Version 1.3 or any later version published by the Free Software
-    Foundation; with Invariant Sections being Forward, and Preface,
+    Foundation, with Invariant Sections being Forward, and Preface,
     no Front-Cover Texts, and no Back-Cover Texts.  A copy of
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. index:: 
+.. index::
    pair: open hashing; collisions
 
 Open hashing
 ============
-One collision avoidance strategy is :term:`separate chaining`.
-In separate chaining the hash table is implemented as an array of 
-variable sized containers that can hold however many elements that have 
-actually collided at each array location.
+One collision-resolution strategy is :term:`separate chaining`, also called
+*open hashing*. In separate chaining, the hash table is an array of buckets.
+Each bucket refers to a collection that can hold every key mapped to that
+bucket. A linked list is a traditional choice for the collection, which is
+where the term "chaining" originates, but other containers are possible.
 
-A linked list is a typical choices for implementing the chain,
-which is where the term "chaining" actually originates.
+The first item in a bucket is not itself a collision. A collision occurs when a
+second or later key maps to the same bucket index. The bucket's collection
+stores all of those keys together.
 
 .. tb-group::
    :name: tab_graph
 
    .. tb-tab:: Example set
 
+      The following diagram uses seven buckets. The bucket assignments are
+      shown directly so that the two chains are easy to follow; a real table
+      would compute each assignment with its hash function.
+
       .. digraph:: hashtable
-         :alt: Fruit set
+         :alt: Fruit set with separate chains
          :align: center
 
-         graph [ 
-           fontname = "Bitstream Vera Sans", 
+         graph [
+           fontname = "Bitstream Vera Sans",
            labelloc=b,
-           label="Fruit set hash table"
-           nodesep = .05;
-           rankdir = LR;
+           label="Fruit set hash table",
+           nodesep = .05,
+           rankdir = LR
          ];
 
-         node[shape = record,  width = .1,  height = .1, 
+         node[shape = record, width = .1, height = .1,
               fontsize=14, style=filled, fillcolor=lightblue];
          edge [arrowhead=vee, arrowsize=0.5];
 
-         node0[label = "<f0>0 | <f1>1 | <f2>2 | <f3>3 | <f4>4 | <f5>5 | <f6>6 ",  height = 2.5];
+         node0[label = "<f0>0 | <f1>1 | <f2>2 | <f3>3 | <f4>4 | <f5>5 | <f6>6 ", height = 2.5];
 
          node [width = 1.5];
          node1[label = "{<n> kiwi | <p>}"];
@@ -61,30 +67,27 @@ which is where the term "chaining" actually originates.
 
    .. tb-tab:: Example map
 
-      When the ADT is a map, the process is similar.
-      In a map ADT, the value hashed is the map :term:`key`,
-      since this is what uniquely identifies map items.
-
-      Each :term:`bucket` provides access to one or more map entries
-      (:term:`key-value pairs <key-value pair>`).
+      When the ADT is a map, the process is similar. The value hashed is the
+      map :term:`key`, since the key uniquely identifies a map entry. Each
+      bucket provides access to one or more key-value pairs.
 
       .. digraph:: hashtable
-         :alt: Fruit inventory map
+         :alt: Fruit inventory map with separate chains
          :align: center
 
-         graph [ 
-           fontname = "Bitstream Vera Sans", 
+         graph [
+           fontname = "Bitstream Vera Sans",
            labelloc=b,
-           label="Fruit inventory hash table"
-           nodesep = .05;
-           rankdir = LR;
+           label="Fruit inventory hash table",
+           nodesep = .05,
+           rankdir = LR
          ];
 
-         node[shape = record,  width = .1,  height = .1, 
+         node[shape = record, width = .1, height = .1,
               fontsize=14, style=filled, fillcolor=lightblue];
          edge [arrowhead=vee, arrowsize=0.5];
 
-         node0[label = "<f0>0 | <f1>1 | <f2>2 | <f3>3 | <f4>4 | <f5>5 | <f6>6 ",  height = 2.5];
+         node0[label = "<f0>0 | <f1>1 | <f2>2 | <f3>3 | <f4>4 | <f5>5 | <f6>6 ", height = 2.5];
 
          node [width = 1.5];
          node1[label = "{<n> kiwi | 8 | <p>}"];
@@ -103,338 +106,304 @@ which is where the term "chaining" actually originates.
          node2:p:c->node6:n [arrowtail=dot, dir=both, tailclip=false];
          node4:p:c->node7:n [arrowtail=dot, dir=both, tailclip=false];
 
+The linked lists allow the contents of each bucket to grow as needed, while
+the array provides the first lookup step. A fixed bucket count is used here to
+keep the implementation focused; production hash tables also monitor load
+factor and rehash when appropriate.
 
-The linked lists allows the hash table to be dynamically sized,
-and each array element is its own :term:`bucket`.
-
-A :term:`set` provides a simple demonstration of the capabilities
-of a hashed data structure.
-Recall that :container:`set` defines a container that stores
-unique items.
+A :term:`set` provides a simple demonstration of a hashed data structure.
+Recall that :container:`set` stores unique items. The implementation below is
+similar to a set, but intentionally leaves out iterators over all buckets,
+rehashing, allocator support, and many other standard-library features.
 
 .. tb-group::
    :name: hash_set_tab_group
 
    .. tb-tab:: hash_set
 
-      The template variables for a hash set defines the type
-      of data stored in the set: the ``Key``.
-      This hash table will be fixed size, so we denote that with
-      the non-type template parameter ``N``.
-      The Comparator allows the template to accept a function
-      used to find items in the chain.
-      The default is :algorithm:`equal`, but another 
-      :term:`binary predicate<predicate>` can be substituted.
+      The template parameters describe the key type, the fixed number of
+      buckets, the hash function, and the equality predicate. Equivalent keys
+      must compare equal and must produce the same hash value.
 
-      .. code-block:: cpp
+      .. code-block:: bash
+         :caption: Simplified interface
 
          template <class Key,
-                   size_t N,
-                   class Comparator=std::equal_to<Key>>
-         class hash_set 
-         {
-           public:
-             using Container = std::list<Key>;
-             using value_type = Key;
-             using key_type   = Key;
-             using iterator   = typename Container::iterator;
-             using const_iterator  = const iterator;
+                   std::size_t N,
+                   class Hash = std::hash<Key>,
+                   class KeyEqual = std::equal_to<Key>>
+         class hash_set {
+           using iterator = typename Container::iterator;
+           using const_iterator = typename Container::const_iterator;
 
-             hash_set () = default;
-
-           private:
-             std::array<Container, N> buckets;
-             Comparator compare;
-             int sz = 0;
-
+           std::pair<iterator, bool> insert(const Key& value);
+           iterator find(const Key& value);
+           const_iterator find(const Key& value) const;
+           std::size_t count(const Key& value) const;
+           std::size_t erase(const Key& value);
          };
 
    .. tb-tab:: find
 
-      Finding anything in a hash table using separate chaining
-      is a two step process.  Consider the following :term:`hash table`:
+      Finding a value using separate chaining has two steps:
+
+      1. Compute the hash value and reduce it to a bucket index.
+      2. Search the selected bucket, comparing keys with the equality
+         predicate.
+
+      The following diagram uses ``value % 10`` as its illustrative hash for
+      integer keys. The chain in bucket ``4`` contains two values, so finding
+      ``54`` requires checking more than one entry.
 
       .. digraph:: hashtable
-         :alt: Simple hash table
+         :alt: Integer hash table with a collision chain
          :align: center
 
-         graph [ 
-           fontname = "Bitstream Vera Sans", 
+         graph [
+           fontname = "Bitstream Vera Sans",
            labelloc=b,
-           label="Simple hash table"
-           nodesep = .05;
-           rankdir = LR;
+           label="Integer hash table: value % 10",
+           nodesep = .05,
+           rankdir = LR
          ];
 
          node [fontname = "Bitstream Vera Sans", fontsize=14,
                style=filled, fillcolor=lightblue,
-               width = .1,  height = .1
-               shape=record];
+               width = .1, height = .1, shape=record];
          edge [arrowhead=vee, arrowsize=0.5];
 
-         bucket[label = "<f0>0 | <f1>1 | <f2>2 | <f3>3 | <f4>4 | <f5>5 | <f6>6 \
-                         | <f7>7 | <f8>8 | <f9>9 ",  height = 2.5];
+         bucket[label = "<f0>0 | <f1>1 | <f2>2 | <f3>3 | <f4>4 | <f5>5 | <f6>6 | <f7>7 | <f8>8 | <f9>9 ", height = 2.5];
 
-         a [label="{ <data> 8 | <ref>  }"];
-         b [label="{ <data> 3 | <ref>  }"];
-         c [label="{ <data> 21 | <ref>  }"];
-         d [label="{ <data> 55 | <ref>  }"];
-         e [label="{ <data> 5 | <ref>  }"];
-         f [label="{ <data> 34 | <ref>  }"];
+         a [label="{ <data> 21 | <ref>  }"];
+         b [label="{ <data> 12 | <ref>  }"];
+         c [label="{ <data> 34 | <ref>  }"];
+         d [label="{ <data> 5 | <ref>  }"];
+         e [label="{ <data> 8 | <ref>  }"];
+         f [label="{ <data> 54 | <ref>  }"];
          g [label="{ <data> 89 | <ref>  }"];
-         h [label="{ <data> 13 | <ref>  }"];
+         h [label="{ <data> 42 | <ref>  }"];
 
          bucket:f1 -> a:data:w;
          bucket:f2 -> b:data;
          bucket:f4 -> c:data;
          bucket:f5 -> d:data;
          bucket:f8 -> e:data:w;
-         e:ref:c -> f:data [arrowtail=dot, dir=both, tailclip=false];
-         f:ref:c -> g:data [arrowtail=dot, dir=both, tailclip=false];
+         c:ref:c -> f:data [arrowtail=dot, dir=both, tailclip=false];
          b:ref:c -> h:data [arrowtail=dot, dir=both, tailclip=false];
 
+      To find ``54``, the table computes ``54 % 10 == 4`` and selects bucket
+      ``4``. It compares ``54`` with ``34`` first, then with ``54``. The
+      equality predicate confirms the match, and ``find`` returns an iterator
+      to the stored value. If the value is absent, it returns the bucket's
+      ``end()`` iterator.
 
-      How does the software find the value ``34`` in this data structure?
+      .. code-block:: bash
+         :caption: Pseudocode
 
-      First we need to find the right bucket.
-      The ``hash`` override is used to compute the bucket.
-      In this case the bucket is at index position ``8``.
+         bucket <- buckets[hash(value) % bucket_count]
+         for each item in bucket:
+             if equal(item, value):
+                 return iterator to item
+         return bucket.end()
 
-      Note we use ``std::hash<>`` here.
-      Any ``Key`` type stored in this set must override ``std::hash``.
-
-      .. code-block:: cpp
-
-         private:
-            Container& find_bucket (const Key& value)
-            {
-              return buckets[std::hash<Key>()(value) % N];
-            }
-
-      Next, we search through the list stored in that bucket
-      looking for a specific value.
-      Each element in the list stored in the bucket is evaluated using
-      ``operator==`` - the default for ``std::equal_to``.
-      As soon as ``operator==`` evaluates to ``true`` the value is returned.
-
-      .. code-block:: cpp
-
-         iterator find (const Key& value)
-         {
-           Container& b = find_bucket(value);
-           return find_if(b.begin(), b.end(),
-                    [this, &value](Key x) { 
-                      return compare(x, value);
-                    });
-         }
-
-      It should be clear that the performance of this data structure is 
-      highly dependent upon the quality of the :term:`hash function`.
-      Always returning ``42`` is a *legitimate* value for a hash,
-      but an extremely poor one,
-      because your :term:`hash table` is no better than a :term:`linked list`.
-
+      A hash function that always returns ``42`` still satisfies the basic hash
+      contract: equivalent keys produce the same hash value, and collisions
+      are allowed. It is nevertheless a poor choice. Every key would be
+      placed in bucket ``42 % bucket_count``, so a lookup would linearly scan
+      one growing chain and lose the expected constant-time benefit.
 
    .. tb-tab:: insert
 
-      Insert is similar to find.
-      We use ``find_bucket`` to get the correct array element,
-      if it exists.
-      The we search to see if the value already exists in the linked list.
-      If it does, replace the existing value with the new one.
-      Otherwise, we add it to the list.
+      Inserting into a set follows the same two steps as finding:
 
-      .. code-block:: cpp
+      1. Select the bucket.
+      2. Search for an equivalent key.
 
-         void insert (const Key& value)
-         {
-           Container& b = find_bucket(value);
-           iterator pos =
-             find_if(b.begin(), b.end(),
-                 [this, &value](Key x) { return compare(x, value); });
-           if (pos == b.end()) {
-             b.push_back(value);
-             ++sz;
-           }
-           else {
-             *pos = value;
-           }
-         }
+      If the key is already present, the set remains unchanged. Otherwise, the
+      new key is appended to the bucket. Returning an iterator and a Boolean
+      follows the contract used by standard associative containers: the
+      Boolean is ``true`` only when a new key was inserted.
+
+      .. code-block:: bash
+         :caption: Pseudocode
+
+         bucket <- buckets[hash(value) % bucket_count]
+         position <- find equivalent value in bucket
+         if position != bucket.end():
+             return {position, false}
+         append value to bucket
+         return {iterator to new value, true}
 
    .. tb-tab:: erase
 
-      Erase is similar to insert.
+      Erasing is also a bucket search followed by an equality comparison. If
+      the key is found, remove it and return ``1``. Otherwise return ``0``.
 
-      1. Find the bucket
-      2. Search for the value
-      3. If you find it, erase it.
+      .. code-block:: bash
+         :caption: Pseudocode
 
-         Otherwise, do nothing.
-
-      .. code-block:: cpp
-
-         void erase (const Key& value)
-         {
-         Container& b = find_bucket(value);
-         iterator pos =
-           find_if(b.begin(), b.end(),
-               [this, &value](Key x) { return compare(x, value); });
-         if (pos != b.end()) {
-           b.erase(pos);
-           --sz;
-           }
-         }
+         bucket <- buckets[hash(value) % bucket_count]
+         position <- find equivalent value in bucket
+         if position == bucket.end():
+             return 0
+         erase position from bucket
+         return 1
 
    .. tb-tab:: Run it
+
+      This complete example uses an identity hash for positive integers so
+      that its bucket assignments are predictable. Values such as ``34`` and
+      ``45`` deliberately collide in bucket ``1`` when there are ``11``
+      buckets.
 
       .. tb-code:: cpp
          :name: hash_table_open_ac
 
-         #include <array>
          #include <algorithm>
+         #include <array>
          #include <cstddef>
          #include <functional>
-         #include <iomanip>
          #include <iostream>
+         #include <iterator>
          #include <list>
+         #include <ostream>
          #include <utility>
 
-         using std::list;
-         using std::array;
-
+         struct identity_hash {
+           std::size_t operator()(int value) const noexcept {
+             return static_cast<std::size_t>(value);
+           }
+         };
 
          template <class Key,
-                  size_t N,
-                  class Comparator=std::equal_to<Key>>
-         class hash_set
-         {
-           public:
-             using Container = list<Key>;
-             using value_type = Key;
-             using key_type   = Key;
-             using iterator   = typename Container::iterator;
-             using const_iterator  = const iterator;
+                   std::size_t N,
+                   class Hash = std::hash<Key>,
+                   class KeyEqual = std::equal_to<Key>>
+         class hash_set {
+           static_assert(N > 0, "hash_set needs at least one bucket");
 
-             hash_set() = default;
+           using container_type = std::list<Key>;
 
-             iterator find (const Key& value)
-             {
-               Container& b = find_bucket(value);
-               return find_if(b.begin(), b.end(),
-                     [this, &value](Key x) { return compare(x, value); });
+         public:
+           using value_type = Key;
+           using key_type = Key;
+           using size_type = std::size_t;
+           using iterator = typename container_type::iterator;
+           using const_iterator = typename container_type::const_iterator;
+           using insert_result = std::pair<iterator, bool>;
+
+           insert_result insert(const Key& value) {
+             auto& bucket = find_bucket(value);
+             const auto position = find_in_bucket(bucket, value);
+             if (position != bucket.end()) {
+               return {position, false};
              }
 
-             const_iterator find (const Key& value) const
-             {
-               const Container& b = find_bucket(value);
-               return find_if(b.begin(), b.end(),
-                     [this, &value](Key x) { return compare(x, value); });
+             bucket.push_back(value);
+             ++size_;
+             return {std::prev(bucket.end()), true};
+           }
+
+           iterator find(const Key& value) {
+             return find_in_bucket(find_bucket(value), value);
+           }
+
+           const_iterator find(const Key& value) const {
+             return find_in_bucket(find_bucket(value), value);
+           }
+
+           size_type count(const Key& value) const {
+             const auto& bucket = find_bucket(value);
+             return find_in_bucket(bucket, value) == bucket.end() ? 0 : 1;
+           }
+
+           size_type erase(const Key& value) {
+             auto& bucket = find_bucket(value);
+             const auto position = find_in_bucket(bucket, value);
+             if (position == bucket.end()) {
+               return 0;
              }
 
-             int count (const Key& value) const
-             {
-               const Container& b = find_bucket(value);
-               return (find_if(b.begin(), b.end(),
-                     [this, &value](Key x) { return compare(x, value); })
-                 == b.end()) ? 0 : 1;
-             }
+             bucket.erase(position);
+             --size_;
+             return 1;
+           }
 
-             void insert (const Key& value)
-             {
-               Container& b = find_bucket(value);
-               iterator pos =
-                 find_if(b.begin(), b.end(),
-                     [this, &value](Key x) { return compare(x, value); });
-               if (pos == b.end()) {
-                 b.push_back(value);
-                 ++sz;
+           size_type size() const noexcept {
+             return size_;
+           }
+
+           bool empty() const noexcept {
+             return size_ == 0;
+           }
+
+           friend std::ostream& operator<<(std::ostream& os,
+                                           const hash_set& set) {
+             os << '[';
+             for (size_type bucket_index = 0;
+                  bucket_index < N; ++bucket_index) {
+               for (const auto& value : set.buckets_[bucket_index]) {
+                 os << bucket_index << ':' << value << ' ';
                }
-               else {
-                 * pos = value;
-               }
              }
+             return os << ']';
+           }
 
-             void erase (const Key& value)
-             {
-               Container& b = find_bucket(value);
-               iterator pos =
-                 find_if(b.begin(), b.end(),
-                     [this, &value](Key x) { return compare(x, value); });
-               if (pos != b.end()) {
-                 b.erase(pos);
-                 --sz;
-               }
-             }
+         private:
+           container_type& find_bucket(const Key& value) {
+             return buckets_[hasher_(value) % N];
+           }
 
-             constexpr
-               size_t size() const noexcept { return sz; }
+           const container_type& find_bucket(const Key& value) const {
+             return buckets_[hasher_(value) % N];
+           }
 
-             constexpr
-               bool empty() const noexcept { return sz == 0; }
+           iterator find_in_bucket(container_type& bucket,
+                                   const Key& value) {
+             return std::find_if(bucket.begin(), bucket.end(),
+                                 [this, &value](const Key& item) {
+                                   return equal_(item, value);
+                                 });
+           }
 
-           private:
-             array<Container, N> buckets;
-             Comparator compare;
-             size_t sz = 0;
+           const_iterator find_in_bucket(const container_type& bucket,
+                                         const Key& value) const {
+             return std::find_if(bucket.begin(), bucket.end(),
+                                 [this, &value](const Key& item) {
+                                   return equal_(item, value);
+                                 });
+           }
 
-             Container& find_bucket (const Key& value)
-             {
-               return buckets[std::hash<Key>()(value) % N];
-             }
-
-             constexpr
-               const Container& find_bucket (const Key& value) const
-               {
-                 return buckets[std::hash<Key>()(value) % N];
-               }
-
-             friend
-             std::ostream& operator<<(std::ostream& os, const hash_set& rhs)
-             {
-               os << '[';
-               int i = 0;
-               for (const auto& bucket: rhs.buckets) {
-                 for (const auto& value: bucket) {
-                   os << i << ':' << value << ',';
-                 }
-                 ++i;
-               }
-               return os << ']';
-             }
+           std::array<container_type, N> buckets_;
+           Hash hasher_;
+           KeyEqual equal_;
+           size_type size_ = 0;
          };
 
          int main() {
-           auto foo = hash_set<int, 11>{};
-           foo.insert(72);
-           foo.insert(72);
-           std::cout << "count: " << foo.count(72) << std::endl;
+           hash_set<int, 11, identity_hash> values;
 
-           foo.erase(72);
-           std::cout << "count: " << foo.count(72) << std::endl;
+           const auto first = values.insert(34);
+           const auto duplicate = values.insert(34);
+           values.insert(45);
+           values.insert(21);
 
-           foo.insert(-1);
-           foo.insert(0);
-           foo.insert(1);
-           foo.insert(2);
-           foo.insert(9);
-           foo.insert(81);
-           foo.insert(121);
-           foo.insert(572);
-           foo.insert(999);
-           std::cout << foo << std::endl;
-           auto it = foo.find(572);
-           std::cout << "value 572: " << *it << std::endl;
+           std::cout << std::boolalpha
+                     << "first insertion: " << first.second << '\n'
+                     << "duplicate insertion: " << duplicate.second << '\n'
+                     << "count(45): " << values.count(45) << '\n'
+                     << "values: " << values << '\n';
+
+           values.erase(34);
+           std::cout << "after erase, count(34): " << values.count(34)
+                     << '\n';
          }
-
-.. foo*
 
 -----
 
 .. admonition:: More to Explore
 
-   - The content on this page was adapted from
-     Resolving Collisions 
-     <https://www.cs.odu.edu/~zeil/cs361/f25-web/Public/collisions/index.html>,
-     by Steven J. Zeil for his data structures course CS361. 
-
-
+   - :doc:`Resolving collisions <hash_table_collisions>`
+   - :doc:`Open addressing (closed hashing) <closed_hashing>`
+   - :cpp:`std::unordered_set <container/unordered_set>`
+   - :cpp:`std::unordered_map <container/unordered_map>`

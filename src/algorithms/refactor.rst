@@ -26,12 +26,12 @@ The first function adds all of the integers in a raw array:
 
 .. code-block:: cpp
 
-    int sum(int array[], int n) {
-      int sum = 0;
+    int sum(const int array[], std::size_t n) {
+      int total = 0;
       for (int i = 0; i < n; ++i ) {
-        sum += array[i];
+        total += array[i];
       }
-      return sum;
+      return total;
     }
 
 The second adds all of the elements in a simple,
@@ -81,22 +81,23 @@ We need several generic operations on **data**:
 
    .. tb-tab:: Example
 
-      The STL style supports both data structures.
+      The standard library algorithm style supports both data structures.
 
       Like find, we define a pair of iterators. ``first`` and ``last``.
-      The iterator type should support the requirements of 
-      :cpp:`InputIterator <named_req/InputIterator>`.
+      The iterator type should satisfy the C++20
+      :cpp:`std::input_iterator <iterator/input_iterator>` concept.
 
       A separate template parameter for the initial sum finishes the signature.
 
-      The value must be a :term:`regular type` and the 
-      dereferenced iterator must be convertible to the value type.
+      The accumulator type must be movable and assignable from the result of
+      the operation. The operation must be invocable with the accumulator and
+      a dereferenced iterator.
 
       The function signature becomes:
 
       .. literalinclude:: refactor.txt
          :language: cpp
-         :lines: 10-14
+         :lines: 12-17
          :dedent: 3
 
       The main loop checks whether we should continue
@@ -104,7 +105,7 @@ We need several generic operations on **data**:
 
       .. literalinclude:: refactor.txt
          :language: cpp
-         :lines: 15-18
+         :lines: 18-20
          :dedent: 5
 
    .. tb-tab:: Run It
@@ -117,12 +118,14 @@ Removing a final assumption
 ---------------------------
 Can we make ``sum`` even more generic?
 
-Sum still has a hard-coded assumption that addition ( the ``operator+`` function)
+Sum still has a hard-coded assumption that addition (the ``operator+``
+function)
 is the operation that we always want to perform.
 
 Might we want to perform **any** binary operation on a sequence?
 If yes, then we can add one more template parameter allowing callers
-to pass in a function pointer (or equivalent).
+to pass in a callable object such as a function pointer, lambda, or function
+object.
 
 .. tb-group::
    :name: accumulate
@@ -146,11 +149,11 @@ to pass in a function pointer (or equivalent).
          :end-before: ++first
          :dedent: 5
 
-      This *could* be addition: ``operator+``, but can now support
-      any binary operation that the type ``T`` supports.
+      This *could* be addition, represented by ``std::plus<>``, but can now
+      support any binary operation that satisfies the callable requirements.
 
-      A default operation can be provided with a supporting template
-      that calls accumulate with :functional:`plus`.
+      A default operation can be provided with an overload that calls
+      ``my_accumulate`` with :functional:`plus`.
 
       .. literalinclude:: accumulate.txt
          :language: cpp
@@ -167,20 +170,23 @@ Note that
 we did not pass ``+`` or ``*`` to a function.
 The symbol ``+`` is not a type.
 
-The parameter passed through ``BinaryOp op`` **must** be a valid :term:`type`.
+The template parameter ``BinaryOp`` names the type of the callable object, and
+the parameter ``op`` is an object of that type. The object must satisfy the
+C++20 :cpp:`std::invocable <concepts/invocable>` concept for the accumulator
+and element types.
 
-A function *can* take a pointer or a type as a parameter.
-Function objects passed as parameters must satisfy the requirements 
-of :functional:`function`.
-Lambda expressions, function objects, and functions pointers are all acceptable.
-The STL has a large collection of 
-:utility:`operator types that can be passed to functions <functional>`.
+Lambda expressions, function objects, and function pointers are all acceptable
+callables. The standard library provides a large collection of
+:cpp:`function objects <functional>` such as :cpp:`std::plus <functional/plus>`
+and :cpp:`std::multiplies <functional/multiplies>`.
 
 
 -----
 
 .. admonition:: More to Explore
 
-   - From CPP Core Guidelines
-
-     - :guidelines:`T.2 Use templates to express algorithms that apply to many argument types <rt-algo>`
+   - :guidelines:`T.2 Use templates to express algorithms that apply to many argument types <rt-algo>`
+   - :algorithm:`std::accumulate <numeric/accumulate>`
+   - :cpp:`std::input_iterator <iterator/input_iterator>`
+   - :cpp:`std::invocable <concepts/invocable>`
+   - :cpp:`std::plus <functional/plus>`

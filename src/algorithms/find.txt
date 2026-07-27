@@ -1,17 +1,18 @@
 .. tb-code:: cpp
    :name: ac-algorithm-std-find
-   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++20']
 
    #include <algorithm>
+   #include <concepts>
    #include <iostream>
+   #include <iterator>
    #include <numeric>
    #include <vector>
 
-   // function to find 'x' between first and last
-   template<class InputIt, class T>
-   // requires: InputIt is Convertible to T when dereferenced
-   //        && InputIt is EqualityComparable
-   //        && T is Regular
+   // Find the first value in [first, last) equal to value.
+   template <std::input_iterator InputIt, class T>
+   requires std::equality_comparable_with<
+       std::iter_reference_t<InputIt>, const T&>
    InputIt my_find(InputIt first, InputIt last, const T& value)
    {
      for (; first != last; ++first) {
@@ -27,12 +28,12 @@
      std::vector<int> nums(999);
      std::iota(nums.begin(), nums.end(), -72);
 
-     auto it  = find(nums.begin(), nums.end(), value);
+     auto custom_it = my_find(nums.begin(), nums.end(), value);
+     auto standard_it = std::find(nums.begin(), nums.end(), value);
 
-     if (it != nums.end()) {
-       std::cout << "my_find() found " << value << " at position "
-                 << (std::distance(nums.begin(), it)) << '\n';
+     if (custom_it == standard_it && custom_it != nums.end()) {
+       std::cout << "Both algorithms found " << value << " at position "
+                 << (std::distance(nums.begin(), custom_it)) << '\n';
      }
      return 0;
    }
-

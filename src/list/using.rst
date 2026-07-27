@@ -155,8 +155,8 @@ container and stop when either reaches its end:
    }
 
 C++20 also provides ranges and views for composing some partial traversals.
-Explicit iterators remain useful when teaching iterator mechanics or when a
-loop needs stateful control that is clearer as an imperative loop.
+Explicit iterators remain useful when a loop needs stateful control that is
+clearer as an imperative loop.
 
 Container functions that require iterators
 ------------------------------------------

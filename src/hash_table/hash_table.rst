@@ -12,47 +12,47 @@
 Hashing concepts
 ================
 
-:doc:`Previously <../trees/map>`, 
-we asserted that a :term:`map` refers to any data structure that 'maps' :term:`keys <key>` to values.
-They have an advantage over sequential containers 
-in that the cost of searches grows more slowly: 
-:math:`log_2 {N}` for maps versus :math:`N \over 2` for the sequential containers.
+:doc:`Previously <../trees/map>`, we described a :term:`map` as a data
+structure that maps :term:`keys <key>` to values. An ordered map takes
+:math:`O(\log N)` time for lookup, while a successful linear search examines
+:math:`N / 2` elements on average.
 
-Is there a way to access elements in a tree that does not become more costly
-as the number of elements grows?
+Hashing provides a different tradeoff: lookup, insertion, and erasure can take
+average :math:`O(1)` time, but a poor hash distribution can make an operation
+take :math:`O(N)` time.
 We need to:
 
-- Store data in some kind of *indexable data structure*:
-  something we can access using an index, such as a ``vector``.
-- Compute a value that will result in the index where are data is stored.
+- Store data in some kind of *indexable data structure*, such as a ``vector``.
+- Compute a hash value from the key.
+- Reduce that hash value to a valid bucket index.
 
-This is exactly what the unordered containers do.
+This is the basic idea behind the unordered containers.
 
 The unordered containers all depend on :term:`hashing` to find elements.
-:term:`Hashing <hashing>` is a search method that uses a 
-:term:`hash function` to convert a *value* into a *position* within a
-:term:`hash table`. 
+:term:`Hashing <hashing>` is a search method that uses a
+:term:`hash function` to convert a *key* into a hash value. The hash table
+then maps that hash value to a bucket.
 
 
-Hash tables trade off space for speed, sometimes achieving an average case of 
-:math:`O(1)` for both search and insert times.
+Hash tables trade space for speed, often achieving average :math:`O(1)` lookup,
+insertion, and erasure times when the hash distribution is good.
 
 Often the :term:`backing storage` for a hash table is an array.
 Each indexed location within the array is called a :term:`bucket`.
 
-Generally we want a function that generates values that avoid this kind of clumping
-and **then** take the modulus to insert the value into whatever hash table
-size we happen to be working with.
-So hashing is a two step process:
+Generally we want a function that distributes keys evenly across its possible
+hash values. The table then reduces the hash value to the current number of
+buckets. So lookup is a two-step process:
 
-.. code-block:: cpp
+.. code-block:: bash
+   :caption: Pseudocode
 
-   size_t hash  = function(value);
-   size_t index = hash % array_size;
+   hash_value <- hash_function(key)
+   bucket_index <- hash_value % bucket_count
 
 
-A simple hash function for integers could simply to take the
-value ``% 10``. The results are shown below:
+A simple hash function for non-negative integers could take the value
+``% 10``. The results are shown below:
 
 .. graphviz::
    :align: center
@@ -75,67 +75,75 @@ value ``% 10``. The results are shown below:
 
    }
 
-The data stored in a hash table does not need to be a numeric value.
-Any function capable of calculating an index position from the data in
-a data type satisfies the requirements for a hash function.
+The data stored in a hash table does not need to be numeric. A hash function
+can accept a key of any type and return a ``std::size_t`` hash value. The hash
+table, rather than the hash function, is responsible for converting that value
+into a current bucket index.
 
 Suppose, for example, that we were writing an application to work with 
 calendar dates and wanted to quickly be able to translate the 
 names of days of the work week (excluding the weekend) into numbers 
 indicating how far into the week the day is:
 
-========= =========
-**Key**   **Value**
-Monday    1
-Tuesday   2
-Wednesday 3
-Thursday  4
-Friday    5
-========= =========
+.. list-table:: Weekday keys and values
+   :header-rows: 1
 
-If we don't care about the unused space,
-then we could implement our hash function like so:
+   * - Key
+     - Value
+   * - Monday
+     - 1
+   * - Tuesday
+     - 2
+   * - Wednesday
+     - 3
+   * - Thursday
+     - 4
+   * - Friday
+     - 5
 
-.. code-block:: cpp
+For these five keys, the second character is unique. We can use that
+observation for a small perfect hash function. The largest index is
+``'u' - 'a' == 20``, so a 21-element zero-based table is sufficient.
 
-   unsigned hash(const std::string& dayName)
-   {
-       return unsigned(dayName[1] - 'a');
+The following example builds the table and performs a lookup:
+
+.. tb-code:: cpp
+   :name: weekday_perfect_hash_ac
+
+   #include <array>
+   #include <cstddef>
+   #include <iostream>
+   #include <string_view>
+
+   std::size_t day_index(std::string_view day_name) {
+     return static_cast<std::size_t>(day_name[1] - 'a');
    }
 
-because each of those seven strings has a distinct second character.
-
-So we can set up the table:
-
-.. code-block:: cpp
-
-   std::array<string, 5> days = {"Monday", "Tuesday",
-                                 "Wednesday", "Thursday", "Friday"};
-   int table[96];
-   for (int i = 0; i < 5; ++i) {
-     table[hash(days[i])] = i+1;
+   int day_of_week(const std::array<int, 21>& table,
+                  std::string_view day_name) {
+     return table[day_index(day_name)];
    }
 
-.. admonition:: Something to Consider
+   int main() {
+     constexpr std::array<std::string_view, 5> days{
+       "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"
+     };
+     std::array<int, 21> table{};
 
-   Why is the days table size 96?
+     for (std::size_t i = 0; i < days.size(); ++i) {
+       table[day_index(days[i])] = static_cast<int>(i + 1);
+     }
 
-and then afterwards, we can look up those day names in 
-:math:`O(1)` time:
-
-.. code-block:: cpp
-
-   int dayOfWeek (const string& dayName)
-   {
-     return table[hash(dayName)];
+     std::cout << day_of_week(table, "Thursday") << '\n';
    }
 
-When we are done we have created a *perfact hash table*.
+When we are done we have created a *perfect hash table* for this fixed set of
+weekday keys.
 A perfect hash table:
 
-1. Computes values quickly
-2. Returns values in the range of the hash table size
-3. Returns a unique value for each key.
+1. Computes hash values quickly.
+2. Produces a unique bucket index for each known key.
+3. Allows each known key to be looked up directly in the table.
 
 Perfect hash functions are usually only possible if we know all the keys in advance, 
 which rules out their use in most practical circumstances.
@@ -150,31 +158,43 @@ a word read from the source code file is a reserved word.
 Generally we do not expect to have perfect hash functions.
 This means that some keys will hash to the same table location.
 
-Two keys :term:`collide <collision>` if they have the same hash function value.
+Two keys :term:`collide <collision>` if they map to the same bucket index.
+Different hash values can collide after the table reduces them with the
+modulus operation. A hash table still needs an equality comparison to confirm
+that a key in the bucket is the key being searched for.
 
 For example, if we were to expand our days of the week code to include the weekend, 
-then Sunday and Tuesday would collide under our current hash function because 
-both have the same second letter. 
+then Sunday and Tuesday would collide under our current hash function because
+both have the same second letter.
 We could compensate with a more complicated hash function,
 perhaps one involving a pair of letters, 
 but this could also increase the number of unused/wasted slots in the table.
 
 Collisions are frequently unavoidable simply because we do not know in advance
 what all of the keys will be.
+The following pages examine specific strategies for hashing and resolving
+collisions, including separate chaining and open and closed hashing.
 
 Consequently, we say that a good hash function will:
 
-1. Computes values quickly
-2. Minimizes the number of collisions
+1. Compute hash values quickly.
+2. Distribute likely keys evenly across the available hash values.
+3. Return the same hash value whenever two keys compare equal.
 
-Note we also dropped the 'return values in the range of the hash table size',
-because this requirement is typically enforced 
-inside the hash table code by the simple technique of taking the
-returned hash value modulo of the hash table size.
+The hash function does not need to return a value in the range of the table.
+That requirement is enforced inside the hash table by reducing the returned
+hash value modulo the bucket count.
+
+The standard library supplies :container:`std::unordered_map <unordered_map>`
+and :container:`std::unordered_set <unordered_set>`. These containers combine
+a hash function with an equality predicate and manage buckets, rehashing, and
+load factor for us. The following pages study the collision strategies that
+an implementation can use internally.
 
 -----
 
 .. admonition:: More to Explore
 
- - `General purpose hash function algorithms <http://www.partow.net/programming/hashfunctions/>`_
-
+ - :cpp:`std::hash <utility/hash>`
+ - :container:`std::unordered_map <unordered_map>`
+ - :container:`std::unordered_set <unordered_set>`

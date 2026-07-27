@@ -8,18 +8,18 @@
 
 .. index:: 
    pair: algorithms; model
-   pair: graph; STL model
+   pair: graph; standard library model
 
 
 Basic Model
 ===========
 
-One of the primary goals of the STL is
-avoiding repetition & using regular, compact syntax.
-The STL achieves these goals using *separation of concerns*.
+One of the primary goals of the C++ standard library is to support generic,
+reusable code with regular, compact interfaces. The standard library achieves
+these goals through *separation of concerns*.
 
 .. graphviz:: 
-   :alt: STL basic model
+   :alt: standard library basic model
 
    digraph {
      graph [fontname = "Bitstream Vera Sans", 
@@ -47,7 +47,14 @@ The STL achieves these goals using *separation of concerns*.
      sort -> a [style=invis];
    }
 
-Algorithms and containers interact through **iterators**.
+Algorithms and containers interact through **iterators**. An algorithm does
+not need to know whether its iterators came from a vector, list, array, or a
+user-defined container; it does need the operations promised by the iterator
+category and the value type.
+
+The examples on this page use the classic iterator-pair interface. C++20 also
+provides constrained ranges algorithms, which express many of the same
+requirements using concepts and accept ranges directly.
 
 .. index:: std::find
 
@@ -69,6 +76,10 @@ so we decide right away that it should be written as a free function:
       We *could* choose to pass an entire container
       of a specific type to our find function.
 
+      This first version is intentionally narrow: it searches only a mutable
+      ``std::vector<int>`` and cannot operate on part of a vector or on another
+      container type.
+
       .. literalinclude:: my_find.txt
          :language: cpp
          :lines: 12,13
@@ -85,10 +96,8 @@ so we decide right away that it should be written as a free function:
 
       .. include:: my_find.txt
 
-While this seems easier at first,
-this version is not **nearly** as *generic*,
-or *general purpose* as a version that defines
-a generic type and uses iterators.
+While this seems easier at first, this version is not nearly as generic or
+general-purpose as a version that accepts generic iterator types.
 
 
 - No way to run this function over part of a container.
@@ -108,35 +117,26 @@ How do we refactor our find function to satisfy our goals?
 
       .. literalinclude:: find.txt
          :language: cpp
-         :lines: 9-20
+         :lines: 12-24
          :dedent: 3
 
    .. tb-tab:: Run It
 
 
-      And we can prove to ourselves that we get the same results as
-      :algorithm:`find`.
+      We can compare the custom algorithm with :algorithm:`std::find` and
+      verify that both return the same iterator.
 
       .. include:: find.txt
 
-      And since it is arguably the same function as ``std::find``,
+      Since it is now the same operation as ``std::find``,
       we now know we no longer need it.
-
-.. admonition:: Try this!
-
-   Change the name of the function ``my_find`` to ``find`` and change
-   the matching name on line 24.
-
-   Does this program still compile?  Explain.
-
-   Rewrite the previous example to use :algorithm:`find`.
-
 
 -----
 
 .. admonition:: More to Explore
 
-   - From cppreference.com
-
-     - Overview of the :cpp:`algorithms <algorithm>` library.
-     - :algorithm:`std::find <find>` (and find_if).
+   - :cpp:`Input iterator concept <iterator/input_iterator>`
+   - :cpp:`Equality comparable concept <concepts/equality_comparable>`
+   - :algorithm:`std::find <find>`
+   - :algorithm:`std::find_if <find>`
+   - :cpp:`C++20 Ranges Library <ranges>`

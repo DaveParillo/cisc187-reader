@@ -11,10 +11,12 @@
 
 Analysis of hash tables
 =======================
-:ref:`The table below <tbl_hashbigo>` shows the **average case** complexity of some
-basic unordered_map operations. 
-For each operation that has constant time average case efficiency,
-the *worst case* complexity is :math:`O(n)`.
+:ref:`The table below <tbl_hashbigo>` shows the **average case** complexity of
+some basic ``std::unordered_map`` operations. These estimates assume a good
+hash function, a reasonable load factor, and fixed-size keys whose hash and
+equality operations take constant time. For lookup, insertion, and erasure,
+the worst-case complexity can be :math:`O(N)` when many keys occupy the same
+bucket. ``clear`` is linear because it visits every stored element.
 
 .. _tbl_hashbigo:
 
@@ -23,13 +25,19 @@ the *worst case* complexity is :math:`O(n)`.
     ===================== ==================
                 Operation         Complexity
     ===================== ==================
-             assignment =               O(1)
+               operator[]               O(1)
                  insert()               O(1)
                    find()               O(1)
                contains()               O(1)
                   erase()               O(1)
                   clear()               O(n)
     ===================== ==================
+
+.. cpp:: 20
+
+   C++20 added :container:`unordered_map::contains <unordered_map/contains>`
+   for membership checks when the mapped value is not needed. Its average
+   complexity is constant under the same assumptions as ``find``.
 
 The reason these operations may have :math:`O(n)` complexity is because
 the performance of the container is ultimately controlled by the quality
@@ -39,10 +47,10 @@ then the benefits of hash tables are lost and we decay into list performance.
 When the hash function quality is high, then the performance is good.
 
 When we discussed the messy and neat closets in :ref:`trees_trees`,
-we mentioned the primary motivation for non-sequential containers was search.
-Unlike even a sorted vector or a tree, hash tables provide constant time
-access tot he correct bucket containing our data and linear search is required
-only when collisions exist.
+we mentioned that search is a primary motivation for non-sequential
+containers. A hash table can usually select the correct bucket in expected
+constant time, and then searches the bucket for an equal key. The hash
+computation and key comparison costs are part of the operation's total cost.
 
 :ref:`The following code <hash_find_vs_vector>` shows what happens when searching
 in an unordered map vs a vector.
@@ -61,7 +69,7 @@ in an unordered map vs a vector.
    #include <vector>
 
    int main() {
-       using clock = std::chrono::high_resolution_clock;
+       using clock = std::chrono::steady_clock;
        std::cout << std::setw(6) << "size"
                  << std::setw(10) << "vector"
                  << std::setw(20) << "hash table\n";
@@ -144,8 +152,10 @@ Running the previous code should produce results similar to this:
 
 
 So what about the tree ADT?
-The `std::set` is generally implemented as a tree.
-The C++ standard guarantees logarithmic complexity in the size of the container.
+The standard does not require a particular implementation for ``std::set``,
+but it does guarantee logarithmic complexity in the size of the container for
+search. This is a guaranteed bound, unlike the average constant-time bound
+for an unordered container.
 
 
 How does std::set find compare to std::unordered_map find?
@@ -163,7 +173,7 @@ How does std::set find compare to std::unordered_map find?
    #include <unordered_map>
 
    int main() {
-       using clock = std::chrono::high_resolution_clock;
+       using clock = std::chrono::steady_clock;
        std::cout << std::setw(6) << "size"
                  << std::setw(10) << "set"
                  << std::setw(20) << "hash table\n";
@@ -235,8 +245,8 @@ The graph below shows example output for values up to 1,000,000.
    plt.plot(size, hash_times, marker='^', label='unordered map')
 
    plt.xlabel('Size', fontsize=12)
-   plt.ylabel('Time (msec)', fontsize=12)
-   plt.title('Comparison of set and hash table insert() times', fontsize=14)
+   plt.ylabel('Time (seconds)', fontsize=12)
+   plt.title('Comparison of set and hash table find() times', fontsize=14)
    plt.legend(fontsize=12)
    plt.xticks(fontsize=12)
    plt.yticks(fontsize=12)
@@ -255,8 +265,10 @@ The graph below shows example output for values up to 1,000,000.
 
 .. admonition:: More to Explore
 
-   - TBD
-
+   - :cpp:`std::unordered_map <container/unordered_map>`
+   - :cpp:`std::unordered_set <container/unordered_set>`
+   - :cpp:`std::set <container/set>`
+   - :cpp:`Unordered associative container requirements <unord.req>`
 
 
 

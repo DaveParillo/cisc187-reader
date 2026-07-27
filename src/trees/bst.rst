@@ -17,7 +17,14 @@ with sub-trees ``left`` and ``right``,
 - The value in ``n`` is **less than** the values in every node in ``right``.
 - Both ``left`` and ``right`` are binary search trees.
 
-These assertions define the **binary tree property**.
+This page uses unique keys, like ``std::set``. If a value equivalent to an
+existing value is inserted, the insertion has no effect. Two values are
+equivalent when neither compares less than the other.
+The comparisons are assumed to define a :req:`strict weak ordering <Compare>`,
+as they do for the keys in an ordered standard-library container. A production
+tree would usually make that ordering an explicit comparator type.
+
+These assertions define the **binary search tree property**.
 
 .. include:: bst.dot
 
@@ -27,12 +34,13 @@ These assertions define the **binary tree property**.
 
    Yes.
 
-   Each node is greater than or equal to all of its left descendants,
-   and is less than or equal than all of its right descendants.
+   Each node is greater than all of its left descendants,
+   and is less than all of its right descendants.
+   Equivalent values are not inserted.
 
 The Binary Search Tree ADT
 --------------------------
-Structurally, a BST contains pointers to it's left and right children.
+Structurally, a BST contains pointers to its left and right children.
 As discussed in :doc:`../recursion/index`,
 a binary tree can be implemented simply as a recursive data structure.
 A binary search tree can also be implemented recursively.
@@ -52,56 +60,79 @@ The ``tree_node`` encapsulates the general characteristics
 common to all binary trees:
 
 - A variable to store the node value
-- Pointers to the left and right child nodes,
+- Links to the left and right child nodes,
   which might themselves be sub-trees.
 
-.. code-block:: cpp
+.. tb-group::
 
-   namespace mesa {
-     namespace tree {
+   .. tb-tab:: BST node
 
-      // a binary tree node
-      template<class T>
-        struct tree_node {
-          T value;
-          tree_node<T>* left;
-          tree_node<T>* right;
-          tree_node(const T& value = T{}, 
-              tree_node<T>* left = nullptr,
-              tree_node<T>* right = nullptr)
-            : value{value}
-          , left{left}
-          , right{right}
-          { }
-        };
-     } // end namespace tree
-   } // end namespace mesa
+      The node stores a value and owns its children. A null ``unique_ptr``
+      means that the corresponding child is absent. The node itself does not
+      enforce the binary search tree property; the tree operations do that.
+
+      .. code-block:: cpp
+         :name: bst-tree-node
+
+         #include <memory>
+
+         template<class T>
+         struct tree_node {
+           T value;
+           std::unique_ptr<tree_node> left;
+           std::unique_ptr<tree_node> right;
+
+           explicit tree_node(const T& value) : value{value} {}
+         };
+
+   .. tb-tab:: Print
+
+      An in-order traversal function allows us to print values
+      in ascending order for a binary search tree.
+
+      .. code-block:: cpp
+         :name: bst-print-in-order
+
+         #include <iostream>
+
+         template<class T>
+         void print_in_order(const tree_node<T>* node) {
+           if (node == nullptr) {
+             return;
+           }
+           print_in_order(node->left.get());
+           std::cout << node->value << ' ';
+           print_in_order(node->right.get());
+         }
+
+   .. tb-tab:: Run It
+
+      .. tb-code:: cpp
+         :name: bst_node_traversal
+         :include:
+            NODE: bst-tree-node
+            PRINT: bst-print-in-order
+
+         {{NODE}}
+
+         {{PRINT}}
+
+         int main() {
+           auto root = std::make_unique<tree_node<int>>(4);
+           root->left = std::make_unique<tree_node<int>>(2);
+           root->right = std::make_unique<tree_node<int>>(6);
+           root->left->left = std::make_unique<tree_node<int>>(1);
+           root->left->right = std::make_unique<tree_node<int>>(3);
+           root->right->left = std::make_unique<tree_node<int>>(5);
+           root->right->right = std::make_unique<tree_node<int>>(7);
+
+           print_in_order(root.get());
+           std::cout << '\n';
+         }
 
 In other words, a ``tree_node`` is a general purpose
 binary tree data structure and has no knowledge of
 any binary search tree properties or behavior.
-
-.. admonition:: Binary Search Tree Traversal
-
-   One benefit of a binary search tree is that when the
-   nodes are visited using infix traversal,
-   the data is sorted ascending.
-
-   .. code-block:: cpp
-    
-      // write a tree to an output stream, infix
-      template <class T>
-         std::ostream& operator<< (std::ostream& os, const mesa::tree::tree_node<T>* node)
-         {
-           if (node == nullptr) { return os; }
-           os << node->left; 
-           os << node->value << ' ';
-           os << node->right;
-           return os;
-         }
-
-   Notice we stream ``tree_node`` objects here,
-   not ``bstree`` objects.
 
 Much like our earlier tree objects, all of the functions used to manipulate
 a ``tree_node`` will be free functions.
@@ -109,45 +140,17 @@ To avoid collision with other similarly named functions,
 all the functions will be defined in the ``mesa::tree`` namespace.
 
 The binary search tree is built up from individual ``tree_node`` objects.
+An owning ``bstree`` should store its root in a ``std::unique_ptr`` so that
+destroying the root recursively destroys its children. This makes ownership
+explicit and prevents the leaks that are easy to introduce with raw owning
+pointers.
 
-The ``bstree`` class has 1 private member variable: a pointer
-to a ``tree_node``.
-The basic skeleton of the class should look familiar:
-
-.. code-block:: cpp
-
-   namespace mesa {
-
-     // a binary search tree
-     template<class T>
-       class bstree {
-         public:
-           typedef T value_type;
-
-           bstree() = default;
-           // convert a value into a tree
-           explicit
-             bstree(const T& value)
-             : root{new tree::tree_node<T>{value}}
-           { }
-
-           // copy construct and assign
-           bstree(const bstree& other);
-           bstree& operator=(const bstree& other);
-
-           // move construct and assign
-           bstree(bstree&& other);
-           bstree& operator=(const bstree&& other);
-
-           constexpr
-             bool empty() const noexcept { return root == nullptr; }
-
-         private:
-           tree::tree_node<T>* root = nullptr;
-
-       };
-
-   } // end namespace mesa
+The default copy operations of a class containing ``std::unique_ptr`` are
+deleted. A class with ``std::set``-like copyable behavior would need to write
+a deep-copy operation; that ownership detail is separate from the search-tree
+algorithms. The complete examples below use move-only ownership and return
+non-owning node pointers as temporary position handles. The next page replaces
+those handles with proper tree iterators.
 
 Our primary focus for the rest of this section is on the functions
 that define the key operations associated with a BST:
@@ -170,6 +173,10 @@ The strategy most people apply to this problem intuitively is known
 as the :term:`binary search` algorithm.
 This algorithm is easily applied to binary search trees.
 
+The running time of a search is :math:`O(h)`, where ``h`` is the height of
+the tree. A balanced BST has height :math:`O(\log N)`, while a tree built from
+already sorted input can have height :math:`O(N)` -- in other words, a list.
+
 .. tb-group::
    :name: contains_tab
 
@@ -183,32 +190,46 @@ This algorithm is easily applied to binary search trees.
 
       If it is neither of these things, then we found the value.
 
-      This function is implemented as a ``mesa::tree`` free function.
+      .. tb-code:: cpp
+         :name: bst_contains_ac
+         :run-before: bst-tree-node
 
-      .. code-block:: cpp
+         #include <iostream>
 
-         template <class T>
-         bool contains (const T& query_value, tree_node<T>* node)
-         {
-           if(node == nullptr) return false;
-           if(query_value < node->value) {
-             // search the left sub-tree
-             return contains(query_value, node->left);
-           } 
-           if(node->value < query_value) {
-             // search the right sub-tree
-             return contains(query_value, node->right);
+         template<class T>
+         bool contains(const tree_node<T>* node, const T& query_value) {
+           if (node == nullptr) {
+             return false;
            }
-           // we found what we were looking for
-           return true; 
+           if (query_value < node->value) {
+             return contains(node->left.get(), query_value);
+           }
+           if (node->value < query_value) {
+             return contains(node->right.get(), query_value);
+           }
+           return true;
          }
 
-.. .. tab:: Run it
+         int main() {
+           auto root = std::make_unique<tree_node<int>>(4);
+           root->left = std::make_unique<tree_node<int>>(2);
+           root->right = std::make_unique<tree_node<int>>(6);
+           root->left->left = std::make_unique<tree_node<int>>(1);
+           root->left->right = std::make_unique<tree_node<int>>(3);
+
+           std::cout << std::boolalpha
+                     << contains(root.get(), 3) << ' '
+                     << contains(root.get(), 5) << '\n';
+         }
 
 Inserting into binary trees
 ---------------------------
 Inserting into a binary tree means adding a new node in the tree
-such that the binary tree property remains intact.
+such that the binary search tree property remains intact.
+
+Insertion also takes :math:`O(h)` time, where ``h`` is the tree height. A
+balanced BST therefore supports insertion in :math:`O(\log N)` time, while an
+unbalanced tree can require :math:`O(N)` time.
 
 
 .. tb-group::
@@ -221,43 +242,77 @@ such that the binary tree property remains intact.
       Ask "where would we go if we were searching for this data in the tree?"
       This process is identical to the search used for the contains function.
 
-      This function is implemented as a ``bstree`` member function.
+      The standard ``std::set::insert`` contract returns a pair containing
+      a position and a Boolean. The Boolean is true only when insertion took
+      place; inserting an equivalent value has no effect. This example uses
+      a non-owning node pointer as the position until the next page introduces
+      a real tree iterator.
 
       .. code-block:: cpp
+         :name: bst-insert
 
-         tree::tree_node<T>* 
-          insert (const T& value, tree::tree_node<T>*& node)
-          {
-            // add a new leaf
-            if(node == nullptr) {
-              node = new tree::tree_node<T>(value, nullptr, nullptr);
-              return node;
-            }
-            if(value < node->value) {
-              return insert(value, node->left);
-            } 
-            if(node->value < value) {
-              return insert(value, node->right);
-            }
-            // else the value already exists in the tree
-            node->value = value;
-            return node;
-          }
+         template<class T>
+         std::pair<tree_node<T>*, bool>
+         insert(std::unique_ptr<tree_node<T>>& node, const T& value) {
+           if (node == nullptr) {
+             node = std::make_unique<tree_node<T>>(value);
+             return {node.get(), true};
+           }
+           if (value < node->value) {
+             return insert(node->left, value);
+           }
+           if (node->value < value) {
+             return insert(node->right, value);
+           }
+           return {node.get(), false};
+         }
 
       There are a few important things to notice about this function.
 
-      The insert function receives the current node pointer as 
-      a reference to a pointer, 
-      It can change the value of the pointer provided.
-      It does this specifically when our traversal brings us to a null pointer.
-      A :term:`leaf node` is place where we can insert a new
-      tree node while still adhering to the binary search tree property.
+      The insert function receives the current owning pointer by reference.
+      It can replace that pointer when traversal reaches an empty child link.
+      A new node is inserted at that null link, below a leaf or in place of an
+      empty child of an internal node.
 
-      Overwriting an existing value is a design choice.
-      We could have chosen to do nothing and simply return the node.
+      When the value is equivalent to an existing value, the function returns
+      the existing node and ``false``.
+      It does not overwrite the value, which is an implementation choice.
+      Another container implementation might have chosen to overwrite, but in
+      this case, we are matching the standard library behavior.
 
+   .. tb-tab:: Run It
 
-.. .. tab:: Run it
+      .. tb-code:: cpp
+         :run-before: bst-tree-node, bst-print-in-order
+
+         template<class T>
+         std::pair<tree_node<T>*, bool>
+         insert(std::unique_ptr<tree_node<T>>& node, const T& value) {
+           if (node == nullptr) {
+             node = std::make_unique<tree_node<T>>(value);
+             return {node.get(), true};
+           }
+           if (value < node->value) {
+             return insert(node->left, value);
+           }
+           if (node->value < value) {
+             return insert(node->right, value);
+           }
+           return {node.get(), false};
+         }
+
+         int main() {
+           std::unique_ptr<tree_node<int>> root;
+           insert(root, 4);
+           insert(root, 2);
+           insert(root, 6);
+           auto result = insert(root, 4);
+
+           std::cout << std::boolalpha
+                     << "inserted duplicate: " << result.second << '\n';
+           print_in_order(root.get());
+           std::cout << '\n';
+         }
 
 .. admonition:: Try This!
 
@@ -284,7 +339,7 @@ If we remove values ``10``, ``40``, or ``60``
 by simply deleting the tree node, that might work.
 However, deleting any other node would break the links between tree nodes.
 
-We have 3 cases to consider:
+We have three cases to consider:
 
 - Removing a leaf
 - Removing a node that has only one child
@@ -304,17 +359,10 @@ That is, if we remove any leaf from a binary search tree,
 we still have a valid binary search tree.
 There is nothing else to do.
 
-.. code-block::cpp
-
-   tree_node<T>* trash = node;
-   node = (node->left != nullptr ) ? node->left : node->right;
-   delete trash;
-
 When ``node`` points to a leaf that contains the data we want to remove
-we replace the address in ``node`` by ``node->right``.
-If ``node`` is pointing to a leaf, then ``node->right`` is null
-and we write a nullptr into the parent node, 
-replacing whichever of its two children pointers was used to get to ``node``.
+we replace the owning pointer in ``node`` with an empty pointer.
+With ``std::unique_ptr``, assigning ``nullptr`` automatically destroys the
+removed node.
 
 In other words, leaf nodes are replaced with the null pointer.
 
@@ -394,23 +442,17 @@ the resulting tree is still a valid binary search tree.
 
 The code we used to remove a leaf also works when there is only one child.
 
-.. code-block::cpp
-
-   tree_node<T>* trash = node;
-   node = (node->left != nullptr ) ? node->left : node->right;
-   delete trash;
-
 If we reach this code, we know there is at most
 one non-null child.
 In the previous case of a leaf node,
 both children are null,
-but the same code works for one child also.
+but the same ownership replacement works for one child also.
 
 If the left child is not null, 
 then reassign the left child to the current node,
 otherwise assign the right child.
 
-Removing a non-leaf node with a two children
+Removing a non-leaf node with two children
 ............................................
 Suppose we wanted to remove the ``50`` or the ``30`` from this tree.
 What must we do so that the remaining nodes would still be a valid BST?
@@ -471,48 +513,70 @@ or has at most one child.
 
       Putting it all together.
 
-      This function is implemented as a ``mesa::tree`` free function.
+      Recall that ``std::unique_ptr`` is not copyable or copy constructible.
+      Moving a ``unique_ptr`` is allowed.
 
-      .. code-block:: cpp
-         :linenos:
-         :emphasize-lines: 6-9
+      .. tb-code:: cpp
+         :name: bst_erase
+         :run-before: bst-tree-node, bst-print-in-order, bst-insert
 
-         template <class T>
-           void erase (const T& value, tree_node<T>*& node)
-           {
-             if(node == nullptr ) return;
-
-             if(value < node->value) {
-               return erase(value, node->left);
-             } 
-             if(node->value < value) {
-               return erase(value, node->right);
-
-             } 
-             if(node->left != nullptr && node->right != nullptr ) { 
-               // two children
-               // replace node with smallest value from right subtree
-               node->value = min_element(node->right)->value;
-               return erase(node->value, node->right);
-             } 
-            // remove a leaf node or node w/ 1 subtree
-            tree_node<T>* trash = node;
-            node = (node->left != nullptr ) ? node->left : node->right;
-            delete trash;
+         template<class T>
+         void erase(std::unique_ptr<tree_node<T>>& node, const T& value) {
+           if (node == nullptr) {
+             return;
+           }
+           if (value < node->value) {
+             erase(node->left, value);
+             return;
+           }
+           if (node->value < value) {
+             erase(node->right, value);
+             return;
            }
 
-      Lines 6-9 handle the search we discussed initially.
-      Here we recursive search for our target value to remove.
+           if (node->left == nullptr) {
+             node = std::move(node->right);
+             return;
+           }
+           if (node->right == nullptr) {
+             node = std::move(node->left);
+             return;
+           }
+
+           const tree_node<T>* successor = node->right.get();
+           while (successor->left != nullptr) {
+             successor = successor->left.get();
+           }
+           node->value = successor->value;
+           erase(node->right, successor->value);
+         }
+
+         int main() {
+           std::unique_ptr<tree_node<int>> root;
+           for (int value : {50, 30, 70, 20, 40, 60, 80}) {
+             insert(root, value);
+           }
+
+           erase(root, 20);  // leaf
+           erase(root, 60);  // leaf
+           erase(root, 70);  // one child: 80 remains
+           erase(root, 50);  // two children
+           print_in_order(root.get());
+           std::cout << '\n';
+         }
+
+      Lines 6-13 handle the search we discussed initially.
+      Here we recursively search for our target value to remove.
 
       The last ``if`` block handles the case with 2 children.
       We find the smallest node in the right subtree
-      and assign it's value to the current node.
+      and assign its value to the current node.
       Then we erase this value from the right subtree
       of the current node.
 
       The final block handles the leaf and the one child cases.
       This is the only case where a node is actually removed from the tree.
-      This block will also untilately get called when the
+      This block will also ultimately get called when the
       case handling two child nodes needs to delete the 
       smallest value from the right subtree.
 
@@ -530,4 +594,3 @@ or has at most one child.
      - :wiki:`binary search tree <Binary_search_tree>`
 
    - `Binary tree visualizer <http://btv.melezinek.cz>`__
-

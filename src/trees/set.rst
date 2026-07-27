@@ -17,18 +17,25 @@ The integers define a set, because every number is unique.
 The values ``{3, 1, 4, 1, 5, 9}`` do **not** define a proper set,
 because the value ``1`` is repeated.
 
-In C++, a :container:`std::set <set>` must also be sorted.
+In C++, a :container:`std::set <set>` keeps its elements ordered according to
+its comparison object. By default, that comparison uses ``operator<``.
 Like ``std::vector``, a ``set`` is a generic class
 and declarations must include the object :term:`type`
 stored in the class:
 
 .. code-block:: cpp
+   :name: set-common
 
+   #include <iostream>
    #include <set>
 
-   std::set<int> x {2,7,1,8,2,8,1,8,2,8,4,5,9};
+   std::set<int> sample_set() {
+     return {2, 7, 1, 8, 4, 5, 9};
+   }
 
-What will be stored in ``x`` after initialization?
+The following example initializes a set with values and prints the set.
+Without running the code first, what do you think will be stored in ``x`` after
+initialization?
 
 .. tb-reveal::
    :name: reveal_init
@@ -38,111 +45,189 @@ What will be stored in ``x`` after initialization?
    - A ``set`` is sorted.
    - A ``set`` may contain only unique values.
 
-   Defining a set with non-unique values is not an error.
-   The new object simply replaces the old.
+   Defining a set with repeated values is not an error.
+   Equivalent values after the first are ignored.
 
    When initialized, ``x`` will contain: ``1 2 4 5 7 8 9``
 
-Like the sequence containers,
-each element in a set can be visited one at a time
-using a :lang:`range-for` loop.
 
-.. tb-code::
-   :show-tutor:
+.. tb-code:: cpp
+   :name: set_initialization_ac
 
    #include <iostream>
    #include <set>
 
-   int main()
-   {
-     std::set<int> x {2,7,1,8,4,5,9};
+   int main() {
+     std::set<int> x {2, 7, 1, 8, 2, 8, 1, 8, 2, 8, 4, 5, 9};
+     for (const auto value : x) {
+       std::cout << value << ' ';
+     }
+     std::cout << '\n';
+   }
 
-     for (const auto& i: x) {
-       std::cout << i << ' ';
+Like the sequence containers, each element in a set can be visited one at a
+time using a :lang:`range-for` loop. The preceding complete example uses that
+loop to display the sorted values.
+
+Because ``set`` does not provide ``operator[]``, an index-based loop is not
+the appropriate way to visit its elements. Use a range-for loop or an
+iterator instead.
+
+
+Sets can contain any key type for which the set's comparison object defines a
+:req:`strict weak ordering <Compare>`. The default comparison object uses
+``operator<``, but a caller can provide a different comparator instead. The
+key type does not have to overload ``operator<`` when a custom comparator is
+provided.
+
+For example, this complete program stores the values in descending order:
+
+.. tb-code:: cpp
+   :name: set_custom_compare_ac
+   :run-before: set-common
+
+   struct descending {
+     bool operator()(int lhs, int rhs) const {
+       return lhs > rhs;
+     }
+   };
+
+   int main() {
+     std::set<int, descending> x {2, 7, 1, 8, 4, 5, 9};
+     for (const auto value : x) {
+       std::cout << value << ' ';
+     }
+     std::cout << '\n';
+   }
+
+The keys in a ``std::set`` are treated as constant while they are in the
+container. Changing a key through an iterator could violate the ordering
+invariant, so dereferencing a set iterator produces a ``const`` reference.
+
+For an ordered ``set``, search, insertion, and erasure take :math:`O(\log N)`
+time. The container uses :math:`O(N)` storage. Unordered containers have
+average constant-time lookup, insertion, and erasure, but their worst-case
+time is :math:`O(N)`.
+
+Use :container:`set::insert <set/insert>` to add a new element to a ``set``.
+The function returns a pair containing an iterator to the equivalent element
+and a Boolean that is true only when a new element was inserted.
+
+.. tb-code:: cpp
+   :name: set_insert_ac
+
+   #include <iostream>
+   #include <set>
+
+   int main() {
+     auto x = std::set<int> {2, 7, 1, 8, 4, 5, 9};
+     auto inserted = x.insert(6);
+     auto duplicate = x.insert(8);
+
+     std::cout << std::boolalpha
+               << "inserted 6: " << inserted.second << '\n'
+               << "value at returned position: " << *inserted.first << '\n'
+               << "inserted duplicate 8: " << duplicate.second << '\n';
+   }
+
+Because a ``set`` is not an indexed container, looking up a value is a search.
+The :container:`set::find <set/find>` function returns an :term:`iterator` to
+the element with a specific key, or ``end()`` when the key is absent:
+
+.. tb-code:: cpp
+   :name: set_find_ac
+
+   #include <iostream>
+   #include <set>
+
+   int main() {
+     auto x = std::set<int> {2, 7, 1, 8, 4, 5, 9};
+     const auto it = x.find(8);
+     if (it != x.end()) {
+       std::cout << "found: " << *it << '\n';
+     }
+   }
+
+.. cpp:: 20
+
+   C++20 added :container:`set::contains <set/contains>` for membership
+   checks. It returns a Boolean and avoids creating an iterator when the
+   position is not needed.
+
+   .. tb-code:: cpp
+      :name: set_contains_ac
+
+      #include <iostream>
+      #include <set>
+
+      int main() {
+        const auto x = std::set<int> {2, 7, 1, 8, 4, 5, 9};
+        std::cout << std::boolalpha
+                  << x.contains(8) << ' '
+                  << x.contains(3) << '\n';
+      }
+
+The :container:`set::erase <set/erase>` function removes an element from a
+``set``. When given an iterator, it removes the element at that position and
+does not invalidate iterators to other elements:
+
+.. tb-code:: cpp
+   :name: set_erase_ac
+
+   #include <iostream>
+   #include <set>
+
+   int main() {
+     auto x = std::set<int> {2, 7, 1, 8, 4, 5, 9};
+     const auto it = x.find(8);
+     if (it != x.end()) {
+       x.erase(it);
      }
 
-     return 0;
+     std::cout << std::boolalpha
+               << (x.find(8) == x.end()) << '\n';
    }
 
-Because ``set`` does not provide ``operator[]``,
-traditional for loops using an index are not possible:
+.. cpp:: 20
 
-.. code-block:: cpp
+   C++20 also provides :algorithm:`std::erase_if <erase_if>` for removing
+   every element that satisfies a predicate. This is useful when the value
+   to remove is described by a condition rather than a single key.
 
-   std::set<int> x {2,7,1,8,4,5,9};
+   .. tb-code:: cpp
+      :name: set_erase_if_ac
 
-   for (int i=0; i < x.size(); ++i) {  // OK
-       std::cout << x[i] << ' ';         // compile error
-   }
+      #include <iostream>
+      #include <set>
 
+      int main() {
+        auto x = std::set<int> {2, 7, 1, 8, 4, 5, 9};
+        std::erase_if(x, [](int value) { return value % 2 == 0; });
 
-Sets of any type can be created as long as the type is
-:term:`comparable`.
-The comparison operator (:term:`comparator`) 
-used in sets by default is ``operator <``.
-Any type used in a :container:`set`
-should overload ``operator <``.
-All of the :lang:`types` are :term:`comparable`.
-
-Use :container:`set::insert <set/insert>` to add a new element to a ``set`` or replace an existing element:
-
-.. code-block:: cpp
-
-   std::set<int> x {2,7,1,8,4,5,9};
-   x.insert(6);
-
-Because a ``set`` is not an indexed container,
-every 'get' is a search:
-
-.. code-block:: cpp
-
-   std::set<int> x {2,7,1,8,4,5,9};
-   auto it = x.find(8);
-
-The :container:`set::find <set/find>` function returns an :term:`iterator` to the element
-with a specific key:
-
-.. code-block:: cpp
-
-   std::set<int> x {2,7,1,8,4,5,9};
-   auto it = x.find(8);
-   std::cout << *it;         // print the value returned from find()
-
-The :container:`set::erase <set/erase>` function is used to remove an element from a ``set``.
-``set::erase`` takes an iterator as the position in the ``set`` to remove:
-
-.. code-block:: cpp
-
-   std::set<int> x {2,7,1,8,4,5,9};
-   auto it = x.find(8);
-   if (it != x.end()) {
-       x.erase(it);
-   }
-
-   it = x.find(8);
-   assert ( it == x.end() );  // this should be true
+        for (const auto value : x) {
+          std::cout << value << ' ';
+        }
+        std::cout << '\n';
+      }
 
 .. index:: multiset, unordered_set, unordered_multiset
 
-Variations on std::set
-----------------------
-The STL provides 3 alternate forms of ``std::set`` class:
+Variations on ``std::set``
+--------------------------
+The standard library provides related ordered and unordered containers:
 
 :container:`multiset`
    A ``set`` in which duplicate keys are allowed.
 
 :container:`unordered_set`
-   A ``set`` of unique objects stored based on the object :term:`hash function`.
+   A container of unique objects organized by a :term:`hash function`, not by
+   sorted order.
    Added in C++11.
 
-   In order to use a type in an unordered container,
-   the type must override 3 functions:
-
-   - override :utility:`std::hash<hash>`
-   - override ``operator==``
-   - override ``operator<``
-
-   before the type will compile when added to an unordered container.
+   A key type needs a hash function and an equality predicate. The standard
+   library provides these for many built-in and library types. For a user type,
+   provide a ``std::hash<Key>`` specialization or a custom hash object, and
+   provide equality through ``operator==`` or a custom equality object.
      
 :container:`unordered_multiset`
    An ``unordered_set`` in which duplicate keys are allowed.
@@ -152,5 +237,6 @@ The STL provides 3 alternate forms of ``std::set`` class:
 
 .. admonition:: More to Explore
 
-   - :cpp:`STL containers library <container>`
-   - `Visualgo: binary heap <https://visualgo.net/en/heap?slide=1>`_
+   - :cpp:`Standard library containers <container>`
+   - :container:`std::set <set>`
+   - :container:`std::unordered_set <unordered_set>`

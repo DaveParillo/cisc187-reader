@@ -1,25 +1,39 @@
 ..  Copyright (C)  Dave Parillo.  Permission is granted to copy, distribute
     and/or modify this document under the terms of the GNU Free Documentation
     License, Version 1.3 or any later version published by the Free Software
-    Foundation; with Invariant Sections being Forward, and Preface,
+    Foundation, with Invariant Sections being Forward, and Preface,
     no Front-Cover Texts, and no Back-Cover Texts.  A copy of
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. index:: 
+.. index::
    pair: closed hashing; collisions
+   single: linear probing
+   single: quadratic probing
+   single: double hashing
 
-Closed hashing
-==============
-In closed hashing, the hash array contains individual elements 
-rather than a collection of elements. 
-When a key we want to insert collides with a key already in the table,
-we resolve the collision by searching for another open :term:`slot` within
-the table where we can place the new key.
+Open addressing (closed hashing)
+=================================
+In open addressing, also called *closed hashing*, the table stores entries
+directly in its array of slots rather than storing a collection at each
+bucket. When a key collides with an occupied home slot, the table searches for
+another slot according to a probe sequence.
 
-Each slot in the hash table contains a ``hash_entry``, composed of
-one data element and a status field indicating whether that slot is
-*occupied*, *empty*, or *deleted*.
+Each slot contains a ``hash_entry`` with one data element and a status field.
+The status distinguishes an ``OCCUPIED`` slot from an ``EMPTY`` slot that has
+never been used and a ``DELETED`` slot that contains a tombstone.
+
+.. note::
+
+   The complete example on this page is intentionally simplified.
+   It omits rehashing, iterators, allocator support, and many
+   other features of the standard unordered containers. It is meant to make
+   probe sequences and tombstones visible.
+
+The ``hash_entry`` type uses a live ``T data`` member even when its slot is
+empty. As a result, this particular implementation requires ``T`` to
+be default-constructible. Standard containers do not impose that requirement
+on every key merely because a slot is empty.
 
 .. tb-group::
    :name: hash_set_tab_group
@@ -31,569 +45,464 @@ one data element and a status field indicating whether that slot is
          enum class hash_status { OCCUPIED, EMPTY, DELETED };
 
          template <class T>
-         struct hash_entry 
-         {
+         struct hash_entry {
            T data;
-           hash_status info;
-
-           hash_entry(): info(hash_status::EMPTY)  {}
-           hash_entry(const T& value, hash_status status)
-             : data{value}
-             , info(status)
-             {}
+           hash_status status = hash_status::EMPTY;
          };
 
-      The ``hash_set`` backing store is an array of ``hash_entry``
-      objects.
+      The table stores an array of entries. The hash policy and equality
+      predicate are separate template parameters. As with every unordered
+      container, equivalent keys must compare equal and must produce the same
+      hash value.
 
       .. code-block:: cpp
+         :caption: Simplified interface
 
          template <class Key,
-                   size_t N,
-                   class Comparator=std::equal_to<Key>>
-         class hash_set
-         {
-           public:
-             using value_type = Key;
-             using key_type   = Key;
-
-             hash_set() = default;
-           private:
-             array<hash_entry<Key>, N> table;
-             Comparator compare;
-             size_t sz = 0;
+                   std::size_t N,
+                   class Hash = std::hash<Key>,
+                   class KeyEqual = std::equal_to<Key>>
+         class hash_set {
+           std::pair<std::size_t, bool> insert(const Key& value);
+           std::size_t find(const Key& value) const;
+           bool contains(const Key& value) const;
+           std::size_t count(const Key& value) const;
+           std::size_t erase(const Key& value);
          };
-
-
-      Collisions are resolved by trying a series of locations,
-      :math:`p_0, p_1, p_2, \ldots p_{N-1}`
-      until we find what we are looking for.
-      Each position is calculated as:
-
-      .. math::
-
-         pos_i = hash(value) + f(n) 
-
-      where:
-
-      - ``hash(value)`` is the :term:`home slot`
-      - ``f()`` is a function taking an integer
-        number of tries and returns an integer offset.
-
-      How are new positions used in the hash table?
-
-      Searching:
-         Try positions :math:`p_0, p_1, p_2, \ldots`
-         until we find the requested value or an ``EMPTY`` slot.
-      Inserting:
-         Try positions :math:`p_0, p_1, p_2, \ldots`
-         until we find the same value, an ``EMPTY`` slot, or
-         a ``DELETED`` slot.
-         Put the new value in the position pound and
-         mark the position as ``OCCUPIED``.
-      Erasing:
-         Try positions :math:`p_0, p_1, p_2, \ldots`
-         until we find the requested value or an ``EMPTY`` slot.
-         If we find the value, then
-         mark the position as ``DELETED``.
-
 
    .. tb-tab:: find
 
-      Find takes a value of the ``hash_entry`` key type as a parameter
-      and returns the position of the value in the table.
-      It returns ``N`` if the value is not in the table.
+      The table first computes the home slot:
 
-      .. code-block:: cpp
-         :emphasize-lines: 6-9
+      .. math::
 
-         size_t find (const Key& value) const
-         {
-           size_t hash = std::hash<Key>()(value);
-           size_t pos = hash % N;
-           size_t count = 0;
-           while ((table[pos].info == hash_status::DELETED ||
-                  (table[pos].info == hash_status::OCCUPIED 
-                  && (!compare(table[pos].data, value))))
-               && count < N)
-           {
-             ++count;
-             pos = (hash + next_slot(count)) % N;
-           }
-           if (count >= N || table[pos].info == hash_status::EMPTY) {
-             return N;
-           }
-           return pos;
-         }
+         home(value) = hash(value) \mathbin{\%} N
 
-      The loop condition is fairly complicated and needs discussion.
-      There are three ways to exit this loop:
+      The probe sequence then computes each candidate position from that home
+      slot:
 
-      - We hit an ``EMPTY`` space (not ``DELETED``, and not ``OCCUPIED``)
-      - We hit an ``OCCUPIED`` space that has the value we want
-      - We have tried ``N`` different positions. (No place left to look!)
+      .. math::
+
+         position_i = (home(value) + offset(value, i)) \mathbin{\%} N
+
+      Searching examines at most ``N`` positions:
+
+      - If the position is ``OCCUPIED`` and contains an equivalent key, the
+        search succeeds.
+      - If the position is ``EMPTY``, the search fails. No later insertion can
+        have placed the key beyond a slot that has never been used.
+      - If the position is ``DELETED`` or contains a different key, probing
+        continues.
+
+      .. code-block:: bash
+         :caption: ``find`` Pseudocode
+
+         home <- hash(value) % bucket_count
+         for probe from 0 through bucket_count - 1:
+             position <- (home + offset(value, probe)) % bucket_count
+             if table[position] is EMPTY:
+                 return not found
+             if table[position] is OCCUPIED and equal(table[position], value):
+                 return position
+         return not found
+
+      A tombstone cannot terminate a search. The requested key might have
+      been inserted farther along the probe sequence before an earlier key was
+      erased.
 
    .. tb-tab:: contains
 
-      With ``find`` in place, other search operations are easy.
-      Simply call find and evaluate the results.
+      Once ``find`` is available, membership operations are straightforward.
+      This interface returns a slot index, with ``N`` meaning that
+      the key was not found.
 
       .. code-block:: cpp
 
-         constexpr
-           bool contains (const Key& value) const noexcept
-         {
-           return  find(value) != N;
+         bool contains(const Key& value) const {
+           return find(value) != N;
          }
 
-         int count (const Key& value)
-         {
-           unsigned pos = find(value);
-           return  (pos == N) ? 0 : 1;
+         std::size_t count(const Key& value) const {
+           return contains(value) ? 1 : 0;
          }
 
-      Note that since our set is still forcing a uniqueness constraint,
-      ``count`` will return only ``0`` or ``1``.
+      A set enforces uniqueness, so ``count`` can only return ``0`` or ``1``.
 
    .. tb-tab:: erase
 
-      The code to remove elements is just as simple.
-      Easier than the ``erase`` we implemented for open hashing.
+      Erasing an entry marks its slot ``DELETED`` instead of changing it to
+      ``EMPTY``. This tombstone preserves the probe path for keys stored later
+      in the sequence.
 
-      We try to find that element.
+      .. code-block:: bash
+         :caption: Pseudocode
 
-      - If found, we mark that slot ``DELETED`` and decrement the size.
-      - Otherwise, do nothing.
+         position <- find(value)
+         if position == not found:
+             return 0
+         table[position].status <- DELETED
+         decrease size
+         return 1
 
-      .. code-block:: cpp
-
-         void erase (const Key& value)
-         {
-           unsigned pos = find(value);
-           if (pos != N) {
-             table[pos].info = hash_status::DELETED;
-             --sz;
-           }
-         }
+      Tombstones can accumulate and make searches longer. A practical table
+      can rebuild or rehash its storage when tombstones or the load factor
+      become too numerous.
 
    .. tb-tab:: insert
 
-      Inserts are a bit more work, because they involve potentially
-      looking for an open slot to store a value.
+      Insertion must continue past a tombstone so it can detect a duplicate
+      key later in the probe sequence. It remembers the first tombstone and
+      uses it only after the search confirms that the key is not already in the
+      table.
 
-      Because this is a set (and not a multiset) we first call ``find``
-      to see if the value is already there.
+      .. code-block:: bash
+         :caption: Pseudocode
 
-      .. code-block:: cpp
+         first_deleted <- not found
+         home <- hash(value) % bucket_count
+         for probe from 0 through bucket_count - 1:
+             position <- (home + offset(value, probe)) % bucket_count
+             if table[position] is OCCUPIED:
+                 if equal(table[position], value):
+                     return {position, false}
+             else if table[position] is DELETED:
+                 if first_deleted == not found:
+                     first_deleted <- position
+             else:
+                 if first_deleted != not found:
+                     position <- first_deleted
+                 store value at position
+                 mark position OCCUPIED
+                 increase size
+                 return {position, true}
 
-         bool insert (const Key& value)
-         {
-           size_t hash = std::hash<Key>()(value);
-           unsigned pos = find(value);
-           if (pos == N) {
-             size_t count = 0;
-             pos = hash % N;
-             while (table[pos].info == hash_status::OCCUPIED && count < N)
-             {
-               ++count;
-               pos = (hash + next_slot(count)) % N;
-             }
-             if (count >= N) {
-               return false;  // could not add, table is full
-             }
-             table[pos].info = hash_status::OCCUPIED;
-             table[pos].data = value;
-             ++sz;
-             return true;
-           }
-           // else replace existing value
-           table[pos].data = value;
-           return true;
-         }
+         if first_deleted != not found:
+             store value at first_deleted
+             mark first_deleted OCCUPIED
+             increase size
+             return {first_deleted, true}
+         return {not found, false}
 
-      If not found (``pos == N``), then we need to find a slot.
-      The loop that does this is similar the ``find`` loop, 
-      but unlike ``find``, we stop at the first ``DELETED`` or ``EMPTY`` slot.
-
-      In the other searches, we had kept going past ``DELETED`` slots, 
-      because the element we wanted might have been stored 
-      after an element that was later erased.
-      But now we are only looking for an unoccupied slot to put something,
-      so either a slot that has never been occupied (``EMPTY``) or
-      a slot that used to be occupied but is no longer (``DELETED``) works.
+      The second parameter returns ``true`` when a new key is inserted,
+      ``false`` otherwise.
+      A duplicate does not replace the existing key.
 
    .. tb-tab:: Run it
 
-      The example contains ``#define`` statements you can use to change
-      how the next slot is found.
-
-      Try it with different hash table sizes to see how clumping changes
-      with the different probing strategies.
+      The preprocessor symbol selects the probe strategy. Leave the default
+      definition in place for linear probing, or define one of the other
+      symbols before compiling to compare the strategies.
 
       .. tb-code:: cpp
          :name: hash_table_closed_ac
 
          #include <array>
          #include <cstddef>
-         #include <iomanip>
+         #include <functional>
          #include <iostream>
+         #include <ostream>
          #include <utility>
 
-         using std::array;
-
+         #if !defined(USE_LINEAR_PROBING) \
+             && !defined(USE_QUADRATIC_PROBING) \
+             && !defined(USE_DOUBLE_HASHING)
          #define USE_LINEAR_PROBING
-
-         #if defined(USE_QUADRATIC_PROBING)
-             // find next slot using quadratic probing
-             constexpr
-               size_t next_slot(size_t count) noexcept { return count*count; }
-
-         #elif defined(USE_DOUBLE_HASHING)
-
-             // find next slot using double hashing
-             constexpr
-               size_t next_slot(size_t count) noexcept { return count * std::hash<size_t>()(count); }
-         #else   // default to USE_LINEAR_PROBING
-             // find next slot using linear probing
-             constexpr
-               size_t next_slot(size_t count) noexcept { return count; }
-
          #endif
-
 
          enum class hash_status { OCCUPIED, EMPTY, DELETED };
 
-         template <class T>
-         struct hash_entry 
-         {
-           T data;
-           hash_status info;
-
-           hash_entry(): info(hash_status::EMPTY)  {}
-           hash_entry(const T& value, hash_status status)
-             : data{value}
-             , info(status)
-             {}
+         struct identity_hash {
+           std::size_t operator()(int value) const noexcept {
+             return static_cast<std::size_t>(value);
+           }
          };
 
          template <class T>
-         std::ostream& operator<<(std::ostream& os, const hash_entry<T>& rhs)
-         {
-           if (rhs.info == hash_status::OCCUPIED) {
-             os << rhs.data;
-           } else if (rhs.info == hash_status::EMPTY) {
-             os << 'E';
-           } else {
-             os << 'D';
-           }
-           return os;
-         }
+         struct hash_entry {
+           T data;
+           hash_status status = hash_status::EMPTY;
+         };
 
          template <class Key,
-                  size_t N,
-                  class Comparator=std::equal_to<Key>>
-         class hash_set
-         {
-           public:
-             using value_type = Key;
-             using key_type   = Key;
+                   std::size_t N,
+                   class Hash = std::hash<Key>,
+                   class KeyEqual = std::equal_to<Key>>
+         class hash_set {
+           static_assert(N > 0, "hash_set needs at least one slot");
 
-             hash_set() = default;
+         public:
+           using size_type = std::size_t;
+           using insert_result = std::pair<size_type, bool>;
 
-             size_t find (const Key& value) const
-             {
-               size_t hash = std::hash<Key>()(value);
-               size_t pos = hash % N;
-               size_t count = 0;
-               while ((table[pos].info == hash_status::DELETED ||
-                      (table[pos].info == hash_status::OCCUPIED 
-                      && (!compare(table[pos].data, value))))
-                   && count < N)
-               {
-                 ++count;
-                 pos = (hash + next_slot(count)) % N;
-               }
-               if (count >= N || table[pos].info == hash_status::EMPTY) {
+           size_type find(const Key& value) const {
+             const size_type home = home_slot(value);
+             for (size_type probe = 0; probe < N; ++probe) {
+               const size_type position = probe_position(value, home, probe);
+               const auto& entry = table_[position];
+               if (entry.status == hash_status::EMPTY) {
                  return N;
                }
-               return pos;
+               if (entry.status == hash_status::OCCUPIED
+                   && equal_(entry.data, value)) {
+                 return position;
+               }
              }
+             return N;
+           }
 
-             constexpr
-               bool contains (const Key& value) const noexcept
-             {
-               return  find(value) != N;
+           bool contains(const Key& value) const {
+             return find(value) != N;
+           }
+
+           size_type count(const Key& value) const {
+             return contains(value) ? 1 : 0;
+           }
+
+           size_type erase(const Key& value) {
+             const size_type position = find(value);
+             if (position == N) {
+               return 0;
              }
+             table_[position].status = hash_status::DELETED;
+             --size_;
+             return 1;
+           }
 
-             int count (const Key& value)
-             {
-               unsigned pos = find(value);
-               return  (pos == N) ? 0 : 1;
-             }
+           insert_result insert(const Key& value) {
+             const size_type home = home_slot(value);
+             size_type first_deleted = N;
 
-             void erase (const Key& value)
-             {
-               unsigned pos = find(value);
-               if (pos != N) {
-                 table[pos].info = hash_status::DELETED;
-                 --sz;
+             for (size_type probe = 0; probe < N; ++probe) {
+               const size_type position = probe_position(value, home, probe);
+               auto& entry = table_[position];
+
+               if (entry.status == hash_status::OCCUPIED) {
+                 if (equal_(entry.data, value)) {
+                   return {position, false};
+                 }
+               } else if (entry.status == hash_status::DELETED) {
+                 if (first_deleted == N) {
+                   first_deleted = position;
+                 }
+               } else {
+                 const size_type target =
+                     first_deleted == N ? position : first_deleted;
+                 table_[target].data = value;
+                 table_[target].status = hash_status::OCCUPIED;
+                 ++size_;
+                 return {target, true};
                }
              }
 
-
-             bool insert (const Key& value)
-             {
-               size_t hash = std::hash<Key>()(value);
-               unsigned pos = find(value);
-               if (pos == N) {
-                 size_t count = 0;
-                 pos = hash % N;
-                 while (table[pos].info == hash_status::OCCUPIED && count < N)
-                 {
-                   ++count;
-                   pos = (hash + next_slot(count)) % N;
-                 }
-                 if (count >= N) {
-                   return false;  // could not add, table is full
-                 }
-                 table[pos].info = hash_status::OCCUPIED;
-                 table[pos].data = value;
-                 ++sz;
-                 return true;
-               }
-               // else replace existing value
-               table[pos].data = value;
-               return true;
+             if (first_deleted != N) {
+               table_[first_deleted].data = value;
+               table_[first_deleted].status = hash_status::OCCUPIED;
+               ++size_;
+               return {first_deleted, true};
              }
+             return {N, false};
+           }
 
+           size_type size() const noexcept {
+             return size_;
+           }
 
-             constexpr
-               size_t size() const noexcept { return sz; }
+           bool empty() const noexcept {
+             return size_ == 0;
+           }
 
-             constexpr
-               bool empty() const noexcept { return sz == 0; }
-
-           private:
-             array<hash_entry<Key>, N> table;
-             Comparator compare;
-             size_t sz = 0;
-
-             friend
-               std::ostream& operator<<(std::ostream& os, const hash_set& rhs)
-               {
-                 os << '[';
-                 for (const auto& slot: rhs.table) {
-                   os << slot << ',';
-                 }
-                 return os << ']';
+           friend std::ostream& operator<<(std::ostream& os,
+                                           const hash_set& set) {
+             os << '[';
+             for (size_type position = 0; position < N; ++position) {
+               const auto& entry = set.table_[position];
+               if (entry.status == hash_status::OCCUPIED) {
+                 os << position << ':' << entry.data << ' ';
+               } else if (entry.status == hash_status::DELETED) {
+                 os << position << ":D ";
+               } else {
+                 os << position << ":E ";
                }
+             }
+             return os << ']';
+           }
 
+         private:
+           size_type home_slot(const Key& value) const {
+             return hasher_(value) % N;
+           }
+
+           size_type probe_position(const Key& value,
+                                    size_type home,
+                                    size_type probe) const {
+             return (home + probe_offset(value, probe)) % N;
+           }
+
+           size_type probe_offset(const Key& value,
+                                  size_type probe) const {
+         #if !defined(USE_DOUBLE_HASHING)
+             (void)value;
+         #endif
+         #if defined(USE_QUADRATIC_PROBING)
+             return probe * probe;
+         #elif defined(USE_DOUBLE_HASHING)
+             return probe * secondary_step(value);
+         #else
+             return probe;
+         #endif
+           }
+
+           size_type secondary_step(const Key& value) const {
+             if constexpr (N == 1) {
+               return 1;
+             } else {
+               return 1 + (hasher_(value) % (N - 1));
+             }
+           }
+
+           std::array<hash_entry<Key>, N> table_;
+           Hash hasher_;
+           KeyEqual equal_;
+           size_type size_ = 0;
          };
 
-         int main() {
-           using std::cout;
-           using std::endl;
-           auto foo = hash_set<int, 11>{};
-           cout << "sz: " << foo.size() << endl;
-           cout << std::boolalpha << "mt?: " << foo.empty() << endl;
-           cout << foo << endl;
-           foo.insert(72);
-           foo.insert(72);
-           cout << "insert two 72's count:"<< endl;
-           cout << foo.count(72) << endl;
-           cout << foo << endl;
-           cout << "mt?: " << foo.empty() << endl;
-
-           foo.erase(72);
-           cout << "count after erase:"<< endl;
-           cout << foo.count(72) << endl;
-
-           foo.insert(-1);
-           foo.insert(0);
-           foo.insert(1);
-           foo.insert(2);
-           foo.insert(9);
-           foo.insert(81);
-           foo.insert(121);
-           foo.insert(572);
-           foo.insert(999);
-           cout << foo << endl;
-           foo.erase(-1);
-           cout << foo << endl;
+         template <class T>
+         std::ostream& operator<<(std::ostream& os,
+                                  const hash_entry<T>& entry) {
+           if (entry.status == hash_status::OCCUPIED) {
+             return os << entry.data;
+           }
+           return os << (entry.status == hash_status::DELETED ? 'D' : 'E');
          }
 
+         int main() {
+           hash_set<int, 11, identity_hash> values;
 
+           std::cout << "size: " << values.size() << '\n'
+                     << std::boolalpha
+                     << "empty: " << values.empty() << '\n';
 
-.. index:: linear probing
-   single: quadratic probing
-   single: double hashing
+           const auto first = values.insert(72);
+           const auto duplicate = values.insert(72);
+           std::cout << "first insertion: " << first.second << '\n'
+                     << "duplicate insertion: " << duplicate.second << '\n'
+                     << "count(72): " << values.count(72) << '\n';
 
-Choosing the next slot
-----------------------
-The function ``next_slot(n)`` in the ``find`` and ``insert`` functions 
-controls the sequence of positions that will be checked.
-It is the implementation of the function :math:`f(n)` mentioned earlier.
-Recall the find function:
+           values.erase(72);
+           std::cout << "after erase, count(72): " << values.count(72)
+                     << '\n';
 
-.. code-block:: cpp
-   :emphasize-lines: 12
+           values.insert(34);
+           values.insert(45);
+           values.insert(21);
+           std::cout << "values: " << values << '\n'
+                     << "contains(45): " << values.contains(45) << '\n';
+         }
 
-   size_t find (const Key& value) const
-   {
-     size_t hash = std::hash<Key>()(value);
-     size_t pos = hash % N;
-     size_t count = 0;
-     while ((table[pos].info == hash_status::DELETED ||
-            (table[pos].info == hash_status::OCCUPIED 
-            && (!compare(table[pos].data, value))))
-         && count < N)
-     {
-       ++count;
-       pos = (hash + next_slot(count)) % N;
-     }
-     if (count >= N || table[pos].info == hash_status::EMPTY) {
-       return N;
-     }
-     return pos;
-   }
+The default linear-probing strategy checks the home slot, then consecutive
+slots, wrapping at the end of the array. It is simple, but entries tend to
+form contiguous clusters. This is called *primary clustering* because a
+cluster makes later probe sequences longer.
 
-On our :math:`n_{th}` try, we examine the position
+.. code-block:: bash
+   :caption: Linear probing
 
-.. math::
+   offset(value, i) <- i
+   position_i <- (home(value) + i) % N
 
-   pos_n = hash(value) + f(n)
+Quadratic probing uses increasing offsets:
 
-where :math:`hash(value)` always returns the :term:`home slot` for any
-hashed value.
-This is the location that the value would be stored if currently unoccupied.
-The ``f`` function computes an offset from the reference location.
-The most common schemes for choosing the next slot are
-:term:`linear probing`,
-:term:`quadratic probing`, and
-:term:`double hashing`.
+.. code-block:: bash
+   :caption: Quadratic probing
 
-Linear probing
-   .. math::
+   offset(value, i) <- i * i
+   position_i <- (home(value) + i * i) % N
 
-      f(n) = n
+Quadratic probing reduces primary clustering, but different keys with the same
+home slot still follow the same sequence. That is called secondary clustering.
+The simple ``i * i`` sequence is not guaranteed to visit every slot for every
+table size. A common analysis uses a prime table size and keeps the load factor
+below one half, but these conditions describe a particular probing scheme,
+not a universal guarantee.
 
-   If a collision occurs at location ``pos``, 
-   we next check locations 
-   :math:`pos+1 \pmod N, pos+2 \pmod N, pos+3 \pmod N, \ldots` and so on.
-
-   Because collisions get stored in a location originally intended for
-   another hash code, values have a tendency to clump together in the
-   hash table.
-
-Quadratic probing
-   .. math::
-
-      f(n) = n^2
-
-   If a collision occurs at location ``pos``, 
-   we next check locations 
-   :math:`pos+1 \pmod N, pos+4 \pmod N, pos+9 \pmod N, \ldots` and so on.
-
-   Because the jumps between slots increases as the number of tries increases,
-   this function tends to reduce clumping (and results in shorter searches).
-   *``But``* it is not guaranteed to find an available empty slot if the table is
-   more than half full or if ``N`` is not a prime number.
-
-   .. note::
-
-      Again, prime numbers!
-
-      Remember the earlier discussion about how ``% N`` tends to improve the
-      key distribution when ``N`` is prime?
-      You can see why it's part of programming "folklore" that hash tables
-      should be prime-number sized, even if most programmers can't say 
-      *why* that's supposed to be good.
-
-Double hashing
-   .. math::
-
-      f(n) = n * h_2(value)
-
-   where :math:`h_2` is an alternate hash code function.
-
-   If a collision occurs at location ``pos``, 
-   we next check locations 
-   :math:`(pos+1*h_2(value)) \pmod N, pos+2*h_2(value)) \pmod N, pos+3*h_2(value)) \pmod N, \ldots` and so on.
-
-   This also tends to reduce clumping, but, as with quadratic hashing,
-   it is possible to get unlucky and miss open slots when trying to find
-   a place to insert a new key.
-
-
-Analysis of closed hashing
---------------------------
-We define :math:`\lambda`, the :term:`load factor` of a hash table, 
-as the number of items contained in the table divided by the table size.
-In other words, the load factor measures what fraction of the table is full.
-By definition, :math:`0 \le \lambda \le 1`.
-
-- Given an ideal collision strategy, 
-  the probability of an arbitrary cell being full is :math:`\lambda`.
-- Therefore,
-  the probability of an arbitrary cell being empty is :math:`1 - \lambda`.
-- The average number of table elements we expect to examine before finding
-  an open position is therefore :math:`\frac {1}{1-\lambda}`.
-
-Since we never look at more than ``N`` positions,
-given an ideal collision strategy, finds and inserts are on average 
+Double hashing uses a second hash function to choose the step size:
 
 .. math::
 
-   O \left ( min \left ( \frac {1}{1-\lambda}, N \right ) \right )
+   offset(value, i) = i \mathbin{\times} h_2(value)
 
-The graph shows how :math:`\frac {1}{1-\lambda}` changes as
-:math:`\lambda` increases.
+   position_i = (home(value) + i \mathbin{\times} h_2(value)) \mathbin{\%} N
+
+The step must be nonzero and relatively prime to ``N``. When ``N`` is prime,
+choosing ``h_2(value)`` in the range ``1`` through ``N - 1`` guarantees this
+property. For a non-prime table size, the secondary hash must be designed so
+that the step and ``N`` are relatively prime; otherwise the sequence can skip
+slots and fail even when an empty slot exists.
+
+The three strategies have different clustering behavior and probe costs. The
+table must also keep enough empty capacity for a probe sequence to terminate,
+and tombstones effectively increase the amount of occupied search history.
+
+Analysis of open addressing
+---------------------------
+Let :math:`N` be the number of occupied entries and :math:`M` be the number of
+slots in the table. The :term:`load factor` is:
+
+.. math::
+
+   \lambda = \frac{N}{M}
+
+For open addressing, :math:`0 \leq \lambda \leq 1`, and insertion cannot
+succeed when every slot is occupied. Under an idealized uniform-probing model,
+the expected number of probes for an unsuccessful search or insertion is:
+
+.. math::
+
+   \frac{1}{1 - \lambda}
+
+This formula does not describe every probe strategy exactly. Successful
+searches have a different expected cost, and linear probing can perform worse
+because of primary clustering. The formula is useful for showing why open
+addressing becomes increasingly sensitive to load factor.
+
+The graph shows the expected number of *extra* probes beyond the first under
+the idealized model:
 
 .. plot::
 
    import numpy as np
    import matplotlib.pyplot as plt
 
-   n = np.linspace(0, 0.96, 100)
-   plt.plot(n, 1/(1-n) -1)
+   load_factor = np.linspace(0, 0.96, 100)
+   extra_probes = 1 / (1 - load_factor) - 1
+   plt.plot(load_factor, extra_probes)
 
-   plt.ylim(0,20.5)
-   plt.xlim(0,0.96)
-
-   plt.title('Collision growth vs. load factor')
-   plt.xlabel('Load factor')
-   plt.ylabel('Average # of collisions')
+   plt.ylim(0, 20.5)
+   plt.xlim(0, 0.96)
+   plt.title('Expected extra probes vs. load factor')
+   plt.xlabel(r'Load factor ($\lambda$)')
+   plt.ylabel('Expected extra probes')
    plt.xticks(np.arange(0, 1, step=0.1))
    plt.yticks(np.arange(0, 20.5, step=2))
 
    plt.show()
 
+If the table is less than half full, then the idealized unsuccessful-search
+estimate is less than two probes on average. As :math:`\lambda` approaches
+one, the estimate grows without bound, although a real table can examine no
+more than ``M`` slots before declaring failure. In practice, clustering and
+tombstones make the actual cost dependent on the selected strategy.
 
-If the table is less than half full (:math:`\lambda < 0.5`)
-then we expect to try **on average** no more than 2 slots 
-during a search or insert. 
-Not too bad.
-But as :math:`\lambda` gets larger,
-the average number of slots examined grows toward ``N``.
-As the table fills and ``sz`` approaches ``N``, the performance
-degenerates toward :math:`O(N)` behavior.
-
-Because of this, a general rule of thumb for hash tables is 
-to keep them no more than half full.
-At that load factor, we can treat searches and inserts as :math:`O(1)`
-operations.
-If we let the load factor get much higher, we start seeing :math:`O(N)`
-performance.
-
-No collision resolution scheme is truly ideal, 
-so keeping the load factor low enough is even more important in practice 
-than this idealized analysis indicates.
+Keeping the table comfortably below full is therefore necessary, but there is
+no universal half-full rule. A practical implementation chooses a threshold
+based on its probe strategy and workload, then rehashes before the table or its
+tombstones make searches too long.
 
 -----
 
 .. admonition:: More to Explore
 
-   - The content on this page was adapted from
-     Resolving Collisions 
-     <https://www.cs.odu.edu/~zeil/cs361/f25-web/Public/collisions/index.html>,
-     by Steven J. Zeil for his data structures course CS361. 
+   - :doc:`Resolving collisions <hash_table_collisions>`
+   - :doc:`Separate chaining (open hashing) <open_hashing>`
+   - :cpp:`std::unordered_set <container/unordered_set>`
+   - :cpp:`std::unordered_map <container/unordered_map>`

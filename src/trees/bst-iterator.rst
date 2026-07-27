@@ -11,12 +11,11 @@
 
 Binary Search Tree iterators
 ============================
-The recursive traversal algorithms work well for implementing 
-tree-based ADT member functions, 
-but if we are trying to hide the trees inside some ADT 
-for example, using binary search trees to implement std::set
-or using STL algorithms or range-for loops, 
-then we need to provide iterators for walking though the contents of the tree.
+The recursive traversal algorithms work well for implementing tree-based ADT
+member functions. If we hide the tree inside an ADT, however, we need an
+iterator so users can apply standard-library algorithms and range-for loops.
+For example, a binary search tree can provide the ordered interface of
+``std::set``.
 
 Iterators for tree-based data structures can be more complicated than those 
 for linear structures.
@@ -51,18 +50,17 @@ that data structure, because that worked with iterators over linked lists.
 
 BST iterator ``begin()`` and ``end()``
 --------------------------------------
-As in any data structure, ``begin`` and ``end`` refer to the 
-first element in the data structure and one past the last element.
-In the last section, we said that 
-a BST is sorted when a level order traversal is used.
+As in any data structure, ``begin`` and ``end`` refer to the first element in
+the data structure and one past the last element. The previous page showed
+that a BST produces sorted values when visited using an in-order traversal.
 
 So what algorithm should we use to find the beginning?
 
 .. tb-reveal::
    :name: reveal_bst_it_1
 
-   Start from the root and working our way down, 
-   always taking left children, until we come to a node with no left child.
+   Start from the root and work our way down, always taking left children,
+   until we come to a node with no left child.
 
    The left-most child of a BST is always the minimum element.
 
@@ -76,7 +74,7 @@ So what algorithm should we use to find the end?
    It's tempting to guess that you could do much the same as for ``begin()``,
    this time seeking out the right-most node.
    But that would leave you pointing to the **last** node in the tree,
-   and ``end()``, must always refer to the position after the last element
+   and ``end()`` must always refer to the position after the last element
    in the container.
 
 
@@ -160,96 +158,114 @@ a recursive traversal.
 
 But this solution is clumsy and inefficient.
 Iterators tend to get assigned (copied) a lot,
-and we'd really like that to be a constant time - an O(1) operation.
+and we'd really like that to be a constant time - an :math:`O(1)` operation.
 Having to copy an entire stack of pointers just isn't very attractive.
 
 
 BST iterator using parent pointers
 ..................................
-We can make the task of creating tree iterators much easier if we 
-redesign the tree nodes to add pointers from each node to its parent.
+We can make the task of creating tree iterators much easier if we redesign the
+tree nodes to add a pointer from each node to its parent. The child pointers
+remain owning ``std::unique_ptr`` objects. The parent pointer is a non-owning
+observer; it must never be used to delete a node.
 
 .. code-block:: cpp
+   :name: bst-iterator-node
 
-    // a binary tree node
-    template<class T>
-      struct tree_node {
-        T value;
-        tree_node<T>* left;
-        tree_node<T>* right;
-        tree_node<T>* parent; // link to parent simplifies iterators
-        tree_node(const T& value = T{}, 
-            tree_node<T>* left = nullptr,
-            tree_node<T>* right = nullptr,
-            tree_node<T>* parent = nullptr)
-          : value{value}
-        , left{left}
-        , right{right}
-        , parent{parent}
-        { }
-      };
+   #include <memory>
 
+   template<class T>
+   struct tree_node {
+     T value;
+     std::unique_ptr<tree_node> left;
+     std::unique_ptr<tree_node> right;
+     tree_node* parent = nullptr;
 
+     explicit tree_node(const T& node_value, tree_node* parent_node = nullptr)
+       : value{node_value}, parent{parent_node} {}
+   };
 
-These nodes are then used to implement a tree class, which, as usual,
-keeps track of the root of our tree in a data member.
+The tree class owns the root. Every child is owned by its parent, while each
+parent pointer only points back toward an object that is owned elsewhere.
+This ownership direction prevents cycles and lets destroying the root destroy
+the complete tree.
 
 The outline for a tree iterator is similar to what we have covered before:
 
 .. code-block:: cpp
+   :name: bst-iterator-core
 
-     template <typename T>
-       struct tree_iterator {
-         typedef T value_type;
-         typedef T* pointer;
-         typedef T& reference;
-         typedef std::ptrdiff_t difference_type;
-         typedef std::bidirectional_iterator_tag iterator_category;
-
-         const tree::tree_node<T>* node;
-         tree_iterator() = default;
-         tree_iterator(const tree::tree_node<T>* n);
-
-         constexpr
-            const T& operator*() const noexcept;
-         tree_iterator& operator++(); 
-         tree_iterator operator++(int);
-         tree_iterator& operator--(); 
-         tree_iterator operator--(int);
-      };
-
-There is a subtlety when using our tree iterator in a BST.
-
-.. code-block:: cpp
-   :emphasize-lines: 5,6
+   #include <cstddef>
+   #include <iterator>
 
    template<class T>
-    class bstree {
-      public:
-        typedef T value_type;
-        typedef const tree_iterator<T> const_iterator;
-        typedef const_iterator iterator;
-        typedef const_iterator reverse_iterator;
-        typedef const_iterator const_reverse_iterator;
+   struct tree_iterator {
+     using value_type = T;
+     using pointer = const T*;
+     using reference = const T&;
+     using difference_type = std::ptrdiff_t;
+     using iterator_category = std::bidirectional_iterator_tag;
 
-        // remainder omitted . . .
-    };
+     const tree_node<T>* node = nullptr;
 
-Note the type of all the iterators is ``const``.
-We only want ``const`` behavior for this ADT.
-If we provided a "true" non-const iterator,
-it would allow reassigning data in the tree:
+     tree_iterator() = default;
+     explicit tree_iterator(const tree_node<T>* node) : node{node} {}
+
+     reference operator*() const noexcept { return node->value; }
+     pointer operator->() const noexcept { return &node->value; }
+     bool operator==(const tree_iterator& other) const noexcept {
+       return node == other.node;
+     }
+     bool operator!=(const tree_iterator& other) const noexcept {
+       return !(*this == other);
+     }
+     tree_iterator& operator++();
+     tree_iterator operator++(int);
+     tree_iterator& operator--();
+     tree_iterator operator--(int);
+   };
+
+There is a subtlety when using our tree iterator in a BST. This page provides
+read-only iterators: the iterator object can be copied and incremented, but
+its ``reference`` type is ``const T&``. Dereferencing an iterator therefore
+allows us to view a value without modifying it.
+
+.. code-block:: cpp
+
+   template<class T>
+   class bstree {
+   public:
+     using value_type = T;
+     using iterator = tree_iterator<T>;
+     using const_iterator = iterator;
+     using reference = typename iterator::reference;
+     using reverse_iterator = std::reverse_iterator<iterator>;
+     using const_reverse_iterator = reverse_iterator;
+
+     // remainder omitted . . .
+   };
+
+The iterator type itself is not ``const``. It must be assignable and
+incrementable. Instead, ``bstree::reference`` is ``const T&``, so users
+cannot reassign data in the tree:
 
 .. code-block:: cpp
 
    bstree<int>::iterator it = myTree.find(50);
-   *it = 10000;
+   *it = 10000;  // error: *it is a const int&
 
 which would very likely break the internal ordering of data,
 violating the binary search tree property,
 and making it useless for any future searches.
-A ``const`` iterator allows us to look at data in the container,
+A read-only iterator allows us to look at data in the container,
 but not change that data.
+
+The reverse iterator is the standard
+:iterator:`std::reverse_iterator <reverse_iterator>` wrapper around
+our ``tree_iterator``. It moves backward by calling the underlying iterator's
+decrement operators. Implementing ``tree_iterator::operator--`` and its
+postfix form is intentionally left as a homework assignment; the reverse
+traversal algorithm is not provided on this page.
 
 
 Implementing BST iterators
@@ -260,41 +276,39 @@ the minimum element in the tree.
 A free function that works with the ``tree_node`` struct is enough:
 
 .. code-block:: cpp
+   :name: bst-iterator-min
 
    template <class T>
-     tree_node<T>* min_element(tree_node<T>* root )
-     {
-       if(root == nullptr || root->left == nullptr) {
-         return root;
-       }
-       return min_element(root->left);
+   const tree_node<T>* min_element(const tree_node<T>* root) {
+     if (root == nullptr || root->left == nullptr) {
+       return root;
      }
+     return min_element(root->left.get());
+   }
 
 
 ``bstree::begin()`` can use this function directly:
 
 .. code-block:: cpp
 
-   constexpr
-     const_iterator begin() const noexcept {
-       return const_iterator(min_element(root));
-     }
+   const_iterator begin() const noexcept {
+     return const_iterator(min_element(root.get()));
+   }
 
 
 And ``end()`` uses the null pointer.
 
 .. code-block:: cpp
 
-   constexpr
-     const_iterator end() const noexcept {
-       return const_iterator(nullptr);
-     }
+   const_iterator end() const noexcept {
+     return const_iterator(nullptr);
+   }
 
 
 
 Implementing ``operator++()``
 .............................
-Before implementing ``operator++``, let's think about what is should do.
+Before implementing ``operator++``, let's think about what it should do.
 Given the following tree:
 
 .. include:: tree.dot
@@ -312,8 +326,8 @@ That is, the node that comes next during an in-order traversal of E?
    G is the in-order successor of E. 
 
    If you answered F, remember that in an in-order traversal, 
-   we visit a node only after visiting all of its left descendents 
-   and before visiting any of its right descendents. 
+   we visit a node only after visiting all of its left descendants
+   and before visiting any of its right descendants.
    Since we're at E, we must have already visited F.
 
 That example suggests that a node's in-order successor tends to be among 
@@ -327,13 +341,13 @@ If our previous premise is correct, then what is the in-order successor to A?
    F is the in-order successor of A.
 
    If we are at A during an in-order traversal,
-   then we have already visited all of A's left descendents.
-   So the answer has to be C or one of its descendents.
+   then we have already visited all of A's left descendants.
+   So the answer has to be C or one of its descendants.
    It's tempting to pick C because it's only one step away from A.
 
    But, remember, during an in-order traversal,
-   we visit a node only after visiting all of its left descendents and 
-   before visiting any of its right descendents.
+   we visit a node only after visiting all of its left descendants and
+   before visiting any of its right descendants.
 
    We have not yet visited C's left descendants. 
    So have to run down from C to the left as far as we can go.
@@ -406,7 +420,7 @@ When applying this procedure to C,
 we move up to A (right edge), 
 then try to move up again to A's parent. 
 But since A is the tree root, 
-it's parent pointer will be null,
+its parent pointer will be null,
 which is our signal that C has no in-order successor.
 
 To summarize:
@@ -428,33 +442,34 @@ To summarize:
       Putting it all together.
 
       .. code-block:: cpp
+         :name: bst-iterator-increment
 
-         tree_iterator& operator++() { 
+         template<class T>
+         tree_iterator<T>& tree_iterator<T>::operator++() {
            if (node == nullptr) {
-             return * this;
+             return *this;
            }
            if (node->right != nullptr) {
-              // find the smallest node on the right subtree
-              node = mesa::tree::min_element(node->right);
+             // Find the smallest node in the right subtree.
+             node = min_element(node->right.get());
            } else {
-              // finished with right subtree and there is no right
-              // search up for first parent with a non-null right child
-              // or nullptr,
+              // Search upward for the first parent reached over a left edge,
+              // or nullptr when this node is the final value.
               auto parent = node->parent;
-              while (parent != nullptr && node == parent->right) {
+              while (parent != nullptr && node == parent->right.get()) {
                 node = parent;
                 parent = parent->parent;
               }
               node = parent;
            }
-           return * this; 
+           return *this;
          }
 
 
 One part of this iterator that needs closer inspection is the ``while`` loop.
 This loop continues moving upwards in the tree until it finds:
 
-- A ``node`` where the current node is in the left subtree of its parent, or
+- A ``node`` where the current node is the left child of its parent, or
 - The root of the tree (:code:`parent == nullptr`),
   indicating that there is no in-order successor (end of the traversal).
 
@@ -462,7 +477,7 @@ This loop continues moving upwards in the tree until it finds:
 
 - :code:`parent != nullptr`: Ensures we do not dereference a nullptr when
   accessing :code:`parent->right`.
-- :code:`node == parent->right`: Asserts the current node is the right child of
+- :code:`node == parent->right.get()`: Asserts the current node is the right child of
   its parent.
   When true, we need to keep moving upwards, as the in-order successor is not
   in this part of the tree.
@@ -471,11 +486,11 @@ The loop climbs up the tree until it finds a node for which the current
 traversal has completed its right subtree. This ensures that the in-order
 successor is correctly identified.
 
-Consider an alternative approach that simply checks the immediate predecessor:
+Consider an alternative approach that simply checks the immediate parent:
 
 .. code-block:: cpp
 
-   if (parent != nullptr && node == parent->right) {
+   if (parent != nullptr && node == parent->right.get()) {
        node = parent;
        parent = parent->parent;
    }
@@ -530,70 +545,93 @@ If the iterator is at ``20`` (the rightmost node):
 - A single conditional would move only one step (to 15) and fail to reach the
   root, leaving the iterator in an inconsistent state.
 
+The following example combines the node, insertion, iterator, and
+successor fragments to walk the tree in ascending order.
 
-Using parent pointers
-=====================
-Using parent pointers does incur additional overhead.
-We must store an additional pointer with every tree node.
-It also means the functions used to manage the tree need to change.
+.. tb-code:: cpp
+   :name: bst-iterator-forward
+   :run-before: bst-iterator-node, bst-iterator-insert, bst-iterator-core, bst-iterator-min, bst-iterator-increment
 
-Originally, inserting a node looked like this:
+   #include <iostream>
 
-.. code-block:: cpp
-
-   tree::tree_node<T>* 
-    insert (const T& value, 
-            tree::tree_node<T>*& node)
-    {
-      // add a new leaf
-      if(node == nullptr) {
-        node = new tree::tree_node<T>(value, nullptr, nullptr);
-        return node;
-      }
-      if(value < node->value) {
-        return insert(value, node->left);
-      } 
-      if(node->value < value) {
-        return insert(value, node->right);
-      }
-      // else the value already exists in the tree
-      node->value = value;
-      return node;
-    }
-
-But now when inserting a new node, we also need to maintain
-correct parent relationships.
-
-.. code-block:: cpp
-   :emphasize-lines: 5,9,13,15
-
-   tree::tree_node<T>* 
-     insert (const T& value, 
-             tree::tree_node<T>*& node, 
-             tree::tree_node<T>* parent)
-     {
-       // add a new leaf
-       if(node == nullptr) {
-         node = new tree::tree_node<T>(value, nullptr, nullptr, parent);
-         return node;
-       }
-       if(value < node->value) {
-         return insert(value, node->left, node);
-       } 
-       if(node->value < value) {
-         return insert(value, node->right, node);
-       }
-       // else the value already exists in the tree
-       node->value = value;
-       return node;
+   int main() {
+     std::unique_ptr<tree_node<int>> root;
+     for (int value : {30, 20, 70, 50, 40, 60}) {
+       insert(root, value);
      }
 
-When we make a new node, we need to pass the parent into
-the ``tree_node`` constructor.
-Even though it won't have children initially, it will have a parent.
+     tree_iterator<int> begin{min_element(root.get())};
+     tree_iterator<int> end;
+     while (begin != end) {
+       std::cout << *begin << ' ';
+       ++begin;
+     }
+     std::cout << '\n';
+   }
 
-When we make our recursive calls, the parent node passed in
-is the current node.
+
+Using parent pointers
+---------------------
+Using parent pointers does incur additional overhead: every tree node stores
+one more non-owning pointer. It also means insertion must maintain the parent
+relationship whenever it creates a child.
+
+The insertion contract remains the same as the previous page and as
+``std::set::insert``: equivalent values are not inserted, and the returned
+Boolean reports whether a new node was created. The returned node pointer is a
+non-owning position handle; a later section replaces that handle with an
+iterator.
+
+.. code-block:: cpp
+   :name: bst-iterator-insert
+
+   #include <memory>
+   #include <utility>
+
+   template<class T>
+   std::pair<tree_node<T>*, bool>
+   insert(std::unique_ptr<tree_node<T>>& node,
+          const T& value,
+          tree_node<T>* parent = nullptr) {
+     if (node == nullptr) {
+       node = std::make_unique<tree_node<T>>(value, parent);
+       return {node.get(), true};
+     }
+     if (value < node->value) {
+       return insert(node->left, value, node.get());
+     }
+     if (node->value < value) {
+       return insert(node->right, value, node.get());
+     }
+     return {node.get(), false};
+   }
+
+When a new node is made, the current node is passed to the constructor as its
+parent. The recursive call also passes the current node when it descends into
+either child. Notice that the child remains owned by its ``unique_ptr``;
+``parent`` is only an observer.
+
+The following small program builds a parent-aware tree and verifies both the
+unique-key insertion result and one parent link.
+
+.. tb-code:: cpp
+   :name: bst-iterator-build
+   :run-before: bst-iterator-node, bst-iterator-insert
+
+   #include <iostream>
+
+   int main() {
+     std::unique_ptr<tree_node<int>> root;
+     for (int value : {30, 20, 70, 50, 60}) {
+       insert(root, value);
+     }
+     auto duplicate = insert(root, 50);
+
+     std::cout << std::boolalpha
+               << "inserted duplicate: " << duplicate.second << '\n'
+               << "parent of 50: " << root->right->left->parent->value
+               << '\n';
+   }
 
 
 -----
@@ -605,4 +643,3 @@ is the current node.
      by Steven J. Zeil for his data structures course CS361.
 
    - `Binary tree visualizer <http://btv.melezinek.cz>`__
-

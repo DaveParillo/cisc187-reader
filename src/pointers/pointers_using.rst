@@ -85,13 +85,12 @@ These require parentheses if you want the ``*`` to take precedence.
      int* p2n = &n;  // another pointer to n
      (*p)++; // increments n
      std::cout << "n = " << n << '\n';
-     std::cout << "* p = " << * p << '\n';
-     *p++;   // increments p
-             // p now points to next address in memory
-             // Almost always an error
-     std::cout << "* p = " << * p << '\n';
-
-     return 0;
+     std::cout << "*p = " << *p << '\n';
+     std::cout << "*p2n = " << *p2n << '\n';
+     std::cout << "*p++ = " << (*p++) << '\n';   // increments p
+          // p now points to next address in memory
+          // Almost always an error
+     std::cout << "*p = " << *p << '\n';
    }
 
 Unlike the fundamental types in C++,

@@ -1,115 +1,155 @@
 ..  Copyright (C)  Dave Parillo.  Permission is granted to copy, distribute
     and/or modify this document under the terms of the GNU Free Documentation
     License, Version 1.3 or any later version published by the Free Software
-    Foundation; with Invariant Sections being Forward, and Preface,
+    Foundation, with Invariant Sections being Forward, and Preface,
     no Front-Cover Texts, and no Back-Cover Texts.  A copy of
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. index:: 
+.. index::
    pair: analysis; separate chaining
 
 Analysis of separate chaining
 =============================
-We define :math:`\lambda`, the :term:`load factor` of a hash table, 
-as the number of items contained in the table divided by the table size.
-Given a hash table with a separate bucket for each item to be stored
-and a well-behaved hash function, then :math:`\lambda = 1.0` and
-the length of each list to also 1.
+In a separate-chaining hash table, each bucket refers to a collection of keys.
+Let:
 
-The effort required to perform a search is the constant time required to
-evaluate the hash function plus the time to traverse the list.
-In an unsuccessful search, the number of list nodes to examine is :math:`\lambda`
-on average.
-A successful search requires that about :math:`1 + (\lambda / 2)` links be traversed.
+- :math:`N` be the number of elements stored in the table.
+- :math:`M` be the number of buckets.
 
-Why?
-Note that the list that is being searched contains the one node that stores
-the match plus zero or more other nodes
-The expected number of "other nodes" in a table of :math:`N` elements and
-:math:`M` lists is :math:`(N - 1)/M = \lambda - 1/M`,
-which is essentially :math:`\lambda`, since :math:`M` is often large.
-Recall our analysis of sequential data structures: on average, 
-half the list is searched, so combined with the matching node,
-the average search cost is :math:`1 + \lambda / 2` nodes.
-This shows that the table size is not nearly as important as the load factor.
-The general rule for separate chaining hashing is to make the table size about
-as large as the number of elements expected.
+We define :math:`\lambda`, the :term:`load factor`, as:
 
-The graph shows how the cost of finding a node increases as :math:`\lambda` increases.
+.. math::
+
+   \lambda = \frac{N}{M}
+
+Unlike an open-addressing table, a separate-chaining table can have more
+elements than buckets, so :math:`\lambda` can be greater than ``1``. If a
+table has one bucket for every stored element, then :math:`\lambda = 1` on
+average. A well-behaved hash function distributes the elements across the
+buckets, but the individual chain lengths will still vary.
+
+The cost of a lookup has two parts:
+
+1. Compute the hash value and reduce it to a bucket index.
+2. Search the selected bucket using the key-equality predicate.
+
+For fixed-size keys, the first part is usually treated as constant time. For
+variable-size keys such as strings, hashing can also depend on the key length.
+The analysis below focuses on the bucket-search portion.
+
+An unsuccessful search examines the selected bucket and compares the search
+key with each element in that bucket. Under a uniform-distribution assumption,
+the expected number of key comparisons is the average chain length:
+:math:`\lambda`.
+
+A successful search examines the matching element and, on average, half of
+the other elements in its bucket. The expected number of comparisons is
+approximately :math:`1 + \frac{\lambda}{2}`.
+
+For a finite table with uniform random placement, the more precise expression
+is :math:`1 + (N - 1)/(2M)`. The simpler expression is easier to use and has
+the same behavior as the table grows.
+
+This shows why the number of buckets matters through the load factor. If the
+table has far more buckets than elements, most chains have zero or one item.
+If the number of elements grows while the bucket count stays fixed, the
+average chain grows as :math:`\lambda = N/M`.
+
+The graph shows the approximate successful-search cost as the load factor
+increases. It models the number of key comparisons after the bucket has been
+selected; it does not include the cost of computing a variable-length key's
+hash value.
 
 .. plot::
 
    import numpy as np
    import matplotlib.pyplot as plt
 
-   n = np.linspace(0, 10, 100)
-   plt.plot(n, 1+ (n/2))
+   load_factor = np.linspace(0, 10, 100)
+   successful_search = 1 + (load_factor / 2)
+   plt.plot(load_factor, successful_search)
 
-   plt.ylim(0,10)
-   plt.xlim(0,10)
+   plt.ylim(0, 10)
+   plt.xlim(0, 10)
 
-   plt.title('Search growth vs. load factor')
+   plt.title('Successful search cost vs. load factor')
    plt.xlabel(r'Load factor ($\lambda$)')
-   plt.ylabel('Average # of list nodes searched')
+   plt.ylabel('Average key comparisons')
    plt.xticks(np.arange(0, 10.1, step=1))
    plt.yticks(np.arange(0, 10.1, step=1))
 
    plt.show()
 
+Separate chaining degrades gradually as the load factor grows. There is no
+single load factor at which resizing becomes mathematically required: a chain
+can continue to grow as long as the program has memory. A smaller load factor
+usually improves lookup time at the cost of more bucket storage.
 
-In separate chaining hash tables suffer gradually declining performance
-as the load factor grows.
-There is no fixed point beyond which resizing is absolutely needed.
-Keep in mind that keeping the load factor < 1 in separate chaining may
-result in too many empty buckets.
-If memory is at a premium, we can trade some performance for space in memory.
+The best threshold depends on the hash function, the bucket container, the
+hardware, and the workload. Values around ``1`` to ``3`` can be useful
+illustrative experiments for list-based buckets, but they are not universal
+rules. A production implementation should measure its workload or use a
+container policy rather than relying on this range.
 
-If you are concerned about performance,
-then you should measure the load factor that maximizes performance on your system.
-Typically it will be between 1 and 3.
-One might think that :math:`\lambda = 1` is the right place to rehash,
-but the best performance is often seen
-(for buckets implemented as linked lists)
-when load factors are in the 1 - 2 range.
+When the load factor exceeds the chosen threshold, the table can rehash:
 
-If the load factor exceeds our threshold, then we expand the table size by calling ``rehash``.
-This process should also ensure the new hash table storage size maintain
-a prime number of elements to ensure good distribution among buckets.
+1. Allocate a new bucket array, usually with a larger bucket count.
+2. Recompute each element's bucket index using the new bucket count.
+3. Insert each element into its new bucket.
+
+Changing the bucket count changes every bucket index, so rehashing must visit
+all :math:`N` elements. A prime bucket count can help particular modulo-based
+hash schemes, but it does not guarantee a uniform distribution. The bucket
+count and hash policy should be chosen together.
+
+The standard unordered containers expose related policy operations, including
+:cpp:`max_load_factor <container/unordered_map/max_load_factor>`,
+:cpp:`reserve <container/unordered_map/reserve>`, and
+:cpp:`rehash <container/unordered_map/rehash>`. Their implementations choose
+the actual bucket policy and manage the rehash operation for the programmer.
 
 .. note::
 
-   For separate chaining, assuming a load factor of 1,
-   this is one version of the classic **balls and bins problem**:
-   Given :math:`N` balls placed randomly (uniformly) in :math:`N` bins,
-   what is the expected number of balls in the most occupied bin?
+   Assume that :math:`N` keys are placed independently and uniformly into
+   :math:`N` buckets. This is the classic **balls-and-bins problem**. The
+   expected length of the longest chain is:
 
-   The answer is known to be :math:`\theta \left ( \log{N}/\log {\log{N}} \right )`,
-   meaning that on average, we expect some queries to take nearly logarithmic time.
-   Similar types of bounds are observed (or provable) for the length of the
-   longest expected probe sequence in a probing hash table.
-   We would like to obtain :math:`O(1)` worst-case cost.
+   .. math::
 
-Suppose we have inserted :math:`sz` items into a table of size :math:`N`.
+      \Theta\left(\frac{\log N}{\log \log N}\right)
 
-We could use a tree for each bucket,
-which would reduce the cost of searching buckets to :math:`O(\log_{2}(sz))`
-with an extra cost that ``Key`` types support a ``operator<`` comparison 
-in addition to the ``operator==`` comparison required with list buckets.
+   This is an expected maximum under the stated random-placement assumptions;
+   it does not mean that every lookup takes logarithmic time. A particular
+   hash function can perform much worse if its keys are not distributed well.
 
-In a list-based implementation, if ``N`` is much larger than ``sz``, 
-and if our hash function uniformly distributes our keys, 
-then most lists will have 0 or 1 item, 
-and the average case is approximately :math:`O(1)`.
-But if ``sz`` is much larger than ``N``, 
-we are looking at an :math:`O(sz)`
-linear search sped up by a constant factor (``N``), but still :math:`O(sz)`.
+Suppose we use a tree rather than a list for each bucket. If the selected
+bucket contains :math:`L` elements, a balanced tree can reduce its search cost
+to :math:`O(\log L)`. This requires the key type, or a supplied comparator, to
+provide a strict weak ordering in addition to the equality predicate used by
+the hash table. It does not make the hash table's worst-case lookup constant:
+all :math:`N` keys could still map to one bucket, producing a cost of
+:math:`O(\log N)` for a balanced tree bucket.
 
-Bottom line: hash tables let us trade space for speed.
+With list-based buckets and a uniform hash function, the expected lookup cost
+is approximately :math:`O(1 + \lambda)`, in addition to hash computation.
+When :math:`M` is much larger than :math:`N`, most buckets have zero or one
+element and the expected cost is close to constant. When :math:`N` is much
+larger than :math:`M`, the average chain length is large and the expected cost
+approaches linear behavior in the number of stored elements when ``M`` is
+fixed.
 
+The bottom line is that hash tables trade bucket storage for shorter searches.
+Good hash distribution and a suitable load-factor policy are both necessary
+to make that trade worthwhile.
 
 -----
 
 .. admonition:: More to Explore
 
+   - :doc:`Separate chaining implementation <open_hashing>`
+   - :doc:`Open addressing (closed hashing) <closed_hashing>`
+   - :cpp:`max_load_factor <container/unordered_map/max_load_factor>`
+   - :cpp:`reserve <container/unordered_map/reserve>`
+   - :cpp:`rehash <container/unordered_map/rehash>`
    - :wiki:`Balls into bins problem<Balls_into_bins_problem>` on Wikipedia.

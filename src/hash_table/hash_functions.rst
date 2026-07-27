@@ -1,189 +1,237 @@
 ..  Copyright (C)  Dave Parillo.  Permission is granted to copy, distribute
     and/or modify this document under the terms of the GNU Free Documentation
     License, Version 1.3 or any later version published by the Free Software
-    Foundation; with Invariant Sections being Forward, and Preface,
+    Foundation, with Invariant Sections being Forward, and Preface,
     no Front-Cover Texts, and no Back-Cover Texts.  A copy of
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. index:: 
+.. index::
    pair: hashing concepts; hash functions
 
 Hash functions
 ==============
-Unless we have special knowledge about the keys, 
-the best we can say about "minimizing the number of collisions" 
-is that we hope that our hashing function will distribute the keys uniformly, 
-that is, if keys are selected at random, then the probability of the next 
-key going into any particular position in the hash table should be 
-the same as for any other position.
+Unless we have special knowledge about the keys, the best we can do to
+minimize collisions is choose a hash function that distributes likely keys
+uniformly. In other words, if keys are selected at random, each bucket should
+be about as likely to receive the next key as any other bucket.
 
 This is sometimes harder to achieve in practice than we might expect.
 
-So to recap: a good hash function:
+A good hash function:
 
-- Is fast and easy to compute
-- Distributes keys uniformly across the table.
+- Is fast and easy to compute.
+- Distributes likely keys uniformly across the available hash values.
+- Returns the same hash value whenever two keys compare equal.
+
+The hash function returns a hash value, normally a ``std::size_t``. The hash
+table maps that value to a bucket using its current bucket count. A hash
+function therefore does not need to know the table size or return a value in
+the range ``0`` through ``bucket_count - 1``.
 
 .. note::
 
-   Don't get hung up on trying to find hash functions that "mean something".
-   Most hash functions don't compute anything useful or "natural".
-   They are simply functions chosen to satisfy our requirements 
-   (fast and uniform over the range :math:`0 \to (table\_size-1)`.
+   Do not get hung up on trying to find hash functions that "mean something".
+   Most hash functions do not compute anything useful or natural. They are
+   chosen to be fast and to distribute the expected keys well.
 
 Integer hashes
 --------------
-If your integers are already in the range :math:`0 \to (table\_size-1)`
-then there is nothing to do:
+If an integer is already a suitable non-negative bucket index, no additional
+mixing is needed. In a real hash table, however, the table still converts the
+hash value into an index after the hash function returns it:
 
-.. code-block:: cpp
+.. tb-code:: cpp
+   :name: integer_hash_ac
 
-   int hash(int i) {return i;}
+   #include <cstddef>
+   #include <iostream>
 
-So integer keys are easy, but you can't always take them for granted. 
-A company once assigned an integer ID number to every employee.
-When the computerized system for the company payroll was created, 
-the way the IDs were assigned when like this:
+   std::size_t integer_hash(int value) noexcept {
+     return static_cast<std::size_t>(value);
+   }
+
+   std::size_t bucket_index(int value, std::size_t bucket_count) noexcept {
+     return integer_hash(value) % bucket_count;
+   }
+
+   int main() {
+     std::cout << bucket_index(42, 10) << '\n';
+   }
+
+So integer keys are easy, but you cannot always take their values for granted.
+A company once assigned an integer ID number to every employee. When the
+computerized payroll system was created, the IDs were assigned like this:
 
 - Start with a list of all current employees, in alphabetical order by name.
-- Assign the first person in the list the ID ``00005``,
-  the next person ``00010``, then ``00015``, and so on.
+- Assign the first person the ID ``00005``, the next person ``00010``, then
+  ``00015``, and so on.
 
-This left "gaps" in the ID number sequence that could be used later for new employees.
+This left gaps in the ID sequence that could be used later for new employees.
+When a new person was hired, someone compared the new person's name with the
+alphabetical list and assigned a number in the appropriate gap.
 
-When a new person was hired,
-someone would compare the new person's name to the alphabetical list of 
-employee names and would assign the new person a number lying somewhere 
-in the gap between the people already in the list.
-
-Because of this scheme,
-more than 3/4 of the ID numbers in the company were evenly divisible by 5.
-
-Let's suppose some hash table with ``size == 100`` simply use the hash
-function described previously and use ``%`` to constrain them to the table:
+Because of this scheme, most generated IDs were divisible by 5. Suppose a
+hash table with ``bucket_count == 100`` reduces these IDs with ``% 100``:
 
 .. code-block:: cpp
+   :caption: Pseudocode
 
-   int hash(int i) {return i % 100;}
+   hash_value <- integer_hash(id)
+   bucket_index <- hash_value % 100
 
-There are 20 numbers divisible by 5 in the range from 0 to 99.
-So 3/4 of the ID numbers would hash into only 1/5 of the table positions.
-These numbers are not being distributed uniformly.
+There are 20 multiples of 5 in the range from 0 through 99. Thus, if the IDs
+are multiples of 5, they use only 20 percent of the buckets rather than being
+distributed uniformly.
 
-There is an easy fix:
-change the hash table size to ``101``.
-Making the table just 1 element larger improves the distribution considerably:
+Changing the bucket count to ``101`` changes the remainders:
 
-======================== ===============
-keys                     hash to
-00005, 00010, ..., 00100 5, 10, ..., 100
-00105, 00110, ..., 00200 4, 9, ..., 99
-00205, 00210, ..., 00300 3, 8, ..., 98
-00305, 00310, ..., 00400 2, 7, ..., 97
-======================== ===============
+.. list-table:: Example remainders with 101 buckets
+   :header-rows: 1
 
-The lesson here: the distribution of the original key values is important.
+   * - Keys
+     - Bucket indices
+   * - ``00005, 00010, ..., 00100``
+     - ``5, 10, ..., 100``
+   * - ``00105, 00110, ..., 00200``
+     - ``4, 9, ..., 99``
+   * - ``00205, 00210, ..., 00300``
+     - ``3, 8, ..., 98``
+   * - ``00305, 00310, ..., 00400``
+     - ``2, 7, ..., 97``
 
-The difference between using 100 vs using 101 is no accident.
-Choosing prime numbers for hash table sizes tends to 
-increase the uniformity of key distributions.
+The lesson is that the distribution of the original key values matters. A
+prime bucket count can help a simple modulo-based scheme avoid patterns such
+as this one, but it is not a guarantee of uniform distribution. Real hash
+tables choose their bucket counts and hash policies together; a good hash
+function still needs to distribute the expected keys well.
 
 String hashes
 -------------
-Hash functions for strings generally work by adding up some expression applied
-to each character in the string
-(remember that a char is just another integer type in C++).
+String hash functions often combine information from every character. A
+simple sum is fast, but it loses character position. Words that differ only by
+transposing two characters produce the same result:
 
-We need to be a little careful to get an appropriate distribution.
-Although a char could be any of 255 different values, 
-most strings actually contain only the 96 "printable" characters starting at 
-ASCII value 32 (blank).
+.. tb-code:: cpp
+   :name: string_sum_hash_ac
 
-Also we often want to make sure that similar strings, 
-likely to occur together, don't hash to the same location. 
-So a simple hash function like this:
+   #include <cstddef>
+   #include <iostream>
+   #include <string>
 
-.. code-block:: cpp
-
-   unsigned hash (const string& words)
-   {
-      unsigned value = 0;
-      for (const auto& ch: words) {
-        value += ch;
-      }
-      return value;
+   std::size_t sum_hash(const std::string& word) noexcept {
+     std::size_t value = 0;
+     for (unsigned char character : word) {
+       value += character;
+     }
+     return value;
    }
 
-doesn't work very well.
-Words that differ only by transposition of characters have the same value.
-
-An improved approach is to account for the position of each character
-in the string.
-
-.. code-block:: cpp
-
-   unsigned hash (const string& words)
-   {
-      unsigned value = 1;
-      constexpr unsigned factor = 31;  // or any suitable prime
-      for (const auto& ch: words) {
-        value = value*factor + ch;
-      }
-      return value;
+   int main() {
+     std::cout << std::boolalpha;
+     std::cout << (sum_hash("stop") == sum_hash("pots"));
    }
 
-If ``value`` becomes large, eventually this expression may overflow,
-but for unsigned types this is not a problem.
-Again, we are looking for a uniform distribution of values we can 
-generate for our hash table.
+An improved approach accounts for the position of each character. This
+polynomial-style hash is still only an example; its quality depends on the
+expected input distribution and the way the table reduces the result:
 
-Manually writing our own hash functions for builtin
-standard library types is not needed.
-The STL provides the template :utility:`std::hash<hash>`
-and a set of standard overrides for types in the standard library.
+.. tb-code:: cpp
+   :name: string_polynomial_hash_ac
 
-Hashing user defined types
+   #include <cstddef>
+   #include <iostream>
+   #include <string>
+
+   std::size_t polynomial_hash(const std::string& word) noexcept {
+     constexpr std::size_t factor = 31;
+     std::size_t value = 0;
+     for (unsigned char character : word) {
+       value = value * factor + character;
+     }
+     return value;
+   }
+
+   int main() {
+     std::cout << std::boolalpha;
+     std::cout << (polynomial_hash("stop") == polynomial_hash("pots"));
+   }
+
+The unsigned arithmetic can overflow, and that is well-defined modulo
+``std::numeric_limits<std::size_t>::max() + 1``. Overflow is not itself a
+problem for a hash function; the important question is whether the resulting
+values are distributed well for the keys being used.
+
+For built-in and standard-library types, manually writing a hash function is
+usually unnecessary. The standard library provides the class template
+:cpp:`std::hash <utility/hash>` and specializations for its standard types.
+
+Hashing user-defined types
 --------------------------
-If you define your own ``struct`` or ``class``, you need to write your own 
-hash function.
-Normally this will be a ``std::hash<>`` override.
-Consider a ``struct point`` and a sample hash function:
+If you use a user-defined type as a key, the unordered container needs both a
+hash function and an equality predicate. Equivalent keys must compare equal
+and must produce the same hash value. There are two common ways to provide the
+hash function:
 
-.. code-block:: cpp
+1. Define a full specialization of ``std::hash`` for the user-defined type.
+2. Define a separate hash functor and pass it to the unordered container.
+
+The first approach is shown below. This is a complete example: ``point``
+defines equality, the specialization combines both fields, and the unordered
+set uses the resulting hash function.
+
+.. tb-code:: cpp
+   :name: point_hash_ac
+
+   #include <cstddef>
+   #include <functional>
+   #include <iostream>
+   #include <unordered_set>
 
    struct point {
      int x;
      int y;
+   };
+
+   bool operator==(const point& left, const point& right) noexcept {
+     return left.x == right.x && left.y == right.y;
    }
 
    namespace std {
      template <>
-     struct hash<point>
-     {
-       std::size_t operator()(const point& p) const
-       {
-         return   std::hash<int>()(7919) // or any suitable prime
-                + std::hash<int>()(p.x) * 73
-                + std::hash<int>()(p.y) * 557;
+     struct hash<point> {
+       std::size_t operator()(const point& value) const noexcept {
+         const auto x_hash = std::hash<int>{}(value.x);
+         const auto y_hash = std::hash<int>{}(value.y);
+         return x_hash * 73u + y_hash * 557u;
        }
      };
    }
 
-The ``std::hash`` override must be a function template,
-although in this case, no template parameter is needed.
-The template declaration ``template <>`` is perfectly valid.
+   int main() {
+     std::unordered_set<point> points;
+     points.insert({1, 2});
+     points.insert({2, 1});
+     points.insert({1, 2});
+     std::cout << points.size() << '\n';
+   }
 
-.. note::
+The ``template <>`` syntax marks a full specialization of the existing
+``std::hash`` class template. It is valid to add this specialization to
+``namespace std`` because ``point`` is a user-defined type. The specialization
+must be declared before code instantiates ``std::hash<point>``.
 
-   Notice a recurring theme: prime numbers as multipliers.
-   Prime numbers as multipliers help minimize collisions when the hash values
-   of different parts of an object have the same value
-   or are simple multiples of one another.
+The multipliers in this example are only a simple field-combination heuristic;
+prime numbers do not guarantee that collisions are minimized. For a different
+design, define a hash functor outside ``namespace std`` and pass it as the
+third template argument to ``std::unordered_set`` or the fourth template
+argument to ``std::unordered_map``.
 
 -----
 
 .. admonition:: More to Explore
 
- - `General purpose hash function algorithms <http://www.partow.net/programming/hashfunctions/>`_
-
+ - :cpp:`std::hash <utility/hash>`
+ - :cpp:`Hash requirements <unord.req>`
+ - :cpp:`std::unordered_set <container/unordered_set>`
+ - :cpp:`std::unordered_map <container/unordered_map>`

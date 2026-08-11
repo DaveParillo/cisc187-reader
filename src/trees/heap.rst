@@ -515,13 +515,22 @@ while maintaining the heap property.
    j [fillcolor=green]
 
 Grab the last value in the tree, which may or may not be the smallest value.
-Move this value into the root position.
+Move this value into the root position and treat the root as a hole.
 The replacement value may violate the min-heap property at the root.
 We have to restore the heap property by pushing this value down
 until the heap property is restored.
 
-We can achieve this by continually exchanging the smaller child value with the
-current value until the heap property is restored.
+The implementation uses a hole rather than swapping on every iteration. It
+saves the replacement value in ``tmp`` and examines the hole's children:
+
+1. Choose the smaller child, if the hole has two children.
+2. If the smaller child is not less than ``tmp``, the value belongs in the
+   hole and the algorithm stops.
+3. Otherwise, move the smaller child into the hole and move the hole to that
+   child's position.
+
+When the loop stops, move ``tmp`` into the final hole. This is equivalent to a
+sequence of swaps, but it moves each larger child only once.
 
 .. digraph:: min_heap
    :alt: Percolate down
@@ -557,7 +566,8 @@ current value until the heap property is restored.
    b [fillcolor=wheat]
    a [label="j"]
 
-The 'j' is still larger than 'd', so again, we exchange the two values.
+The 'j' is still larger than 'd', so we move the smaller child 'd' into the
+hole and continue with a new hole at 'd'.
 
 .. digraph:: min_heap
    :alt: Percolate down
@@ -593,10 +603,9 @@ The 'j' is still larger than 'd', so again, we exchange the two values.
    a [label="b"]
    b [label="j"]
 
-When we check the left node, the value 'j' is less than 'm'.
-We can't stop at this point, because this node has another child.
-The 'j' is still larger than 'i', so we exchange values,
-however this time we traverse the right sub tree.
+When we check the children of 'j', the smaller child is 'i'.
+The 'j' is still larger than 'i', so we move 'i' into the hole and continue
+through the right subtree.
 
 .. digraph:: min_heap
    :alt: Percolate down

@@ -201,7 +201,7 @@ Errors using namespace directives are seldom this obviously wrong.
    pair: Herb Sutter; namespace using
    pair: Andrei Alexandrescu; namespace using
 
-One final word from two experts:
+An opinion from two experts:
 
   **Summary**
 
@@ -224,6 +224,11 @@ One final word from two experts:
   Rather, they are what make namespaces usable.
 
   -- Herb Sutter and Andrei Alexandrescu, C++ Coding Standards
+
+
+For a rebuttal to the above discussion, checkout this video from Jason Turner:
+
+.. tb-video:: https://www.youtube.com/watch?v=MZqjl9HEPZ8&list=PLs3KjaCtOwSY34fFKyhOFovFlB7LikDwe&index=21
 
 
 -----

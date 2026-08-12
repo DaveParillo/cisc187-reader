@@ -11,6 +11,7 @@
    single: std::move
    single: move semantics
    single: std::swap
+   single: std::exchange
 
 Moving memory
 =============
@@ -168,6 +169,18 @@ explicitly in the rvalue reference overload of the assignment operator:
      // exchange content between other and this
    }
 
+.. cpp:: 14
+
+   The :utility:`std::exchange <exchange>` utility function
+   replaces an object's current value with a new one and returns its original
+   (old) value. It simplifies move constructors, assignment operators, and
+   state resets by avoiding manual temporary variables.
+
+   Unlike ``std::swap`` (which requires two non-const lvalues),
+   ``std::exchange`` accepts arbitrary rvalues or constants for its second
+   argument.
+
+   .. tb-video:: https://www.youtube.com/watch?v=GEbPRS81py4
 
 -----
 
@@ -175,6 +188,7 @@ explicitly in the rvalue reference overload of the assignment operator:
 
    - :lang:`Move constructors <move_constructor>`
    - The :algorithm:`std::swap <swap>` algorithm
+   - The :utility:`std::exchange <exchange>` utility function.
    - `C++ Rvalue references explained <https://web.archive.org/web/20240325000934/http://thbecker.net/articles/rvalue_references/section_01.html>`__
      The content in this section was adapted from *Rvalue References Explained*, by Thomas Becker.
    - `Copy and Swap, 20 years later <https://mropert.github.io/2019/01/07/copy_swap_20_years/>`__

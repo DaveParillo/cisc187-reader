@@ -720,7 +720,6 @@ A more realistic example might help.
                     guess(number);
                   } while ('y' == play_again());
                   std::cout << "Thanks for playing!\n";
-                  return 0;
                 }
  
                 char play_again() {
@@ -740,7 +739,6 @@ It rarely is.
 We made the program *clearer* and easier to reason about.
 While we were at it, we fixed some bugs and made it a bit more reusable and maintainable.
 
-
 -----
 
 .. admonition:: More to Explore
@@ -751,3 +749,6 @@ While we were at it, we fixed some bugs and made it a bit more reusable and main
      "`extract method <https://refactoring.com/catalog/extractFunction.html>`_" from Martin Fowler's Refactoring site.
    - `ExtractMethod <http://wiki.c2.com/?ExtractMethod>`_ discussion from the 
      `PortlandPatternRepository <http://wiki.c2.com/?PortlandPatternRepository>`_ - the very first wiki
+
+   .. tb-video:: https://www.youtube.com/watch?v=9mWWNYRHAIQ&list=PLs3KjaCtOwSY34fFKyhOFovFlB7LikDwe&index=41
+

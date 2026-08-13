@@ -109,7 +109,6 @@ sorted suffix.
 .. admonition:: More to Explore
 
    - :cpp:`C++ heap operations <algorithm/make_heap>`
-   - `Heap Sort visualization <https://visualgo.net/en/sorting>`__
    - :wiki:`Heapsort <Heapsort>`
 
 .. topic:: Acknowledgements

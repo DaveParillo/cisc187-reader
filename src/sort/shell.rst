@@ -236,7 +236,6 @@ at :math:`O(n^{\frac {3}{2}})`.
 .. admonition:: More to Explore
 
    - `OpenDSA: Shellsort <https://opendsa.cs.vt.edu/ODSA/Books/Everything/html/Shellsort.html>`__
-   - `Shell Sort visualization <https://visualgo.net/en/sorting>`__
    - :wiki:`Shellsort <Shellsort>`
 
 .. topic:: Acknowledgements

@@ -951,8 +951,8 @@ Glossary
       One of the :term:`simple types <simple type>` 
       provided by the language.
       Examples are ``bool``, ``char``, ``int``, and ``double``.
-      Types provided by the STL, such as ``std::string`` and ``std::vector``
-      are not considered 'fundamental' types.
+      Types provided by the standard library, such as ``std::string`` and
+      ``std::vector`` are not considered 'fundamental' types.
 
    garbage
       In memory management, any memory that was previously (dynamically)

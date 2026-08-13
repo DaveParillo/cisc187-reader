@@ -371,5 +371,5 @@ then visit the children one level deeper.
 
 .. admonition:: More to Explore
 
-   - :cpp:`STL containers library <container>`
+   - :cpp:`Containers library <container>`
    - `Visualgo: binary heap <https://visualgo.net/en/heap?slide=1>`_

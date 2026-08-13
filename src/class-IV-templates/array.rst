@@ -63,5 +63,5 @@ declared with an initializer list:
 
 .. admonition:: More to Explore
 
-   - :cpp:`STL containers library <container>`
+   - :cpp:`Containers library <container>`
 

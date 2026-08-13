@@ -257,7 +257,7 @@ We can pass a ``vector`` to this same legacy function:
 
 .. admonition:: More to Explore
 
-   - :cpp:`STL containers library <container>`
+   - :cpp:`Containers library <container>`
    - `Clang-tidy vector performance checks <https://clang.llvm.org/extra/clang-tidy/checks/performance/inefficient-vector-operation.html>`__
 
 .. topic:: Footnotes

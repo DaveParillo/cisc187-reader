@@ -46,8 +46,8 @@ The version of C++ most likely taught to most is C++98.
 Modern C++ doesn't look much like the C++ that was written in the 80's and 90's.
 Primarily because programmers have learned a lot about how to write
 programs in C++ over the years, but also because the
-power of the *Standard Template Library* (STL).
-The STL was not developed until C++ had been used for more than 10 years.
+power of the standard library.
+The standard library was not developed until C++ had been used for more than 10 years.
 While it was incorporated into the first ISO version of the C++ standard (C++98),
 it took some time for many programmers to recognize the power and flexibility
 of :term:`template programming <generic programming>`

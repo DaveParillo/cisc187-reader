@@ -66,7 +66,7 @@ moved along until the pass is complete.
 
          :algorithm:`std::swap <swap>` is part of the standard library
          and many swap specializations are defined to make swap
-         efficient for STL types.
+         efficient for standard library types.
 
    .. tb-tab:: Run it
 

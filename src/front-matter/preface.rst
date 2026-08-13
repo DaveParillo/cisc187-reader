@@ -246,10 +246,10 @@ Chapter 15
 
 Chapter 16
    Introduces hash tables, hash functions, collision handling, and
-   the performance tradeoffs involved in hash table design.
+   the performance trade-offs involved in hash table design.
 
 Chapter 17
-   The STL algorithms, the basic model in the standard library
+   The standard library algorithms, the basic model in the standard library
    connecting containers, iterators, and algorithms.
 
 How to Contribute

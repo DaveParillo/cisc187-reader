@@ -332,7 +332,7 @@ and the result is pushed back onto the stack.
 
 .. admonition:: More to Explore
 
-   - :cpp:`STL containers library <container>`
-   - STL :container:`stack` class
+   - :cpp:`Containers library <container>`
+   - The :container:`stack` class
    - MyCodeSchool video: 
      `Data structures: introduction to stack <https://www.youtube.com/watch?v=F1F2imiOJfk&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=14>`__ 

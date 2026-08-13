@@ -1,7 +1,7 @@
 Class templates and ``std::array``
 ==================================
 This chapter discusses how to create class templates
-and introduces the first of many Standard Template Library (STL)
+and introduces the first of many standard library
 containers explored between now and the end of the course.
 
 

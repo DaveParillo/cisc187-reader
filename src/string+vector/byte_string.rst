@@ -130,7 +130,7 @@ So, an array of size 10 has space for 4 more characters, 9 total.
 C strings have an advantage of being extremely lightweight and simple.
 Their main disadvantage is that they are too simple for many applications.
 Their simplicity makes them a pain to work with,
-which is why the Standard Template Library (STL) contains the :cpp:`string` class.
+which is why the C++ standard library contains the :cpp:`string` class.
 
 Working with C strings
 ======================
@@ -143,7 +143,7 @@ cppreference.com.
 
 It's important to know how to work with byte strings in C++
 because the C string functions that C++ inherits from C continue to
-provide a few capabilities not implemented elsewhere in the STL.
+provide a few capabilities not implemented elsewhere in the standard library.
 
 In addition, when the type you have is a byte string,
 it's just easier and more efficient to manipulate the byte string
@@ -159,7 +159,7 @@ In general, you want to try to avoid these kinds of unnecessary type conversions
 
    // In C, a string is literally an array of char
    //
-   // This is not the same as the string class from the STL.
+   // This is not the same as the string class from the standard library.
 
    int main()
    {
@@ -206,7 +206,7 @@ to provide these features.
 
 Changing character case is a common task and unless you choose
 to write your own version of these functions,
-these functions from the STL are the ones you should use.
+these functions from the standard library are the ones you should use.
 
 Many string conversion functions are defined in the ``cctype`` header.
 These functions which C++ inherited from C are often perfectly acceptable,

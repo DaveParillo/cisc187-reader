@@ -83,7 +83,7 @@ are classes.
 When designed correctly,
 a class can be manipulated with the same operations as the built-in types.
 Any class you create allows you to define a new type that works
-with the rest of C++ and the STL as if it were built into C++.
+with the rest of C++ and the standard library as if it were built into C++.
 
 While many classes manage their own data,
 just as many classes store no data at all.

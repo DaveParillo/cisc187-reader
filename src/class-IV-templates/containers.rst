@@ -20,7 +20,7 @@ You are already familiar with several container classes:
 - ``std::bitset``
 - ``std::array``
 
-There are more in the STL, but they all have one thing in common.
+There are more in the standard library, but they all have one thing in common.
 They store a collection of data of **a single type**.
 
 Containers are like arrays in that regard, however,
@@ -88,7 +88,8 @@ would result in a compile error:
 
 Prior to C++11, if you wanted to add a known set of values to a vector
 you would have to push them back one at a time using ``push_back``,
-either one line at a time, in a loop, or using an algorithm from the STL.
+either one line at a time, in a loop, or using an algorithm from the standard
+library.
 
 An **initializer_list<T>** is a lightweight wrapper that that creates
 a temporary array of type **T**.

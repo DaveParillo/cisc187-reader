@@ -7,18 +7,18 @@
     License".
 
 .. index:: 
-   pair: STL; containers
-   pair: STL; associative containers
+   pair: standard library; containers
+   pair: standard library; associative containers
 
-Standard Template Library Containers
-====================================
+C++ Standard Library Containers
+===============================
 If a program needs to manage a collection of closely related things,
 numbers, bank accounts, students, or even fruit, 
 then the simplest approach is to put them in a container.
 You should already be familiar with raw arrays,
 which are part of the language 
-and are not considered part of the STL.
-There are two broad categories of STL containers:
+and are not considered part of the standard library.
+There are two broad categories of standard library containers:
 *sequence containers* and *associative containers*.
 In an :doc:`earlier section <../string+vector/vector>`, 
 we briefly introduced ``std::vector``.
@@ -45,14 +45,14 @@ sets
 maps
     Things stored with a unique ID
 
-All the STL containers provide similar advantages over arrays:
+All the standard library containers provide similar advantages over arrays:
 
 - Add and remove data dynamically
 - Bounds checking
 - Work with data at a higher level of abstraction
 - Manage subsets of data as a unit
 
-Although all of the containers in the STL
+Although all of the containers in the standard library
 share some core characteristics,
 the different containers have different designs,
 and have different trade-offs or costs.
@@ -76,7 +76,7 @@ either directly or through :doc:`iterators <../list/iterators>`
 
 Ordered and sorted containers
 -----------------------------
-STL containers may be ordered, unordered, sorted or unsorted.
+standard library containers may be ordered, unordered, sorted or unsorted.
 An **ordered** container simply means that
 you can iterate through the container in a specific order.
 

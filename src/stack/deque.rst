@@ -186,6 +186,6 @@ removing elements from the container, and is generally simpler.
 
 .. admonition:: More to Explore
 
-   - :cpp:`STL containers library <container>`
-   - STL :container:`deque` class
+   - :cpp:`Containers library <container>`
+   - The :container:`deque` class
 

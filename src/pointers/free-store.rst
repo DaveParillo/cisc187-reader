@@ -121,8 +121,8 @@ even a short program can run out of memory before accomplishing all of its goals
 .. index:: memory management
    single: smart pointer; auto_ptr; unique_ptr; shared_ptr
 
-STL memory management
----------------------
+Standard library memory management
+----------------------------------
 When memory is allocated using :memory:`operator new <new/operator_new>`,
 eventually it must be recovered using :memory:`operator delete <new/operator_delete>`.
 When only a few lines of code are requesting memory,
@@ -132,7 +132,7 @@ of blocks of memory.
 Keeping track of all this memory and when it should be freed can be labor intensive.
 Moreover, the consequences of an error are high: program crashes or corrupted data.
 
-Many languages, such as Java, Python, Ruby, and JavaScript take this problem 
+Many languages, such as Java, Python, Ruby, and GoLang take this problem 
 completely out of the hands of programmers.
 In these languages, memory is never explicitly deleted by the program.
 Rather it is managed by a :term:`garbage collector <garbage collection>`,
@@ -141,7 +141,7 @@ which is responsible for cleaning up after the program
 
 C++ does not provide a garbage collection mechanism by default.
 Given that memory management is such a problem, 
-does the STL provide any resources to help solve it?
+does the standard library provide any resources to help solve it?
 
 Yes.
 

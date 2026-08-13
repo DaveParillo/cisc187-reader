@@ -209,7 +209,7 @@ The bubble sort:
 .. tb-group::
    :name: stl_exchange_sort
 
-   .. tb-tab:: STL Exchange Sorts
+   .. tb-tab:: Exchange Sorts
 
       If sorting does get asked and you can get past these points with a future employer,
       you might score some points with the following examples, which:
@@ -221,7 +221,7 @@ The bubble sort:
 
       .. tb-code:: cpp
          :name: stl_exchange_sorts
-         :caption: STL Sorts
+         :caption: Standard Library Exchange Sorts
 
          #include <algorithm>
          #include <iostream>

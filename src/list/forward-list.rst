@@ -55,7 +55,7 @@ it does not have any overhead compared to its implementation in C.
 
 .. admonition:: More to Explore
 
-   - :cpp:`STL containers library <container>`
-   - :cpp:`STL iterator library <iterator>`
+   - :cpp:`Containers library <container>`
+   - :cpp:`Iterator library <iterator>`
    - `Visualgo: lists <https://visualgo.net/en/list?slide=1>`_
 

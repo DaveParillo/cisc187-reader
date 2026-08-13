@@ -215,9 +215,6 @@ for ``operator==``:
   in-line copies of the function body.
   The compiler is not obligated to do so, but usually does.
 
-  To get the same behavior from non-member functions, the :lang:`inline`
-  keyword is used.
-
 - The ``friend`` keyword is often used to provide private member access to
   non-member functions.
   In the case of the ``item`` struct, this wasn't needed.

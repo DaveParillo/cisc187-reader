@@ -37,7 +37,7 @@ Some downsides to raw arrays are that they:
 The ``vector`` class solves these problems for us and a few others besides.
 Declaring a ``vector`` is quite similar to the ``string`` declarations
 from the previous section.
-In order to access the STL vector capabilities,
+In order to access the standard library vector capabilities,
 use ``#include <vector>``.
 
 .. tb-group::
@@ -291,7 +291,8 @@ We will be looking more at memory management in vectors in :ref:`vector-memory`.
    What is the difference between a ``std::string`` and 
    ``std::vector<char>``?
 
-   Why did the developers of the STL decide it was important to include both?
+   Why did the developers of the standard library decide it was important to
+   include both?
 
 Comparisons between vectors are also automatically handled by the class.
 In the case of a vector, 

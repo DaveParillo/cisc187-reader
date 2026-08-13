@@ -26,13 +26,15 @@ Often, it is more convenient to write a very short function
 #. ``#include`` the compilation unit definitions where it will be used
 #. Call or pass the function as an argument
 
-While using STL facilities with lambdas is not required,
-it turns out that many facilities in the STL take function pointers as arguments.
+While using standard library facilities with lambdas is not required,
+it turns out that many facilities in the standard library take function
+pointers as arguments.
 This fact makes lambdas particularly useful since
 any place a function pointer can be used, a lambda expression can be used instead.
 
 Suppose we want to count the number of short strings in a vector.
-There is a 'count if' function in the STL we can use to get the job done.
+There is a 'count if' function in the standard library we can use to get the
+job done.
 The :algorithm:`std::count_if <count>` function expects 3 parameters:
 
 - A pointer to the first element to examine in the ``vector``

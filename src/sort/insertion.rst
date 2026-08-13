@@ -327,6 +327,8 @@ predicate operation could be passed in.
 
    - `Top 5 beautiful C++ algorithms <https://www.cppstories.com/2014/12/top-5-beautiful-c-std-algorithms/>`__
    - :wiki:`Insertion sort <Insertion_sort>`
+   - `Insertion Sort visualization <https://visualgo.net/en/sorting>`__
+   - :cpp:`C++ std::ranges::lower_bound <algorithm/ranges/lower_bound>`
 
 .. topic:: Acknowledgements
 

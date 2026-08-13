@@ -64,6 +64,9 @@ appears before it.
      - :ref:`Selection Sort<sort_selection>` 
 
    - :ref:`analysis_index`
+   - :wiki:`Inversion (discrete mathematics) <Inversion_(discrete_mathematics)>`
+   - `VisuAlgo Sorting <https://visualgo.net/en/sorting>`__
+   - `Big-O Cheat Sheet <https://www.bigocheatsheet.com/>`__
 
 .. topic:: Acknowledgements
 
@@ -71,4 +74,3 @@ appears before it.
    `Open Data Structures (OpenDSA) <https://opendsa-server.cs.vt.edu>`__
    by Ville Karavirta and Cliff Shaffer
    which is distributed under the `MIT License <https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt>`__.
-

@@ -484,8 +484,9 @@ resources consumed by an algorithm.
 
 .. admonition:: More to Explore
 
-   - TBD
 
+  - `Open Data Structures (C++) <https://opendatastructures.org/ods-cpp/>`__.
+  - `Jeff Erickson’s Algorithms <https://jeffe.cs.illinois.edu/teaching/algorithms/>`__
 
 .. topic:: Acknowledgements
 

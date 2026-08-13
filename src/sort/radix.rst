@@ -185,7 +185,9 @@ or the last character in variable length strings.
 
 .. admonition:: More to Explore
 
-   - TBD
+   - `Radix Sort visualization <https://visualgo.net/en/sorting>`__
+   - :wiki:`Radix sort <Radix_sort>`
+   - :wiki:`Counting sort <Counting_sort>`
 
 .. topic:: Acknowledgements
 

@@ -39,5 +39,7 @@ the following table.
 
 .. admonition:: More to Explore
 
-   - TBD
-
+   - :cpp:`C++ sorting operations <algorithm#Sorting_operations>`
+   - `VisuAlgo Sorting <https://visualgo.net/en/sorting>`__
+   - `Big-O Cheat Sheet <https://www.bigocheatsheet.com/>`__
+   - :wiki:`Introsort <Introsort>`

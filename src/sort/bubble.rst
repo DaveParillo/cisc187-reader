@@ -282,7 +282,9 @@ time.
 
 .. admonition:: More to Explore
 
-   - TBD
+   - `Bubble Sort visualization <https://visualgo.net/en/sorting>`__
+   - `OpenDSA: Bubble Sort <https://opendsa.cs.vt.edu/ODSA/Books/eu_book/html/BubbleSort.html>`__
+   - :wiki:`Bubble sort <Bubble_sort>`
 
 .. topic:: Acknowledgements
 

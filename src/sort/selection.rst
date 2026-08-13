@@ -156,7 +156,9 @@ typically executes faster than bubble sort.
 
 .. admonition:: More to Explore
 
-   - TBD
+   - `Selection Sort visualization <https://visualgo.net/en/sorting>`__
+   - `OpenDSA: Selection Sort <https://opendsa.cs.vt.edu/ODSA/Books/CSCI2101/html/SelectionSort.html>`__
+   - :wiki:`Selection sort <Selection_sort>`
 
 .. topic:: Acknowledgements
 

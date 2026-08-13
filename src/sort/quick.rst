@@ -366,7 +366,9 @@ pivot value selection as an exercise.
 
 .. admonition:: More to Explore
 
-   - TBD
+   - `OpenDSA: Quicksort <https://opendsa.cs.vt.edu/ODSA/Books/eu_book/html/Quicksort.html>`__
+   - :cpp:`C++ std::nth_element <algorithm/nth_element>`
+   - `Quick Sort visualization <https://visualgo.net/en/sorting>`__
 
 .. topic:: Acknowledgements
 

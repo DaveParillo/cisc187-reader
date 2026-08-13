@@ -267,7 +267,9 @@ is large and can make this sort problematic when working on large data sets.
 
 .. admonition:: More to Explore
 
-   - TBD
+   - `OpenDSA: Mergesort Concepts <https://opendsa.cs.vt.edu/ODSA/Books/Everything/html/Mergesort.html>`__
+   - :cpp:`C++ std::inplace_merge <algorithm/inplace_merge>`
+   - `Merge Sort visualization <https://visualgo.net/en/sorting>`__
 
 .. topic:: Acknowledgements
 

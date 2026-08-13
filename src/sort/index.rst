@@ -78,3 +78,7 @@ the tools we need to analyze and understand sort algorithms.
 
 First up: the exchange sorts.
 
+.. admonition:: More to Explore
+
+   - `VisuAlgo Sorting <https://visualgo.net/en/sorting>`__
+   - :cpp:`C++ Algorithms library <algorithm>`

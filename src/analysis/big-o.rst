@@ -433,7 +433,15 @@ And the answer should be (sequential search):
 
 .. admonition:: More to Explore
 
-   - TBD
+   - `Mathematics for Computer Science <https://courses.csail.mit.edu/6.042/spring18/mcs.pdf>`__:
+     a deeper reference for proofs, summations, recurrences, and asymptotic
+     notation.
+
+   - `VisuAlgo: Time Complexity <https://visualgo.net/en/analysis>`__:
+     interactive visualizations for comparing common growth rates and algorithm
+     costs.
+   - `Big-O Cheat Sheet <https://www.bigocheatsheet.com/>`__: concise visual
+     reference for common growth rates and data-structure operations.
 
 .. topic:: Acknowledgements
 

@@ -41,8 +41,8 @@ We will use the same distance value class from the previous section:
          {}
 
          distance(const distance&) = default;
-         distance& operator=(const distance&) = delete;
          distance(distance&&) = default;
+         distance& operator=(const distance&) = delete;
          distance& operator=(distance&&) = delete;
 
        private:
@@ -60,7 +60,7 @@ deleted because assignment would replace the value stored in an existing
 object.
 
 The familiar compound-assignment operators are problematic in an immutable
-class.
+class and should not be implemented.
 In a mutable class, ``operator+=`` would modify the left-hand object and return
 ``*this``.  An immutable class cannot do that.  These overloads are ``const``
 member functions that would need return a new ``distance`` instead:
@@ -78,16 +78,7 @@ objects in this example can only be created and viewed.
 Using this overload would create surprises since expressions like:
 ``a += b`` would not modify ``a``.
 
-Other binary operators are non-friend, non-member functions that take the
-both operands as ``const&`` and return a new object:
-
-.. code-block:: cpp
-
-   constexpr distance operator+(const distance& lhs, const distance& rhs){
-     return distance(lhs.value() + rhs.value());
-   }
-
-The same pattern applies to subtraction, multiplication, and division.
+Other binary operators are non-friend, non-member functions.
 
 Adding the complete set of operations gives us this immutable class:
 
@@ -102,9 +93,9 @@ Adding the complete set of operations gives us this immutable class:
            :m{value}
          {}
 
-         distance(const distance&) = delete;
+         distance(const distance&) = default;
+         distance(distance&&) = default;
          distance& operator=(const distance&) = delete;
-         distance(distance&&) = delete;
          distance& operator=(distance&&) = delete;
 
          explicit constexpr operator int() const {
@@ -123,13 +114,13 @@ Adding the complete set of operations gives us this immutable class:
      constexpr distance operator-(const distance& lhs, const distance& rhs){
        return distance(lhs.value() - rhs.value());
      }
-     constexpr distance operator*(const distance& lhs, const distance& rhs){
-       return distance(lhs.value() * rhs.value());
+     constexpr distance operator*(const distance& lhs, double scalar){
+       return distance(lhs.value() * scalar);
      }
      constexpr distance operator*(double scalar, const distance& rhs){
        return distance(scalar * rhs.value());
      }
-     constexpr distance operator/(const distance& lhs, std::size_t denominator){
+     constexpr distance operator/(const distance& lhs, double denominator){
        return distance(lhs.value() / denominator);
      }
    } // end namespace length
@@ -139,8 +130,11 @@ Adding the complete set of operations gives us this immutable class:
 
    The use of ``constexpr`` in this class is **not** what is providing the
    immutability here.
-   Immutability exists because the class only defines ``const`` member
-   functions.
+   Immutability exists because the class has eliminated any function that might
+   modify the current object:
+
+   - no modifying member function
+   - no assignment overloads
 
    ``constexpr`` here allows the class to participate in ``constexpr`` compile
    time evaluation.
@@ -152,10 +146,10 @@ Adding the complete set of operations gives us this immutable class:
 
    namespace length::unit {
      constexpr distance operator""_km(long double d){
-      return distance(1000 * d);
+      return distance(1000 * static_cast<double>(d));
      }
      constexpr distance operator""_m(long double m){
-       return distance(m);
+       return distance(static_cast<double>(m));
      }
    } // end namespace length::unit
 
@@ -212,7 +206,8 @@ Adding the complete set of operations gives us this immutable class:
          constexpr
          length::distance average_distance(std::span<const length::distance> distances)
          {
-           return sum_distances(distances) / distances.size();
+           return distances.empty()? length::distance{0}
+                    : sum_distances(distances) / static_cast<double>(distances.size());
          }
 
       The ``std::array`` below is constructed from distance values produced by

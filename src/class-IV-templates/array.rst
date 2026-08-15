@@ -61,47 +61,38 @@ declared with an initializer list:
 Container class member type aliases
 -----------------------------------
 
-All the standard library containers, including ``std::array`` provide a
-large set of 'member types'.
-Standard-library types publish aliases so generic code can ask an iterator,
-"What kinds of values and operations do you provide?" without knowing its
-implementation.
-:iterator:`std::iterator_traits <iterator_traits>` and
-C++20 iterator/range concepts use
-these names to adapt algorithms to many iterator types uniformly.
+All the standard library containers, including ``std::array``, provide a
+large set of member types. Standard-library types publish aliases so generic
+code can ask a container, "What type of elements, sizes, references, and
+iterators do you use?" without knowing its implementation.
 
-Commonly encountered type aliases:
+For a particular ``std::array<T, N>``, several answers may seem self-evident:
+its ``size_type`` is ``std::size_t``, its ``pointer`` is ``T*``, and its
+``reference`` is ``T&``.  A generic function, however, might be given an
+array, a vector, a list, or a user-defined container. It should use
+``Container::size_type`` rather than assume that every container chose
+``std::size_t``. The alias is part of the container's public contract, and it
+keeps generic code independent of that choice.
 
-- ``using pointer = T*;``
-  The type of a pointer to the current element. For this iterator, it is an
-  ordinary raw pointer.
+The most commonly used ``std::array`` aliases are:
 
-- ``using reference = T&;``
-  The type produced by dereferencing the iterator: ``*it``.
-  It is a reference to the actual element, so modifying ``*it`` modifies that
-  element.
+- ``value_type``: the element type, ``T``.
+- ``size_type``: the unsigned type used for sizes and indexes,
+  ``std::size_t``.
+- ``difference_type``: the signed type used for iterator distances,
+  ``std::ptrdiff_t``. For a random-access container such as an array,
+  ``end() - begin()`` has this type. It is signed because reversing the order
+  of the operands can produce a negative distance.
+- ``reference`` and ``const_reference``: ``T&`` and ``const T&``, the types
+  produced by dereferencing a mutable or const iterator.
+- ``pointer`` and ``const_pointer``: ``T*`` and ``const T*``.
+- ``iterator`` and ``const_iterator``: the types returned by ``begin()`` and
+  ``end()``. They allow standard algorithms to traverse the container without
+  knowing how it stores its elements.
 
-- ``using difference_type = std::ptrdiff_t;``
-  A signed integer type used for distances between iterators,
-  such as ``last - first``.
-  It must be signed because a distance can be negative.
-  The standard describes every iterator as having a signed integer-like
-  difference type.
-
-- ``using iterator_category = std::forward_iterator_tag;``
-  The legacy classification used by pre-C++20 algorithms and
-  ``std::iterator_traits``.
-  It means that this iterator supports forward traversal and the
-  multi-pass guarantee: copied iterators can be advanced independently.
-
-- ``using iterator_concept = std::forward_iterator_tag;``
-  The C++20 classification used by iterator concepts and ranges. It states the
-  same capability here, but is separate because an iterator's modern concept
-  classification can be more precise than its legacy category. The standard
-  checks iterator_concept first, then falls back to iterator_category.
-
-For this simple iterator, both tags are forward_iterator_tag; including both
-makes it work clearly with both older algorithms and C++20 ranges.
+``std::array`` also provides reverse-iterator aliases.  We will examine the
+requirements of iterator types, and how to implement an iterator class, in the
+list chapter.
 
 
 
@@ -111,4 +102,3 @@ makes it work clearly with both older algorithms and C++20 ranges.
 
    - :cpp:`Containers library <container>`
    - :iterator:`std::iterator_traits <iterator_traits>`
-

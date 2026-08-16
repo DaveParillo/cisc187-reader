@@ -6,11 +6,18 @@
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. index:: compiling
-   single: cmake; make
-   single: clang; clang-tidy; clang-format; gcc
-   single: git; ssh
-   single: doctest; catch2
+.. index::
+   single: building software
+   single: CMake
+   single: Catch2
+   single: Clang
+   single: clang-format
+   single: clang-tidy
+   single: doctest
+   single: GCC
+   single: Git
+   single: make
+   single: SSH
 
 Building software
 =================
@@ -428,7 +435,7 @@ Builds are exactly the same as on the Mesa server:
    make test
 
 .. index:: 
-   pair: compiling; Visual Stidio
+   pair: building software; Visual Studio
 
 Compiling with Visual Studio
 ----------------------------
@@ -503,7 +510,7 @@ Now you are ready to compile an assignment.
 
 
 .. index:: 
-   pair: compiling; Code Blocks
+   pair: building software; Code::Blocks
 
 Compiling with Code Blocks
 --------------------------
@@ -538,8 +545,8 @@ Test cases must be run individually -
 there is no target to run all the tests.
 
 .. index:: 
-   pair: compiling; Xcode
-   pair: compiling; MacOS
+   pair: building software; Xcode
+   pair: building software; macOS
 
 Compiling with Xcode
 --------------------
@@ -557,7 +564,7 @@ Open a terminal in the directory containing your lab, then:
 Open the Xcode project and build as usual.
 
 .. index:: 
-   pair: compiling; Linux
+   pair: building software; Linux
 
 Compiling on Linux
 ------------------
@@ -724,5 +731,4 @@ This decision chart may help.
      Syntax compiler.
    - :doc:`make`
    - :wiki:`Grok definition <Grok>`
-
 

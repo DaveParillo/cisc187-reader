@@ -7,7 +7,8 @@
     License".
 
 .. index:: 
-   triple: introductory topics; version control; git
+   single: Git
+   single: version control
 
 Tutorial: Using Git
 ===================
@@ -364,4 +365,3 @@ but the checkout did add tiny.cpp and stage it for commit:
        https://www.cs.yale.edu/homes/aspnes/classes/223/notes.html
 
    
-

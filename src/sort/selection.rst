@@ -12,6 +12,10 @@
 
 .. _sort_selection:
 
+.. index::
+   single: selection sort
+   pair: sorting algorithms; selection sort
+
 Selection sort
 ==============
 The **selection sort** improves on the bubble sort by making only one

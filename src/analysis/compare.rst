@@ -3,6 +3,10 @@
 .. Copyright (c) 2012-2020 by the OpenDSA Project Contributors, and
 .. distributed under an MIT open source license.
 
+.. index::
+   single: algorithm comparison
+   single: empirical analysis
+
 Comparing Algorithms
 ====================
 How do you compare two algorithms for solving some problem in terms
@@ -494,4 +498,3 @@ resources consumed by an algorithm.
    `Open Data Structures (OpenDSA) <https://opendsa-server.cs.vt.edu>`__
    by Ville Karavirta and Cliff Shaffer
    which is distributed under the `MIT License <https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt>`__.
-

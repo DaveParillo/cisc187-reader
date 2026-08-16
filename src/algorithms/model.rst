@@ -8,7 +8,7 @@
 
 .. index:: 
    pair: algorithms; model
-   pair: graph; standard library model
+   pair: algorithms; standard library model
 
 
 Basic Model

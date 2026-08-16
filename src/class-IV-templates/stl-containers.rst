@@ -7,8 +7,9 @@
     License".
 
 .. index:: 
-   pair: standard library; containers
-   pair: standard library; associative containers
+   single: C++ standard library containers
+   single: associative containers
+   single: sequence containers
 
 C++ Standard Library Containers
 ===============================
@@ -108,4 +109,3 @@ because sorting of any kind is by definition an ordering.
      - :req:`Container`
      - :req:`SequenceContainer`
      - :req:`AssociativeContainer`
-

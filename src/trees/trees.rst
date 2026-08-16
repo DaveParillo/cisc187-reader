@@ -6,7 +6,8 @@
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. index:: associative containers
+.. index::
+   single: associative containers
    single: trees
 
 .. _trees_trees:

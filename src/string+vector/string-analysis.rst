@@ -6,7 +6,7 @@
     https://creativecommons.org/licenses/by-nc-sa/4.0/.
 
 .. index::
-   pair: analysis; string
+   pair: algorithm analysis; std::string
 
 Analysis of String Operators
 ============================
@@ -63,7 +63,7 @@ Copying all the old string data to a new location is :math:`O(n)`.
 
 .. index::
    single: std::chrono
-   pair: analysis; string
+   pair: algorithm analysis; std::string
 
 The previous table says that ``find`` could be :math:`O(n)` or :math:`O(\log(n))`.
 One might ask why not just write a little for loop instead?
@@ -191,6 +191,5 @@ A graph of the loops in the preceding code should look something like this:
    - cppreference.com :cpp:`Strings library <string>` overview
    - Mike Shahar post: `Exploring std::string <https://shaharmike.com/cpp/std-string/>`_
    - `Average time complexity <https://yourbasic.org/algorithms/amortized-time-complexity-analysis/>`__
-
 
 

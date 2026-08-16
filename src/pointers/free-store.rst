@@ -119,7 +119,8 @@ Depending on what your program does,
 even a short program can run out of memory before accomplishing all of its goals.
 
 .. index:: memory management
-   single: smart pointer; auto_ptr; unique_ptr; shared_ptr
+   single: std::shared_ptr
+   single: std::unique_ptr
 
 Standard library memory management
 ----------------------------------
@@ -263,4 +264,3 @@ raw pointer, or transfer ownership to a different ``unique_ptr``.
 
      - Operator :memory:`new <new/operator_new>` and :memory:`delete <new/operator_delete>`:
      - :memory:`unique_ptr` and :memory:`make_unique <unique_ptr/make_unique>`.
-

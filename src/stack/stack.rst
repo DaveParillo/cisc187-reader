@@ -7,8 +7,8 @@
     License".
 
 .. index:: 
-   pair: sequence containers; stack
-   pair: graph; std::stack
+   pair: container adaptors; std::stack
+   pair: sequence containers; std::stack
 
 The stack class
 ===============

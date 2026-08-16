@@ -6,10 +6,10 @@
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. index:: std::string vs byte strings
-   pair: byte string; C string
-   single: string
-   single: string abstractions
+.. index::
+   single: C strings
+   single: std::string
+   pair: C strings; std::string
 
 The string class
 ================
@@ -39,9 +39,9 @@ The variable ``x`` is a complete and valid ``string`` object
 that stores no characters.
 
 .. index:: 
-   pair: string functions; operator[]
-   pair: string functions; operator+=
-   pair: string functions; operator==
+   pair: std::string; operator[]
+   pair: std::string; operator+=
+   pair: std::string; operator==
 
 .. tb-group::
    :name: tab_string_simple
@@ -260,11 +260,11 @@ deduced to be a ``std::string``.
          Are those sizes expected? Why or why not?
 
 .. index::
-   pair: string functions; empty
-   pair: string functions; find
-   pair: string functions; find_first_of
-   pair: string functions; rfind
-   pair: string functions; size
+   pair: std::string; empty
+   pair: std::string; find
+   pair: std::string; find_first_of
+   pair: std::string; rfind
+   pair: std::string; size
 
 
 Getting information out of a string
@@ -368,7 +368,7 @@ within a string.
       .. include:: find-string.txt
 
 .. index::
-   single: std::string::npos 
+   single: std::string::npos
 
 The special value :string:`std::string::npos<npos>` is used both as an end of string indicator
 by functions that expect a string and
@@ -378,8 +378,8 @@ as an indicator of *not found* by functions that return an index (like find).
    :name: youtube-nkKeA74p3RY
 
 .. index::
-   single: stoi
-   single: stod
+   single: std::stoi
+   single: std::stod
 
 Convert a byte string to a number
 ---------------------------------
@@ -460,7 +460,7 @@ For now, know that these function will generate errors if given bad or unexpecte
 
 
 .. index::
-   pair: string functions; c_str
+   pair: std::string; c_str
 
 Converting a std::string to a C string 
 --------------------------------------
@@ -585,4 +585,3 @@ to a null terminated character array.
    - cppreference.com :cpp:`Strings library <string>` overview
    - YoLinux `String class tutorial <http://www.yolinux.com/TUTORIALS/LinuxTutorialC++StringClass.html>`_
    - Bjarne Stroustrup's C++11 FAQ: `Raw String literals <https://www.stroustrup.com/C++11FAQ.html#raw-strings>`_
-

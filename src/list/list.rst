@@ -7,8 +7,7 @@
     License".
 
 .. index:: 
-   pair: sequence containers; list
-   pair: graph; std::list
+   pair: sequence containers; std::list
 
 The list class
 ==============
@@ -72,7 +71,7 @@ and to allow navigation to adjacent nodes.
     }
 
 .. index:: 
-   pair: graph; compact list
+   pair: std::list; node storage
 
 A more compact way to graphically represent our :term:`doubly linked list` is like this:
 
@@ -110,7 +109,7 @@ plus pointers to adjacent nodes.
 
 
 .. index:: 
-   pair: graph; std::list
+   pair: std::list; doubly linked list
 
 Creating a :term:`linked list` from such a 'home grown' ``struct`` is not complicated,
 but it isn't pretty either:

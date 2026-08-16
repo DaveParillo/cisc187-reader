@@ -42,7 +42,7 @@ Starting in C++11, extra memory can be returned to the system with a call to
 
 
 .. index:: 
-   pair: graph; std::vector
+   pair: std::vector; contiguous storage
 
 .. tb-group::
    :name: tab_vector_sz_cap

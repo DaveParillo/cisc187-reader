@@ -11,6 +11,11 @@
 
 .. _sort_shell:
 
+.. index::
+   single: Shell sort
+   pair: sorting algorithms; Shell sort
+   pair: Shell sort; gap sequence
+
 Shell sort
 ==========
 The **shell sort**, sometimes called the "diminishing increment sort,"

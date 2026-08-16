@@ -11,6 +11,10 @@
 
 .. _sort_insertion:
 
+.. index::
+   single: insertion sort
+   pair: sorting algorithms; insertion sort
+
 Insertion sort
 ==============
 What would you do if you have a stack of phone bills from the past

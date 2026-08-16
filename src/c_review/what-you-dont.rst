@@ -7,7 +7,7 @@
     License".
 
 .. index:: 
-   pair: introductory topics; C++
+   single: C++
 
 What you don't need to know (yet)
 =================================
@@ -56,7 +56,7 @@ C++ was originally designed to support.
 
 
 .. index:: 
-   pair: graph; C++ evolution
+   single: C++ history
 
 If the language or compiler you learned does not conform to at least the 
 C++98 version of the standard, then it's not C++.
@@ -128,5 +128,4 @@ up to and including C++17 and most of C++20.
    - More from cppreference.com:
 
      - :io:`cin`, :io:`cout`, and :io:`cerr`
-
 

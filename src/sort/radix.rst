@@ -12,6 +12,11 @@
 
 .. _sort_radix:
 
+.. index::
+   single: radix sort
+   pair: sorting algorithms; radix sort
+   pair: radix sort; digit sorting
+
 Radix sort
 ==========
 Consider a sequence of records with keys in the range 0 to 99.

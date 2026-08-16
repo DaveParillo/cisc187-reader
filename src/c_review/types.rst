@@ -9,7 +9,7 @@
 .. include:: <isonum.txt>
 
 .. index:: 
-   pair: introductory topics; types
+   single: data types
    pair: fundamental types; abstraction
 
 Types
@@ -305,10 +305,6 @@ Overflow occurs when doing arithmetic operations.
    ---------
       ?  (9)     it would require 4 bits (1001) to represent
                  the value 9 in unsigned rep.
-
-.. index::
-   pair: video; int data type
-   pair: video; overflow
 
 .. tb-group::
    :name: rs-overflow

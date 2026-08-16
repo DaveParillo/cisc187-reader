@@ -23,8 +23,6 @@ don't apply to any other C++ functions. The main function:
 - Cannot be called from your program
 
 .. index:: argc, argv
-   pair: coliru; command line argument parsing
-   pair: coliru; parsing command line arguments
 
 
 .. tb-group::
@@ -138,7 +136,7 @@ writing output to *standard output*
 is the core around which most *\*nix* programs are designed.
 
 .. index:: 
-   pair: graph; command line arguments
+   pair: command line arguments; argc and argv
 
 Parsing command line arguments
 ------------------------------
@@ -435,6 +433,5 @@ including :index:`GNU/Linux` and :index:`Mac OS`.
      - :io:`cin`, :io:`cout`, and :io:`cerr`
      - :cstring:`strcmp`, and :cstring:`strncmp`
      - :string:`stoi <stol>`, and :cstring:`strtol`
-
 
 

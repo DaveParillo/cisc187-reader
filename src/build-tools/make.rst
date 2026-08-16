@@ -9,7 +9,8 @@
 .. include:: <isonum.txt>
 
 .. index:: 
-   pair: introductory topics; compiling
+   single: command-line compilation
+   single: make
 
 Command-line compiling
 ----------------------
@@ -42,7 +43,6 @@ Several actually.
    single: c++ compiler
    single: compiler
    single: build steps
-   pair: graph; build steps
 
 
 The C++ compiler
@@ -168,7 +168,7 @@ The order of command line arguments (generally) does not matter.
 
 
 .. index:: 
-   pair: introductory topics; make
+   single: makefiles
 
 The make utility
 ................

@@ -71,7 +71,7 @@ Review this material and if anything looks unfamiliar
 then read the linked content and ask questions.
 
 .. index:: #pragma once
-   pair: introductory topics; header files
+   single: header files
    single: header guard
 
 **Source files and header files**
@@ -93,7 +93,7 @@ but you should know by now:
   See :cpp:`preprocessor/include` for more information.
 
 .. index:: 
-   pair: introductory topics; compilation vs. linking
+   pair: compilation; linking
 
 **Compilation vs. linking**
 
@@ -463,5 +463,4 @@ If not, refer to the section :doc:`../build-tools/debugging`.
    - :lang:`if`
    - :doc:`../build-tools/debugging`
    - Jeff Atwood's blog: `Code smells <https://blog.codinghorror.com/code-smells/>`_
-
 

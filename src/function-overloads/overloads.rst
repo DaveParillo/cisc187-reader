@@ -68,9 +68,6 @@ This just adds to the amount of stuff programmers have to commit to memory.
 In C++, you only have to remember a single function to compute
 the absolute value: ``abs``.
 
-.. index::
-   pair: video; function overloads
-
 .. tb-video:: https://www.youtube.com/watch?v=IAMzWp3kS_k
    :name: youtube-IAMzWp3kS_k
 

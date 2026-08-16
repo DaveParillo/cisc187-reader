@@ -7,7 +7,7 @@
     License".
 
 .. index:: 
-   pair: hash table; collisions
+   pair: hash tables; collisions
 
 Resolving collisions
 ====================

@@ -7,8 +7,8 @@
     License".
 
 .. index::
-   pair: containers; string
-   pair: containers; vector
+   pair: containers; std::string
+   pair: containers; std::vector
 
 Using string and vector
 =======================
@@ -39,4 +39,3 @@ single type: :cpp:`char<keyword/char>`.
 A ``vector`` can store data of **any** type: even types that you make up.
 We will see how that is possible in a bit, 
 but first let's focus on how to use these two important types.
-

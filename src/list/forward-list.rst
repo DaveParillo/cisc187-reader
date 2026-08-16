@@ -7,8 +7,7 @@
     License".
 
 .. index:: 
-   pair: sequence containers; forward_list
-   pair: graph; std::forward_list
+   pair: sequence containers; std::forward_list
 
 std::forward_list
 .................
@@ -58,4 +57,3 @@ it does not have any overhead compared to its implementation in C.
    - :cpp:`Containers library <container>`
    - :cpp:`Iterator library <iterator>`
    - `Visualgo: lists <https://visualgo.net/en/list?slide=1>`_
-

@@ -7,7 +7,7 @@
     License".
 
 .. index:: 
-   pair: associative containers; set
+   pair: associative containers; std::set
 
 The set class
 =============
@@ -210,7 +210,10 @@ does not invalidate iterators to other elements:
         std::cout << '\n';
       }
 
-.. index:: multiset, unordered_set, unordered_multiset
+.. index::
+   single: std::multiset
+   single: std::unordered_multiset
+   single: std::unordered_set
 
 Variations on ``std::set``
 --------------------------

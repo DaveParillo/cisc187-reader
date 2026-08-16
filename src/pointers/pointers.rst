@@ -30,7 +30,7 @@ A pointer is simply a variable that stores an *address*:
 The value assigned to ``e_pointer`` is the *address of* the variable ``euler``.
 
 .. index:: 
-   pair: graph; call stack
+   pair: pointers; call stack
 
 While some of the memory in a running program is stored in
 a small number of **registers**, 
@@ -166,5 +166,4 @@ The equivalent example for references is:
 
    - MyCodeSchool video: 
      `Pointers in C/C++ playlist <https://www.youtube.com/playlist?list=PL2_aWCzGMAwLZp6LMUKI3cc7pgGsasm2_>`__ 
-
 

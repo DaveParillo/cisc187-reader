@@ -9,7 +9,7 @@
 .. include:: <isonum.txt>
 
 .. index:: 
-   pair: introductory topics; linux
+   single: GNU/Linux
 
 Introducing Gnu/Linux
 ---------------------
@@ -165,7 +165,7 @@ regardless of where her home directory actually is located.
            This attempts to list the contents is <tt>/user</tt>.
 
 .. index::
-   pair: linux; command prompt
+   pair: GNU/Linux; command prompt
 
 Basic commands
 ..............
@@ -284,7 +284,7 @@ passwd
 
 
 .. index::
-   pair: linux; command prompt
+   pair: GNU/Linux; command prompt
 
 .. admonition:: Try This!
 
@@ -323,4 +323,3 @@ passwd
    - :wiki:`UNIX Philosophy <Unix_philosophy>` - from Wikipedia
    - Learn Enough (TM) `Command-Line to be Dangerous tutorial <https://www.learnenough.com/command-line-tutorial>`_ by Michael Hartl.
    - `Ryans Tutorials: Linux <https://ryanstutorials.net/linuxtutorial/>`_ - a decent introduction to the linux command line 
-

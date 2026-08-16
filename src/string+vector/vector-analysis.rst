@@ -7,7 +7,7 @@
 
 
 .. index::
-   pair: analysis; vector
+   pair: algorithm analysis; std::vector
 
 Analysis of Vector Operators
 ============================
@@ -345,6 +345,5 @@ can be as the size of a vector grows can still be surprising.
    - :ref:`analysis_big_o`
    - cppreference.com :cpp:`std::vector <container/vector>` overview
    - `Average time complexity <https://yourbasic.org/algorithms/amortized-time-complexity-analysis/>`__
-
 
 

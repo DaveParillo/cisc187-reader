@@ -11,6 +11,11 @@
 
 .. _exhange_costs:
 
+.. index::
+   single: exchange sorting
+   pair: sorting algorithms; comparison costs
+   pair: sorting algorithms; swap costs
+
 Costs of Exchange Sorting
 =========================
 The running time for each of the sorts discussed so far is

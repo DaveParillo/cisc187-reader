@@ -6,7 +6,9 @@
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. index:: binary trees; trees; recursion
+.. index::
+   single: binary trees
+   pair: recursion; binary trees
 
 The Binary Tree ADT
 ===================
@@ -46,7 +48,7 @@ and has two pointers to potential children.
 It is important to remember when working with a recursive tree such as this
 that a child might be a ``nullptr``.
 
-.. index:: traverval
+.. index:: tree traversal
 
 Binary tree traversal
 ---------------------

@@ -7,8 +7,8 @@
     License".
 
 .. index:: 
-   pair: sequence containers; queue
-   pair: graph; std::queue
+   pair: container adaptors; std::queue
+   pair: sequence containers; std::queue
 
 The queue class
 ===============
@@ -68,7 +68,7 @@ and pops them from the front.
 
    
 .. index:: 
-   pair: graph; queue operations
+   pair: circular buffer; queue operations
 
 The defining operations of a :container:`queue` are:
 

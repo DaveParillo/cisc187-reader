@@ -7,7 +7,8 @@
     License".
 
 .. index:: 
-   pair: associative containers; hashing concepts 
+   single: hash tables
+   pair: associative containers; hash tables
 
 Hashing concepts
 ================

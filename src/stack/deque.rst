@@ -7,7 +7,7 @@
     License".
 
 .. index:: 
-   pair: sequence containers; deque
+   pair: sequence containers; std::deque
 
 The deque class
 ===============
@@ -188,4 +188,3 @@ removing elements from the container, and is generally simpler.
 
    - :cpp:`Containers library <container>`
    - The :container:`deque` class
-

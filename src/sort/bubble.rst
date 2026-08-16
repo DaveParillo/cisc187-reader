@@ -11,6 +11,10 @@
 
 .. _sort_bubble:
 
+.. index::
+   single: bubble sort
+   pair: sorting algorithms; bubble sort
+
 Bubble sort
 ===========
 The **bubble sort** makes multiple passes through an array. It compares

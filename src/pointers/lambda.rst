@@ -254,9 +254,6 @@ Even two identical lambdas will become two different types when compiled.
 It is possible to convert between lambda expressions and function pointers,
 as this video demonstrates:
 
-.. index::
-   pair: video; lambda - function pointer conversion
-
 .. tb-video:: https://www.youtube.com/watch?v=Cmk0Tlo1eCA
    :name: youtube-Cmk0Tlo1eCA
 
@@ -316,4 +313,3 @@ immediately called it using ``operator()``.
      - :algorithm:`std::count and std::count_if <count>`.
 
    - `Descriptions of lambda expressions` <https://learn.microsoft.com/en-us/cpp/cpp/lambda-expressions-in-cpp?redirectedfrom=MSDN>`_ from Microsoft's MSDN
-

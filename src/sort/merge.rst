@@ -11,6 +11,11 @@
 
 .. _sort_merge:
 
+.. index::
+   single: merge sort
+   pair: sorting algorithms; merge sort
+   pair: merge sort; divide and conquer
+
 Merge sort
 ==========
 We now turn our attention to using a :term:`divide and conquer` strategy as a

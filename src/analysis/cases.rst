@@ -10,6 +10,11 @@
 .. Copyright (c) 2012-2020 by the OpenDSA Project Contributors, and
 .. distributed under an MIT open source license.
 
+.. index::
+   pair: algorithm analysis; average case
+   pair: algorithm analysis; best case
+   pair: algorithm analysis; worst case
+
 Best, worst, and average cases
 ==============================
 Consider the problem of finding the factorial of :math:`n`.
@@ -264,4 +269,3 @@ If not, then we must resort to worst-case analysis.
    `Open Data Structures (OpenDSA) <https://opendsa-server.cs.vt.edu>`__
    by Ville Karavirta and Cliff Shaffer
    which is distributed under the `MIT License <https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt>`__.
-

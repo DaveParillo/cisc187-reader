@@ -14,7 +14,7 @@
    https://creativecommons.org/licenses/by-nc-sa/4.0/.
 
 .. index::
-   single: big-O notation
+   single: Big-O notation
    single: upper bounds
 
 .. _analysis_big_o:

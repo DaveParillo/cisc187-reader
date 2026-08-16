@@ -7,7 +7,7 @@
     License".
 
 .. index:: 
-   pair: sequence containers; array
+   pair: sequence containers; std::array
 
 The ``std::array`` class
 ========================

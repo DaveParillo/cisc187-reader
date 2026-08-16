@@ -7,7 +7,8 @@
     License".
 
 .. index:: 
-   triple: introductory topics; vim; text editors
+   single: text editors
+   single: Vim
 
 Introducing the vim editor
 ==========================
@@ -64,7 +65,7 @@ By default a help window open with basic vim navigation and how to jump to hyper
 the documentation.
 
 .. index:: 
-   pair: vim; modes
+   pair: Vim; modes
 
 Modes
 -----
@@ -140,7 +141,7 @@ The site https://openvim.com/ hosts a web-based vim tutor that is easy to use.
 a decent introduction to vim.
 
 .. index:: 
-   pair: vim; motions
+   pair: Vim; motions
 
 Motions
 -------
@@ -212,7 +213,7 @@ Command & motion examples
 - Visually select a paragraph: ``vap``
 
 .. index:: 
-   pair: vim; hello world
+   pair: Vim; hello world
 
 
 Creating 'Hello World' using vim
@@ -357,5 +358,3 @@ The ``make`` utility is described in more detail in the :doc:`make` section.
    If you have already downloaded ``git``, then you also have vim.
    Git provides a subset of the Gnu/Linux utilities, 
    including vim and ssh, but not make or g++.
-
-

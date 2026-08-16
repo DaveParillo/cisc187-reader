@@ -7,7 +7,9 @@
     License".
 
 .. index::
-   pair: design patterns; adapter
+   single: adapter pattern
+   pair: design patterns; adapter pattern
+   single: container adaptors
 
 The Adapter pattern
 ===================

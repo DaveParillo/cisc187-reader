@@ -7,7 +7,7 @@
     License".
 
 .. index::
-   pair: analysis; hash table
+   pair: algorithm analysis; hash tables
 
 Analysis of hash tables
 =======================
@@ -269,6 +269,5 @@ The graph below shows example output for values up to 1,000,000.
    - :cpp:`std::unordered_set <container/unordered_set>`
    - :cpp:`std::set <container/set>`
    - :cpp:`Unordered associative container requirements <unord.req>`
-
 
 

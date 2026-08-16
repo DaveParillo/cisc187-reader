@@ -6,6 +6,9 @@
     the license is included in the section entitled "GNU Free Documentation
     License".
 
+.. index::
+   single: sorting algorithms
+
 Summary of sorting algorithms
 =============================
 As a convenience, a summary of the key characteristics

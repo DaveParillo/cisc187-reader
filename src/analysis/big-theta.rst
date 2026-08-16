@@ -10,6 +10,10 @@
 .. Copyright (c) 2012-2020 by the OpenDSA Project Contributors, and
 .. distributed under an MIT open source license.
 
+.. index::
+   single: Big-Theta notation
+   single: lower bounds
+
 Lower Bounds
 ============
 :term:`Big-O notation <big-O notation>` describes an upper bound.
@@ -358,4 +362,3 @@ the upper and lower bounds are the same.
    `Open Data Structures (OpenDSA) <https://opendsa-server.cs.vt.edu>`__
    by Ville Karavirta and Cliff Shaffer
    which is distributed under the `MIT License <https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt>`__.
-

@@ -7,7 +7,7 @@
     License".
 
 .. index:: 
-   single: priority queue
+   single: std::priority_queue
 
 Heaps and Priority queues
 =========================

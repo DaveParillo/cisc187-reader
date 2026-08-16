@@ -12,6 +12,12 @@
 
 .. _sort_quick:
 
+.. index::
+   single: quick sort
+   pair: sorting algorithms; quick sort
+   pair: quick sort; pivot
+   pair: quick sort; partitioning
+
 Quick sort
 ==========
 The **quick sort** uses divide and conquer to gain the same advantages

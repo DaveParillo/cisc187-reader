@@ -11,7 +11,7 @@
    Copyright (c) 2014-2016 by the OpenDSA Project Contributors, and
    distributed under an MIT open source license.
 
-.. index:: object-oriented programming; oo concepts
+.. index:: object-oriented programming
 
 Object-oriented concepts
 ========================
@@ -58,8 +58,12 @@ so an **object**, which is an **instance of a class**,
 manipulates its own data.
 
 
-.. index:: encapsulation, inheritance, polymorphism, abstraction
-   pair: SOLID; object oriented concepts
+.. index::
+   single: abstraction
+   single: encapsulation
+   single: inheritance
+   single: polymorphism
+   pair: SOLID; object-oriented programming
    
 Object-oriented programming principles
 --------------------------------------
@@ -112,7 +116,7 @@ There are 4 principles that apply to most:
 
 .. index:: 
    pair: encapsulation; class invariants
-   pair: oo concepts; encapsulation
+   pair: object-oriented programming; encapsulation
 
 Encapsulation
 -------------
@@ -238,7 +242,7 @@ No classes would need to be modified to add the new capability below.
 
 
 .. index::
-   pair: oo concepts; inheritance
+   pair: object-oriented programming; inheritance
 
 Inheritance
 -----------
@@ -258,7 +262,7 @@ implementation technique.
 It is common to draw inheritance relationships like this:
 
 .. index::
-   pair: graph; shape inheritance
+   pair: inheritance; class hierarchy
 
 .. mermaid::
    :alt: Shape inheritance
@@ -292,7 +296,7 @@ later sections.
 
 
 .. index:: runtime polymorphism; compile-time polymorphism
-   pair: oo concepts; polymorphism
+   pair: object-oriented programming; polymorphism
    
 Polymorphism
 ------------
@@ -327,7 +331,7 @@ itself comes in two distinct forms:
   different number of arguments or different types of arguments or both.
 
 .. index::
-   pair: oo concepts; polymorphism
+   pair: object-oriented programming; polymorphism
 
 Abstraction
 -----------
@@ -378,4 +382,3 @@ development of very large programs.
 
    .. [#] :wiki:`Wikipedia OO fundamental concepts <Object-oriented_programming#Features>`
    .. [#] :wiki:`SOLID <SOLID_%28object-oriented_design%29>` Object oriented design principles
-

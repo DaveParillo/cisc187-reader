@@ -12,6 +12,11 @@
 
 .. _sort_heap:
 
+.. index::
+   single: heap sort
+   pair: sorting algorithms; heap sort
+   pair: heap sort; heap property
+
 Heap sort
 =========
 Our discussion of Quicksort began by considering the practicality of

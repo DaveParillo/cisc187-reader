@@ -8,8 +8,8 @@
 
  
 .. index:: comments
-   triple: introductory topics; comments; best practices
-   triple: introductory topics; comments; anti-patterns
+   single: commenting anti-patterns
+   single: commenting best practices
 
 
 Code comments
@@ -302,5 +302,4 @@ but couldn't be captured or expressed in code.
      John Ousterhout. Chapters 15 and 16 focus on comments.
 
    - `Doxygen <https://www.doxygen.nl/index.html>`__
-
 

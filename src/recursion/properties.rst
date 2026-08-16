@@ -6,6 +6,11 @@
     the license is included in the section entitled "GNU Free Documentation
     License".
 
+.. index::
+   single: base case
+   single: recursive case
+   pair: recursion; call stack unwinding
+
 Properties of recursive functions
 =================================
 All recursive algorithms must implement 3 properties:
@@ -110,5 +115,4 @@ problem by using the three properties of recursive functions.
 
       - :wiki:`Recursion in computer science <Recursion_%28computer_science%29>`
       - :wiki:`Recursive definition <Recursive_definition>`
-
 

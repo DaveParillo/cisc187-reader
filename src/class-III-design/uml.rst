@@ -11,8 +11,8 @@
     Copyright (c) 2014-2016 by the OpenDSA Project Contributors, and
     distributed under an MIT open source license.
 
-.. index:: unified modeling langauage; UML
-   pair: class design; visualization 
+.. index::
+   single: Unified Modeling Language (UML)
    pair: class design; UML
 
 Unified modeling language
@@ -76,7 +76,7 @@ and the collaborations between objects.  Dynamic views include:
 - Use Case diagrams
 
 .. index::
-   pair: graph; class diagram
+   single: class diagrams
 
 Class diagrams
 --------------
@@ -216,7 +216,7 @@ are in any way interdependent, other than they share a common ancestor.
 
 .. index::
    pair: UML; realization
-   pair: graph; person inheritance
+   pair: UML; inheritance diagrams
 
 **Realization relationships**
 

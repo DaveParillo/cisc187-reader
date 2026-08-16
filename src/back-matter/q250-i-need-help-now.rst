@@ -37,11 +37,14 @@ Videos
 ------
 I have a love hate relationship. I can't learn anything from them, but I get everyone learns differently.
 Also, it bugs me that people always are trying to sell you something on YouTube.
-That said, here are some video sources that I trust.
+That said, here are some recommendable video sources.
 Some are linked from my textbook:
 
 - Bucky's C++ Tutorials: 
   https://www.youtube.com/playlist?list=PLAE85DE8440AA6B83
+
+  At this point these are getting rather out-dated.
+
 - My Code School C++ Pointers: 
   https://www.youtube.com/playlist?list=PL2_aWCzGMAwLZp6LMUKI3cc7pgGsasm2_
   There is a C playlist that has a lot to offer: 
@@ -52,10 +55,14 @@ Some are linked from my textbook:
 
 - Jason Turner C++ weekly: https://www.youtube.com/user/lefticus1/videos
 
-  - These are a bit more random as opposed to a linear tutorial, but this guy is incredibly smart.
-    But this is an area where you really do not want to try to see them all.
-    It may be too overwhelming and some advanced concepts are mixed in with the basics.
-    Just try one on for size and if it isn't helping, then forget it.
+  These are a bit more random as opposed to a linear tutorial, but this guy is incredibly smart.
+
+  But this is an area where you really do not want to try to see them all.
+  It may be too overwhelming and some advanced concepts are mixed in with the basics.
+  Just try one on for size and if it isn't helping, then forget it.
+
+  He does have a
+  `Curated Learning C++ Playlist <https://www.youtube.com/watch?v=v_C9BC-bXcw&list=PLs3KjaCtOwSY34fFKyhOFovFlB7LikDwe>`__.
 
 All these videos are usually short, single topic tutorials.
 

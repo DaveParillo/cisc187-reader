@@ -8,7 +8,7 @@
 
 .. index:: 
    pair: classes; inheritance
-   pair: virtual; keyword
+   pair: C++ keywords; virtual
 
 Inheritance
 ===========
@@ -253,7 +253,9 @@ is a :container:`std::deque <deque>`,
 we don't want to expose all of the functions of a ``deque`` in a ``stack``.
 
 
-.. index:: non-virtual functions; manatory interfaces;
+.. index::
+   single: mandatory interfaces
+   single: non-virtual functions
    single: shadowing
 
 Non-virtual base class functions
@@ -482,7 +484,7 @@ This is partly why the diamond is considered 'deadly'.
 
 
 .. index::
-   pair: graph; bird inheritance
+   pair: inheritance; class hierarchy
 
 Design problems
 ---------------
@@ -560,4 +562,3 @@ A kitchen **has a** sink in it.
    - Effective C++ #36: Never redefine inherited non-virtual functions
    - `Composition vs. Inheritance: How to Choose?
      <https://www.thoughtworks.com/insights/blog/composition-vs-inheritance-how-choose>`__
-

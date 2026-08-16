@@ -8,6 +8,7 @@
 
 .. index::
    pair: closed hashing; collisions
+   pair: hash tables; closed hashing
    single: linear probing
    single: quadratic probing
    single: double hashing

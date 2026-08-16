@@ -6,7 +6,7 @@
     the license is included in the section entitled "GNU Free Documentation
     License".
 
-.. index:: vector
+.. index:: std::vector
 
 .. _vector-intro:
 
@@ -114,7 +114,7 @@ use ``#include <vector>``.
          }
 
 .. index:: 
-   pair: graph; vector
+   pair: std::vector; storage
 
 Given a vector declared as:
 
@@ -163,11 +163,10 @@ Explicitly initialize with a default value, if that is what you want:
 
 
 .. index:: 
-   pair: vector functions; operator=
-   pair: vector functions; operator[]
-   pair: vector functions; at
-   pair: vector functions; operator+=
-   pair: vector functions; operator==
+   pair: std::vector; operator=
+   pair: std::vector; operator[]
+   pair: std::vector; at
+   pair: std::vector; operator==
 
 A vector comes with a rich assortment of convenience functions.
 Like an array, the :vector:`operator[] <operator_at>` can be used to access elements
@@ -487,7 +486,7 @@ Appends the value 40 to the end of the vector.
          }
 
 .. index:: 
-   pair: vector functions; capacity
+   pair: std::vector; capacity
 
 Vector capacity
 ---------------
@@ -694,4 +693,3 @@ vector data is one of the things that make vectors efficient.
 
    - cppreference.com :cpp:`std::vector <container/vector>`
    - WikiBooks.org C++ Programming `STL Containers <https://en.wikibooks.org/wiki/C%2B%2B_Programming/STL#Containers>`_
-

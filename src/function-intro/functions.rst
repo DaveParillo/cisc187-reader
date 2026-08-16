@@ -193,7 +193,7 @@ Using ``make``, you can add directories to the include search path using ``-I``.
 .. index:: call stack
    pair: functions; call stack
    pair: pointer; stack pointer
-   pair: graph; call stack
+   pair: functions; call stack
 
 The call stack
 --------------

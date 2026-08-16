@@ -7,9 +7,8 @@
     License".
 
 .. index:: 
-   pair: abstract base class; interface
-   pair: keyword; virtual
-   pair: graph; shape class hierarchy
+   pair: abstract base classes; interfaces
+   pair: C++ keywords; virtual
 
 Abstract base classes
 =====================
@@ -191,7 +190,7 @@ or if we need to add more pure virtual functions,
 every derived class is affected.
 
 .. index:: 
-   pair: graph; template design pattern
+   pair: design patterns; template method
 
 We can protect ourselves from future changes using the *Template Method*
 design pattern.
@@ -372,4 +371,3 @@ Attempting to override a final function is a compile error.
 
    - `Virtuality <http://www.gotw.ca/publications/mill18.htm>`__ by Herb Sutter
    - :wiki:`The Template Method design pattern<Template_method_pattern>`
-

@@ -7,7 +7,7 @@
     License".
 
 .. index:: 
-   pair: associative containers; map
+   pair: associative containers; std::map
    single: key-value pair
    single: std::pair
 

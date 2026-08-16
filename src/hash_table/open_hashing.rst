@@ -7,6 +7,7 @@
     License".
 
 .. index::
+   pair: hash tables; open hashing
    pair: open hashing; collisions
 
 Open hashing

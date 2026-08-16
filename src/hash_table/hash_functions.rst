@@ -7,7 +7,8 @@
     License".
 
 .. index::
-   pair: hashing concepts; hash functions
+   single: hash functions
+   pair: hash tables; hash functions
 
 Hash functions
 ==============

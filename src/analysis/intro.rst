@@ -11,6 +11,11 @@
 .. distributed under an MIT open source license.
 
 
+.. index::
+   single: algorithm analysis
+   single: algorithms
+   single: problems
+
 Problems, Algorithms, and Programs
 ==================================
 
@@ -212,4 +217,3 @@ The following slideshow should help you to visualize the differences.
    `Open Data Structures (OpenDSA) <https://opendsa-server.cs.vt.edu>`__
    by Ville Karavirta and Cliff Shaffer
    which is distributed under the `MIT License <https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt>`__.
-

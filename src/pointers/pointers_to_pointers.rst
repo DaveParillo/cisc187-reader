@@ -85,9 +85,6 @@ the pointer, what it points to, and *what the pointer that it points to points t
       cout << **sp3 << '\n';
     }
 
-.. index::
-   pair: video; pointer to reference
-
 You can also define a pointer to a reference variable:
 
 .. tb-video:: https://www.youtube.com/watch?v=0QOxC7ADT80
@@ -99,4 +96,3 @@ You can also define a pointer to a reference variable:
 
    - MyCodeSchool video: 
      `Pointers in C/C++ playlist <https://www.youtube.com/playlist?list=PL2_aWCzGMAwLZp6LMUKI3cc7pgGsasm2_>`__ 
-

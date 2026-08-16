@@ -215,11 +215,6 @@ Your future co-workers will thank you.
         return get_max ? std::max(x,y) : std::min(x,y);
       }
 
-.. index::
-   pair: repl.it; number guessing
-   pair: repl.it; command line argument parsing
-   pair: repl.it; parsing command line arguments
-
 Example: number guessing
 ------------------------
 A more realistic example might help.
@@ -735,9 +730,6 @@ While we were at it, we fixed some bugs and made it a bit more reusable and main
 
 -----
 
-.. index::
-   pair: video; function returns
-
 .. admonition:: More to Explore
 
    - C++ Core Guidelines for :guidelines:`functions <s-functions>`
@@ -748,4 +740,3 @@ While we were at it, we fixed some bugs and made it a bit more reusable and main
      `PortlandPatternRepository <http://wiki.c2.com/?PortlandPatternRepository>`_ - the very first wiki
 
    .. tb-video:: https://www.youtube.com/watch?v=9mWWNYRHAIQ&list=PLs3KjaCtOwSY34fFKyhOFovFlB7LikDwe&index=41
-

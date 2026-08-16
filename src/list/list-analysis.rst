@@ -7,7 +7,7 @@
     License".
 
 .. index::
-   pair: analysis; list
+   pair: algorithm analysis; std::list
 
 Analysis of list operators
 ==========================

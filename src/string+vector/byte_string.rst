@@ -7,7 +7,7 @@
     License".
 
 .. index::
-   pair: byte string; C string
+   pair: C strings; byte strings
 
 String abstractions in C
 ========================
@@ -36,7 +36,7 @@ Given the byte string:
 
    
 .. index:: 
-   pair: graph; char array
+   pair: C strings; character arrays
 
 In memory, ``howdy`` is automatically transformed into:
 
@@ -93,8 +93,8 @@ The null character is a  ``char`` equal to 0.
 
     
 .. index:: 
-   pair: array; character
-   pair: graph; byte string
+   pair: character arrays; C strings
+   single: null-terminated strings
 
 A character array may allocate more memory that the characters currently stored in it.
 An array declaration like this:
@@ -191,7 +191,7 @@ In general, you want to try to avoid these kinds of unnecessary type conversions
 
 
 .. index::
-   single: toupper
+   single: std::toupper
    single: locale
 
 Change character case
@@ -296,10 +296,10 @@ such as the :cpp:`toupper<locale/toupper>` function.
          }
 
 .. index::
-   single: strcpy
-   single: strncpy
-   single: strcmp
-   single: strncmp
+   single: std::strcpy
+   single: std::strncpy
+   single: std::strcmp
+   single: std::strncmp
 
 Copying and comparing C strings
 -------------------------------
@@ -564,4 +564,3 @@ The copy and compare functions are defined in the ``cstring`` header.
 
      - `Thinking in C++: Locales <https://www.linuxtopia.org/online_books/programming_books/c++_practical_programming/c++_practical_programming_101.html>`__
      - `Differences between the C Locale and the C++ Locales <https://stdcxx.apache.org/doc/stdlibug/24-3.html>`__
-

@@ -150,9 +150,6 @@ pointing to a function that returns a ``double`` and takes two parameters:
       Refactor the previous example to replace the traditional C syntax
       with the C++11 ``using`` type alias.
 
-.. index::
-   pair: video; function pointers
-
 .. tb-video:: https://www.youtube.com/watch?v=p4sDgQ-jao4
    :name: youtube-p4sDgQ-jao4
 

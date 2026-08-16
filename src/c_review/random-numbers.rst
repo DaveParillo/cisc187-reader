@@ -84,6 +84,7 @@ Notice there is a lot going on in this small program.
          {{blank}}
 
          .. tb-answer::
+            :regex:
             :match: ([Nn]ondeterministic|NONDETERMINISTIC)
             :feedback: Correct!
             :match: ([Dd]eterministic|DETERMINISTIC)
@@ -98,12 +99,12 @@ Notice there is a lot going on in this small program.
          ``std::uniform_int_distribution``?
 
 
-         - [x] cstdlib
-
-           Correct!
-         - [ ] random
+         - [ ] cstdlib
 
            Incorrect!
+         - [x] random
+
+           Correct!
          - [ ] cmath
 
            Incorrect!

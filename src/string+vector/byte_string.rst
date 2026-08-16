@@ -534,7 +534,7 @@ The copy and compare functions are defined in the ``cstring`` header.
             :match: cstdlib
             :feedback: Correct.
             :hint: cstring; These are C library functions
-            :hint: string; These are C library functions
+            :hint: string; These are C++ string library functions
             :hint: x; Try again.
 
    .. tb-tab:: Q4

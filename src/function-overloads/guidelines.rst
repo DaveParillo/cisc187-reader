@@ -111,12 +111,6 @@ General function writing guidelines
    - It should be obvious: do not trust ``argv[]``
 
 
-.. index::
-   pair: video; function returns
-
-.. tb-video:: https://www.youtube.com/watch?v=9mWWNYRHAIQ
-   :name: youtube-9mWWNYRHAIQ
-
 When to write a function
 ------------------------
 
@@ -740,6 +734,9 @@ We made the program *clearer* and easier to reason about.
 While we were at it, we fixed some bugs and made it a bit more reusable and maintainable.
 
 -----
+
+.. index::
+   pair: video; function returns
 
 .. admonition:: More to Explore
 

@@ -80,7 +80,7 @@ that stores no characters.
 
    .. tb-tab:: front() and back()
 
-      This tab shows alternate functions for accessing the first and last
+      This example shows alternate functions for accessing the first and last
       characters in a string.
 
       .. tb-code:: cpp

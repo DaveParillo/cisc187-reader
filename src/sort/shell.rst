@@ -76,7 +76,8 @@ For this case, we need only four more shifts to complete the process.
    .. tb-tab:: Shell Sort
 
       We said earlier that the way in which the increments are chosen is the
-      unique feature of the shell sort. The function shown in :ref:`Run It tab <lst-shell-sort-code>`
+      unique feature of the shell sort. The function shown in the
+      :ref:`Run It <lst-shell-sort-code>` section.
       uses a different set of increments. In this case, we begin with
       :math:`\frac {n}{2}` subvectors. On the next pass,
       :math:`\frac {n}{4}` subvectors are sorted. Eventually, a single vector is
@@ -199,7 +200,7 @@ previous one. This makes the final pass very efficient.
 Although a general analysis of the shell sort is well beyond the scope
 of this text, we can say that it tends to fall somewhere between
 :math:`O(n)` and :math:`O(n^{2})`, based on the behavior described above. 
-For the increments shown in :ref:`Run It tab <lst-shell-sort-code>`, 
+For the increments shown in the :ref:`Run It <lst-shell-sort-code>` section 
 the performance is :math:`O(n^{2})`.
 By changing the increment, for example using
 :math:`2^{k}-1` (1, 3, 7, 15, 31, and so on), a shell sort can perform

@@ -233,11 +233,11 @@ algorithms are shown.
 .. tb-group::
    :name: growth_tabs
 
-   .. tb-tab:: Growth rates
+   .. tb-tab:: Growth Rates Graph
 
       Two views of a graph illustrating the growth rates for
       six equations.
-      The 'zoom' tab shows in detail the lower-left portion
+      The 'zoom graph' shows in detail the lower-left portion
       of this graph.
       The horizontal axis represents input size.
       The vertical axis can represent time, space, or any other measure of
@@ -278,7 +278,7 @@ algorithms are shown.
 
          plt.show()
 
-   .. tb-tab:: Zoom
+   .. tb-tab:: Zoom Graph
 
       .. plot::
 

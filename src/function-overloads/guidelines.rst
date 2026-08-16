@@ -435,7 +435,7 @@ A more realistic example might help.
       - We have to remember what modulus does.
 
       Yes, not big hurdles, but this is where bugs hide.
-      The range bug described in the previous tab is an example of that.
+      The range bug described in the 'Bugs' section is an example of that.
 
       The standard library has a superior alternative to ``rand``:
 

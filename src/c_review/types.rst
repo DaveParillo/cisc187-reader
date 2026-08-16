@@ -165,9 +165,9 @@ one's complement or two's complement representations.
       the exponent in floating point values.
       It is the official IEEE floating point number format.
 
-      The program on the run tab isn't meant to be completely
-      understood, but does demonstrate the bits stored
-      in the exponent and mantissa for some floats.
+      The program in the :ref:`Run It <c_types_run_it>` section
+      isn't meant to be completely understood, but does demonstrate the bits
+      stored in the exponent and mantissa for some floats.
 
       Feel free to modify ``main()`` and provide your
       own values.
@@ -182,6 +182,7 @@ one's complement or two's complement representations.
       a side effect of the sign and magnitude representation.
 
    .. tb-tab:: Run It
+      :name: c_types_run_it
 
       The following C program [Aspnes2014]_ prints the sign,
       exponent, and mantissa of a few small numbers.

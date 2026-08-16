@@ -266,7 +266,8 @@ such as the :cpp:`toupper<locale/toupper>` function.
          For these resaons, the ``std::locale()`` version of
          toupper is preferred.
 
-         See the previous tab for details.
+         See the :ref:`std::locale example <string_toupper_locale_ac>`
+         for details.
 
       ``toupper`` is defined in header ``cctypes``.
 

@@ -139,7 +139,7 @@ Insertion sort analysis
    .. tb-tab:: Insertion Sort
 
       The implementation of ``insertion_sort`` 
-      (:ref:`Run It tab <lst-insertion-sort-code>`) shows that
+      (:ref:`Run It <lst-insertion-sort-code>`) shows that
       there are again :math:`n-1` passes to sort *n* items. The iteration
       starts at position 1 and moves through position :math:`n-1`, as these
       are the items that need to be inserted back into the sorted subvectors.

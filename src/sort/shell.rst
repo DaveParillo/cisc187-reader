@@ -76,7 +76,7 @@ For this case, we need only four more shifts to complete the process.
 .. _lst-shell-sort-code:
 
 .. tb-group::
-   :name: _lst_shell
+   :name: lst-shell
 
    .. tb-tab:: Shell Sort
 

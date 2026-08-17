@@ -352,7 +352,6 @@ you will be expected to employ basic I/O in labs and projects.
       .. tb-file::
          :name: poem-c_reviewhello-world
          :filename: poem-hello-world
-         :editable:
 
                    Jabberwocky
 
@@ -463,4 +462,3 @@ If not, refer to the section :doc:`../build-tools/debugging`.
    - :lang:`if`
    - :doc:`../build-tools/debugging`
    - Jeff Atwood's blog: `Code smells <https://blog.codinghorror.com/code-smells/>`_
-

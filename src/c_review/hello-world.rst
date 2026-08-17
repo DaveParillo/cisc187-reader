@@ -296,7 +296,7 @@ you will be expected to employ basic I/O in labs and projects.
 
       .. tb-code:: cpp
          :name: df_ac_poem_c_file_io
-         :files: poem
+         :files: poem-hello-world
 
          #include <cstdio>
 
@@ -321,7 +321,7 @@ you will be expected to employ basic I/O in labs and projects.
 
       .. tb-code:: cpp
          :name: df_ac_poem_stream_io
-         :files: poem
+         :files: poem-hello-world
 
          #include <fstream>
          #include <iostream>
@@ -350,8 +350,8 @@ you will be expected to employ basic I/O in labs and projects.
    .. tb-tab:: poem
 
       .. tb-file::
-         :name: poem
-         :filename: poem
+         :name: poem-c_reviewhello-world
+         :filename: poem-hello-world
          :editable:
 
                    Jabberwocky

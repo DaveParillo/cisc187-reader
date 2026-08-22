@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cisc187-reader"
-version = "4.8.9"
+version = "4.8.10"
 description = "CISC 187 textbook source built with Sphinx and sphinx-touchbook."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -15,6 +15,7 @@ docs = [
     "Sphinx>=8",
     "accessible-pygments",
     "sphinx-accessibility",
+    "sphinx-copybutton",
     "sphinxcontrib-mermaid",
     "sphinx-nefertiti",
     "sphinx-touchbook",

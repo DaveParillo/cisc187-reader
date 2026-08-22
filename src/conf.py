@@ -60,6 +60,7 @@ extensions = [
     'sphinx.ext.graphviz',
     'sphinx.ext.extlinks',
     'sphinx_accessibility',
+    'sphinx_copybutton',
     'sphinxcontrib.mermaid',
     'matplotlib.sphinxext.plot_directive',
     'cppreference',

@@ -37,7 +37,7 @@ The following example initializes a set with values and prints the set.
 Without running the code first, what do you think will be stored in ``x`` after
 initialization?
 
-.. tb-reveal::
+.. tb-reveal:: Answer
    :name: reveal_init
 
    The two defining characteristics of a ``set`` are:

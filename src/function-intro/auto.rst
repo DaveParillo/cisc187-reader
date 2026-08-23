@@ -75,10 +75,8 @@ they inherit the *type* from the initializer, but not its *constness*.
 
 What type is x?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal-auto-1
-   :showlabel: Show Answer
-   :hidelabel: Hide Answer
 
    If you said, ``int``, excellent job!
 
@@ -96,10 +94,8 @@ Given the following code:
 
 What type is y?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal-auto-2
-   :showlabel: Show Answer
-   :hidelabel: Hide Answer
 
    If you said, ``double``, excellent job!
 
@@ -159,10 +155,8 @@ For example:
   
 What type is s?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal-string-confusion
-   :showlabel: Show Answer
-   :hidelabel: Hide Answer
 
    If you said, ``const char*``, excellent job!
 
@@ -195,7 +189,6 @@ Therefore, ``auto`` cannot be used in casts or operators such as ``sizeof`` and 
     - `#92 (auto part 1) <https://herbsutter.com/2013/06/05/gotw-92-auto-variables-part-1/>`_
     - `#93 (auto part 2) <https://herbsutter.com/2013/06/07/gotw-93-auto-variables-part-2/>`_
     - `#94 (almost always auto) <https://herbsutter.com/2013/06/13/gotw-94-special-edition-aaa-style-almost-always-auto/>`_
-
 
 
 

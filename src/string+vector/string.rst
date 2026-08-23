@@ -190,7 +190,7 @@ Declarations like this are a common source of confusion for new programmers:
 
 What type is ``my_string``?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal_my_string
 
    ``my_string`` is **not** a std::string.

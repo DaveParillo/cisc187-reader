@@ -144,9 +144,8 @@ We can pass pointers to a function that expects a reference:
 
 If we pass in only ``p``, what happens?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal-skill-check
-   :showlabel: Show Answer
 
    The program fails to compile.
 
@@ -201,4 +200,3 @@ If we pass in only ``p``, what happens?
 
    - MyCodeSchool video: 
      `Pointers in C/C++ playlist <https://www.youtube.com/playlist?list=PL2_aWCzGMAwLZp6LMUKI3cc7pgGsasm2_>`__ 
-

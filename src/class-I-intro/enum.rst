@@ -90,9 +90,8 @@ Consider the following program:
      }
    }
 
-.. tb-reveal::
+.. tb-reveal:: What problems does this program have?
    :name: reveal-enum-issues
-   :showlabel: What problems does this program have?
 
    #. The unscoped enum ``direction`` is not type safe
 

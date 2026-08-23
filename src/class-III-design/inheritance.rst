@@ -510,9 +510,8 @@ Consider the following classes.
          +eat() int
       }
 
-.. tb-reveal::
+.. tb-reveal:: Is this OK?
    :name: r_class_inherit
-   :showlabel: Is this OK?
 
    No.
 

@@ -98,10 +98,8 @@ that is ineffective.
 Anti-patterns represent examples that you **should not** copy!
 As bad as they are, they can still be instructive.
 
-.. tb-reveal::
+.. tb-reveal:: Show Comment Anti-Patterns
    :name: reveal-1
-   :showlabel: Show Comment Anti-Patterns
-   :hidelabel: Hide Comment Anti-Patterns
 
    In case you are wondering,
    these anti-patterns are all actual code examples I have received in the past.
@@ -124,10 +122,8 @@ As bad as they are, they can still be instructive.
 
        int main( int argc, char* argv[] )  //or alternately char**arg[]
 
-   .. tb-reveal::
+   .. tb-reveal:: What is Wrong?
       :name: reveal-1-1
-      :showlabel: What is Wrong?
-      :hidelabel: Hide
 
       The comment is actually telling a lie: the alternative will not compile!
 
@@ -302,4 +298,3 @@ but couldn't be captured or expressed in code.
      John Ousterhout. Chapters 15 and 16 focus on comments.
 
    - `Doxygen <https://www.doxygen.nl/index.html>`__
-

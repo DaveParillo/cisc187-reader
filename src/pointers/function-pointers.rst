@@ -38,7 +38,7 @@ What does this program print?
 
 Hint: It doesn't call the function foo
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal-fp1
 
    It prints the *address* of the function named ``foo``

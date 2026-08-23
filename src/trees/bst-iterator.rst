@@ -56,7 +56,7 @@ that a BST produces sorted values when visited using an in-order traversal.
 
 So what algorithm should we use to find the beginning?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal_bst_it_1
 
    Start from the root and work our way down, always taking left children,
@@ -66,7 +66,7 @@ So what algorithm should we use to find the beginning?
 
 So what algorithm should we use to find the end?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal_bst_it_2
 
    Just return the ``nullptr``.
@@ -135,7 +135,7 @@ Given our familiar tree:
 If we are iterating through our tree and are currently at the node
 with value ``40``, then how do we get to the next node?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal_bst_it_3
 
    Well, we know that we should wind up at ``50``.
@@ -320,7 +320,7 @@ Suppose that we are currently at node E.
 What is the in-order successor of E?
 That is, the node that comes next during an in-order traversal of E?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal_bst_it_4
 
    G is the in-order successor of E. 
@@ -335,7 +335,7 @@ its right descendants.
 
 If our previous premise is correct, then what is the in-order successor to A?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal_bst_it_5
 
    F is the in-order successor of A.
@@ -367,7 +367,7 @@ What happens if we are at a node with no right descendants?
 **Question:**
 Suppose that we are currently at node C. What is the in-order successor of C?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal_bst_it_6
 
    C does not *have* an in-order successor.
@@ -381,7 +381,7 @@ where we have no right child.
 
 **Question:** What is the in-order successor of F?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal_bst_it_7
 
    E is the in-order successor of F.
@@ -390,7 +390,7 @@ where we have no right child.
 
 **Question:** What is the in-order successor of G?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal_bst_it_8
 
    C is the in-order successor of G.

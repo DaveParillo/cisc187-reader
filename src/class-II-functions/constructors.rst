@@ -279,7 +279,7 @@ and
 ``vector<int>{5}``.
 What's the difference?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal-whats-the-difference
 
    The first version creates a vector of size 5 with no initialized values.

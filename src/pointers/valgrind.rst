@@ -120,10 +120,8 @@ in calls to library functions, you need to add the command line argument
     ==1302== 
     ==1302== Use of uninitialised value of size 4
 
-.. tb-reveal::
+.. tb-reveal:: Show All valgrind output
    :name: reveal-valgrind-details
-   :showlabel: Show All valgrind output
-   :hidelabel: Hide valgrind details
 
    .. code-block:: none
 
@@ -181,6 +179,5 @@ And that is exactly where the error lies.
   - `Valgrind video tutorial <https://www.youtube.com/watch?v=bb1bTJtgXrI>`_
   - MyCodeSchool video: 
      `Memory leak in C++ <https://www.youtube.com/watch?v=F2nrej6Kjww&list=PL2_aWCzGMAwLZp6LMUKI3cc7pgGsasm2_&index=17>`__ 
-
 
 

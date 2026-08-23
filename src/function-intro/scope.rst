@@ -148,10 +148,8 @@ For example, what is the output of the following?
      }
    }
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal-scope-1
-   :showlabel: Show Answer
-   :hidelabel: Hide
 
    If you guessed ``0 1 2 3 4 5 6 7 8 9`` , then you got it!
 
@@ -246,4 +244,3 @@ the result can be bugs that are difficult to identify and fix.
     - :guidelines:`Avoid non-const global variables <i2-avoid-non-const-global-variables>`
     - :guidelines:`Keep functions short and simple <f3-keep-functions-short-and-simple>`
     - :guidelines:`Express intent <p3-express-intent>`
-

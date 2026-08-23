@@ -79,10 +79,7 @@ Back Matter
 * :ref:`glossary`
 * :ref:`genindex`
 
-.. tb-reveal::
-   :showlabel: Acknowledgements
-   :modal:
-   :modal-titlebar: Acknowledgements
+.. tb-reveal:: Acknowledgements
 
    Portions of this book would not be possible without the generosity of others
    who have created excellent textbooks and materials and also
@@ -102,5 +99,4 @@ Back Matter
 
 
 Download the `PDF version <_downloads/cisc187textbook.pdf>`__.
-
 

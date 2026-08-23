@@ -28,9 +28,8 @@ These assertions define the **binary search tree property**.
 
 .. include:: bst.dot
 
-.. tb-reveal::
+.. tb-reveal:: Is this a BST?
    :name: reveal-bst-1
-   :showlabel: Is this a BST?
 
    Yes.
 
@@ -380,7 +379,7 @@ Suppose we wanted to remove the ``20`` or the ``70`` from this tree.
 What would we have to do so that the
 remaining nodes would still be a valid BST?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal-bst-2
 
    There is one pointer to the node being deleted, 

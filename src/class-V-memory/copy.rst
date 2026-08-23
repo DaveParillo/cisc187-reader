@@ -245,7 +245,7 @@ Consider this sequence:
 
 What does the last line print if the destructor deletes ``data_``?
 
-.. tb-reveal::
+.. tb-reveal:: Solution
    :name: reveal_str_copy_ube
 
    There is no way to know for sure.

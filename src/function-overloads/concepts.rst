@@ -240,7 +240,7 @@ the diagnostic.
    If ``x`` is not ``StreamExtractable``, why is any check inside ``get``
    needed?
 
-   .. tb-reveal::
+   .. tb-reveal:: Solution
 
       ``StreamExtractable`` checks a **type** at compile time.
       It answers the question, "Can this type be read from a stream with

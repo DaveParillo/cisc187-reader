@@ -378,7 +378,7 @@ with special meaning (the switches) from other content.
                } else {
                  std::cerr << "Error using '-n' argument: no name provided\n";
                }
-             } else
+             } else {
                  std::cerr << "Unknown argument '" << argv[i] << "' provided\n";
              }
            }

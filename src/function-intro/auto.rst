@@ -48,8 +48,7 @@ You can use ``auto`` in nearly any statement that includes an initializer:
 
    auto x = 3;          // x is an int
    auto q = '?';        // q is a char
-   auto r = &x;         // r is an int 
-                        //  - a reference to a variable is implicitly dereferenced
+   auto& r = x;         // r is an int reference 
 
    auto i = 0, d = 0.0; // Error. 
                         // If using auto to deduce multiple types,

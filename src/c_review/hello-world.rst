@@ -449,7 +449,6 @@ If not, refer to the section :doc:`../build-tools/debugging`.
    Assuming we made a mistake implementing our last example for loop:
 
    .. tb-code:: cpp
-      :name: ac_print_odds_hello_world
 
       #include <iostream>
       using std::cout;

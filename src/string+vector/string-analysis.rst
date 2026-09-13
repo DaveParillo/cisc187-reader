@@ -105,7 +105,7 @@ at the midpoint of the string.
        cout << std::setw(6) << "size\t\t"
             << std::setw(8) << "string::find\t"
             << std::setw(8) << "for loop (all times in msec)\n";
-       for(int size = 1e6; size < 1e8; size += 5e6) {
+       for(int size = 1e5; size < 1e6; size += 1e5) {
            // create a big string
            std::string haystack (size, 'h');
 

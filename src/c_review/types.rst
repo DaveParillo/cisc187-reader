@@ -412,38 +412,28 @@ attempting a calculation that might overflow.
 The following program checks for addition overflow and reports an error
 if addition overflow would occur.
 
-.. code-block:: cpp
+.. tb-code:: cpp
 
    #include <iostream>
    #include <limits>
-   #include <string>
 
    int main () {
-     int x = std::numeric_limits<int>::max();
-     int y = x - 9;
+       const int max = std::numeric_limits<int>::max();
+       const int min = std::numeric_limits<int>::min();
 
-     if (std::numeric_limits<int>::max() - x < y) {
-       std::cerr << "addition failed: result is too big\n";
-     } else {
-       // addition is safe
-       std::cout << "x+y = " << (x+y) << '\n';
-     }
+       int x = std::numeric_limits<int>::max();
+       int y = x - 9;
 
-   }
+       if ((y > 0 && x > max - y) ||
+           (y < 0 && x < min - y)) {
 
-Similarly, checks for multiplication overflow and exponentiation overflow
-could use the following checks:
-
-.. code-block:: cpp
-
-   if (std::numeric_limits<int>::max() / x < y) {
-    std::cerr << "multiplication failed: result is too big\n";
-   }
-
-   // number of bits in uint32_t
-   const num_bits = 32;
-   if (log2(base)*exponent > sizeof(uint32_t) * num_bits) {
-     std::cerr << "exponentiation failed: result is too big\n";
+          if (std::numeric_limits<int>::max() - x < y) {
+            std::cerr << "addition failed: result is too big\n";
+          } else {
+            // addition is safe
+            std::cout << "x+y = " << (x+y) << '\n';
+          }
+       }
    }
 
 .. topic:: Other operations

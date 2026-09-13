@@ -155,6 +155,11 @@ html_theme_options = {
 
 # Touchbook defaults
 
+# jobe = 'http://localhost:4000/jobe/index.php/restapi/'
+# tb_code_default_endpoint = jobe + 'runs/'
+# tb_code_languages_endpoint = jobe + 'languages'
+# tb_code_files_endpoint = jobe + 'files/'
+
 tb_code_default_language = 'cpp'
 tb_code_language_map = {
     'cpp': 'cpp',

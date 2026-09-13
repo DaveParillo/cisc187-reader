@@ -103,8 +103,8 @@ but you should know by now:
 
 .. code-block:: cpp
 
+   #include <cstdio>
    #include <iostream>
-   #include <stdio.h>
 
    int main() {
      std::cout << "Hello C++!" << std::endl;
@@ -301,8 +301,8 @@ you will be expected to employ basic I/O in labs and projects.
          #include <cstdio>
 
          int main() {
-            // assuming the file 'poem' exists in the current directory
-            FILE* ptr = fopen("poem","r");
+            // assuming the file exists in the current directory
+            FILE* ptr = fopen("poem-hello-world","r");
             if (ptr == NULL) {
               printf("Unable to open poem.");
               return 1;
@@ -327,8 +327,8 @@ you will be expected to employ basic I/O in labs and projects.
          #include <iostream>
 
          int main () {
-           // assuming the file 'poem' exists in the current directory
-           std::ifstream is("poem");
+           // assuming the file exists in the current directory
+           std::ifstream is("poem-hello-world");
            char c;
            // read the text file one byte (char) at a time
            while (is.get(c)) {
@@ -443,6 +443,32 @@ I expect some basic experience using a debugger in whatever
 programming environment you may have used previously.
 
 If not, refer to the section :doc:`../build-tools/debugging`.
+
+.. admonition:: Try This!
+
+   Assuming we made a mistake implementing our last example for loop:
+
+   .. tb-code:: cpp
+      :name: ac_print_odds_hello_world
+
+      #include <iostream>
+      using std::cout;
+
+      int main() {
+        cout << "Odd numbers:\n";
+        for (int num ; num <= 100; ++num) {
+          if (num % 2 != 0) {
+            cout << '\t' << num << '\n';
+          }
+        }
+        cout << "done.\n";
+      }
+
+   Without running first, what do you think will happen?
+
+   - Does it compile?
+   - Does it produce any output?
+
 
 .. note::
 

@@ -56,7 +56,6 @@ and their relationships.
       |\mathbf{P}|& \mbox{Cardinality: size of set}\ \mathbf{P}
                  \mbox{ or number of members for set}\ \mathbf{P}\\
       \mathbf{P}\,\subseteq\,\mathbf{Q},
-
       \mathbf{Q}\,\supseteq\,\mathbf{P}&
       \mbox{Set}\ \mathbf{P}\ \mbox{is included in set}\ \mathbf{Q},\\
       &\qquad \mbox{set}\ \mathbf{P}\ \mbox{is a subset of set}\ \mathbf{Q},\\

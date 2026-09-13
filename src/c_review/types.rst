@@ -422,17 +422,20 @@ if addition overflow would occur.
        const int min = std::numeric_limits<int>::min();
 
        int x = std::numeric_limits<int>::max();
-       int y = x - 9;
+       int y = 9;
 
        if ((y > 0 && x > max - y) ||
            (y < 0 && x < min - y)) {
+           std::cerr << "addition failed: result is out of range\n";
+       } else {
+           std::cout << "x+y = " << (x + y) << '\n';
+       }
 
-          if (std::numeric_limits<int>::max() - x < y) {
-            std::cerr << "addition failed: result is too big\n";
-          } else {
-            // addition is safe
-            std::cout << "x+y = " << (x+y) << '\n';
-          }
+       if ((y > 0 && x < min + y) ||
+           (y < 0 && x > max + y)) {
+           std::cerr << "subtraction failed: result is out of range\n";
+       } else {
+           std::cout << "x-y = " << (x - y) << '\n';
        }
    }
 

@@ -198,12 +198,13 @@ Each simply constructs a new distance based on the units implied by the literal 
 
       This example does not print a value, but merely returns the final value
       from main.
-      If you're curious as to why, copy this code into
+      If you're curious as to why, examine this example using
       the online `Compiler explorer <https://godbolt.org>`__
 
 
       .. tb-code:: cpp
          :name: memory_constexpr_class
+         :show-compiler-explorer:
          :include:
             DISTANCE: constexpr-distance
             UNIT: constexpr-unit

@@ -51,19 +51,12 @@ the swap algorithm in terms of moves
       b = static_cast<vector<string>&&>(temp);
    }
 
-.. code-block:: cpp
-
-   void swap(vector<string>& a, vector<string>& b)
-   {
-      auto temp = static_cast<vector<string>&&>(a); // cast to rvalue reference
-      a = static_cast<vector<string>&&>(b);
-      b = static_cast<vector<string>&&>(temp);
-   }
-
 Casting manually to a rvalue reference is ugly and awkward.
 Simplifying this expression is the motivation behind :utility:`move`:
 
 .. code-block:: cpp
+
+   #include <utility>
 
    void swap(vector<string>& a, vector<string>& b)
    {
@@ -71,6 +64,26 @@ Simplifying this expression is the motivation behind :utility:`move`:
       a = std::move(b);
       b = std::move(temp);
    }
+
+.. admonition:: Try This!
+
+   Why do we talk about this static cast as a move?
+   Open this example in Compiler Explorer and look at the emitted code.
+   What do you see?
+
+   .. tb-code:: cpp
+      :show-compiler-explorer:
+
+      void swap(int& a, int& b)
+      {
+         auto temp = static_cast<int&&>(a); // cast to rvalue reference
+         a = static_cast<int&&>(b);
+         b = static_cast<int&&>(temp);
+      }
+
+   When you've had a chance to look at it, change all the
+   ``static_cast<int&&>`` to ``std::move`` and see what changes.
+
 
 The ``move`` function simply converts it's parameter into rvalue reference,
 and marks the object as being ready for a 'move'.

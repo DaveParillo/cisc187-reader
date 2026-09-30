@@ -84,6 +84,7 @@ Adding the complete set of operations gives us this immutable class:
 
 .. code-block:: cpp
    :name: immutable-distance
+         :show-compiler-explorer:
 
    namespace length{
      class distance{
@@ -246,11 +247,12 @@ Adding the complete set of operations gives us this immutable class:
    .. tb-tab:: Run It
 
       This example does not print a value, but returns the final value from
-      ``main``.  To inspect the generated code, copy it into the online
-      `Compiler explorer <https://godbolt.org>`__.
+      ``main``.  To inspect the generated code, use the
+      'Show in Compiler explorer' button.
 
       .. tb-code:: cpp
          :name: memory_immutable_class
+         :show-compiler-explorer:
          :include:
             DISTANCE: immutable-distance
             UNIT: immutable-unit
@@ -282,6 +284,8 @@ The general template recursively refers to a smaller instantiation, and the
 specialization ends the recursion at ``1``:
 
 .. tb-code:: cpp
+   :show-compiler-explorer:
+   :show-tutor:
 
    #include <iostream>
 
@@ -356,6 +360,7 @@ Here is the immutable distance class converted to use template metadata:
 
 .. tb-code:: cpp
    :name: immutable-distance-metaprogram
+   :show-compiler-explorer:
 
    #include <type_traits>
 

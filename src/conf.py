@@ -172,3 +172,15 @@ tb_code_language_defaults = {
     'cpp': {'compileargs': ['-Wall', '-Wextra', '-pedantic', '-std=c++20']},
 }
 tb_code_block_defaults = {'linenos': True}
+
+
+# LuaLaTex settings
+# Work around Sphinx issue #14465 (https://github.com/sphinx-doc/sphinx/issues/14465)
+latex_table_style = ["booktabs"]
+
+# Generate tagged PDF
+tb_pdf_tagging = True
+tb_pdf_language = "en-US"
+
+
+

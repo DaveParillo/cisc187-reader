@@ -33,6 +33,9 @@ moved along until the pass is complete.
 
 .. figure:: figures/bubblepass.png
    :align: center
+   :alt: Diagram of the first bubble-sort pass. Adjacent values are compared
+         from left to right, exchanged when out of order, and the largest
+         value, 93, moves to the final position.
 
    Figure 1: ``bubble_sort``: The First Pass
 

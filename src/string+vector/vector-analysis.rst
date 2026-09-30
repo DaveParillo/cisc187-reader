@@ -282,7 +282,9 @@ can be as the size of a vector grows can still be surprising.
 
 
 .. plot::
-   :alt: 
+   :alt: Line graph comparing pop_back() and erase() times as vector size grows;
+         erase() takes substantially longer and increases more quickly than
+         pop_back().
 
    import matplotlib.pyplot as plt
 
@@ -345,5 +347,3 @@ can be as the size of a vector grows can still be surprising.
    - :ref:`analysis_big_o`
    - cppreference.com :cpp:`std::vector <container/vector>` overview
    - `Average time complexity <https://yourbasic.org/algorithms/amortized-time-complexity-analysis/>`__
-
-

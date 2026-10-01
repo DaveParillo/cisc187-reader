@@ -84,7 +84,6 @@ Adding the complete set of operations gives us this immutable class:
 
 .. code-block:: cpp
    :name: immutable-distance
-   :show-compiler-explorer:
 
    namespace length{
      class distance{

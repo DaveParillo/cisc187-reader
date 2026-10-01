@@ -172,7 +172,11 @@ tb_code_language_defaults = {
     'cpp': {'compileargs': ['-Wall', '-Wextra', '-pedantic', '-std=c++20']},
 }
 tb_code_block_defaults = {'linenos': True}
-
+tb_code_compiler_explorer_defaults = {
+    'python': {'language': 'python', 'compiler': 'python314'},
+    'cpp': {'language': 'c++', 'compiler': 'g153'},
+    'java': {'language': 'java', 'compiler': 'java1702'},
+}
 
 # LuaLaTex settings
 # Work around Sphinx issue #14465 (https://github.com/sphinx-doc/sphinx/issues/14465)

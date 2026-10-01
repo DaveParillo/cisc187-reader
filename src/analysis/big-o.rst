@@ -24,6 +24,7 @@ Asymptotic Analysis and Upper Bounds
 Recall our growth rates from a little while ago.
 
 .. plot::
+   :alt: Growth rates ranging from linear growth to factorial growth
 
    import numpy as np
    import matplotlib.pyplot as plt

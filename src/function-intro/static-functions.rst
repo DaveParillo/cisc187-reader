@@ -228,6 +228,7 @@ for several reasons:
 
       .. tb-code:: cpp
          :name: ac_anon_namespace_1
+         :show-compiler-explorer:
 
          #include <iostream>
 

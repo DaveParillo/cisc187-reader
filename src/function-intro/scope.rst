@@ -62,6 +62,7 @@ all of the assertions about ``n`` are ``true``:
 
 .. tb-code:: cpp
    :name: function_scope_ac
+   :show-tutor:
 
    #include <cassert>
 

@@ -26,7 +26,8 @@ Symbols declared inside a namespace block are placed in a named scope that preve
 Multiple namespace blocks with the same name are allowed. 
 All declarations within those blocks are declared in the named scope.
 
-.. code-block:: cpp
+.. tb-code:: cpp
+   :show-compiler-explorer:
 
    // declare some things in the mesa namespace
    namespace mesa {

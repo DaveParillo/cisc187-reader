@@ -248,6 +248,7 @@ algorithms are shown.
       cost.
 
       .. plot::
+         :alt: Growth rates ranging from linear growth to factorial growth
 
          import numpy as np
          import matplotlib.pyplot as plt
@@ -285,6 +286,9 @@ algorithms are shown.
    .. tb-tab:: Zoom Graph
 
       .. plot::
+         :alt: Growth rates ranging from linear growth to factorial growth.
+               This is a zoomed in version of the previous showing values only
+               within the range x < 15 and y < 500.
 
          import numpy as np
          import matplotlib.pyplot as plt

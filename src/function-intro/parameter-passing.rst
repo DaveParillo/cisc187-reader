@@ -160,6 +160,7 @@ Only the object reference is passed to the function.
 
       .. tb-code:: cpp
          :name: function_intro_reference_vs_pointer_ac
+         :show-tutor:
 
          #include <iostream>
 
@@ -215,6 +216,7 @@ often from now on.
 
    .. tb-code:: cpp
       :name: function_pass_by_ref_ac
+      :show-tutor:
 
       #include <cassert>
       #include <iostream>

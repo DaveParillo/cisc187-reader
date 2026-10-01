@@ -35,47 +35,10 @@ The braces and their contents is called the **function body**.
 Once defined, a function may be called and
 the task it defines can be executed as often as needed.
 
-.. tb-group::
-   :name: function_simple_intro
-
-   .. tb-tab:: Example
-
-      Some simple, specific examples:
-
-      .. code-block:: cpp
-
-         int area (int height, int width) {
-           return height*width;
-         }
-
-         void say_hello() {
-           std::cout << "hello";
-         }
-
-   .. tb-tab:: Run It
-
-      .. tb-code:: cpp
-         :name: functions_simple_intro_ac
-
-         #include <iostream>
-
-         int area (int height, int width) {
-           return height*width;
-         }
-
-         void say_hello() {
-           std::cout << "hello";
-         }
-
-         int main () {
-           say_hello();
-           std::cout << "\narea = " << area(4,3) << '\n';
-           return 0;
-         }
-
 .. tb-code:: cpp
    :name: functions_simple_intro_cl
    :show-tutor:
+   :show-compiler-explorer:
    :caption: Simple functions
 
    #include <iostream>
@@ -90,8 +53,8 @@ the task it defines can be executed as often as needed.
 
    int main () {
      say_hello();
-     std::cout << "\narea = " << area(4,3) << '\n';
-     return 0;
+     std::cout << "\narea = " << area(4,3) << '\n'
+               << "square = " << area(16,16) << '\n';
    }
 
 

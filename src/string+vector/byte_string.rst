@@ -153,6 +153,7 @@ In general, you want to try to avoid these kinds of unnecessary type conversions
 
 .. tb-code:: cpp
    :name: c_string_array_example_ac
+   :show-tutor:
 
    #include <cstdio>   // printf
    #include <cstring>  // for strcpy function
@@ -228,6 +229,7 @@ such as the :cpp:`toupper<locale/toupper>` function.
 
       .. tb-code:: cpp
          :name: string_toupper_locale_ac
+         :show-tutor:
 
          #include <iostream>
          #include <cctype>    // C toupper
@@ -281,6 +283,7 @@ such as the :cpp:`toupper<locale/toupper>` function.
 
       .. tb-code:: cpp
          :name: string_toupper_ac
+         :show-tutor:
 
          #include <cctype>
          #include <iostream>
@@ -333,6 +336,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
       .. tb-code:: cpp
          :name: byte_string_strcpy_ac
+         :show-tutor:
 
          #include <cstring>
          #include <iostream>
@@ -361,6 +365,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
       .. tb-code:: cpp
          :name: byte_string_strncpy_ac
+         :show-tutor:
 
          #include <cstring>
          #include <iostream>
@@ -392,6 +397,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
       .. tb-code:: cpp
          :name: byte_string_strcmp_ac
+         :show-tutor:
 
          #include <cstdlib>
          #include <cstring>
@@ -440,6 +446,7 @@ The copy and compare functions are defined in the ``cstring`` header.
 
       .. tb-code:: cpp
          :name: byte_string_strncmp_ac
+         :show-tutor:
 
          #include <cstring>
          #include <iostream>

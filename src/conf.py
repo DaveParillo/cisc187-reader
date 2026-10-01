@@ -183,8 +183,8 @@ tb_code_compiler_explorer_defaults = {
 latex_table_style = ["booktabs"]
 
 # Generate tagged PDF
-tb_pdf_tagging = True
-tb_pdf_language = "en-US"
+# tb_pdf_tagging = True
+# tb_pdf_language = "en-US"
 
 
 

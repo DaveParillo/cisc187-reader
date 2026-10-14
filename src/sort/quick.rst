@@ -33,60 +33,330 @@ pivot value belongs in the final sorted list, commonly called the
 **split point**, will be used to divide the list for subsequent calls to
 the quick sort.
 
-:ref:`Figure 12 <fig_splitvalue>` shows that 54 will serve as our first pivot value.
-Since we have looked at this example a few times already, we know that
-54 will eventually end up in the position currently holding 31. The
-**partition** process will happen next. It will find the split point and
-at the same time move other items to the appropriate side of the list,
-either less than or greater than the pivot value.
+The :ref:`following sequence <fig_splitvalue>` shows how partitioning
+places the first pivot, 54, at its split point. The
+:ref:`marker scans and exchanges <fig_partitionA>` lead to a
+:ref:`completed partition <fig_partitionB>` ready for recursive sorting.
 
-.. _fig_splitvalue:
+.. tb-stack::
+   :name: quick-sort-process
+   :caption: Quick sort: choose a pivot, partition, and recurse
 
+   .. tb-scene::
+      :name: fig_splitvalue
+      :caption: Choose 54 as the first pivot.
 
-.. figure:: figures/firstsplit.png
-   :align: center
+      The first item, 54, is the pivot value. Partitioning will find its
+      split point and exchange items so that smaller values lie to its left
+      and larger values lie to its right.
 
-   Figure 12: The First Pivot Value for a Quick Sort
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Choose 54 as the first pivot.
+         :highlight: data.node[a]
+         :indicators: pivot=a
+         :show-indices:
 
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
 
+   .. tb-scene::
+      :name: fig_partitionA
+      :caption: Start the left and right markers.
 
-Partitioning begins by locating two position markers - let's call them
-``leftmark`` and ``rightmark`` - at the beginning and end of the remaining
-items in the list (positions 1 and 8 in :ref:`Figure 13 <fig_partitionA>`). The goal
-of the partition process is to move items that are on the wrong side
-with respect to the pivot value while also converging on the split
-point. :ref:`Figure 13 <fig_partitionA>` shows this process as we locate the position
-of 54.
+      Set ``leftmark`` to position 1 and ``rightmark`` to position 8.
+      These markers scan toward each other through the items after the pivot.
 
-.. _fig_partitionA:
+      Advance ``leftmark`` past values less than or equal to the pivot.
+      Move ``rightmark`` left past values greater than or equal to the pivot.
+      Each scan stops if the markers cross. Equal values may end up on either
+      side of the pivot.
 
-.. figure:: figures/partitionA.png
-   :align: center
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Start the left and right markers.
+         :highlight: data.node[b] data.node[i]
+         :indicators: pivot=a leftmark=b rightmark=i
+         :show-indices:
 
-   Figure 13: Finding the Split Point for 54
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
 
-We begin by incrementing ``leftmark`` until we locate a value that is
-greater than the pivot value. We then decrement ``rightmark`` until we
-find a value that is less than the pivot value. At this point we have
-discovered two items that are out of place with respect to the eventual
-split point. For our example, this occurs at 93 and 20. Now we can
-exchange these two items and then repeat the process again.
+   .. tb-scene::
+      :caption: Move leftmark past 26; stop at 93.
 
-At the point where ``rightmark`` becomes less than ``leftmark``, we
-stop. The position of ``rightmark`` is now the split point. The pivot
-value can be exchanged with the contents of the split point and the
-pivot value is now in place (:ref:`Figure 14 <fig_partitionB>`). In addition, all the
-items to the left of the split point are less than the pivot value, and
-all the items to the right of the split point are greater than the pivot
-value. The list can now be divided at the split point and the quick sort
-can be invoked recursively on the two halves.
+      At position 1, 26 is less than 54, so advance ``leftmark`` to
+      position 2. Stop there because 93 is greater than the pivot.
+      This value belongs on the right side of the eventual split point.
 
-.. _fig_partitionB:
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Move leftmark past 26; stop at 93.
+         :highlight: data.node[c]
+         :indicators: pivot=a leftmark=c rightmark=i
+         :show-indices:
 
-.. figure:: figures/partitionB.png
-   :align: center
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
 
-   Figure 14: Completing the Partition Process to Find the Split Point for 54
+   .. tb-scene::
+      :caption: Stop rightmark at 20.
+
+      At position 8, 20 is less than 54, so ``rightmark`` stops immediately.
+      The markers have not crossed: position 2 is before position 8.
+      The values 93 and 20 are on the wrong sides and must be exchanged.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Stop rightmark at 20.
+         :highlight: data.node[c] data.node[i]
+         :indicators: pivot=a leftmark=c rightmark=i
+         :show-indices:
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Exchange 93 and 20.
+
+      Exchange the values at positions 2 and 8. Position 2 now holds 20,
+      and position 8 holds 93. Keep the pivot at position 0 and resume the
+      scans from the current marker positions.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Exchange 93 and 20.
+         :highlight: data.node[c] data.node[i]
+         :indicators: pivot=a leftmark=c rightmark=i
+         :show-indices:
+
+         a[54]
+         b[26]
+         c[20]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[93]
+
+   .. tb-scene::
+      :caption: Move leftmark past 20 and 17; stop at 77.
+
+      The values 20 at position 2 and 17 at position 3 are less than 54.
+      Advance ``leftmark`` past both to position 4. Stop at 77 because it
+      is greater than the pivot.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Move leftmark past 20 and 17; stop at 77.
+         :highlight: data.node[e]
+         :indicators: pivot=a leftmark=e rightmark=i
+         :show-indices:
+
+         a[54]
+         b[26]
+         c[20]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[93]
+
+   .. tb-scene::
+      :caption: Move rightmark past 93 and 55; stop at 44.
+
+      The values 93 at position 8 and 55 at position 7 are greater than 54.
+      Move ``rightmark`` left past both to position 6. Stop at 44 because
+      it is less than the pivot. The markers have not crossed, so exchange
+      77 and 44.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Move rightmark past 93 and 55; stop at 44.
+         :highlight: data.node[e] data.node[g]
+         :indicators: pivot=a leftmark=e rightmark=g
+         :show-indices:
+
+         a[54]
+         b[26]
+         c[20]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[93]
+
+   .. tb-scene::
+      :caption: Exchange 77 and 44.
+
+      Exchange the values at positions 4 and 6. Position 4 now holds 44,
+      and position 6 holds 77. Resume both scans to find the split point.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Exchange 77 and 44.
+         :highlight: data.node[e] data.node[g]
+         :indicators: pivot=a leftmark=e rightmark=g
+         :show-indices:
+
+         a[54]
+         b[26]
+         c[20]
+         d[17]
+         e[44]
+         f[31]
+         g[77]
+         h[55]
+         i[93]
+
+   .. tb-scene::
+      :caption: Move leftmark past 44 and 31; stop at 77.
+
+      The values 44 at position 4 and 31 at position 5 are less than 54.
+      Advance ``leftmark`` to position 6 and stop at 77. Both markers now
+      point to position 6; they have met but have not yet crossed.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Move leftmark past 44 and 31; stop at 77.
+         :highlight: data.node[g]
+         :indicators: pivot=a leftmark=g rightmark=g
+         :show-indices:
+
+         a[54]
+         b[26]
+         c[20]
+         d[17]
+         e[44]
+         f[31]
+         g[77]
+         h[55]
+         i[93]
+
+   .. tb-scene::
+      :caption: Move rightmark left; the markers cross.
+
+      At position 6, 77 is greater than 54, so move ``rightmark`` left to
+      position 5, which holds 31. Now ``rightmark`` is less than ``leftmark``:
+      5 is less than 6. Stop scanning without another exchange between the
+      markers. Position 5 is the split point.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Move rightmark left; the markers cross.
+         :highlight: data.node[f] data.node[g]
+         :indicators: pivot=a leftmark=g rightmark=f
+         :show-indices:
+
+         a[54]
+         b[26]
+         c[20]
+         d[17]
+         e[44]
+         f[31]
+         g[77]
+         h[55]
+         i[93]
+
+   .. tb-scene::
+      :name: fig_partitionB
+      :caption: Exchange the pivot with 31 at the split point.
+
+      Exchange the pivot at position 0 with 31 at position 5. The pivot
+      value 54 is now at its final sorted position.
+
+      Positions 0 through 4 contain [31, 26, 20, 17, 44], all less than 54.
+      Positions 6 through 8 contain [77, 55, 93], all greater than 54.
+      The two ranges are partitioned, but are not yet sorted.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Exchange the pivot with 31 at the split point.
+         :highlight: data.node[a] data.node[f]
+         :indicators: pivot=f
+         :show-indices:
+
+         a[31]
+         b[26]
+         c[20]
+         d[17]
+         e[44]
+         f[54]
+         g[77]
+         h[55]
+         i[93]
+
+   .. tb-scene::
+      :caption: Recursively sort the ranges on either side of 54.
+
+      Apply quick sort to positions 0 through 4, then to positions 6
+      through 8. Each recursive call selects the first item of its range
+      as a pivot and repeats the same partition process.
+
+      These ranges stay in the original array. Exclude position 5 from
+      both calls because 54 is already in place. A range with zero or one
+      item is sorted by definition and needs no partition. Continuing the
+      recursion produces [17, 20, 26, 31, 44, 54, 55, 77, 93].
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Recursively sort the ranges on either side of 54.
+         :highlight: data.node[f]
+         :indicators: pivot=f
+         :show-indices:
+
+         a[31]
+         b[26]
+         c[20]
+         d[17]
+         e[44]
+         f[54]
+         g[77]
+         h[55]
+         i[93]
 
 
 .. tb-group::

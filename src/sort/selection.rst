@@ -30,6 +30,234 @@ After the second step, the next largest is in place. This process
 continues and requires :math:`n-1` steps to sort *n* items, since the
 final item must be in place after the :math:`(n-1)` step.
 
+.. tb-stack::
+   :name: selection-first-pass
+   :caption: Selection sort: the first pass
+
+   .. tb-scene::
+      :caption: Compare the candidate 54 with 26.
+
+      Start with 54 as the largest value seen so far. The outlined cells
+      show the current candidate and the value being compared. Since 26
+      is less than 54, keep 54 as the candidate. Leave every value in place
+      until the search is complete.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare candidate 54 with 26.
+         :highlight: data.node[a] data.node[b]
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare the candidate 54 with 93.
+
+      Since 93 is greater than 54, remember its position as the new
+      candidate. Finding a larger value changes the candidate without
+      exchanging any items.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare candidate 54 with 93.
+         :highlight: data.node[a] data.node[c]
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare the candidate 93 with 17.
+
+      The candidate is now 93. Since 17 is smaller, keep 93 as the
+      candidate and continue the search.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare candidate 93 with 17.
+         :highlight: data.node[c] data.node[d]
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare the candidate 93 with 77.
+
+      Since 77 is less than 93, the candidate remains 93. The array
+      still has its original order.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare candidate 93 with 77.
+         :highlight: data.node[c] data.node[e]
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare the candidate 93 with 31.
+
+      Since 31 is less than 93, keep 93 as the candidate. Continue
+      checking the remaining values.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare candidate 93 with 31.
+         :highlight: data.node[c] data.node[f]
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare the candidate 93 with 44.
+
+      Since 44 is less than 93, keep 93 as the candidate. No values
+      have been exchanged during the search.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare candidate 93 with 44.
+         :highlight: data.node[c] data.node[g]
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare the candidate 93 with 55.
+
+      Since 55 is less than 93, keep 93 as the candidate. Only the
+      last value remains to be checked.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare candidate 93 with 55.
+         :highlight: data.node[c] data.node[h]
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare the candidate 93 with 20.
+
+      Since 20 is less than 93, the candidate remains 93. All eight
+      comparisons are complete, so 93 is the largest value in the array.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare candidate 93 with 20.
+         :highlight: data.node[c] data.node[i]
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Exchange 93 with the last value, 20.
+
+      The search is complete. Exchange the largest value, 93, with
+      20 in the last cell. This single swap puts 93 in its final position.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: exchange 93 in the third cell with 20 in the last cell.
+         :highlight: data.node[c] data.node[i]
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: The first pass is complete; 93 is in its final position.
+
+      Eight comparisons and one exchange have placed 93 at the end.
+      The outlined final cell will not be searched again. The remaining
+      eight values still need to be sorted.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: After the first pass, 93 occupies the final cell and 20 occupies the third cell.
+         :highlight: data.node[i]
+
+         a[54]
+         b[26]
+         c[20]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[93]
+
 .. tb-group::
    :name: lst_selection_sort
 

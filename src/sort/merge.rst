@@ -27,27 +27,683 @@ has more than one item, we split the vector and recursively invoke a merge
 sort on both halves. Once the two halves are sorted, the fundamental
 operation, called a **merge**, is performed. Merging is the process of
 taking two smaller sorted vectors and combining them together into a
-single, sorted, new vector. :ref:`Figure 10 <fig_mergesortA>` shows our familiar example
-vector as it is being split by ``mergeSort``. :ref:`Figure 11 <fig_mergesortB>` shows
-the simple vectors, now sorted, as they are merged back together.
+single, sorted, new vector. The :ref:`following sequence <fig_mergesortA>`
+shows the recursive splits and the :ref:`merge process <fig_mergesortB>`
+for our familiar example array.
 
+.. tb-stack::
+   :name: merge-sort-process
+   :caption: Merge sort: split, sort, and merge
 
-.. _fig_mergesortA:
+   .. tb-scene::
+      :name: fig_mergesortA
+      :caption: Begin with the original array.
 
-.. figure:: figures/mergesortA.png
-   :align: center
+      Merge sort splits an array, sorts its left half recursively, then
+      sorts its right half and merges the results.
 
-   Figure 10: Splitting the vector in a Merge Sort
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
 
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
 
-.. _fig_mergesortB:
+   .. tb-scene::
+      :caption: Split into a four-item left half and a five-item right half.
 
-.. figure:: figures/mergesortB.png
-   :align: center
+      Because there are 9 elements, the split is an an array of size 4 and
+      and array of size 5.
+      We continue down the left half of the array.
 
-   Figure 11: vectors as They Are Merged Together
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
 
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [54, 26, 93, 17]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
 
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Split the left half into two pairs.
+
+      The left half splits into [54, 26] and [93, 17].
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [54, 26, 93, 17]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         left_left{"type": "array", "values": [54, 26]}
+         left_right{"type": "array", "values": [93, 17]}
+
+         root -left-> left
+         root -right-> right
+         left -left-> left_left
+         left -right-> left_right
+
+   .. tb-scene::
+      :caption: Reach the first two base cases.
+
+      Each one-item array is already sorted.
+      The parent array will be filled by merging them.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [54, 26, 93, 17]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         left_left{"type": "array", "values": [54, 26]}
+         left_right{"type": "array", "values": [93, 17]}
+         left_left_left{"type": "array", "values": [54]}
+         left_left_right{"type": "array", "values": [26]}
+
+         root -left-> left
+         root -right-> right
+         left -left-> left_left
+         left -right-> left_right
+         left_left -left-> left_left_left
+         left_left -right-> left_left_right
+
+   .. tb-scene::
+      :caption: Merge the first two leaves: compare 54 and 26.
+
+      To merge two sorted arrays, write the minimum value to parent
+      position 0, then repeatedly write the minimum remaining value to
+      the next position. The first remaining value in each sorted input
+      is its minimum, so compare those values.
+
+      Each write replaces the value already in that parent position.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[left_left_left].slot[0]
+            merge.node[left_left_right].slot[0]
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [54, 26, 93, 17]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         left_left{"type": "array", "values": [54, 26]}
+         left_right{"type": "array", "values": [93, 17]}
+         left_left_left{"type": "array", "values": [54]}
+         left_left_right{"type": "array", "values": [26]}
+
+         root -left-> left
+         root -right-> right
+         left -left-> left_left
+         left -right-> left_right
+         left_left -left-> left_left_left
+         left_left -right-> left_left_right
+
+      .. tb-pointer:: parent
+         :at: merge.node[left_left].slot[0]
+
+   .. tb-scene::
+      :caption: Move 26; then move the minimum remaining value, 54.
+
+      Move 26 to parent position 0.
+      The minimum remaining value is 54, the only value left.
+      Move it to parent position 1.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[left_left].slot[0]
+            merge.node[left_left_left].slot[0]
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [54, 26, 93, 17]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         left_left{"type": "array", "values": [26, 26]}
+         left_right{"type": "array", "values": [93, 17]}
+         left_left_left{"type": "array", "values": [54]}
+         left_left_right{"type": "array", "values": [""]}
+
+         root -left-> left
+         root -right-> right
+         left -left-> left_left
+         left -right-> left_right
+         left_left -left-> left_left_left
+         left_left -right-> left_left_right
+
+   .. tb-scene::
+      :caption: Merge the first pair; split the second pair.
+
+      Now split the waiting pair [93, 17] into [93] and [17]. These
+      are also sorted base cases.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[left_right_left].slot[0]
+            merge.node[left_right_right].slot[0]
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [54, 26, 93, 17]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         left_left{"type": "array", "values": [26, 54]}
+         left_right{"type": "array", "values": [93, 17]}
+         left_right_left{"type": "array", "values": [93]}
+         left_right_right{"type": "array", "values": [17]}
+
+         root -left-> left
+         root -right-> right
+         left -left-> left_left
+         left -right-> left_right
+         left_right -left-> left_right_left
+         left_right -right-> left_right_right
+
+   .. tb-scene::
+      :caption: Both pairs in the left half are sorted.
+
+      Merge [93] and [17] by moving 17 before 93. The left half now
+      has two sorted child arrays, [26, 54] and [17, 93], ready to merge.
+      The right half still waits.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [54, 26, 93, 17]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         left_left{"type": "array", "values": [26, 54]}
+         left_right{"type": "array", "values": [17, 93]}
+
+         root -left-> left
+         root -right-> right
+         left -left-> left_left
+         left -right-> left_right
+
+   .. tb-scene::
+      :name: fig_mergesortB
+      :caption: Merge the two sorted pairs: compare 26 and 17.
+
+      Compare the first remaining value of each sorted child: 26 and 17.
+      The smaller value, 17, is the value to move to output position 0.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[left_left].slot[0]
+            merge.node[left_right].slot[0]
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [54, 26, 93, 17]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         left_left{"type": "array", "values": [26, 54]}
+         left_right{"type": "array", "values": [17, 93]}
+
+         root -left-> left
+         root -right-> right
+         left -left-> left_left
+         left -right-> left_right
+
+   .. tb-scene::
+      :caption: Move 17; compare 26 and 93.
+
+      Move 17 to output position 0 and advance in the right input.
+      Since 26 is less than 93 move 26 to parent position 1.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[left].slot[0]
+            merge.node[left_left].slot[0]
+            merge.node[left_right].slot[1]
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [17, 26, 93, 17]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         left_left{"type": "array", "values": [26, 54]}
+         left_right{"type": "array", "values": ["", 93]}
+
+         root -left-> left
+         root -right-> right
+         left -left-> left_left
+         left -right-> left_right
+
+   .. tb-scene::
+      :caption: Move 26; compare 54 and 93.
+
+      Move 26 to output position 1 and advance in the left input.
+      Compare 54 with 93. Move 54 to position 2 because it is smaller.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[left].slot[1]
+            merge.node[left_left].slot[1]
+            merge.node[left_right].slot[1]
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [17, 26, 93, 17]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         left_left{"type": "array", "values": ["", 54]}
+         left_right{"type": "array", "values": ["", 93]}
+
+         root -left-> left
+         root -right-> right
+         left -left-> left_left
+         left -right-> left_right
+
+   .. tb-scene::
+      :caption: Move 54; the left input is exhausted.
+
+      Move 54 to output position 2. The left input is now empty,
+      so no further comparison is needed. Move the remaining 93
+      from the right input to output position 3.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[left].slot[2]
+            merge.node[left_right].slot[1]
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [17, 26, 54, 17]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         left_left{"type": "array", "values": ["", ""]}
+         left_right{"type": "array", "values": ["", 93]}
+
+         root -left-> left
+         root -right-> right
+         left -left-> left_left
+         left -right-> left_right
+
+   .. tb-scene::
+      :caption: The left half is sorted.
+
+      Copying 93 to position 3 completes the left half of the array.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [17, 26, 54, 93]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Split the right half.
+
+      Split the right half into [77, 31] and [44, 55, 20].
+      The lengths differ by one, as in the initial split.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [17, 26, 54, 93]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         right_left{"type": "array", "values": [77, 31]}
+         right_right{"type": "array", "values": [44, 55, 20]}
+
+         root -left-> left
+         root -right-> right
+         right -left-> right_left
+         right -right-> right_right
+
+   .. tb-scene::
+      :caption: Sort the right pair; split the remaining three items.
+
+      The same base-case splits and merge sort [77, 31] into [31, 77].
+      We omit those repeated intermediate scenes.
+
+      Split [44, 55, 20] into [44] and [55, 20]. The one-item array
+      [44] is sorted; the other child still needs splitting.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [17, 26, 54, 93]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         right_left{"type": "array", "values": [31, 77]}
+         right_right{"type": "array", "values": [44, 55, 20]}
+         right_right_left{"type": "array", "values": [44]}
+         right_right_right{"type": "array", "values": [55, 20]}
+
+         root -left-> left
+         root -right-> right
+         right -left-> right_left
+         right -right-> right_right
+         right_right -left-> right_right_left
+         right_right -right-> right_right_right
+
+   .. tb-scene::
+      :caption: Combine the three-item branch.
+
+      Merge [55] and [20] into [20, 55], then merge that result
+      with [44] to obtain [20, 44, 55]. These merges follow the same
+      front-value comparisons shown earlier, so we summarize them.
+
+      The sorted arrays are ready to merge.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [17, 26, 54, 93]}
+         right{"type": "array", "values": [77, 31, 44, 55, 20]}
+         right_left{"type": "array", "values": [31, 77]}
+         right_right{"type": "array", "values": [20, 44, 55]}
+
+         root -left-> left
+         root -right-> right
+         right -left-> right_left
+         right -right-> right_right
+
+   .. tb-scene::
+      :caption: The right half is sorted.
+
+      Merge [31, 77] and [20, 44, 55] to obtain [20, 31, 44, 55, 77].
+      Both halves of the original array are now sorted and ready for the final
+      merge.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [17, 26, 54, 93]}
+         right{"type": "array", "values": [20, 31, 44, 55, 77]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Begin the final merge.
+
+      Merge the two sorted halves into the root array. First compare
+      17 and 20; choose 17 for root position 0. Continue writing the
+      smaller front value to the next root position, just as in the
+      detailed merge of the left half.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[left].slot[0]
+            merge.node[right].slot[0]
+
+         root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": [17, 26, 54, 93]}
+         right{"type": "array", "values": [20, 31, 44, 55, 77]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Move 17; compare 26 and 20.
+
+      Move 17 from left position 0 to parent position 0.
+      Its source cell is now empty.
+      Compare the remaining front values, 26 and 20; choose 20 next.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[root].slot[0]
+            merge.node[left].slot[1]
+            merge.node[right].slot[0]
+
+         root{"type": "array", "values": [17, 26, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": ["", 26, 54, 93]}
+         right{"type": "array", "values": [20, 31, 44, 55, 77]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Move 20; compare 26 and 31.
+
+      Move 20 from right position 0 to parent position 1.
+      Its source cell is now empty.
+      Compare 26 and 31; choose 26 for the next parent position.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[root].slot[1]
+            merge.node[left].slot[1]
+            merge.node[right].slot[1]
+
+         root{"type": "array", "values": [17, 20, 93, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": ["", 26, 54, 93]}
+         right{"type": "array", "values": ["", 31, 44, 55, 77]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Move 26; compare 54 and 31.
+
+      Move 26 from left position 1 to parent position 2.
+      Its source cell is now empty.
+      Compare 54 and 31; choose 31 for the next parent position.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[root].slot[2]
+            merge.node[left].slot[2]
+            merge.node[right].slot[1]
+
+         root{"type": "array", "values": [17, 20, 26, 17, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": ["", "", 54, 93]}
+         right{"type": "array", "values": ["", 31, 44, 55, 77]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Move 31; compare 54 and 44.
+
+      Move 31 from right position 1 to parent position 3.
+      Its source cell is now empty.
+      Compare 54 and 44; choose 44 for the next parent position.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[root].slot[3]
+            merge.node[left].slot[2]
+            merge.node[right].slot[2]
+
+         root{"type": "array", "values": [17, 20, 26, 31, 77, 31, 44, 55, 20]}
+         left{"type": "array", "values": ["", "", 54, 93]}
+         right{"type": "array", "values": ["", "", 44, 55, 77]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Move 44; compare 54 and 55.
+
+      Move 44 from right position 2 to parent position 4.
+      Its source cell is now empty.
+      Compare 54 and 55; choose 54 for the next parent position.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[root].slot[4]
+            merge.node[left].slot[2]
+            merge.node[right].slot[3]
+
+         root{"type": "array", "values": [17, 20, 26, 31, 44, 31, 44, 55, 20]}
+         left{"type": "array", "values": ["", "", 54, 93]}
+         right{"type": "array", "values": ["", "", "", 55, 77]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Move 54; compare 93 and 55.
+
+      Move 54 from left position 2 to parent position 5.
+      Its source cell is now empty.
+      Compare 93 and 55; choose 55 for the next parent position.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[root].slot[5]
+            merge.node[left].slot[3]
+            merge.node[right].slot[3]
+
+         root{"type": "array", "values": [17, 20, 26, 31, 44, 54, 44, 55, 20]}
+         left{"type": "array", "values": ["", "", "", 93]}
+         right{"type": "array", "values": ["", "", "", 55, 77]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Move 55; compare 93 and 77.
+
+      Move 55 from right position 3 to parent position 6.
+      Its source cell is now empty.
+      Compare 93 and 77; choose 77 for the next parent position.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[root].slot[6]
+            merge.node[left].slot[3]
+            merge.node[right].slot[4]
+
+         root{"type": "array", "values": [17, 20, 26, 31, 44, 54, 55, 55, 20]}
+         left{"type": "array", "values": ["", "", "", 93]}
+         right{"type": "array", "values": ["", "", "", "", 77]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Move 77; the right input is exhausted.
+
+      Move 77 from right position 4 to parent position 7.
+      Its source cell is now empty.
+      The right input is exhausted. Move the only remaining value, 93,
+      to parent position 8; no further comparison is needed.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[root].slot[7]
+            merge.node[left].slot[3]
+
+         root{"type": "array", "values": [17, 20, 26, 31, 44, 54, 55, 77, 20]}
+         left{"type": "array", "values": ["", "", "", 93]}
+         right{"type": "array", "values": ["", "", "", "", ""]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: Move 93; both inputs are exhausted.
+
+      Move 93 from left position 3 to parent position 8.
+      Its source cell is now empty.
+      Both input arrays are now empty. Every value has moved into the parent.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+         :highlight: merge.node[root].slot[8]
+
+         root{"type": "array", "values": [17, 20, 26, 31, 44, 54, 55, 77, 93]}
+         left{"type": "array", "values": ["", "", "", ""]}
+         right{"type": "array", "values": ["", "", "", "", ""]}
+
+         root -left-> left
+         root -right-> right
+
+   .. tb-scene::
+      :caption: The final merge completes the sorted array.
+
+      Every item is now in order.
+
+      .. tb-graph:: merge
+         :style: tree
+         :align: center
+         :show-indices:
+         :alt: Merge-sort arrays and their parent-child relationships.
+
+         root{"type": "array", "values": [17, 20, 26, 31, 44, 54, 55, 77, 93]}
+         left{"type": "array", "values": ["", "", "", ""]}
+         right{"type": "array", "values": ["", "", "", "", ""]}
+
+         root -left-> left
+         root -right-> right
 
 .. tb-group::
    :name: lst_merge

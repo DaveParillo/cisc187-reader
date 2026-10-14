@@ -178,6 +178,24 @@ tb_code_compiler_explorer_defaults = {
     'java': {'language': 'java', 'compiler': 'java1702'},
 }
 
+tb_graph_styles = {
+    "list": {
+        "fill": "#dcfce7", "highlight-fill": "#fde68a",
+        "font-size": 14,
+    },
+    "array": {
+        "fill": "#dcfce7", "highlight-fill": "#fde68a",
+        "font-size": 14,
+    },
+    "plain-list": {"base": "list", "fill": None},
+    "vertical-array": {"base": "array", "orientation": "vertical"},
+    "tree": {
+        "fill": "#dcfce7", "highlight-fill": "#fde68a",
+        "level-spacing": 0.4,
+        "font-size": 14,
+    },
+}
+
 # LuaLaTex settings
 # Work around Sphinx issue #14465 (https://github.com/sphinx-doc/sphinx/issues/14465)
 latex_table_style = ["booktabs"]

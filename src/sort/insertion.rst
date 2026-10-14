@@ -46,22 +46,215 @@ one way to implement an insertion sort could be this.
       }
    }
 
-This sort is still :math:`O(n^{2})`, but works differently from
-the bubble sort and selection sort, since
-it always maintains a sorted subvector in the container.
-Each new item is then "inserted" back into
-the previous subvector such that the sorted subvector is one item larger.
-:ref:`Figure 4 <fig_insertionsort>` shows the insertion sorting process. 
-The shaded items represent the ordered subvectors as the
-algorithm makes each pass.
+.. tb-stack::
+   :name: fig_insertionsort
+   :caption: Insertion sort: growing the sorted prefix
 
+   .. tb-scene::
+      :caption: Start with a sorted prefix of one item.
 
-.. _fig_insertionsort:
+      This sort is still :math:`O(n^{2})`, but works differently from
+      the bubble sort and selection sort, since it always maintains a
+      sorted subvector at the start of the container. Each new item is
+      inserted into this sorted prefix, making it one item larger.
 
-.. figure:: figures/insertionsort.png
-   :align: center
+      The outlined cells show the sorted prefix. Initially, it contains
+      only 54. The remaining eight items have not yet been processed.
 
-   Figure 4: ``Insertion Sort``
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Initially, only the first cell, containing 54, belongs to the sorted prefix.
+         :highlight: data.node[a]
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Pass 1: insert 26.
+
+      Since 26 is less than 54, shift 54 one position to the right and
+      insert 26 at the start. The sorted prefix now contains two items.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: After inserting 26, the first 2 cells form the sorted prefix.
+         :highlight: data.node[a] data.node[b]
+
+         a[26]
+         b[54]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Pass 2: insert 93.
+
+      Since 93 is greater than 54, it is already in the correct position.
+      No shifts are needed. The sorted prefix now contains three items.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: After inserting 93, the first 3 cells form the sorted prefix.
+         :highlight: data.node[a] data.node[b] data.node[c]
+
+         a[26]
+         b[54]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Pass 3: insert 17.
+
+      Shift 93, 54, and 26 one position to the right, then insert 17 at
+      the start. The sorted prefix now contains four items.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: After inserting 17, the first 4 cells form the sorted prefix.
+         :highlight: data.node[a] data.node[b] data.node[c] data.node[d]
+
+         a[17]
+         b[26]
+         c[54]
+         d[93]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Pass 4: insert 77.
+
+      Shift 93 one position to the right. Since 54 is less than 77,
+      insert 77 between 54 and 93. The sorted prefix now contains five
+      items.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: After inserting 77, the first 5 cells form the sorted prefix.
+         :highlight: data.node[a] data.node[b] data.node[c] data.node[d] data.node[e]
+
+         a[17]
+         b[26]
+         c[54]
+         d[77]
+         e[93]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Pass 5: insert 31.
+
+      Shift 93, 77, and 54 one position to the right. Stop at 26 and
+      insert 31 immediately after it. The sorted prefix now contains
+      six items.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: After inserting 31, the first 6 cells form the sorted prefix.
+         :highlight: data.node[a] data.node[b] data.node[c] data.node[d] data.node[e] data.node[f]
+
+         a[17]
+         b[26]
+         c[31]
+         d[54]
+         e[77]
+         f[93]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Pass 6: insert 44.
+
+      Shift 93, 77, and 54 one position to the right, then insert 44
+      between 31 and 54. The sorted prefix now contains seven items.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: After inserting 44, the first 7 cells form the sorted prefix.
+         :highlight: data.node[a] data.node[b] data.node[c] data.node[d] data.node[e] data.node[f] data.node[g]
+
+         a[17]
+         b[26]
+         c[31]
+         d[44]
+         e[54]
+         f[77]
+         g[93]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Pass 7: insert 55.
+
+      Shift 93 and 77 one position to the right, then insert 55 between
+      54 and 77. The sorted prefix now contains eight items.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: After inserting 55, the first 8 cells form the sorted prefix.
+         :highlight: data.node[a] data.node[b] data.node[c] data.node[d] data.node[e] data.node[f] data.node[g] data.node[h]
+
+         a[17]
+         b[26]
+         c[31]
+         d[44]
+         e[54]
+         f[55]
+         g[77]
+         h[93]
+         i[20]
+
+   .. tb-scene::
+      :caption: Pass 8: insert 20; the array is sorted.
+
+      Shift every value greater than 20 one position to the right.
+      Stop at 17 and insert 20 immediately after it. All nine items now
+      belong to the sorted prefix, so the sort is complete.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: After inserting 20, all nine cells are sorted in ascending order.
+         :highlight: data.node[a] data.node[b] data.node[c] data.node[d] data.node[e] data.node[f] data.node[g] data.node[h] data.node[i]
+
+         a[17]
+         b[20]
+         c[26]
+         d[31]
+         e[44]
+         f[54]
+         g[55]
+         h[77]
+         i[93]
 
 
 We begin by assuming that a vector with one item (position :math:`0`) is
@@ -71,20 +264,192 @@ As we look back into the already sorted subvector, we shift those items
 that are greater to the right. When we reach a smaller item or the end
 of the subvector, the current item can be inserted.
 
-:ref:`Figure 5 <fig_insertionpass>` shows the fifth pass in detail. At this point in
-the algorithm, a sorted subvector of five items consisting of 17, 26, 54,
-77, and 93 exists. We want to insert 31 back into the already sorted
-items. The first comparison against 93 causes 93 to be shifted to the
-right. 77 and 54 are also shifted. When the item 26 is encountered, the
-shifting process stops and 31 is placed in the open position. Now we
-have a sorted subvector of six items.
+.. tb-stack::
+   :name: fig_insertionpass
+   :caption: Insertion sort: the fifth pass in detail
 
-.. _fig_insertionpass:
+   .. tb-scene::
+      :caption: Save 31 before shifting any items.
 
-.. figure:: figures/insertionpass.png
-   :align: center
+      The fifth pass starts with a sorted prefix of five items: 17, 26,
+      54, 77, and 93. The next item, 31, must be inserted into that prefix.
+      Save a copy of 31 so that shifting larger values cannot overwrite it.
 
-   Figure 5: ``Insertion Sort``: Fifth Pass of the Sort
+      The separate cell holds the saved value. In the following scenes,
+      an empty cell marks the position available for insertion.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Before the fifth pass, the sorted prefix ends at 93; 31 is next.
+         :highlight: data.node[f]
+
+         a[17]
+         b[26]
+         c[54]
+         d[77]
+         e[93]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+      .. tb-graph:: saved
+         :style: array
+         :align: center
+         :label: Saved value
+         :alt: The saved value to insert is 31.
+
+         current[31]
+
+   .. tb-scene::
+      :caption: Compare 31 with 93.
+
+      The saved value is 31. Since 93 is greater than 31, shift 93
+      one position to the right, into the empty cell. The available
+      insertion position moves one cell to the left.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Compare 93 with saved value 31; the empty cell is after 93.
+         :highlight: data.node[e] data.node[f]
+
+         a[17]
+         b[26]
+         c[54]
+         d[77]
+         e[93]
+         f['']
+         g[44]
+         h[55]
+         i[20]
+
+      .. tb-graph:: saved
+         :style: array
+         :align: center
+         :label: Saved value
+         :alt: The saved value to insert is 31.
+
+         current[31]
+
+   .. tb-scene::
+      :caption: Compare 31 with 77.
+
+      The previous shift placed 93 in the sixth cell. Since 77 is also
+      greater than 31, shift 77 one position to the right into the empty
+      cell.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Compare 77 with saved value 31; the empty cell is after 77.
+         :highlight: data.node[d] data.node[e]
+
+         a[17]
+         b[26]
+         c[54]
+         d[77]
+         e['']
+         f[93]
+         g[44]
+         h[55]
+         i[20]
+
+      .. tb-graph:: saved
+         :style: array
+         :align: center
+         :label: Saved value
+         :alt: The saved value to insert is 31.
+
+         current[31]
+
+   .. tb-scene::
+      :caption: Compare 31 with 54.
+
+      The previous shift placed 77 immediately before 93. Since 54 is
+      greater than 31, shift 54 one position to the right into the empty
+      cell.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: Compare 54 with saved value 31; the empty cell is after 54.
+         :highlight: data.node[c] data.node[d]
+
+         a[17]
+         b[26]
+         c[54]
+         d['']
+         e[77]
+         f[93]
+         g[44]
+         h[55]
+         i[20]
+
+      .. tb-graph:: saved
+         :style: array
+         :align: center
+         :label: Saved value
+         :alt: The saved value to insert is 31.
+
+         current[31]
+
+   .. tb-scene::
+      :caption: Compare 31 with 26; stop shifting.
+
+      The previous shift placed 54 immediately before 77. Since 26 is
+      less than 31, no more shifts are needed. Insert the saved value,
+      31, into the empty cell between 26 and 54.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: 26 is less than saved value 31; insert 31 into the empty cell.
+         :highlight: data.node[b] data.node[c]
+
+         a[17]
+         b[26]
+         c['']
+         d[54]
+         e[77]
+         f[93]
+         g[44]
+         h[55]
+         i[20]
+
+      .. tb-graph:: saved
+         :style: array
+         :align: center
+         :label: Saved value
+         :alt: The saved value to insert is 31.
+
+         current[31]
+
+   .. tb-scene::
+      :caption: The fifth pass is complete; six items form the sorted prefix.
+
+      Four comparisons and three shifts made room for 31. Inserting it
+      after 26 extends the sorted prefix to six items. The outlined
+      cells are sorted; 44, 55, and 20 still need to be inserted on later
+      passes.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: After inserting 31, the sorted prefix is 17, 26, 31, 54, 77, 93.
+         :highlight: data.node[a] data.node[b] data.node[c]
+            data.node[d] data.node[e] data.node[f]
+
+         a[17]
+         b[26]
+         c[31]
+         d[54]
+         e[77]
+         f[93]
+         g[44]
+         h[55]
+         i[20]
 
 
 In the following animations, yellow marks the value being inserted, red marks

@@ -56,6 +56,1254 @@ keys' digit values working from the rightmost digit to the leftmost.
 If there are :math:`k` digits, then this requires that we assign keys to
 bins :math:`k` times.
 
+Radix sort walkthrough
+----------------------
+
+The following example shows the first pass using our familiar array
+``[54, 26, 93, 17, 77, 31, 44, 55, 20]``. Values enter ten digit bins
+and are collected into an output array.
+Input and Output read from top to bottom. The Bins heading
+labels the least-significant digits, 0 through 9, down the left side
+of the bin table. Values follow their bin's digit in arrival order
+from left to right.
+This **stability** is essential: each later pass must preserve the
+ordering established by earlier passes among values with equal digits.
+
+.. tb-stack::
+   :name: radix-sort-math-first-pass
+   :caption: Radix sort pass 1: Least signifigant digit
+
+   .. tb-scene::
+      :caption: Begin pass 1 with ten empty bins and an empty output array.
+
+      Read Input from top to bottom. For each value, compute
+      ``value % 10`` and append it to that digit's bin.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & & \\
+         1 & & \\
+         2 & & \\
+         3 & & \\
+         4 & & \\
+         5 & & \\
+         6 & & \\
+         7 & & \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Append 54 to bin 4.
+
+      Read 54 at input index 0. Since ``54 % 10 == 4``, append 54 to
+      bin 4.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         \boxed{54} \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & & \\
+         1 & & \\
+         2 & & \\
+         3 & & \\
+         \boxed{4} &
+            \boxed{54} &
+             \\
+         5 & & \\
+         6 & & \\
+         7 & & \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Append 26 to bin 6.
+
+      Read 26 at input index 1. Since ``26 % 10 == 6``, append 26 to
+      bin 6.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         \boxed{26} \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & & \\
+         1 & & \\
+         2 & & \\
+         3 & & \\
+         4 & 54 & \\
+         5 & & \\
+         \boxed{6} &
+            \boxed{26} &
+             \\
+         7 & & \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Append 93 to bin 3.
+
+      Read 93 at input index 2. Since ``93 % 10 == 3``, append 93 to
+      bin 3.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         \boxed{93} \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & & \\
+         1 & & \\
+         2 & & \\
+         \boxed{3} &
+            \boxed{93} &
+             \\
+         4 & 54 & \\
+         5 & & \\
+         6 & 26 & \\
+         7 & & \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Append 17 to bin 7.
+
+      Read 17 at input index 3. Since ``17 % 10 == 7``, append 17 to
+      bin 7.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         \boxed{17} \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & & \\
+         1 & & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & \\
+         5 & & \\
+         6 & 26 & \\
+         \boxed{7} &
+            \boxed{17} &
+             \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Append 77 to bin 7.
+
+      Read 77 at input index 4. Since ``77 % 10 == 7``, append 77
+      after 17 in bin 7.
+      Values with the same ones digit share a bin.
+      Keep [17, 77] in arrival order; the tens digit
+      will be considered on the next pass.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         \boxed{77} \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & & \\
+         1 & & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & \\
+         5 & & \\
+         6 & 26 & \\
+         \boxed{7} &
+            17 &
+            \boxed{77} \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Append 31 to bin 1.
+
+      Read 31 at input index 5. Since ``31 % 10 == 1``, append 31 to
+      bin 1.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         \boxed{31} \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & & \\
+         \boxed{1} &
+            \boxed{31} &
+             \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & \\
+         5 & & \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Append 44 to bin 4.
+
+      Read 44 at input index 6. Since ``44 % 10 == 4``, append 44
+      after 54 in bin 4. Keep [54, 44] in arrival order, even though
+      44 is numerically smaller than 54.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         \boxed{44} \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & & \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         \boxed{4} &
+            54 &
+            \boxed{44} \\
+         5 & & \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Append 55 to bin 5.
+
+      Read 55 at input index 7. Since ``55 % 10 == 5``, append 55 to
+      bin 5.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         \boxed{55} \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & & \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & 44 \\
+         \boxed{5} &
+            \boxed{55} &
+             \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Append 20 to bin 0.
+
+      Read 20 at input index 8. Since ``20 % 10 == 0``, append 20 to
+      bin 0. All nine input values are now assigned to bins.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         \boxed{20}
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         \boxed{0} &
+            \boxed{20} &
+             \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & 44 \\
+         5 & 55 & \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Distribution is complete; collect bins in digit order.
+
+      Visit bins 0 through 9 from top to bottom. Copy each bin's values
+      from left to right into the next unused Output positions.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & 20 & \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & 44 \\
+         5 & 55 & \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Copy 20 from bin 0 to output index 0.
+
+      Bin 0 contains [20]. Copy 20 to output index 0. The first output
+      value has the smallest ones digit, even though it is not the
+      smallest number in the input.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         \boxed{0} &
+            \boxed{20} &
+             \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & 44 \\
+         5 & 55 & \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         \boxed{20} \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Copy 31 from bin 1 to output index 1.
+
+      Bin 1 contains [31]. Copy 31 to output index 1.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & 20 & \\
+         \boxed{1} &
+            \boxed{31} &
+             \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & 44 \\
+         5 & 55 & \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         20 \\
+         \boxed{31} \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Copy 93 from bin 3 to output index 2.
+
+      Bin 2 contains no values, so nothing is copied to Output.
+
+      Bin 3 contains [93], so copy 93 to output
+      index 2. A large number can appear early in the output because
+      this pass considers only its ones digit.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & 20 & \\
+         1 & 31 & \\
+         2 & & \\
+         \boxed{3} &
+            \boxed{93} &
+             \\
+         4 & 54 & 44 \\
+         5 & 55 & \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         20 \\
+         31 \\
+         \boxed{93} \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Copy 54 from bin 4 to output index 3.
+
+      Bin 4 contains [54, 44]. Copy values in order. 54 first.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & 20 & \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         \boxed{4} &
+            \boxed{54} &
+            44 \\
+         5 & 55 & \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         20 \\
+         31 \\
+         93 \\
+         \boxed{54} \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Copy 44 from bin 4 to output index 4.
+
+      Copy bin 4's next value, 44, to output index 4.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & 20 & \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         \boxed{4} &
+            54 &
+            \boxed{44} \\
+         5 & 55 & \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         20 \\
+         31 \\
+         93 \\
+         54 \\
+         \boxed{44} \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Copy 55 from bin 5 to output index 5.
+
+      Copy 55 to output index 5 next.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & 20 & \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & 44 \\
+         \boxed{5} &
+            \boxed{55} &
+             \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         20 \\
+         31 \\
+         93 \\
+         54 \\
+         44 \\
+         \boxed{55} \\
+         \varnothing \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Copy 26 from bin 6 to output index 6.
+
+      Copy 26 to output index 6.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & 20 & \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & 44 \\
+         5 & 55 & \\
+         \boxed{6} &
+            \boxed{26} &
+             \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         20 \\
+         31 \\
+         93 \\
+         54 \\
+         44 \\
+         55 \\
+         \boxed{26} \\
+         \varnothing \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Copy 17 from bin 7 to output index 7.
+
+      Bin 7 contains two values. Copy 17 first.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & 20 & \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & 44 \\
+         5 & 55 & \\
+         6 & 26 & \\
+         \boxed{7} &
+            \boxed{17} &
+            77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         20 \\
+         31 \\
+         93 \\
+         54 \\
+         44 \\
+         55 \\
+         26 \\
+         \boxed{17} \\
+         \varnothing
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Copy 77 from bin 7 to output index 8.
+
+      Copy bin 7's next value, 77, to output index 8.
+      Bins 8 and 9 are empty, so collection is complete.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & 20 & \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & 44 \\
+         5 & 55 & \\
+         6 & 26 & \\
+         \boxed{7} &
+            17 &
+            \boxed{77} \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         20 \\
+         31 \\
+         93 \\
+         54 \\
+         44 \\
+         55 \\
+         26 \\
+         17 \\
+         \boxed{77}
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Pass 1 is complete; the output is ordered by ones digit.
+
+      Output is [20, 31, 93, 54, 44, 55, 26, 17, 77]. Its ones digits
+      are [0, 1, 3, 4, 4, 5, 6, 7, 7]. The pairs [54, 44] and [17, 77]
+      retain their input order. This completes collection for the first
+      pass, but the values are not yet in numerical order.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         54 \\
+         26 \\
+         93 \\
+         17 \\
+         77 \\
+         31 \\
+         44 \\
+         55 \\
+         20
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & 20 & \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & 44 \\
+         5 & 55 & \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         20 \\
+         31 \\
+         93 \\
+         54 \\
+         44 \\
+         55 \\
+         26 \\
+         17 \\
+         77
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
+   .. tb-scene::
+      :caption: Copy Output to Input to finish the first pass.
+
+      Copy the completed Output sequence back to Input. The next pass
+      will process these values by their tens digit. Preserving each bin's
+      arrival order on that pass will retain the ones-digit ordering
+      established here. The bin contents shown are the record of this
+      completed first pass.
+
+      .. math::
+
+         \begin{array}{ccccc}
+         \begin{array}{c}
+         \text{Input} \\[1ex]
+         \begin{bmatrix}
+         20 \\
+         31 \\
+         93 \\
+         54 \\
+         44 \\
+         55 \\
+         26 \\
+         17 \\
+         77
+         \end{bmatrix}
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c|ll}
+         \text{Bins} & & \\[1ex]
+         0 & 20 & \\
+         1 & 31 & \\
+         2 & & \\
+         3 & 93 & \\
+         4 & 54 & 44 \\
+         5 & 55 & \\
+         6 & 26 & \\
+         7 & 17 & 77 \\
+         8 & & \\
+         9 & &
+         \end{array}
+         & \Longrightarrow &
+         \begin{array}{c}
+         \text{Output} \\[1ex]
+         \begin{bmatrix}
+         20 \\
+         31 \\
+         93 \\
+         54 \\
+         44 \\
+         55 \\
+         26 \\
+         17 \\
+         77
+         \end{bmatrix}
+         \end{array}
+         \end{array}
+
 Array-based Radix Sort
 ----------------------
 

@@ -22,22 +22,245 @@ adjacent items and exchanges those that are out of order. Each pass
 through the array places the next largest value in its proper place. In
 essence, each item "bubbles" up to the location where it belongs.
 
-:ref:`Figure 1 <fig_bubblepass>` shows the first pass of a bubble sort.
-Shaded items are being compared to see if they are out of order. If there are
-*n* items in the array, then there are :math:`n-1` pairs of items that
-need to be compared on the first pass. It is important to note that once
-the largest value in the array is part of a pair, it will continually be
-moved along until the pass is complete.
+.. tb-stack::
+   :name: fig_bubblepass
+   :caption: Bubble sort: the first pass
 
-.. _fig_bubblepass:
+   .. tb-scene::
+      :caption: Compare 54 and 26.
 
-.. figure:: figures/bubblepass.png
-   :align: center
-   :alt: Diagram of the first bubble-sort pass. Adjacent values are compared
-         from left to right, exchanged when out of order, and the largest
-         value, 93, moves to the final position.
+      These scenes show the first pass of a bubble sort. Outlined items are
+      being compared to see if they are out of order. If there are *n* items
+      in the array, then there are :math:`n-1` pairs of items that need to be
+      compared on the first pass. Once the largest value in the array is part
+      of a pair, it will continually be moved along until the pass is complete.
 
-   Figure 1: ``bubble_sort``: The First Pass
+      Since 54 is greater than 26, exchange them before moving to the next
+      pair.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare 54 and 26 in the first two cells.
+         :highlight: data.node[a] data.node[b]
+
+         a[54]
+         b[26]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare 54 and 93.
+
+      The first exchange put 26 before 54. Since 54 is less than 93, these
+      two values are already in order. Leave them in place.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare 54 and 93 in the second and third cells.
+         :highlight: data.node[b] data.node[c]
+
+         a[26]
+         b[54]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare 93 and 17.
+
+      Since 93 is greater than 17, exchange them. The largest value now
+      starts moving toward the end of the array.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare 93 and 17 in the third and fourth cells.
+         :highlight: data.node[c] data.node[d]
+
+         a[26]
+         b[54]
+         c[93]
+         d[17]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare 93 and 77.
+
+      The previous exchange moved 93 one position to the right. Since 93
+      is greater than 77, exchange them too.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare 93 and 77 in the fourth and fifth cells.
+         :highlight: data.node[d] data.node[e]
+
+         a[26]
+         b[54]
+         c[17]
+         d[93]
+         e[77]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare 93 and 31.
+
+      Since 93 is greater than 31, exchange them. Each exchange moves 93
+      one position closer to its final location.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare 93 and 31 in the fifth and sixth cells.
+         :highlight: data.node[e] data.node[f]
+
+         a[26]
+         b[54]
+         c[17]
+         d[77]
+         e[93]
+         f[31]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare 93 and 44.
+
+      Since 93 is greater than 44, exchange them and continue to the next
+      adjacent pair.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare 93 and 44 in the sixth and seventh cells.
+         :highlight: data.node[f] data.node[g]
+
+         a[26]
+         b[54]
+         c[17]
+         d[77]
+         e[31]
+         f[93]
+         g[44]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare 93 and 55.
+
+      Since 93 is greater than 55, exchange them. Only one pair remains
+      to be compared on this pass.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare 93 and 55 in the seventh and eighth cells.
+         :highlight: data.node[g] data.node[h]
+
+         a[26]
+         b[54]
+         c[17]
+         d[77]
+         e[31]
+         f[44]
+         g[93]
+         h[55]
+         i[20]
+
+   .. tb-scene::
+      :caption: Compare 93 and 20.
+
+      Since 93 is greater than 20, exchange this final pair to complete
+      the first pass.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: First pass: compare 93 and 20 in the last two cells.
+         :highlight: data.node[h] data.node[i]
+
+         a[26]
+         b[54]
+         c[17]
+         d[77]
+         e[31]
+         f[44]
+         g[55]
+         h[93]
+         i[20]
+
+   .. tb-scene::
+      :caption: The first pass is complete; 93 is in its final position.
+
+      Eight comparisons have placed the largest value, 93, at the end.
+      The outlined final cell will not be compared again. The remaining
+      eight values still need to be sorted.
+
+      .. tb-graph:: data
+         :style: array
+         :align: center
+         :alt: After the first pass, 93 occupies the final cell.
+         :highlight: data.node[i]
+
+         a[26]
+         b[54]
+         c[17]
+         d[77]
+         e[31]
+         f[44]
+         g[55]
+         h[20]
+         i[93]
+
+      .. tb-choice::
+         :name: bubble-first-pass-check
+
+         Starting with the array above, what will the second pass of
+         bubble sort do?
+
+         - [ ] Make eight adjacent comparisons and place 93 at the end again.
+
+           The first pass already placed 93 in its final position. The
+           second pass only compares pairs within the first eight cells,
+           so it needs seven comparisons.
+
+         - [x] Make seven adjacent comparisons and place 77 immediately
+           before 93.
+
+           The largest value among the remaining eight items is 77.
+           Seven comparisons move it to the end of that unsorted portion,
+           while 93 stays in its final position.
+
+         - [ ] Make seven adjacent comparisons and place 17 at the start.
+
+           A pass from left to right places the largest remaining value
+           at the right end. Smaller values can move left by only one
+           position per pass. Here, 17 moves to the second cell.
+
+         - [ ] Make seven adjacent comparisons and finish sorting the array.
+
+           The second pass places 77 in its final position, but the array
+           becomes [26, 17, 54, 31, 44, 55, 20, 77, 93]. The first seven
+           values still need to be sorted.
 
 .. tb-group::
    :name: lst_bubble_sort

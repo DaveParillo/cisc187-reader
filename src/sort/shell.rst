@@ -45,14 +45,14 @@ Another group of sublists is then chosen and sorted, and so on.
 
 The :ref:`following sequence <fig_incrementsA>` uses a vector with nine
 items and a gap of three. This creates three sublists, each sorted using
-insertion sort. The :ref:`last scene <fig_incrementsB>` shows the values
+insertion sort. The :ref:`last card <fig_incrementsB>` shows the values
 in their positions after one pass through all three sublists.
 
-.. tb-stack::
+.. tb-deck::
    :name: shell-gap-three
    :caption: Shellsort: one pass with a gap of three
 
-   .. tb-scene::
+   .. tb-card::
       :name: fig_incrementsA
       :caption: Gap 3: sort sublist 1 at positions 0, 3, and 6.
 
@@ -97,7 +97,7 @@ in their positions after one pass through all three sublists.
            - 2, 5, 8
            - 93, 31, 20
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Sublist 1 is sorted in positions 0, 3, and 6.
 
       The values [17, 44, 54] now occupy positions 0, 3, and 6,
@@ -122,7 +122,7 @@ in their positions after one pass through all three sublists.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Sort sublist 2 at positions 1, 4, and 7.
 
       The outlined cells contain sublist 2: [26, 77, 55]. Its positions
@@ -148,7 +148,7 @@ in their positions after one pass through all three sublists.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Sublist 2 is sorted in positions 1, 4, and 7.
 
       The values [26, 55, 77] now occupy positions 1, 4, and 7,
@@ -173,7 +173,7 @@ in their positions after one pass through all three sublists.
          h[77]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Sort sublist 3 at positions 2, 5, and 8.
 
       The outlined cells contain sublist 3: [93, 31, 20]. Its positions
@@ -199,7 +199,7 @@ in their positions after one pass through all three sublists.
          h[77]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Sublist 3 is sorted in positions 2, 5, and 8.
 
       The values [20, 31, 93] now occupy positions 2, 5, and 8,
@@ -224,7 +224,7 @@ in their positions after one pass through all three sublists.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :name: fig_incrementsB
       :caption: The gap-three pass is complete.
 
@@ -273,11 +273,11 @@ previous example: a standard :ref:`insertion sort <sort_insertion>`.
 Sorting the gap-three sublists first reduces the shifting needed to put
 the whole array in order. This final pass requires only four shifts.
 
-.. tb-stack::
+.. tb-deck::
    :name: fig_incrementsC
    :caption: Shellsort: the final pass with a gap of one
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Gap 1: start with the array from the gap-three pass.
 
       A gap of one makes the whole array a single sublist. Finish with
@@ -301,7 +301,7 @@ the whole array in order. This final pass requires only four shifts.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Insert 26: no shifts.
 
       Since 26 is greater than 17, leave it in place. The sorted prefix
@@ -324,7 +324,7 @@ the whole array in order. This final pass requires only four shifts.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Insert 20: shift 26 once.
 
       Save 20, shift 26 one cell to the right, and insert 20 after 17.
@@ -348,7 +348,7 @@ the whole array in order. This final pass requires only four shifts.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Insert 44: no shifts.
 
       Since 44 is greater than 26, leave it in place. The sorted prefix
@@ -372,7 +372,7 @@ the whole array in order. This final pass requires only four shifts.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Insert 55: no shifts.
 
       Since 55 is greater than 44, leave it in place. The sorted prefix
@@ -396,7 +396,7 @@ the whole array in order. This final pass requires only four shifts.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Insert 31: shift 55 and 44.
 
       Save 31, shift 55 and 44 one cell to the right, then insert 31
@@ -421,7 +421,7 @@ the whole array in order. This final pass requires only four shifts.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Insert 54: shift 55 once.
 
       Save 54, shift 55 one cell to the right, and insert 54 after 44.
@@ -447,7 +447,7 @@ the whole array in order. This final pass requires only four shifts.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Insert 77: no shifts.
 
       Since 77 is greater than 55, leave it in place. The sorted prefix
@@ -472,7 +472,7 @@ the whole array in order. This final pass requires only four shifts.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Insert 93: the array is sorted.
 
       Since 93 is greater than 77, leave it in place. All nine items
@@ -499,11 +499,11 @@ the whole array in order. This final pass requires only four shifts.
          i[93]
 
 
-.. tb-stack::
+.. tb-deck::
    :name: fig_incrementsD
    :caption: Shellsort: initial sublists with a gap of four
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Gap 4: sublist 1 occupies positions 0, 4, and 8.
 
       This separate example returns to the original, unsorted array.
@@ -531,7 +531,7 @@ the whole array in order. This final pass requires only four shifts.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Sublist 2 occupies positions 1 and 5.
 
       The outlined cells form sublist 2: [26, 31]. This sublist starts
@@ -555,7 +555,7 @@ the whole array in order. This final pass requires only four shifts.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Sublist 3 occupies positions 2 and 6.
 
       The outlined cells form sublist 3: [93, 44]. This sublist starts
@@ -579,7 +579,7 @@ the whole array in order. This final pass requires only four shifts.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Sublist 4 occupies positions 3 and 7.
 
       The outlined cells form sublist 4: [17, 55]. This sublist starts
@@ -639,7 +639,7 @@ the whole array in order. This final pass requires only four shifts.
       :math:`\frac {n}{2}` sublists. On the next pass,
       :math:`\frac {n}{4}` sublists are sorted. Eventually, a single vector is
       sorted with the basic insertion sort. The
-      :ref:`gap-four scenes <fig_incrementsD>` show the first sublists
+      :ref:`gap-four cards <fig_incrementsD>` show the first sublists
       for our example using this increment.
 
       The following invocation of the ``shell_sort`` function shows the

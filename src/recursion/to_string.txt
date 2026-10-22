@@ -1,7 +1,7 @@
 .. tb-code:: cpp
    :name: ac-recursion-to_string
    :caption: Recursively converting from int to string
-   :compileargs: ['-Wall', '-Wextra', '-pedantic', '-std=c++11']
+   :show-tutor:
 
    #include <iostream>
    #include <string>

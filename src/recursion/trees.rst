@@ -73,34 +73,27 @@ The most common tree traversals are:
 Given the following binary tree,
 let's implement functions that traverse the tree using each of the four methods.
 
-.. digraph:: btree
-   :alt: Subject of the next 4 traversals
+In each traversal deck, the ``node`` indicator identifies the current node.
+The printed sequence beneath the tree grows whenever a value is visited.
+Moving the indicator during recursive descent or return does not always print
+a value; the traversal determines when to visit it. Calls for missing children
+return without printing. Level order uses a queue to choose the next node.
 
-   graph [
-          nodesep=0.1, ranksep=0.25, splines=line;
-          labelloc=b;
-          label="Subject of the next 4 traversals";
-       ];
-   node [fontname = "Bitstream Vera Sans", fontsize=12,
-         style=filled, fillcolor=lightblue,
-         shape=circle, fixedsize=true, width=0.3];
-   edge [weight=1, arrowsize=0.5, dir=none];
+.. tb-graph::
+   :style: compact-tree
+   :align: center
+   :name: recursion_btree
+   :caption: Subject of the next 4 traversals
+   :alt: Tree diagram showing the subject of the next 4 traversals
 
-   a, b, am, c, bm, d, e, cm, f, g, em, h, fm, i;
-   am, bm, cm, em, fm [style=invis, label=""];
-
-   a->b,c;
-   b->d [weight=2]; // nudge b: trees b & c are not balanced
-   c->e,f;
-   e->g;
-   f->h,i;
-
-   edge [style=invis, weight=100];
-   f->fm;
-   e->em;
-   c->cm;
-   b->bm;
-   a->am;
+   a['a'] -left-> b['b']
+   a -right-> c['c']
+   b -right-> d['d']
+   c -left-> e['e']
+   c -right-> f['f']
+   e -left-> g['g']
+   f -left-> h['h']
+   f -right-> i['i']
 
 .. tb-code:: cpp
    :name: make-tree
@@ -166,6 +159,449 @@ Visit all nodes **before** visiting children:
            preorder(node->right);
          }
 
+      .. tb-deck::
+         :name: preorder-traversal-process
+         :caption: Preorder traversal: print the node, traverse left, then traverse
+            right
+
+         .. tb-card::
+            :caption: Print the root, a.
+
+            Start at the root, a. Print a before traversing its children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to a.
+               :indicators: node=a
+               :highlight: tree.node[a]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a``
+
+         .. tb-card::
+            :caption: Descend to b; print b.
+
+            Move from a to its left child, b. Print b before traversing its
+            children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to b.
+               :indicators: node=b
+               :highlight: tree.node[b]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b``
+
+         .. tb-card::
+            :caption: Descend to d; print d.
+
+            Move from b to its right child, d. Print d before traversing its
+            children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to d.
+               :indicators: node=d
+               :highlight: tree.node[d]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d``
+
+         .. tb-card::
+            :caption: Return from d to b.
+
+            The call for d has returned to b, completing b's right subtree. b was
+            printed before its children; returning to it leaves the printed sequence
+            unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to b.
+               :indicators: node=b
+               :highlight: tree.node[b]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d``
+
+         .. tb-card::
+            :caption: Return from b to a.
+
+            The call for b has returned to a, completing a's left subtree. a was
+            printed before its children; returning to it leaves the printed sequence
+            unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to a.
+               :indicators: node=a
+               :highlight: tree.node[a]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d``
+
+         .. tb-card::
+            :caption: Descend to c; print c.
+
+            Move from a to its right child, c. Print c before traversing its
+            children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to c.
+               :indicators: node=c
+               :highlight: tree.node[c]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c``
+
+         .. tb-card::
+            :caption: Descend to e; print e.
+
+            Move from c to its left child, e. Print e before traversing its
+            children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to e.
+               :indicators: node=e
+               :highlight: tree.node[e]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e``
+
+         .. tb-card::
+            :caption: Descend to g; print g.
+
+            Move from e to its left child, g. Print g before traversing its
+            children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to g.
+               :indicators: node=g
+               :highlight: tree.node[g]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e g``
+
+         .. tb-card::
+            :caption: Return from g to e.
+
+            The call for g has returned to e, completing e's left subtree. e was
+            printed before its children; returning to it leaves the printed sequence
+            unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to e.
+               :indicators: node=e
+               :highlight: tree.node[e]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e g``
+
+         .. tb-card::
+            :caption: Return from e to c.
+
+            The call for e has returned to c, completing c's left subtree. c was
+            printed before its children; returning to it leaves the printed sequence
+            unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to c.
+               :indicators: node=c
+               :highlight: tree.node[c]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e g``
+
+         .. tb-card::
+            :caption: Descend to f; print f.
+
+            Move from c to its right child, f. Print f before traversing its
+            children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to f.
+               :indicators: node=f
+               :highlight: tree.node[f]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e g f``
+
+         .. tb-card::
+            :caption: Descend to h; print h.
+
+            Move from f to its left child, h. Print h before traversing its
+            children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to h.
+               :indicators: node=h
+               :highlight: tree.node[h]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e g f h``
+
+         .. tb-card::
+            :caption: Return from h to f.
+
+            The call for h has returned to f, completing f's left subtree. f was
+            printed before its children; returning to it leaves the printed sequence
+            unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to f.
+               :indicators: node=f
+               :highlight: tree.node[f]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e g f h``
+
+         .. tb-card::
+            :caption: Descend to i; print i.
+
+            Move from f to its right child, i. Print i before traversing its
+            children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to i.
+               :indicators: node=i
+               :highlight: tree.node[i]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e g f h i``
+
+         .. tb-card::
+            :caption: Return from i to f.
+
+            The call for i has returned to f, completing f's right subtree. f was
+            printed before its children; returning to it leaves the printed sequence
+            unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to f.
+               :indicators: node=f
+               :highlight: tree.node[f]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e g f h i``
+
+         .. tb-card::
+            :caption: Return from f to c.
+
+            The call for f has returned to c, completing c's right subtree. c was
+            printed before its children; returning to it leaves the printed sequence
+            unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to c.
+               :indicators: node=c
+               :highlight: tree.node[c]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e g f h i``
+
+         .. tb-card::
+            :caption: Return from c to a.
+
+            The call for c has returned to a, completing a's right subtree. a was
+            printed before its children; returning to it leaves the printed sequence
+            unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. The node indicator points to a.
+               :indicators: node=a
+               :highlight: tree.node[a]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e g f h i``
+
+         .. tb-card::
+            :caption: Preorder traversal is complete.
+
+            The call for the root has returned. Every node has been printed once.
+            The node indicator has no current target.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Preorder traversal. Traversal complete; there is no current node.
+               :indicators: node=none
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b d c e g f h i``
+
    .. tb-tab:: Run It
 
       .. tb-code:: cpp
@@ -216,6 +652,446 @@ Visit all nodes **after** visiting children:
            postorder(node->right);
            visit(node);
          }
+
+      .. tb-deck::
+         :name: postorder-traversal-process
+         :caption: Postorder traversal: traverse left, traverse right, then print the
+            node
+
+         .. tb-card::
+            :caption: Start at a.
+
+            Start at the root, a. Traverse the children before printing a. The call
+            for a waits for both subtrees to finish.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to a.
+               :indicators: node=a
+               :highlight: tree.node[a]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** (none)
+
+         .. tb-card::
+            :caption: Descend to b.
+
+            Move from a to its left child, b. Traverse the children before printing
+            b. The call for b waits for both subtrees to finish.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to b.
+               :indicators: node=b
+               :highlight: tree.node[b]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** (none)
+
+         .. tb-card::
+            :caption: Descend to d; print d.
+
+            Move from b to its right child, d. d is a leaf. Both child calls return
+            immediately, so print d.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to d.
+               :indicators: node=d
+               :highlight: tree.node[d]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d``
+
+         .. tb-card::
+            :caption: Return to b; print b.
+
+            The call for d has returned to b, completing b's right subtree. Both
+            subtrees are complete, so print b after its children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to b.
+               :indicators: node=b
+               :highlight: tree.node[b]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b``
+
+         .. tb-card::
+            :caption: Return from b to a.
+
+            The call for b has returned to a, completing a's left subtree. The right
+            subtree still needs to be traversed. Keep a unprinted until that subtree
+            returns.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to a.
+               :indicators: node=a
+               :highlight: tree.node[a]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b``
+
+         .. tb-card::
+            :caption: Descend to c.
+
+            Move from a to its right child, c. Traverse the children before printing
+            c. The call for c waits for both subtrees to finish.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to c.
+               :indicators: node=c
+               :highlight: tree.node[c]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b``
+
+         .. tb-card::
+            :caption: Descend to e.
+
+            Move from c to its left child, e. Traverse the children before printing
+            e. The call for e waits for both subtrees to finish.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to e.
+               :indicators: node=e
+               :highlight: tree.node[e]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b``
+
+         .. tb-card::
+            :caption: Descend to g; print g.
+
+            Move from e to its left child, g. g is a leaf. Both child calls return
+            immediately, so print g.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to g.
+               :indicators: node=g
+               :highlight: tree.node[g]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b g``
+
+         .. tb-card::
+            :caption: Return to e; print e.
+
+            The call for g has returned to e, completing e's left subtree. Both
+            subtrees are complete, so print e after its children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to e.
+               :indicators: node=e
+               :highlight: tree.node[e]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b g e``
+
+         .. tb-card::
+            :caption: Return from e to c.
+
+            The call for e has returned to c, completing c's left subtree. The right
+            subtree still needs to be traversed. Keep c unprinted until that subtree
+            returns.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to c.
+               :indicators: node=c
+               :highlight: tree.node[c]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b g e``
+
+         .. tb-card::
+            :caption: Descend to f.
+
+            Move from c to its right child, f. Traverse the children before printing
+            f. The call for f waits for both subtrees to finish.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to f.
+               :indicators: node=f
+               :highlight: tree.node[f]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b g e``
+
+         .. tb-card::
+            :caption: Descend to h; print h.
+
+            Move from f to its left child, h. h is a leaf. Both child calls return
+            immediately, so print h.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to h.
+               :indicators: node=h
+               :highlight: tree.node[h]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b g e h``
+
+         .. tb-card::
+            :caption: Return from h to f.
+
+            The call for h has returned to f, completing f's left subtree. The right
+            subtree still needs to be traversed. Keep f unprinted until that subtree
+            returns.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to f.
+               :indicators: node=f
+               :highlight: tree.node[f]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b g e h``
+
+         .. tb-card::
+            :caption: Descend to i; print i.
+
+            Move from f to its right child, i. i is a leaf. Both child calls return
+            immediately, so print i.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to i.
+               :indicators: node=i
+               :highlight: tree.node[i]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b g e h i``
+
+         .. tb-card::
+            :caption: Return to f; print f.
+
+            The call for i has returned to f, completing f's right subtree. Both
+            subtrees are complete, so print f after its children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to f.
+               :indicators: node=f
+               :highlight: tree.node[f]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b g e h i f``
+
+         .. tb-card::
+            :caption: Return to c; print c.
+
+            The call for f has returned to c, completing c's right subtree. Both
+            subtrees are complete, so print c after its children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to c.
+               :indicators: node=c
+               :highlight: tree.node[c]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b g e h i f c``
+
+         .. tb-card::
+            :caption: Return to a; print a.
+
+            The call for c has returned to a, completing a's right subtree. Both
+            subtrees are complete, so print a after its children.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. The node indicator points to a.
+               :indicators: node=a
+               :highlight: tree.node[a]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b g e h i f c a``
+
+         .. tb-card::
+            :caption: Postorder traversal is complete.
+
+            The call for the root has returned. Every node has been printed once.
+            The node indicator has no current target.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Postorder traversal. Traversal complete; there is no current
+                  node.
+               :indicators: node=none
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``d b g e h i f c a``
 
    .. tb-tab:: Run It
 
@@ -273,6 +1149,454 @@ visit the right child (and the right child subtree),
            visit(node);
            inorder(node->right);
          }
+
+      .. tb-deck::
+         :name: inorder-traversal-process
+         :caption: Inorder traversal: traverse left, print the node, then traverse
+            right
+
+         .. tb-card::
+            :caption: Start at a.
+
+            Start at the root, a. The call for a waits while its left subtree is
+            traversed. Its value will be printed after that subtree returns.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to a.
+               :indicators: node=a
+               :highlight: tree.node[a]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** (none)
+
+         .. tb-card::
+            :caption: Descend to b; print b.
+
+            Move from a to its left child, b. b has no left child, so its
+            left-subtree call returns immediately. Print b before traversing its
+            right subtree.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to b.
+               :indicators: node=b
+               :highlight: tree.node[b]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b``
+
+         .. tb-card::
+            :caption: Descend to d; print d.
+
+            Move from b to its right child, d. d has no left child, so its
+            left-subtree call returns immediately. Print d before traversing its
+            right subtree.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to d.
+               :indicators: node=d
+               :highlight: tree.node[d]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d``
+
+         .. tb-card::
+            :caption: Return from d to b.
+
+            The call for d has returned to b, completing b's right subtree. b was
+            printed before its right subtree; returning to it leaves the printed
+            sequence unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to b.
+               :indicators: node=b
+               :highlight: tree.node[b]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d``
+
+         .. tb-card::
+            :caption: Return to a; print a.
+
+            The call for b has returned to a, completing a's left subtree. Print a
+            now, between its left and right subtrees.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to a.
+               :indicators: node=a
+               :highlight: tree.node[a]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a``
+
+         .. tb-card::
+            :caption: Descend to c.
+
+            Move from a to its right child, c. The call for c waits while its left
+            subtree is traversed. Its value will be printed after that subtree
+            returns.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to c.
+               :indicators: node=c
+               :highlight: tree.node[c]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a``
+
+         .. tb-card::
+            :caption: Descend to e.
+
+            Move from c to its left child, e. The call for e waits while its left
+            subtree is traversed. Its value will be printed after that subtree
+            returns.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to e.
+               :indicators: node=e
+               :highlight: tree.node[e]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a``
+
+         .. tb-card::
+            :caption: Descend to g; print g.
+
+            Move from e to its left child, g. g has no left child, so its
+            left-subtree call returns immediately. Print g before traversing its
+            right subtree.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to g.
+               :indicators: node=g
+               :highlight: tree.node[g]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a g``
+
+         .. tb-card::
+            :caption: Return to e; print e.
+
+            The call for g has returned to e, completing e's left subtree. Print e
+            now, between its left and right subtrees.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to e.
+               :indicators: node=e
+               :highlight: tree.node[e]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a g e``
+
+         .. tb-card::
+            :caption: Return to c; print c.
+
+            The call for e has returned to c, completing c's left subtree. Print c
+            now, between its left and right subtrees.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to c.
+               :indicators: node=c
+               :highlight: tree.node[c]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a g e c``
+
+         .. tb-card::
+            :caption: Descend to f.
+
+            Move from c to its right child, f. The call for f waits while its left
+            subtree is traversed. Its value will be printed after that subtree
+            returns.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to f.
+               :indicators: node=f
+               :highlight: tree.node[f]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a g e c``
+
+         .. tb-card::
+            :caption: Descend to h; print h.
+
+            Move from f to its left child, h. h has no left child, so its
+            left-subtree call returns immediately. Print h before traversing its
+            right subtree.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to h.
+               :indicators: node=h
+               :highlight: tree.node[h]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a g e c h``
+
+         .. tb-card::
+            :caption: Return to f; print f.
+
+            The call for h has returned to f, completing f's left subtree. Print f
+            now, between its left and right subtrees.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to f.
+               :indicators: node=f
+               :highlight: tree.node[f]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a g e c h f``
+
+         .. tb-card::
+            :caption: Descend to i; print i.
+
+            Move from f to its right child, i. i has no left child, so its
+            left-subtree call returns immediately. Print i before traversing its
+            right subtree.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to i.
+               :indicators: node=i
+               :highlight: tree.node[i]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a g e c h f i``
+
+         .. tb-card::
+            :caption: Return from i to f.
+
+            The call for i has returned to f, completing f's right subtree. f was
+            printed before its right subtree; returning to it leaves the printed
+            sequence unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to f.
+               :indicators: node=f
+               :highlight: tree.node[f]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a g e c h f i``
+
+         .. tb-card::
+            :caption: Return from f to c.
+
+            The call for f has returned to c, completing c's right subtree. c was
+            printed before its right subtree; returning to it leaves the printed
+            sequence unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to c.
+               :indicators: node=c
+               :highlight: tree.node[c]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a g e c h f i``
+
+         .. tb-card::
+            :caption: Return from c to a.
+
+            The call for c has returned to a, completing a's right subtree. a was
+            printed before its right subtree; returning to it leaves the printed
+            sequence unchanged.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. The node indicator points to a.
+               :indicators: node=a
+               :highlight: tree.node[a]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a g e c h f i``
+
+         .. tb-card::
+            :caption: Inorder traversal is complete.
+
+            The call for the root has returned. Every node has been printed once.
+            The node indicator has no current target.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Inorder traversal. Traversal complete; there is no current node.
+               :indicators: node=none
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``b d a g e c h f i``
 
    .. tb-tab:: Run It
 
@@ -333,6 +1657,300 @@ then visit the children one level deeper.
            }
          }
 
+
+      .. tb-deck::
+         :name: levelorder-traversal-process
+         :caption: Level order traversal: print each level from left to right
+
+         .. tb-card::
+            :caption: Start with the root in the queue.
+
+            Put a in the queue. The node indicator points to the next value to
+            process. The queue is shown with its front on the left; no value has
+            been printed yet.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Level order traversal. The node indicator points to a.
+               :indicators: node=a
+               :highlight: tree.node[a]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** (none)
+
+            **Queue (front first):** ``a``
+
+         .. tb-card::
+            :caption: Print a; process its children.
+
+            The node indicator marks a, the front item. Print a, remove it from the
+            queue, then process its children. Enqueue b and c at the back, with the
+            left child before the right child.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Level order traversal. The node indicator points to a.
+               :indicators: node=a
+               :highlight: tree.node[a]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a``
+
+            **Queue (front first):** ``b c``
+
+         .. tb-card::
+            :caption: Print b; process its children.
+
+            The node indicator marks b, the front item. Print b, remove it from the
+            queue, then process its children. Enqueue d at the back.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Level order traversal. The node indicator points to b.
+               :indicators: node=b
+               :highlight: tree.node[b]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b``
+
+            **Queue (front first):** ``c d``
+
+         .. tb-card::
+            :caption: Print c; process its children.
+
+            The node indicator marks c, the front item. Print c, remove it from the
+            queue, then process its children. Enqueue e and f at the back, with the
+            left child before the right child.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Level order traversal. The node indicator points to c.
+               :indicators: node=c
+               :highlight: tree.node[c]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b c``
+
+            **Queue (front first):** ``d e f``
+
+         .. tb-card::
+            :caption: Print d; process its children.
+
+            The node indicator marks d, the front item. Print d, remove it from the
+            queue, then process its children. This node has no children to enqueue.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Level order traversal. The node indicator points to d.
+               :indicators: node=d
+               :highlight: tree.node[d]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b c d``
+
+            **Queue (front first):** ``e f``
+
+         .. tb-card::
+            :caption: Print e; process its children.
+
+            The node indicator marks e, the front item. Print e, remove it from the
+            queue, then process its children. Enqueue g at the back.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Level order traversal. The node indicator points to e.
+               :indicators: node=e
+               :highlight: tree.node[e]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b c d e``
+
+            **Queue (front first):** ``f g``
+
+         .. tb-card::
+            :caption: Print f; process its children.
+
+            The node indicator marks f, the front item. Print f, remove it from the
+            queue, then process its children. Enqueue h and i at the back, with the
+            left child before the right child.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Level order traversal. The node indicator points to f.
+               :indicators: node=f
+               :highlight: tree.node[f]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b c d e f``
+
+            **Queue (front first):** ``g h i``
+
+         .. tb-card::
+            :caption: Print g; process its children.
+
+            The node indicator marks g, the front item. Print g, remove it from the
+            queue, then process its children. This node has no children to enqueue.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Level order traversal. The node indicator points to g.
+               :indicators: node=g
+               :highlight: tree.node[g]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b c d e f g``
+
+            **Queue (front first):** ``h i``
+
+         .. tb-card::
+            :caption: Print h; process its children.
+
+            The node indicator marks h, the front item. Print h, remove it from the
+            queue, then process its children. This node has no children to enqueue.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Level order traversal. The node indicator points to h.
+               :indicators: node=h
+               :highlight: tree.node[h]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b c d e f g h``
+
+            **Queue (front first):** ``i``
+
+         .. tb-card::
+            :caption: Print i; process its children.
+
+            The node indicator marks i, the front item. Print i, remove it from the
+            queue, then process its children. This node has no children to enqueue.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Level order traversal. The node indicator points to i.
+               :indicators: node=i
+               :highlight: tree.node[i]
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b c d e f g h i``
+
+            **Queue (front first):** (empty)
+
+         .. tb-card::
+            :caption: Level order traversal is complete.
+
+            The queue is empty. Every node has been printed once, one level at a
+            time from left to right. The node indicator has no current target.
+
+            .. tb-graph:: tree
+               :style: compact-tree
+               :align: center
+               :alt: Level order traversal. Traversal complete; there is no current
+                  node.
+               :indicators: node=none
+
+               a['a'] -left-> b['b']
+               a -right-> c['c']
+               b -right-> d['d']
+               c -left-> e['e']
+               c -right-> f['f']
+               e -left-> g['g']
+               f -left-> h['h']
+               f -right-> i['i']
+
+            **Printed:** ``a b c d e f g h i``
+
+            **Queue (front first):** (empty)
 
    .. tb-tab:: Run It
 

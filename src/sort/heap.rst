@@ -59,19 +59,19 @@ shrink the heap by one, and **sift down** the replacement root. Sifting
 down exchanges a parent with its larger child until the heap property
 holds again or the value reaches a leaf.
 
-The following stack uses our familiar array
-``[54, 26, 93, 17, 77, 31, 44, 55, 20]``. Each scene shows the active
+The following deck uses our familiar array
+``[54, 26, 93, 17, 77, 31, 44, 55, 20]``. Each card shows the active
 heap as a tree and the full array below it. Outlined nodes and cells
 mark the values being compared or exchanged. The ``last_heap`` arrow
 marks the last active cell, and the ``sorted`` arrow marks the start
 of the sorted suffix. Values in that suffix remain in the array but
 are excluded from the tree and all later heap operations.
 
-.. tb-stack::
+.. tb-deck::
    :name: heap-sort-process
    :caption: Heap sort: build a max-heap, extract the maximum, and sift down
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Begin with the original array.
 
       The tree and array show the same nine values. The root is at index 0;
@@ -113,7 +113,7 @@ are excluded from the tree and all later heap operations.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Build the heap: exchange 17 with its larger child, 55.
 
       Build a max-heap from the bottom up. Indices 4 through 8 are leaves,
@@ -159,7 +159,7 @@ are excluded from the tree and all later heap operations.
          h[17]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Check the parent at index 2: keep 93 in place.
 
       Move left to index 2. Its children are 31 and 44. Since 93 is
@@ -202,7 +202,7 @@ are excluded from the tree and all later heap operations.
          h[17]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Build the heap: exchange 26 with its larger child, 77.
 
       At index 1, compare 26 with children 55 and 77. Exchange 26 with
@@ -247,7 +247,7 @@ are excluded from the tree and all later heap operations.
          h[17]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Build the heap: exchange 54 with its larger child, 93.
 
       Finally, sift down from the root. Compare 54 with children 77 and
@@ -290,7 +290,7 @@ are excluded from the tree and all later heap operations.
          h[17]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: The max-heap is ready; 93 is at the root.
 
       At index 2, 54 is greater than its children, 31 and 44, so stop.
@@ -335,7 +335,7 @@ are excluded from the tree and all later heap operations.
          h[17]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Exchange the maximum, 93, with the last heap value, 20.
 
       Exchange the root at index 0 with the last active item at index 8.
@@ -379,7 +379,7 @@ are excluded from the tree and all later heap operations.
          h[17]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Shrink the active heap to eight items.
 
       Exclude index 8 from the heap. The value 93 stays in the array,
@@ -423,7 +423,7 @@ are excluded from the tree and all later heap operations.
          h[17]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Restore the heap: exchange 20 with its larger child, 77.
 
       The root's children are 77 and 54. Exchange 20 with 77, then
@@ -466,7 +466,7 @@ are excluded from the tree and all later heap operations.
          h[17]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Continue sifting down: exchange 20 with 55.
 
       At index 1, the children are 55 and 26. Exchange 20 with the
@@ -508,7 +508,7 @@ are excluded from the tree and all later heap operations.
          h[17]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Stop at 20; the eight-item max-heap is restored.
 
       At index 3, the only active child is 17 at index 7. The value 20
@@ -551,7 +551,7 @@ are excluded from the tree and all later heap operations.
          h[17]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Place 77 at index 7; shrink the heap to seven items.
 
       Repeat the extraction: exchange root 77 with the last active
@@ -594,7 +594,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Restore the heap: exchange 17 with 55.
 
       The root's children are 55 and 54. Exchange 17 with the larger
@@ -635,7 +635,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Exchange 17 with 26; the seven-item heap is restored.
 
       At index 1, the children are 20 and 26. Exchange 17 with 26.
@@ -677,7 +677,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Place 55 at index 6; shrink the heap to six items.
 
       Exchange root 55 with the last active value, 44, and exclude
@@ -718,7 +718,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Exchange 44 with 54; the six-item heap is restored.
 
       Exchange 44 with the larger child, 54. At index 2, its only
@@ -760,7 +760,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Place 54 at index 5; shrink the heap to five items.
 
       Exchange root 54 with the last active value, 31, then exclude
@@ -800,7 +800,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Exchange 31 with 44; the five-item heap is restored.
 
       Exchange 31 with the larger child, 44. The value 31 reaches a
@@ -840,7 +840,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Place 44 at index 4; shrink the heap to four items.
 
       Exchange root 44 with the last active value, 17, then exclude
@@ -879,7 +879,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Exchange 17 with 31; the four-item heap is restored.
 
       Exchange 17 with the larger child, 31. The value 17 reaches a
@@ -918,7 +918,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Place 31 at index 3; shrink the heap to three items.
 
       Exchange root 31 with the last active value, 20, then exclude
@@ -956,7 +956,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Exchange 20 with 26; the three-item heap is restored.
 
       Exchange 20 with the larger child, 26. The value 20 reaches a
@@ -993,7 +993,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Place 26 at index 2; shrink the heap to two items.
 
       Exchange root 26 with the last active value, 17, then exclude
@@ -1030,7 +1030,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Exchange 17 with 20; the two-item heap is restored.
 
       Exchange 17 with its only child, 20. The heap property holds
@@ -1066,7 +1066,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Place 20 at index 1; only 17 remains in the heap.
 
       Exchange root 20 with the last active value, 17, then exclude
@@ -1103,7 +1103,7 @@ are excluded from the tree and all later heap operations.
          h[77]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: The array is sorted in ascending order.
 
       Treat the final value, 17, as sorted too. The active heap is empty,

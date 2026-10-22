@@ -69,11 +69,11 @@ from left to right.
 This **stability** is essential: each later pass must preserve the
 ordering established by earlier passes among values with equal digits.
 
-.. tb-stack::
+.. tb-deck::
    :name: radix-sort-math-first-pass
    :caption: Radix sort pass 1: Least signifigant digit
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Begin pass 1 with ten empty bins and an empty output array.
 
       Read Input from top to bottom. For each value, compute
@@ -127,7 +127,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Append 54 to bin 4.
 
       Read 54 at input index 0. Since ``54 % 10 == 4``, append 54 to
@@ -183,7 +183,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Append 26 to bin 6.
 
       Read 26 at input index 1. Since ``26 % 10 == 6``, append 26 to
@@ -239,7 +239,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Append 93 to bin 3.
 
       Read 93 at input index 2. Since ``93 % 10 == 3``, append 93 to
@@ -295,7 +295,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Append 17 to bin 7.
 
       Read 17 at input index 3. Since ``17 % 10 == 7``, append 17 to
@@ -351,7 +351,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Append 77 to bin 7.
 
       Read 77 at input index 4. Since ``77 % 10 == 7``, append 77
@@ -410,7 +410,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Append 31 to bin 1.
 
       Read 31 at input index 5. Since ``31 % 10 == 1``, append 31 to
@@ -466,7 +466,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Append 44 to bin 4.
 
       Read 44 at input index 6. Since ``44 % 10 == 4``, append 44
@@ -523,7 +523,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Append 55 to bin 5.
 
       Read 55 at input index 7. Since ``55 % 10 == 5``, append 55 to
@@ -579,7 +579,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Append 20 to bin 0.
 
       Read 20 at input index 8. Since ``20 % 10 == 0``, append 20 to
@@ -635,7 +635,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Distribution is complete; collect bins in digit order.
 
       Visit bins 0 through 9 from top to bottom. Copy each bin's values
@@ -689,7 +689,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Copy 20 from bin 0 to output index 0.
 
       Bin 0 contains [20]. Copy 20 to output index 0. The first output
@@ -746,7 +746,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Copy 31 from bin 1 to output index 1.
 
       Bin 1 contains [31]. Copy 31 to output index 1.
@@ -801,7 +801,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Copy 93 from bin 3 to output index 2.
 
       Bin 2 contains no values, so nothing is copied to Output.
@@ -860,7 +860,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Copy 54 from bin 4 to output index 3.
 
       Bin 4 contains [54, 44]. Copy values in order. 54 first.
@@ -915,7 +915,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Copy 44 from bin 4 to output index 4.
 
       Copy bin 4's next value, 44, to output index 4.
@@ -970,7 +970,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Copy 55 from bin 5 to output index 5.
 
       Copy 55 to output index 5 next.
@@ -1025,7 +1025,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Copy 26 from bin 6 to output index 6.
 
       Copy 26 to output index 6.
@@ -1080,7 +1080,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Copy 17 from bin 7 to output index 7.
 
       Bin 7 contains two values. Copy 17 first.
@@ -1135,7 +1135,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Copy 77 from bin 7 to output index 8.
 
       Copy bin 7's next value, 77, to output index 8.
@@ -1191,7 +1191,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Pass 1 is complete; the output is ordered by ones digit.
 
       Output is [20, 31, 93, 54, 44, 55, 26, 17, 77]. Its ones digits
@@ -1247,7 +1247,7 @@ ordering established by earlier passes among values with equal digits.
          \end{array}
          \end{array}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Copy Output to Input to finish the first pass.
 
       Copy the completed Output sequence back to Input. The next pass

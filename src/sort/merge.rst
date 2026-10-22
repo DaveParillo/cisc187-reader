@@ -31,11 +31,11 @@ single, sorted, new vector. The :ref:`following sequence <fig_mergesortA>`
 shows the recursive splits and the :ref:`merge process <fig_mergesortB>`
 for our familiar example array.
 
-.. tb-stack::
+.. tb-deck::
    :name: merge-sort-process
    :caption: Merge sort: split, sort, and merge
 
-   .. tb-scene::
+   .. tb-card::
       :name: fig_mergesortA
       :caption: Begin with the original array.
 
@@ -50,7 +50,7 @@ for our familiar example array.
 
          root{"type": "array", "values": [54, 26, 93, 17, 77, 31, 44, 55, 20]}
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Split into a four-item left half and a five-item right half.
 
       Because there are 9 elements, the split is an an array of size 4 and
@@ -70,7 +70,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Split the left half into two pairs.
 
       The left half splits into [54, 26] and [93, 17].
@@ -92,7 +92,7 @@ for our familiar example array.
          left -left-> left_left
          left -right-> left_right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Reach the first two base cases.
 
       Each one-item array is already sorted.
@@ -119,7 +119,7 @@ for our familiar example array.
          left_left -left-> left_left_left
          left_left -right-> left_left_right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Merge the first two leaves: compare 54 and 26.
 
       To merge two sorted arrays, write the minimum value to parent
@@ -155,7 +155,7 @@ for our familiar example array.
       .. tb-pointer:: parent
          :at: merge.node[left_left].slot[0]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 26; then move the minimum remaining value, 54.
 
       Move 26 to parent position 0.
@@ -185,7 +185,7 @@ for our familiar example array.
          left_left -left-> left_left_left
          left_left -right-> left_left_right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Merge the first pair; split the second pair.
 
       Now split the waiting pair [93, 17] into [93] and [17]. These
@@ -214,7 +214,7 @@ for our familiar example array.
          left_right -left-> left_right_left
          left_right -right-> left_right_right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Both pairs in the left half are sorted.
 
       Merge [93] and [17] by moving 17 before 93. The left half now
@@ -238,7 +238,7 @@ for our familiar example array.
          left -left-> left_left
          left -right-> left_right
 
-   .. tb-scene::
+   .. tb-card::
       :name: fig_mergesortB
       :caption: Merge the two sorted pairs: compare 26 and 17.
 
@@ -264,7 +264,7 @@ for our familiar example array.
          left -left-> left_left
          left -right-> left_right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 17; compare 26 and 93.
 
       Move 17 to output position 0 and advance in the right input.
@@ -290,7 +290,7 @@ for our familiar example array.
          left -left-> left_left
          left -right-> left_right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 26; compare 54 and 93.
 
       Move 26 to output position 1 and advance in the left input.
@@ -316,7 +316,7 @@ for our familiar example array.
          left -left-> left_left
          left -right-> left_right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 54; the left input is exhausted.
 
       Move 54 to output position 2. The left input is now empty,
@@ -342,7 +342,7 @@ for our familiar example array.
          left -left-> left_left
          left -right-> left_right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: The left half is sorted.
 
       Copying 93 to position 3 completes the left half of the array.
@@ -360,7 +360,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Split the right half.
 
       Split the right half into [77, 31] and [44, 55, 20].
@@ -383,11 +383,11 @@ for our familiar example array.
          right -left-> right_left
          right -right-> right_right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Sort the right pair; split the remaining three items.
 
       The same base-case splits and merge sort [77, 31] into [31, 77].
-      We omit those repeated intermediate scenes.
+      We omit those repeated intermediate cards.
 
       Split [44, 55, 20] into [44] and [55, 20]. The one-item array
       [44] is sorted; the other child still needs splitting.
@@ -413,7 +413,7 @@ for our familiar example array.
          right_right -left-> right_right_left
          right_right -right-> right_right_right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Combine the three-item branch.
 
       Merge [55] and [20] into [20, 55], then merge that result
@@ -439,7 +439,7 @@ for our familiar example array.
          right -left-> right_left
          right -right-> right_right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: The right half is sorted.
 
       Merge [31, 77] and [20, 44, 55] to obtain [20, 31, 44, 55, 77].
@@ -459,7 +459,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Begin the final merge.
 
       Merge the two sorted halves into the root array. First compare
@@ -482,7 +482,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 17; compare 26 and 20.
 
       Move 17 from left position 0 to parent position 0.
@@ -505,7 +505,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 20; compare 26 and 31.
 
       Move 20 from right position 0 to parent position 1.
@@ -528,7 +528,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 26; compare 54 and 31.
 
       Move 26 from left position 1 to parent position 2.
@@ -551,7 +551,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 31; compare 54 and 44.
 
       Move 31 from right position 1 to parent position 3.
@@ -574,7 +574,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 44; compare 54 and 55.
 
       Move 44 from right position 2 to parent position 4.
@@ -597,7 +597,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 54; compare 93 and 55.
 
       Move 54 from left position 2 to parent position 5.
@@ -620,7 +620,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 55; compare 93 and 77.
 
       Move 55 from right position 3 to parent position 6.
@@ -643,7 +643,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 77; the right input is exhausted.
 
       Move 77 from right position 4 to parent position 7.
@@ -666,7 +666,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move 93; both inputs are exhausted.
 
       Move 93 from left position 3 to parent position 8.
@@ -687,7 +687,7 @@ for our familiar example array.
          root -left-> left
          root -right-> right
 
-   .. tb-scene::
+   .. tb-card::
       :caption: The final merge completes the sorted array.
 
       Every item is now in order.

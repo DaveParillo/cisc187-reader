@@ -38,11 +38,11 @@ places the first pivot, 54, at its split point. The
 :ref:`marker scans and exchanges <fig_partitionA>` lead to a
 :ref:`completed partition <fig_partitionB>` ready for recursive sorting.
 
-.. tb-stack::
+.. tb-deck::
    :name: quick-sort-process
    :caption: Quick sort: choose a pivot, partition, and recurse
 
-   .. tb-scene::
+   .. tb-card::
       :name: fig_splitvalue
       :caption: Choose 54 as the first pivot.
 
@@ -68,7 +68,7 @@ places the first pivot, 54, at its split point. The
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :name: fig_partitionA
       :caption: Start the left and right markers.
 
@@ -98,7 +98,7 @@ places the first pivot, 54, at its split point. The
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move leftmark past 26; stop at 93.
 
       At position 1, 26 is less than 54, so advance ``leftmark`` to
@@ -123,7 +123,7 @@ places the first pivot, 54, at its split point. The
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Stop rightmark at 20.
 
       At position 8, 20 is less than 54, so ``rightmark`` stops immediately.
@@ -148,7 +148,7 @@ places the first pivot, 54, at its split point. The
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Exchange 93 and 20.
 
       Exchange the values at positions 2 and 8. Position 2 now holds 20,
@@ -173,7 +173,7 @@ places the first pivot, 54, at its split point. The
          h[55]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move leftmark past 20 and 17; stop at 77.
 
       The values 20 at position 2 and 17 at position 3 are less than 54.
@@ -198,7 +198,7 @@ places the first pivot, 54, at its split point. The
          h[55]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move rightmark past 93 and 55; stop at 44.
 
       The values 93 at position 8 and 55 at position 7 are greater than 54.
@@ -224,7 +224,7 @@ places the first pivot, 54, at its split point. The
          h[55]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Exchange 77 and 44.
 
       Exchange the values at positions 4 and 6. Position 4 now holds 44,
@@ -248,7 +248,7 @@ places the first pivot, 54, at its split point. The
          h[55]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move leftmark past 44 and 31; stop at 77.
 
       The values 44 at position 4 and 31 at position 5 are less than 54.
@@ -273,7 +273,7 @@ places the first pivot, 54, at its split point. The
          h[55]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Move rightmark left; the markers cross.
 
       At position 6, 77 is greater than 54, so move ``rightmark`` left to
@@ -299,7 +299,7 @@ places the first pivot, 54, at its split point. The
          h[55]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :name: fig_partitionB
       :caption: Exchange the pivot with 31 at the split point.
 
@@ -328,7 +328,7 @@ places the first pivot, 54, at its split point. The
          h[55]
          i[93]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Recursively sort the ranges on either side of 54.
 
       Apply quick sort to positions 0 through 4, then to positions 6

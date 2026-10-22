@@ -30,11 +30,11 @@ After the second step, the next largest is in place. This process
 continues and requires :math:`n-1` steps to sort *n* items, since the
 final item must be in place after the :math:`(n-1)` step.
 
-.. tb-stack::
+.. tb-deck::
    :name: selection-first-pass
    :caption: Selection sort: the first pass
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare the candidate 54 with 26.
 
       Start with 54 as the largest value seen so far. The outlined cells
@@ -58,7 +58,7 @@ final item must be in place after the :math:`(n-1)` step.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare the candidate 54 with 93.
 
       Since 93 is greater than 54, remember its position as the new
@@ -81,7 +81,7 @@ final item must be in place after the :math:`(n-1)` step.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare the candidate 93 with 17.
 
       The candidate is now 93. Since 17 is smaller, keep 93 as the
@@ -103,7 +103,7 @@ final item must be in place after the :math:`(n-1)` step.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare the candidate 93 with 77.
 
       Since 77 is less than 93, the candidate remains 93. The array
@@ -125,7 +125,7 @@ final item must be in place after the :math:`(n-1)` step.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare the candidate 93 with 31.
 
       Since 31 is less than 93, keep 93 as the candidate. Continue
@@ -147,7 +147,7 @@ final item must be in place after the :math:`(n-1)` step.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare the candidate 93 with 44.
 
       Since 44 is less than 93, keep 93 as the candidate. No values
@@ -169,7 +169,7 @@ final item must be in place after the :math:`(n-1)` step.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare the candidate 93 with 55.
 
       Since 55 is less than 93, keep 93 as the candidate. Only the
@@ -191,7 +191,7 @@ final item must be in place after the :math:`(n-1)` step.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare the candidate 93 with 20.
 
       Since 20 is less than 93, the candidate remains 93. All eight
@@ -213,7 +213,7 @@ final item must be in place after the :math:`(n-1)` step.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Exchange 93 with the last value, 20.
 
       The search is complete. Exchange the largest value, 93, with
@@ -235,7 +235,7 @@ final item must be in place after the :math:`(n-1)` step.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: The first pass is complete; 93 is in its final position.
 
       Eight comparisons and one exchange have placed 93 at the end.

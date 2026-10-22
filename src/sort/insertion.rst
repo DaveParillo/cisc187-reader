@@ -46,11 +46,11 @@ one way to implement an insertion sort could be this.
       }
    }
 
-.. tb-stack::
+.. tb-deck::
    :name: fig_insertionsort
    :caption: Insertion sort: growing the sorted prefix
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Start with a sorted prefix of one item.
 
       This sort is still :math:`O(n^{2})`, but works differently from
@@ -77,7 +77,7 @@ one way to implement an insertion sort could be this.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Pass 1: insert 26.
 
       Since 26 is less than 54, shift 54 one position to the right and
@@ -99,7 +99,7 @@ one way to implement an insertion sort could be this.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Pass 2: insert 93.
 
       Since 93 is greater than 54, it is already in the correct position.
@@ -121,7 +121,7 @@ one way to implement an insertion sort could be this.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Pass 3: insert 17.
 
       Shift 93, 54, and 26 one position to the right, then insert 17 at
@@ -143,7 +143,7 @@ one way to implement an insertion sort could be this.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Pass 4: insert 77.
 
       Shift 93 one position to the right. Since 54 is less than 77,
@@ -166,7 +166,7 @@ one way to implement an insertion sort could be this.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Pass 5: insert 31.
 
       Shift 93, 77, and 54 one position to the right. Stop at 26 and
@@ -189,7 +189,7 @@ one way to implement an insertion sort could be this.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Pass 6: insert 44.
 
       Shift 93, 77, and 54 one position to the right, then insert 44
@@ -211,7 +211,7 @@ one way to implement an insertion sort could be this.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Pass 7: insert 55.
 
       Shift 93 and 77 one position to the right, then insert 55 between
@@ -233,7 +233,7 @@ one way to implement an insertion sort could be this.
          h[93]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Pass 8: insert 20; the array is sorted.
 
       Shift every value greater than 20 one position to the right.
@@ -264,18 +264,18 @@ As we look back into the already sorted subvector, we shift those items
 that are greater to the right. When we reach a smaller item or the end
 of the subvector, the current item can be inserted.
 
-.. tb-stack::
+.. tb-deck::
    :name: fig_insertionpass
    :caption: Insertion sort: the fifth pass in detail
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Save 31 before shifting any items.
 
       The fifth pass starts with a sorted prefix of five items: 17, 26,
       54, 77, and 93. The next item, 31, must be inserted into that prefix.
       Save a copy of 31 so that shifting larger values cannot overwrite it.
 
-      The separate cell holds the saved value. In the following scenes,
+      The separate cell holds the saved value. In the following cards,
       an empty cell marks the position available for insertion.
 
       .. tb-graph:: data
@@ -302,7 +302,7 @@ of the subvector, the current item can be inserted.
 
          current[31]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 31 with 93.
 
       The saved value is 31. Since 93 is greater than 31, shift 93
@@ -333,7 +333,7 @@ of the subvector, the current item can be inserted.
 
          current[31]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 31 with 77.
 
       The previous shift placed 93 in the sixth cell. Since 77 is also
@@ -364,7 +364,7 @@ of the subvector, the current item can be inserted.
 
          current[31]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 31 with 54.
 
       The previous shift placed 77 immediately before 93. Since 54 is
@@ -395,7 +395,7 @@ of the subvector, the current item can be inserted.
 
          current[31]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 31 with 26; stop shifting.
 
       The previous shift placed 54 immediately before 77. Since 26 is
@@ -426,7 +426,7 @@ of the subvector, the current item can be inserted.
 
          current[31]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: The fifth pass is complete; six items form the sorted prefix.
 
       Four comparisons and three shifts made room for 31. Inserting it

@@ -22,14 +22,14 @@ adjacent items and exchanges those that are out of order. Each pass
 through the array places the next largest value in its proper place. In
 essence, each item "bubbles" up to the location where it belongs.
 
-.. tb-stack::
+.. tb-deck::
    :name: fig_bubblepass
    :caption: Bubble sort: the first pass
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 54 and 26.
 
-      These scenes show the first pass of a bubble sort. Outlined items are
+      These cards show the first pass of a bubble sort. Outlined items are
       being compared to see if they are out of order. If there are *n* items
       in the array, then there are :math:`n-1` pairs of items that need to be
       compared on the first pass. Once the largest value in the array is part
@@ -54,7 +54,7 @@ essence, each item "bubbles" up to the location where it belongs.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 54 and 93.
 
       The first exchange put 26 before 54. Since 54 is less than 93, these
@@ -76,7 +76,7 @@ essence, each item "bubbles" up to the location where it belongs.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 93 and 17.
 
       Since 93 is greater than 17, exchange them. The largest value now
@@ -98,7 +98,7 @@ essence, each item "bubbles" up to the location where it belongs.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 93 and 77.
 
       The previous exchange moved 93 one position to the right. Since 93
@@ -120,7 +120,7 @@ essence, each item "bubbles" up to the location where it belongs.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 93 and 31.
 
       Since 93 is greater than 31, exchange them. Each exchange moves 93
@@ -142,7 +142,7 @@ essence, each item "bubbles" up to the location where it belongs.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 93 and 44.
 
       Since 93 is greater than 44, exchange them and continue to the next
@@ -164,7 +164,7 @@ essence, each item "bubbles" up to the location where it belongs.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 93 and 55.
 
       Since 93 is greater than 55, exchange them. Only one pair remains
@@ -186,7 +186,7 @@ essence, each item "bubbles" up to the location where it belongs.
          h[55]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: Compare 93 and 20.
 
       Since 93 is greater than 20, exchange this final pair to complete
@@ -208,7 +208,7 @@ essence, each item "bubbles" up to the location where it belongs.
          h[93]
          i[20]
 
-   .. tb-scene::
+   .. tb-card::
       :caption: The first pass is complete; 93 is in its final position.
 
       Eight comparisons have placed the largest value, 93, at the end.

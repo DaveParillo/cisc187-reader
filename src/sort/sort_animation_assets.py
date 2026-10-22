@@ -51,8 +51,8 @@ def bubble_frames(values: list[int]) -> list[Frame]:
     frames: list[Frame] = [(data.copy(), {}, "Initial")]
     n = len(data)
 
+    # Match the lesson's bubble sort: every input takes n - 1 passes.
     for pass_index in range(n - 1):
-        swapped = False
         sorted_start = n - pass_index
         for index in range(0, n - pass_index - 1):
             colors = sorted_colors(sorted_start, n)
@@ -60,10 +60,11 @@ def bubble_frames(values: list[int]) -> list[Frame]:
             colors[index + 1] = COMPARE_COLOR
             if data[index] > data[index + 1]:
                 data[index], data[index + 1] = data[index + 1], data[index]
-                swapped = True
-            frames.append((data.copy(), colors, f"Compare positions {index} and {index + 1}"))
-        if not swapped:
-            break
+            label = (
+                f"Pass {pass_index + 1} of {n - 1}: "
+                f"compare positions {index} and {index + 1}"
+            )
+            frames.append((data.copy(), colors, label))
 
     frames.append((data.copy(), sorted_colors(0, n), "Sorted"))
     return frames

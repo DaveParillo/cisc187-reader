@@ -194,6 +194,11 @@ tb_graph_styles = {
         "level-spacing": 0.4,
         "font-size": 14,
     },
+    "compact-tree": {
+        "base": "tree",
+        "level-spacing": 0.3,
+        "font-size": 14,
+    },
 }
 
 # LuaLaTex settings

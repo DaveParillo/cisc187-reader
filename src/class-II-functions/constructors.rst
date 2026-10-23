@@ -182,6 +182,70 @@ This is fixed by either:
    need to be default constructed or that there is simply no sensible
    set of defaults for the class.
 
+How does this constructor initialization syntax:
+
+.. code-block:: cpp
+
+   point (int x, int y) : x(x), y(y) {}
+
+Differ from this:
+
+.. code-block:: cpp
+
+   point (int x, int y) : x{x}, y{y} {}
+
+They are mostly the same with one key difference.
+The first form allows implicit type conversions while the second does not.
+Consider this change to our point class:
+
+.. tb-code:: cpp
+   :show-tutor:
+   :show-compiler-explorer:
+
+   struct point {
+     int x = 0;
+     int y = 0;
+     point () = default;
+     point (double x, double y) : x(x), y(y) {}
+   };
+
+   void show(point p)
+   {
+     std::cout << p.x << '\n';
+   }
+
+   int main () {
+     point p {3.14159, 5};
+     show(p);
+   }
+
+.. tb-code:: cpp
+   :show-tutor:
+   :show-compiler-explorer:
+
+   struct point {
+     int x = 0;
+     int y = 0;
+     point () = default;
+     point (double x, double y) : x{x}, y{y} {}
+   };
+
+   void show(point p)
+   {
+     std::cout << p.x << '\n';
+   }
+
+   int main () {
+     point p {3.14159, 5};
+     show(p);
+   }
+
+.. admonition:: Try This!
+
+   Run both examples and see what happens.
+
+
+
 Initialization syntax
 ---------------------
 Some programmers coming to C++ from other OO languages sometimes
